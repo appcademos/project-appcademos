@@ -12,17 +12,19 @@ const MongoStore = require("connect-mongo")(session);
 const flash = require("connect-flash");
 const dbURL = process.env.DBURL;
 const hashSecret = process.env.HASH_CODE;
+const app = express();
 const path = require("path");
-const app_name = require(`${path.join(
+
+//Debug module
+const app_path = require(`${path.join(
   path.dirname(__dirname),
   "server",
   "package.json"
-)}`).name;
+)}`);
+const app_name = app_path.name;
 const debug = require("debug")(
   `${app_name}:${path.basename(__filename).split(".")[0]}`
 );
-
-const app = express();
 
 mongoose.Promise = Promise;
 mongoose

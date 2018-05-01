@@ -1,12 +1,14 @@
 const express = require("express");
 const passport = require("passport");
 const authRoutes = express.Router();
-
 const path = require("path");
-const app_name = require(`${path.join(
+
+//Debug module
+const app_path = require(`${path.join(
   path.dirname(__dirname),
   "package.json"
-)}`).name;
+)}`);
+const app_name = app_path.name;
 const debug = require("debug")(
   `${app_name}:${path.basename(__filename).split(".")[0]}`
 );
