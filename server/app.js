@@ -13,6 +13,12 @@ const flash = require("connect-flash");
 const dbURL = process.env.DBURL;
 const hashSecret = process.env.HASH_CODE;
 const app = express();
+const cors = require('cors');
+var corsOptions = {
+  origin: `${process.env.HOST}:${process.env.PORT}`,
+  optionsSuccessStatus: 200 
+}
+
 const path = require("path");
 
 //Debug module
@@ -28,15 +34,16 @@ const debug = require("debug")(
 
 mongoose.Promise = Promise;
 mongoose
-  .connect(dbURL)
-  .then(() => {
-    debug(`Connected to Mongo at ${dbURL}`);
-  })
-  .catch(err => {
-    debug("Error connecting to mongo", err);
-  });
+.connect(dbURL)
+.then(() => {
+  debug(`Connected to Mongo at ${dbURL}`);
+})
+.catch(err => {
+  debug("Error connecting to mongo", err);
+});
 
 // Middleware Setup
+app.use(cors(corsOptions));
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
