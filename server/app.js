@@ -10,37 +10,47 @@ const logger = require("morgan");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const flash = require("connect-flash");
-const dbURL = process.env.DBURL;
-const hashSecret = process.env.HASH_CODE;
-const app = express();
-const cors = require('cors');
-var corsOptions = {
-  origin: `${process.env.HOST}:${process.env.PORT}`,
-  optionsSuccessStatus: 200 
-}
-
 const path = require("path");
+const dbURL = process.env.DBURL;
+const hashSecret = process.env.HASHCODE;
+const app = express();
 
-//Debug module
+// Debug module
 const app_path = require(`${path.join(
   path.dirname(__dirname),
   "server",
   "package.json"
-)}`);
-const app_name = app_path.name;
+)}`).name;
 const debug = require("debug")(
-  `${app_name}:${path.basename(__filename).split(".")[0]}`
+  `${app_path}:${path.basename(__filename).split(".")[0]}`
 );
+
+// Activate CORS
+const cors = require("cors");
+const allowedOrigins = process.env.CORS_ALLOW;
+let corsOptions = {
+  origin: function(origin, isAllowed) {
+    // Allow requests with no origin
+    if (!origin) return isAllowed(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      var msg =
+        "The CORS policy for this site does not allow access from the specified Origin.";
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  optionsSuccessStatus: 200
+};
 
 mongoose.Promise = Promise;
 mongoose
-.connect(dbURL)
-.then(() => {
-  debug(`Connected to Mongo at ${dbURL}`);
-})
-.catch(err => {
-  debug("Error connecting to mongo", err);
-});
+  .connect(dbURL)
+  .then(() => {
+    debug(`Connected to Mongo at ${dbURL}`);
+  })
+  .catch(err => {
+    debug("Error connecting to mongo", err);
+  });
 
 // Middleware Setup
 app.use(cors(corsOptions));
@@ -50,7 +60,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // Express View engine setup
-
 app.use(
   require("node-sass-middleware")({
     src: path.join(__dirname, "public"),
@@ -74,7 +83,7 @@ hbs.registerHelper("ifUndefined", (value, options) => {
   }
 });
 
-// default value for title local
+// Default value for title local
 app.locals.title = "Appcademos";
 
 // Enable authentication using session + passport
@@ -89,10 +98,11 @@ app.use(
 app.use(flash());
 require("./passport")(app);
 
+// Define routes
 const index = require("./routes/index");
-app.use("/", index);
-
 const authRoutes = require("./routes/auth");
+
+app.use("/", index);
 app.use("/auth", authRoutes);
 
 module.exports = app;

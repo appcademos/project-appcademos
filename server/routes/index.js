@@ -2,17 +2,16 @@ const express = require("express");
 const router = express.Router();
 const path = require("path");
 
-//Debug module
-const app_path = require(`${path.join(
+// Debug module
+const index_path = require(`${path.join(
   path.dirname(__dirname),
   "package.json"
-)}`);
-const app_name = app_path.name;
+)}`).name;
 const debug = require("debug")(
-  `${app_name}:${path.basename(__filename).split(".")[0]}`
+  `${index_path}:${path.basename(__filename).split(".")[0]}`
 );
 
-/* GET home page */
+// Routes
 router.get("/", (req, res, next) => {
   res.render("index");
 });
