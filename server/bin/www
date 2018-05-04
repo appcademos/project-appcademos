@@ -1,6 +1,6 @@
 const http = require('http');
 const path = require("path");
-const debug = require("debug")('server:www');
+const debug = require("debug")(`server:${path.basename(__dirname)}:www`);
 
 let app = require('../app');
 

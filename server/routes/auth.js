@@ -1,7 +1,8 @@
+const path = require("path");
 const express = require("express");
 const passport = require("passport");
 const authRoutes = express.Router();
-const debug = require("debug")('routes:auth');
+const debug = require("debug")(`${path.basename(__dirname)}:auth`);
 
 //Import models
 const User = require("../models/User");
