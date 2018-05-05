@@ -6,7 +6,7 @@ const userSchema = new Schema(
     name: String,
     lastName: String,
     phone: Number,
-    birthDate: Date,
+    birthdate: Date,
     imageName: String,
     imagePath: String,
     confirmationCode: String,
