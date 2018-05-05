@@ -2,22 +2,20 @@ require("dotenv").config();
 
 const path = require("path");
 const express = require("express");
-const passport = require("passport");
-const authRoutes = express.Router();
-const debug = require("debug")(`server:${path.basename(__dirname)}:auth`);
+const router = express.Router();
 
-//Import models
-const User = require("../api/user/user.model");
-
-// Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
+const passport = require("passport");
 const bcryptSalt = process.env.BCRYPT;
 
-authRoutes.get("/login", (req, res, next) => {
+const debug = require("debug")(`server:${path.basename(__dirname)}:auth`);
+const User = require("../api/user/user.model");
+
+router.get("/login", (req, res, next) => {
   res.render("auth/login", { message: req.flash("error") });
 });
 
-authRoutes.post(
+router.post(
   "/login",
   passport.authenticate("local", {
     successRedirect: "/",
@@ -27,14 +25,14 @@ authRoutes.post(
   })
 );
 
-authRoutes.get("/signup", (req, res, next) => {
+router.get("/signup", (req, res, next) => {
   res.render("auth/signup");
 });
 
-authRoutes.post("/signup", (req, res, next) => {
+router.post("/signup", (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
-  
+
   if (email === "" || password === "") {
     res.render("auth/signup", { message: "Indicate email and password" });
     return;
@@ -42,7 +40,7 @@ authRoutes.post("/signup", (req, res, next) => {
 
   User.findOne({ email }, "email", (err, user) => {
     if (user !== null) {
-      res.render("auth/signup", { message: "The email already exists" });
+      res.status(409).json({ message: "User already exists" });
       return;
     }
 
@@ -56,17 +54,17 @@ authRoutes.post("/signup", (req, res, next) => {
 
     newUser.save(err => {
       if (err) {
-        res.render("auth/signup", { message: "Something went wrong" });
+        res.status(400).json({ message: "Something went wrong" });
       } else {
-        res.redirect("/");
+        res.status(200).json({ message: "User saved" });
       }
     });
   });
 });
 
-authRoutes.get("/logout", (req, res) => {
+router.get("/logout", (req, res) => {
   req.logout();
-  res.redirect("/");
+  res.status(200).json({ message: "Logged out" });
 });
 
-module.exports = authRoutes;
+module.exports = router;
