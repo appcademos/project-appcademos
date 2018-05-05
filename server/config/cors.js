@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 module.exports = app => {
   const cors = require("cors");
   const allowedOrigins = process.env.CORS_ALLOW;
