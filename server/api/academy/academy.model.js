@@ -3,13 +3,15 @@ const Schema = mongoose.Schema;
 
 const academySchema = new Schema(
   {
+    email: {type: String, required: true},
+    password: {type: String, required: true},
     imagePath: String,
     imageName: String,
     description: String,
     website: String,
     name: {
       type: String,
-      require: true
+      required: true
     },
     location: {
       type: { type: String },

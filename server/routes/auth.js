@@ -4,7 +4,7 @@ const path = require("path");
 const express = require("express");
 const passport = require("passport");
 const authRoutes = express.Router();
-const debug = require("debug")(`${path.basename(__dirname)}:auth`);
+const debug = require("debug")(`server:${path.basename(__dirname)}:auth`);
 
 //Import models
 const User = require("../api/user/user.model");
@@ -32,17 +32,17 @@ authRoutes.get("/signup", (req, res, next) => {
 });
 
 authRoutes.post("/signup", (req, res, next) => {
-  const username = req.body.username;
+  const email = req.body.email;
   const password = req.body.password;
-  const rol = req.body.role;
-  if (username === "" || password === "") {
-    res.render("auth/signup", { message: "Indicate username and password" });
+  
+  if (email === "" || password === "") {
+    res.render("auth/signup", { message: "Indicate email and password" });
     return;
   }
 
-  User.findOne({ username }, "username", (err, user) => {
+  User.findOne({ email }, "email", (err, user) => {
     if (user !== null) {
-      res.render("auth/signup", { message: "The username already exists" });
+      res.render("auth/signup", { message: "The email already exists" });
       return;
     }
 
@@ -50,9 +50,8 @@ authRoutes.post("/signup", (req, res, next) => {
     const hashPass = bcrypt.hashSync(password, salt);
 
     const newUser = new User({
-      username,
-      password: hashPass,
-      role: "teacher"
+      email,
+      password: hashPass
     });
 
     newUser.save(err => {

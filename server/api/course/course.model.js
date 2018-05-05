@@ -13,6 +13,7 @@ const courseSchema = new Schema(
     sizeClass: Number,
     description: String,
     teacher: String,
+    tags: [String],
     academy: {
       type: Schema.Types.ObjectId,
       ref: "Academy"

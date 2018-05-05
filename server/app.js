@@ -1,5 +1,5 @@
 const app = require("express")();
-const cors = require("./config/cors")(app);
+// const cors = require("./config/cors")(app);
 
 // Default value for title local
 app.locals.title = "Appcademos";
