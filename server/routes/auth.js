@@ -7,7 +7,7 @@ const authRoutes = express.Router();
 const debug = require("debug")(`${path.basename(__dirname)}:auth`);
 
 //Import models
-const User = require("../models/User");
+const User = require("../api/user/user.model");
 
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
