@@ -28,6 +28,7 @@ module.exports = app => {
   // Middleware Setup
   app.use(logger("dev"));
   app.use(cookieParser());
+  app.use(flash());
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -51,8 +52,9 @@ module.exports = app => {
       secret: hashSecret,
       resave: true,
       saveUninitialized: true,
-      store: new MongoStore({ mongooseConnection: mongoose.connection })
+      store: new MongoStore({ mongooseConnection: mongoose.connection }),
+      ttl: 48 * 60 * 60 // 2 days
     })
   );
-  app.use(flash());
+  require("./passport")(app);
 };

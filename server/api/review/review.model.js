@@ -23,7 +23,8 @@ const reviewSchema = new Schema(
     },
     course: {
       type: Schema.Types.ObjectId,
-      ref: "Course"
+      ref: "Course",
+      required: true
     }
   },
   {

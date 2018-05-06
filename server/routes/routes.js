@@ -1,6 +1,6 @@
 module.exports = app => {
   app.use("/", require("./home"));
-  app.use("/auth", require("./auth"));
+  app.use("/user", require("./user"));
   app.use("/review", require("./review"));
   app.use("/course", require("./course"));
   app.use("/academy", require("./academy"));
