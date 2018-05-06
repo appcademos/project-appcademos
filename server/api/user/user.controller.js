@@ -8,11 +8,10 @@ const bcryptSalt = parseInt(process.env.BCRYPT);
 const debug = require("debug")("server:user.controller");
 
 const login = (req, res, next) => {
-  
-  passport.authenticate('local', (err, user, errDetails) => {
+  passport.authenticate("local", (err, user, errDetails) => {
     if (err) {
       res.status(500).json({
-        message: 'Something went wrong while autenticating',
+        message: "Something went wrong while autenticating",
         err
       });
       return;
@@ -20,26 +19,26 @@ const login = (req, res, next) => {
 
     if (!user) {
       res.status(401).json({
-        message: 'Cant found user in the dbs',
+        message: "Cant found user in the dbs",
         errDetails
       });
       return;
     }
 
-    req.login(user, (err) => {
+    req.login(user, err => {
       if (err) {
         res.status(500).json({
-          message: 'Something went wrong'
+          message: "Something went wrong"
         });
         return;
       }
       res.status(200).json({
-        message: 'Succesfully logged in',
+        message: "Succesfully logged in",
         user: req.user
       });
     });
   })(req, res, next);
-}
+};
 
 const signup = (req, res, next) => {
   const email = req.body.email;
@@ -80,8 +79,7 @@ const logout = (req, res) => {
 };
 
 const getUser = (req, res, next) => {
-  debug(req.session);
-  if (req.session) {
+  if (req.user) {
     User.findById(req.user.id)
       .then(user => {
         res.status(200).json({ user });

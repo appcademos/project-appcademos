@@ -34,7 +34,7 @@ const getOne = (req, res, next) => {
     });
 };
 
-const create = (req, res, next) => {
+const signup = (req, res, next) => {
   const { name, email } = req.body;
   const password = req.body.password;
 
@@ -124,4 +124,4 @@ const erase = (req, res, next) => {
     });
 };
 
-module.exports = { getAll, getOne, create, update, erase };
+module.exports = { getAll, getOne, signup, update, erase };
