@@ -1,23 +1,41 @@
 const _ = require("lodash");
 const Course = require("./course.model");
+const User = require("../user/user.model");
+const Review = require("../review/review.model");
 const debug = require("debug")("server:course.controller");
 const fields = Object.keys(_.omit(Course.schema.paths, ["__v", "_id"]));
 
 const getAll = (req, res, next) => {
   Course.find()
     .then(courses => {
-      res.status(200).json({
-        user: req.user || "not logged",
-        courses
-      });
+      res.status(200).json({ courses });
     })
-    .catch(err =>
-      res.status(400).json({
-        user: req.user || "not loged",
-        message: "Error requesting courses",
-        err
-      })
-    );
+    .catch(err => {
+      debug(err);
+      res.status(400).json({ message: "Error requesting courses" });
+    });
+};
+
+const getOne = (req, res, next) => {
+  Course.findById(req.params.id)
+    .populate("academy")
+    .populate("students")
+    .exec()
+    .then(course => {
+      debug(course);
+      Review.find({ course: course.id })
+        .then(reviews => {
+          res.status(200).json({ course, reviews });
+        })
+        .catch(err => {
+          debug(err);
+          res.status(400).json({ message: "Error when retrieving reviews" });
+        });
+    })
+    .catch(err => {
+      debug(err);
+      res.status(400).json({ message: "Course not found" });
+    });
 };
 
 const create = (req, res, next) => {
@@ -26,6 +44,7 @@ const create = (req, res, next) => {
 
   newCourse.save(err => {
     if (err) {
+      debug(err);
       res.status(400).json({
         message: "Something went wrong when trying to create course"
       });
@@ -35,4 +54,74 @@ const create = (req, res, next) => {
   });
 };
 
-module.exports = { getAll, create };
+const update = (req, res, next) => {
+  const updates = _.pick(req.body, fields);
+
+  Course.findByIdAndUpdate(req.params.id, updates)
+    .then(course => {
+      res.status(200).json({
+        message: "Course updated."
+      });
+    })
+    .catch(err => {
+      debug(err);
+      res.status(400).json({
+        message: "Error updating course"
+      });
+    });
+};
+
+const erase = (req, res, next) => {
+  Course.findById(req.params.id)
+    .then(course => {
+      reviewsId = course.reviews;
+      Course.remove({ _id: course.id })
+        .then(() => {
+          if (reviewsId) {
+            // Reviews for this course must be erased from database when erasing course
+            reviewsId.forEach(review => {
+              Review.findByIdAndRemove(review)
+                .then(() => {
+                  res.status(200).json({
+                    message: "Review removed."
+                  });
+                })
+                .catch(err => {
+                  debug(err);
+                  res.status(400).json({
+                    message: "Error removing review"
+                  });
+                });
+            });
+          }
+          res.status(200).json({
+            message: "Course removed."
+          });
+        })
+        .catch(err => {
+          debug(err);
+          res.status(400).json({
+            message: "Error removing course"
+          });
+        });
+    })
+    .catch(err => {
+      debug(err);
+      res.status(400).json({
+        message: "Error finding course to remove"
+      });
+    });
+
+  // Course.findByIdAndRemove(req.params.id)
+  // .then(() => {
+  //   res.status(200).json({ message: "Course removed" });
+  // })
+  // .catch(err => {
+  //   res.status(400).json({
+  //     message: "Error erasing course",
+  //     err
+  //   });
+  // });
+};
+
+module.exports = { getAll, getOne, create, update, erase };

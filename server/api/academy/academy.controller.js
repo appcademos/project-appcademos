@@ -11,18 +11,14 @@ const salt = bcrypt.genSaltSync(bcryptSalt);
 const getAll = (req, res, next) => {
   Academy.find()
     .then(academies => {
-      res.status(200).json({
-        user: req.user || "not logged",
-        academies
-      });
+      res.status(200).json({ academies });
     })
-    .catch(err =>
+    .catch(err => {
+      debug(err);
       res.status(400).json({
-        user: req.user || "not loged",
-        message: "Error requesting academies",
-        err
-      })
-    );
+        message: "Error requesting academies"
+      });
+    });
 };
 
 const getOne = (req, res, next) => {
@@ -31,9 +27,9 @@ const getOne = (req, res, next) => {
       res.status(200).json({ academy });
     })
     .catch(err => {
+      debug(err);
       res.status(400).json({
-        message: "Academy not found",
-        err
+        message: "Academy not found"
       });
     });
 };
@@ -59,6 +55,7 @@ const create = (req, res, next) => {
 
     newAcademy.save(err => {
       if (err) {
+        debug(err);
         res.status(400).json({ message: "Something went wrong" });
       } else {
         res.status(201).json({ message: "Academy saved" });
@@ -84,17 +81,17 @@ const update = (req, res, next) => {
               });
             })
             .catch(err => {
+              debug(err);
               res.status(400).json({
-                message: "Error updating academy",
-                err
+                message: "Error updating academy"
               });
             });
         }
       })
       .catch(err => {
+        debug(err);
         res.status(400).json({
-          message: "Error updating academy",
-          err
+          message: "Error updating academy"
         });
       });
   } else {
@@ -106,9 +103,9 @@ const update = (req, res, next) => {
         });
       })
       .catch(err => {
+        debug(err);
         res.status(400).json({
-          message: "Error updating academy",
-          err
+          message: "Error updating academy"
         });
       });
   }
@@ -120,9 +117,9 @@ const erase = (req, res, next) => {
       res.status(200).json({ message: "Academy removed" });
     })
     .catch(err => {
+      debug(err);
       res.status(400).json({
-        message: "Error updating academy",
-        err
+        message: "Error erasing academy"
       });
     });
 };

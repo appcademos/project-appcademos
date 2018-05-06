@@ -20,6 +20,10 @@ const reviewSchema = new Schema(
     author: {
       type: Schema.Types.ObjectId,
       ref: "User"
+    },
+    course: {
+      type: Schema.Types.ObjectId,
+      ref: "Course"
     }
   },
   {
