@@ -4,7 +4,10 @@ const Schema = mongoose.Schema;
 const courseSchema = new Schema(
   {
     price: Number,
-    title: String,
+    title: {
+      type: String,
+      required: true
+    },
     level: String,
     minAge: Number,
     startDate: [Date],
@@ -14,16 +17,22 @@ const courseSchema = new Schema(
     description: String,
     teacher: String,
     tags: [String],
-    academy: {
-      type: Schema.Types.ObjectId,
-      ref: "Academy"
-    },
     students: [
       {
         type: Schema.Types.ObjectId,
         ref: "User"
       }
-    ]
+    ],
+    reviews: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Review"
+      }
+    ],
+    academy: {
+      type: Schema.Types.ObjectId,
+      ref: "Academy"
+    }
   },
   {
     timestamps: {

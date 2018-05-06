@@ -3,12 +3,19 @@ const Schema = mongoose.Schema;
 
 const academySchema = new Schema(
   {
-    email: {type: String, required: true},
-    password: {type: String, required: true},
+    website: String,
     imagePath: String,
     imageName: String,
     description: String,
-    website: String,
+    confirmationCode: String,
+    email: {
+      type: String,
+      required: true
+    },
+    password: {
+      type: String,
+      required: true
+    },
     name: {
       type: String,
       required: true

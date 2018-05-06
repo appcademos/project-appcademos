@@ -1,5 +1,7 @@
+const _ = require("lodash");
 const Course = require("./course.model");
 const debug = require("debug")("server:course.controller");
+const fields = Object.keys(_.omit(Course.schema.paths, ["__v", "_id"]));
 
 const getAll = (req, res, next) => {
   Course.find()
@@ -18,4 +20,19 @@ const getAll = (req, res, next) => {
     );
 };
 
-module.exports = getAll;
+const create = (req, res, next) => {
+  const properties = _.pick(req.body, fields);
+  const newCourse = new Course(properties);
+
+  newCourse.save(err => {
+    if (err) {
+      res.status(400).json({
+        message: "Something went wrong when trying to create course"
+      });
+    } else {
+      res.status(201).json({ message: "Course saved" });
+    }
+  });
+};
+
+module.exports = { getAll, create };
