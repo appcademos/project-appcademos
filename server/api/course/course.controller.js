@@ -45,9 +45,9 @@ const create = (req, res, next) => {
   newCourse.save(err => {
     if (err) {
       debug(err);
-      res.status(400).json({
-        message: "Something went wrong when trying to create course"
-      });
+      res
+        .status(400)
+        .json({ message: "Something went wrong when trying to create course" });
     } else {
       res.status(201).json({ message: "Course saved" });
     }
@@ -59,69 +59,30 @@ const update = (req, res, next) => {
 
   Course.findByIdAndUpdate(req.params.id, updates)
     .then(course => {
-      res.status(200).json({
-        message: "Course updated."
-      });
+      res.status(200).json({ message: "Course updated." });
     })
     .catch(err => {
       debug(err);
-      res.status(400).json({
-        message: "Error updating course"
-      });
+      res.status(400).json({ message: "Error updating course" });
     });
 };
 
 const erase = (req, res, next) => {
-  Course.findById(req.params.id)
-    .then(course => {
-      reviewsId = course.reviews;
-      Course.remove({ _id: course.id })
-        .then(() => {
-          if (reviewsId) {
-            // Reviews for this course must be erased from database when erasing course
-            reviewsId.forEach(review => {
-              Review.findByIdAndRemove(review)
-                .then(() => {
-                  res.status(200).json({
-                    message: "Review removed."
-                  });
-                })
-                .catch(err => {
-                  debug(err);
-                  res.status(400).json({
-                    message: "Error removing review"
-                  });
-                });
-            });
-          }
-          res.status(200).json({
-            message: "Course removed."
-          });
-        })
-        .catch(err => {
-          debug(err);
-          res.status(400).json({
-            message: "Error removing course"
-          });
-        });
-    })
-    .catch(err => {
-      debug(err);
-      res.status(400).json({
-        message: "Error finding course to remove"
+  Course.findByIdAndRemove(req.params.id).then(() => {
+    Review.find({ course: req.params.id })
+      .remove()
+      .then(() => {
+        res.status(200).json({ message: "Course removed" });
+      })
+      .catch(err => {
+        debug(err);
+        res.status(400).json({ message: "Error erasing reviews" });
+      })
+      .catch(err => {
+        debug(err);
+        res.status(400).json({ message: "Error erasing course" });
       });
-    });
-
-  // Course.findByIdAndRemove(req.params.id)
-  // .then(() => {
-  //   res.status(200).json({ message: "Course removed" });
-  // })
-  // .catch(err => {
-  //   res.status(400).json({
-  //     message: "Error erasing course",
-  //     err
-  //   });
-  // });
+  });
 };
 
 module.exports = { getAll, getOne, create, update, erase };

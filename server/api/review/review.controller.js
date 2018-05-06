@@ -36,9 +36,9 @@ const create = (req, res, next) => {
   newReview.save(err => {
     if (err) {
       debug(err);
-      res.status(400).json({
-        message: "Something went wrong when trying to create review"
-      });
+      res
+        .status(400)
+        .json({ message: "Something went wrong when trying to create review" });
     } else {
       res.status(201).json({ message: "Review saved" });
     }
@@ -51,15 +51,11 @@ const update = (req, res, next) => {
 
   Review.findByIdAndUpdate(req.params.id, updates)
     .then(review => {
-      res.status(200).json({
-        message: "Review updated."
-      });
+      res.status(200).json({ message: "Review updated." });
     })
     .catch(err => {
       debug(err);
-      res.status(400).json({
-        message: "Error updating review"
-      });
+      res.status(400).json({ message: "Error updating review" });
     });
 };
 
@@ -70,9 +66,7 @@ const erase = (req, res, next) => {
     })
     .catch(err => {
       debug(err);
-      res.status(400).json({
-        message: "Error erasing review"
-      });
+      res.status(400).json({ message: "Error erasing review" });
     });
 };
 
