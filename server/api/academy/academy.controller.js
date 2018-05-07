@@ -37,30 +37,46 @@ const signup = (req, res, next) => {
   const password = req.body.password;
   const exists = false;
 
-  Academy.findOne({ email }, "email", (err, academy) => {
-    if (academy !== null && exists === true) {
-      res.status(406).json({ message: "The email already exists" });
-      return;
-    }
+  User.findOne({ email })
+    .then(foundUser => {
+      if (!foundUser) {
+        Academy.findOne({ email })
+          .then(foundUser => {
+            debug(foundUser);
+            if (!foundUser) {
+              const salt = bcrypt.genSaltSync(bcryptSalt);
+              const hashPass = bcrypt.hashSync(password, salt);
 
-    const salt = bcrypt.genSaltSync(bcryptSalt);
-    const hashPass = bcrypt.hashSync(password, salt);
+              const newAcademy = new Academy({
+                name,
+                email,
+                password: hashPass
+              });
 
-    const newAcademy = new Academy({
-      name,
-      email,
-      password: hashPass
-    });
-
-    newAcademy.save(err => {
-      if (err) {
-        debug(err);
-        res.status(400).json({ message: "Something went wrong" });
+              newAcademy.save(err => {
+                if (err) {
+                  debug(err);
+                  return res
+                    .status(400)
+                    .json({ message: "Something went wrong" });
+                } else {
+                  return res.status(201).json({ message: "Academy saved" });
+                }
+              });
+            }
+          })
+          .catch(err => {
+            next(err);
+            return;
+          });
       } else {
-        res.status(201).json({ message: "Academy saved" });
+        return res.status(400).json({ message: "Email already exists" });
       }
+    })
+    .catch(err => {
+      next(err);
+      return;
     });
-  });
 };
 
 const update = (req, res, next) => {
