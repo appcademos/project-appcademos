@@ -37,10 +37,6 @@ const signup = (req, res, next) => {
   const password = req.body.password;
   const exists = false;
 
-  User.findOne({ email }, "email", (err, user) => {
-    if(user !== null) exists === true;
-  })
-
   Academy.findOne({ email }, "email", (err, academy) => {
     if (academy !== null && exists === true) {
       res.status(406).json({ message: "The email already exists" });

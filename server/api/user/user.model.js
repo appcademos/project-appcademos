@@ -9,7 +9,18 @@ const userSchema = new Schema(
     birthdate: Date,
     imageName: String,
     imagePath: String,
-    confirmationCode: String,
+    payment: {
+      type: Boolean,
+      default: false
+    },
+    willAttend: {
+      type: Boolean,
+      default: false
+    },
+    persist: {
+      type: Boolean,
+      default: true
+    },
     email: {
       type: String,
       required: true
@@ -22,17 +33,7 @@ const userSchema = new Schema(
       type: Boolean,
       default: false
     },
-    isActive: {
-      type: Boolean,
-      default: false
-    },
     favorites: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Course"
-      }
-    ],
-    cart: [
       {
         type: Schema.Types.ObjectId,
         ref: "Course"

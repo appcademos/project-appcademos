@@ -8,6 +8,10 @@ const academySchema = new Schema(
     imageName: String,
     description: String,
     confirmationCode: String,
+    isVerified: {
+      type: Boolean,
+      default: false
+    },
     email: {
       type: String,
       required: true
