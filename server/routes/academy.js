@@ -9,10 +9,10 @@ const {
   erase
 } = require("../api/academy/academy.controller");
 
-router.get("/", getAll);
 router.get("/:id", getOne);
+router.get("/", getAll);
 router.post("/signup", signup);
 router.put("/:id", update);
-router.delete("/:id", erase);
+router.delete("/", erase);
 
 module.exports = router;

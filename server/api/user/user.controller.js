@@ -1,11 +1,13 @@
 require("dotenv").config();
 
+const _ = require("lodash");
 const path = require("path");
 const bcrypt = require("bcrypt");
 const User = require("./user.model");
 const passport = require("passport");
 const bcryptSalt = parseInt(process.env.BCRYPT);
 const debug = require("debug")("server:user.controller");
+const fields = Object.keys(_.omit(User.schema.paths, ["__v", "_id"]));
 
 const login = (req, res, next) => {
   passport.authenticate("local", (err, user, errDetails) => {
@@ -74,11 +76,17 @@ const signup = (req, res, next) => {
 };
 
 const logout = (req, res) => {
-  req.logout();
-  res.status(200).json({ message: "Logged out" });
+  const user = req.user;
+  if (user) {
+    req.session.destroy(function(err) {
+      res.status(200).json({ message: "Logged out" });
+    });
+  } else {
+    res.status(400).json({ message: "You are not logged in!" });
+  }
 };
 
-const getUser = (req, res, next) => {
+const getThisUser = (req, res, next) => {
   if (req.user) {
     User.findById(req.user.id)
       .then(user => {
@@ -93,4 +101,84 @@ const getUser = (req, res, next) => {
   }
 };
 
-module.exports = { login, signup, logout, getUser };
+const getUser = (req, res, next) => {
+  User.findById(req.params.id)
+    .then(user => {
+      res.status(200).json({ user });
+    })
+    .catch(err => {
+      debug(err);
+      res.status(400).json({ message: "Error retrieving user" });
+    });
+};
+
+const update = (req, res, next) => {
+  let updates = _.pick(req.body, fields);
+
+  if (req.body.newPassword) {
+    User.findById(req.user.id)
+      .then(user => {
+        if (bcrypt.compareSync(req.body.password, user.password)) {
+          const hashPass = bcrypt.hashSync(req.body.newPassword, salt);
+          updates.password = hashPass;
+
+          User.update(updates)
+            .then(user => {
+              res.status(200).json({
+                message: "User updated. Password updated."
+              });
+            })
+            .catch(err => {
+              debug(err);
+              res.status(400).json({
+                message: "Error updating user"
+              });
+            });
+        } else {
+          res.status(400).json({ message: "Incorrect password" });
+          return;
+        }
+      })
+      .catch(err => {
+        debug(err);
+        res.status(400).json({
+          message: "Error updating user"
+        });
+      });
+  } else {
+    updates = _.omit(updates, ["password"]);
+
+    User.findByIdAndUpdate(req.user.id, updates)
+      .then(user => {
+        res.status(200).json({
+          message: "User updated. No password updated."
+        });
+      })
+      .catch(err => {
+        debug(err);
+        res.status(400).json({
+          message: "Error updating user"
+        });
+      });
+  }
+};
+
+const erase = (req, res, next) => {
+  if (req.user) {
+    User.findByIdAndRemove(req.user.id)
+      .then(() => {
+        req.session.destroy(function(err) {
+          res.status(200).json({ message: "User removed" });
+        });
+      })
+      .catch(err => {
+        debug(err);
+        res.status(400).json({ message: "Error erasing user" });
+      });
+  } else {
+    res.status(400).json({ message: "You are not logged in!" });
+    return;
+  }
+};
+
+module.exports = { login, signup, logout, getThisUser, getUser, update, erase };

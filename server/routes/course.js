@@ -9,8 +9,8 @@ const {
   erase
 } = require("../api/course/course.controller");
 
-router.get("/", getAll);
 router.get("/:id", getOne);
+router.get("/", getAll);
 router.put("/:id", update);
 router.post("/create", create);
 router.delete("/:id", erase);

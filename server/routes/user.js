@@ -6,12 +6,18 @@ const {
   login,
   signup,
   logout,
-  getUser
+  getThisUser,
+  getUser,
+  update,
+  erase
 } = require("../api/user/user.controller");
 
-router.get("/", getUser);
 router.get("/logout", logout);
+router.get("/:id", getUser);
+router.get("/", getThisUser);
+router.put("/update", update);
 router.post("/login", login);
 router.post("/signup", signup);
+router.delete("/", erase);
 
 module.exports = router;

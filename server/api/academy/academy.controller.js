@@ -2,6 +2,8 @@ require("dotenv").config();
 
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
+const passport = require("passport");
+const User = require("../user/user.model");
 const Academy = require("./academy.model");
 const debug = require("debug")("server:academy.controller");
 const fields = Object.keys(_.omit(Academy.schema.paths, ["__v", "_id"]));
@@ -15,9 +17,7 @@ const getAll = (req, res, next) => {
     })
     .catch(err => {
       debug(err);
-      res.status(400).json({
-        message: "Error requesting academies"
-      });
+      res.status(400).json({ message: "Error requesting academies" });
     });
 };
 
@@ -28,18 +28,21 @@ const getOne = (req, res, next) => {
     })
     .catch(err => {
       debug(err);
-      res.status(400).json({
-        message: "Academy not found"
-      });
+      res.status(400).json({ message: "Academy not found" });
     });
 };
 
 const signup = (req, res, next) => {
   const { name, email } = req.body;
   const password = req.body.password;
+  const exists = false;
+
+  User.findOne({ email }, "email", (err, user) => {
+    if(user !== null) exists === true;
+  })
 
   Academy.findOne({ email }, "email", (err, academy) => {
-    if (academy !== null) {
+    if (academy !== null && exists === true) {
       res.status(406).json({ message: "The email already exists" });
       return;
     }
@@ -68,7 +71,7 @@ const update = (req, res, next) => {
   let updates = _.pick(req.body, fields);
 
   if (req.body.newPassword) {
-    Academy.findById(req.params.id)
+    Academy.findById(req.user.id)
       .then(academy => {
         if (bcrypt.compareSync(req.body.password, academy.password)) {
           const hashPass = bcrypt.hashSync(req.body.newPassword, salt);
@@ -82,10 +85,11 @@ const update = (req, res, next) => {
             })
             .catch(err => {
               debug(err);
-              res.status(400).json({
-                message: "Error updating academy"
-              });
+              res.status(400).json({ message: "Error updating academy" });
             });
+        } else {
+          res.status(400).json({ message: "Incorrect password" });
+          return;
         }
       })
       .catch(err => {
@@ -95,33 +99,37 @@ const update = (req, res, next) => {
         });
       });
   } else {
-    updates = Object.keys(_.omit(updates, ["password"]));
-    Academy.findByIdAndUpdate(req.params.id, updates)
+    updates = _.omit(updates, ["password"]);
+    Academy.findByIdAndUpdate(req.user.id, updates)
       .then(academy => {
-        res.status(200).json({
-          message: "Academy updated. No password updated."
-        });
+        res
+          .status(200)
+          .json({ message: "Academy updated. No password updated." });
       })
       .catch(err => {
         debug(err);
-        res.status(400).json({
-          message: "Error updating academy"
-        });
+        res.status(400).json({ message: "Error updating academy" });
       });
   }
 };
 
 const erase = (req, res, next) => {
-  Academy.findByIdAndRemove(req.params.id)
-    .then(() => {
-      res.status(200).json({ message: "Academy removed" });
-    })
-    .catch(err => {
-      debug(err);
-      res.status(400).json({
-        message: "Error erasing academy"
+  const user = req.session.user;
+  if (user) {
+    Academy.findByIdAndRemove(user._id)
+      .then(() => {
+        req.session.destroy(function(err) {
+          res.status(200).json({ message: "Academy removed" });
+        });
+      })
+      .catch(err => {
+        debug(err);
+        res.status(400).json({ message: "Error erasing academy" });
       });
-    });
+  } else {
+    res.status(400).json({ message: "You are not logged in!" });
+    return;
+  }
 };
 
 module.exports = { getAll, getOne, signup, update, erase };
