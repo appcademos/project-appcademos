@@ -30,16 +30,16 @@ passport.use(
   "academy-local",
   new LocalStrategy((username, password, next) => {
     Academy.findOne({ email: username })
-      .then(academy => {
-        if(!academy){
+      .then(foundAcademy => {
+        if(!foundAcademy){
           next(null, false, { message: "Academy not found" });
           return;
         }
-        if (!bcrypt.compareSync(password, academy.password)) {
+        if (!bcrypt.compareSync(password, foundAcademy.password)) {
           next(null, false, { message: "Incorrect password" });
           return;
         }
-        next(null, academy);
+        next(null, foundAcademy);
       })
       .catch(err => {
         next(err);
