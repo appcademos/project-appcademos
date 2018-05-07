@@ -1,10 +1,10 @@
 require("dotenv").config();
 
-const{
+const {
   transporter,
   welcomeMail,
   paymentMail
-}=require("../../config/nodemailer/transporter");
+} = require("../../config/nodemailer/transporter");
 
 const _ = require("lodash");
 const path = require("path");
@@ -14,40 +14,6 @@ const passport = require("passport");
 const bcryptSalt = parseInt(process.env.BCRYPT);
 const debug = require("debug")("server:user.controller");
 const fields = Object.keys(_.omit(User.schema.paths, ["__v", "_id"]));
-
-
-const login = (req, res, next) => {
-  passport.authenticate("local", (err, user, errDetails) => {
-    if (err) {
-      res.status(500).json({
-        message: "Something went wrong while autenticating",
-        err
-      });
-      return;
-    }
-
-    if (!user) {
-      res.status(401).json({
-        message: "Cant found user in the dbs",
-        errDetails
-      });
-      return;
-    }
-
-    req.login(user, err => {
-      if (err) {
-        res.status(500).json({
-          message: "Something went wrong"
-        });
-        return;
-      }
-      res.status(200).json({
-        message: "Succesfully logged in",
-        user: req.user
-      });
-    });
-  })(req, res, next);
-};
 
 const signup = (req, res, next) => {
   const email = req.body.email;
@@ -78,11 +44,11 @@ const signup = (req, res, next) => {
       } else {
         res.status(200).json({ message: "User saved" });
 
-        welcomeMail.to=email;
-        transporter.sendMail(welcomeMail)
-        .then(info=> debug(info))
-        .catch(err=> debug(err));
-
+        welcomeMail.to = email;
+        transporter
+          .sendMail(welcomeMail)
+          .then(info => debug("Nodemailer Info: " + info))
+          .catch(err => debug("Nodemailer Error: " + err));
       }
     });
   });
@@ -100,6 +66,8 @@ const logout = (req, res) => {
 };
 
 const getThisUser = (req, res, next) => {
+  debug(req.user);
+  
   if (req.user) {
     User.findById(req.user.id)
       .then(user => {
@@ -115,6 +83,7 @@ const getThisUser = (req, res, next) => {
 };
 
 const getUser = (req, res, next) => {
+  debug(req.user);
   User.findById(req.params.id)
     .then(user => {
       res.status(200).json({ user });
@@ -194,4 +163,4 @@ const erase = (req, res, next) => {
   }
 };
 
-module.exports = { login, signup, logout, getThisUser, getUser, update, erase };
+module.exports = { signup, logout, getThisUser, getUser, update, erase };

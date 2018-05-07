@@ -3,7 +3,6 @@ const router = express.Router();
 const passport = require("passport");
 
 const {
-  login,
   signup,
   logout,
   getThisUser,
@@ -16,7 +15,15 @@ router.get("/logout", logout);
 router.get("/:id", getUser);
 router.get("/", getThisUser);
 router.put("/update", update);
-router.post("/login", login);
+router.post(
+  "/login",
+  passport.authenticate("user-local", {
+    successRedirect: "/",
+    failureRedirect: "/err",
+    failureFlash: true,
+    passReqToCallback: true
+  })
+);
 router.post("/signup", signup);
 router.delete("/", erase);
 

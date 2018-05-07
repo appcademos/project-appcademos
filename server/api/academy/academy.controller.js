@@ -16,6 +16,7 @@ const {
 } = require("../../config/nodemailer/transporter");
 
 const getAll = (req, res, next) => {
+  debug(req.user);
   Academy.find()
     .then(academies => {
       res.status(200).json({ academies });
@@ -42,45 +43,32 @@ const signup = (req, res, next) => {
   const password = req.body.password;
   const exists = false;
 
-  User.findOne({ email })
+  Academy.findOne({ email })
     .then(foundUser => {
+      debug(foundUser);
       if (!foundUser) {
-        Academy.findOne({ email })
-          .then(foundUser => {
-            debug(foundUser);
-            if (!foundUser) {
-              const salt = bcrypt.genSaltSync(bcryptSalt);
-              const hashPass = bcrypt.hashSync(password, salt);
+        const salt = bcrypt.genSaltSync(bcryptSalt);
+        const hashPass = bcrypt.hashSync(password, salt);
 
-              const newAcademy = new Academy({
-                name,
-                email,
-                password: hashPass
-              });
+        const newAcademy = new Academy({
+          name,
+          email,
+          password: hashPass
+        });
 
-              newAcademy.save(err => {
-                if (err) {
-                  debug(err);
-                  return res
-                    .status(400)
-                    .json({ message: "Something went wrong" });
-                } else {
-                  return res.status(201).json({ message: "Academy saved" });
-                  welcomeAcademy.to = email;
-                  transporter
-                    .sendMail(welcomeAcademy)
-                    .then(info => debug(info))
-                    .catch(err => debug(err));
-                }
-              });
-            }
-          })
-          .catch(err => {
-            next(err);
-            return;
-          });
-      } else {
-        return res.status(400).json({ message: "Email already exists" });
+        newAcademy.save(err => {
+          if (err) {
+            debug(err);
+            return res.status(400).json({ message: "Something went wrong" });
+          } else {
+            return res.status(201).json({ message: "Academy saved" });
+            welcomeAcademy.to = email;
+            transporter
+              .sendMail(welcomeAcademy)
+              .then(info => debug(info))
+              .catch(err => debug(err));
+          }
+        });
       }
     })
     .catch(err => {
