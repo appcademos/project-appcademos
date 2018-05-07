@@ -10,6 +10,11 @@ const fields = Object.keys(_.omit(Academy.schema.paths, ["__v", "_id"]));
 const bcryptSalt = parseInt(process.env.BCRYPT);
 const salt = bcrypt.genSaltSync(bcryptSalt);
 
+const {
+  transporter,
+  welcomeAcademy
+} = require("../../config/nodemailer/transporter");
+
 const getAll = (req, res, next) => {
   Academy.find()
     .then(academies => {
@@ -61,6 +66,11 @@ const signup = (req, res, next) => {
                     .json({ message: "Something went wrong" });
                 } else {
                   return res.status(201).json({ message: "Academy saved" });
+                  welcomeAcademy.to = email;
+                  transporter
+                    .sendMail(welcomeAcademy)
+                    .then(info => debug(info))
+                    .catch(err => debug(err));
                 }
               });
             }

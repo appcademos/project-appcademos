@@ -1,5 +1,11 @@
 require("dotenv").config();
 
+const{
+  transporter,
+  welcomeMail,
+  paymentMail
+}=require("../../config/nodemailer/transporter");
+
 const _ = require("lodash");
 const path = require("path");
 const bcrypt = require("bcrypt");
@@ -8,6 +14,7 @@ const passport = require("passport");
 const bcryptSalt = parseInt(process.env.BCRYPT);
 const debug = require("debug")("server:user.controller");
 const fields = Object.keys(_.omit(User.schema.paths, ["__v", "_id"]));
+
 
 const login = (req, res, next) => {
   passport.authenticate("local", (err, user, errDetails) => {
@@ -70,6 +77,12 @@ const signup = (req, res, next) => {
         res.status(400).json({ message: "Something went wrong" });
       } else {
         res.status(200).json({ message: "User saved" });
+
+        welcomeMail.to=email;
+        transporter.sendMail(welcomeMail)
+        .then(info=> debug(info))
+        .catch(err=> debug(err));
+
       }
     });
   });
