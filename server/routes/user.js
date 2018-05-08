@@ -12,20 +12,14 @@ const {
   loggedin
 } = require("../api/user/user.controller");
 
+router.get("/loggedin", loggedin);
 router.get("/logout", logout);
 router.get("/:id", getUser);
 router.get("/", getThisUser);
-router.get('/loggedin',loggedin);
 router.put("/update", update);
-router.post(
-  "/login",
-  passport.authenticate("user-local", {
-    successRedirect: "/",
-    failureRedirect: "/err",
-    failureFlash: true,
-    passReqToCallback: true
-  })
-);
+router.post("/login", passport.authenticate("user-local"), function(req, res) {
+  res.status(200).json(req.user);
+});
 router.post("/signup", signup);
 router.delete("/", erase);
 

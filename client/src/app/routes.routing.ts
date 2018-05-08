@@ -7,7 +7,7 @@ import { OneCourseComponent } from './oneCourse/oneCourse.component';
 
 export const routes: Routes = [
    { path: '', component: HomeComponent},
-   { path: 'user/login', component: UserComponent},
+   { path: 'user', component: UserComponent},
    { path: 'academy/login', component: AcademyComponent},
    { path: 'courses', component: AllCoursesComponent},
    { path: 'courses/:id', component: OneCourseComponent},

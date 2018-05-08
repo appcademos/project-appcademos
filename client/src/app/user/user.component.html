@@ -2,4 +2,7 @@
   user works!
 </p>
 
-<app-userForm></app-userForm>
+
+<div *ngIf="!user">
+  <app-userLoginForm></app-userLoginForm>
+</div>

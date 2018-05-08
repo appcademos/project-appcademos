@@ -17,7 +17,8 @@ import { AcademyComponent } from './academy/academy.component';
 import { UserComponent } from './user/user.component';
 import { AllCoursesComponent } from './allCourses/allCourses.component';
 import { OneCourseComponent } from './oneCourse/oneCourse.component';
-import { UserFormComponent } from './userForm/userForm.component';
+import { UserLoginFormComponent } from './userLoginForm/userLoginForm.component';
+import { UserSignupFormComponent } from './userSignupForm/userSignupForm.component';
 import { AcademyFormComponent } from './academyForm/academyForm.component';
 
 @NgModule({
@@ -30,7 +31,8 @@ import { AcademyFormComponent } from './academyForm/academyForm.component';
     UserComponent,
     AllCoursesComponent,
     OneCourseComponent,
-    UserFormComponent,
+    UserLoginFormComponent,
+    UserSignupFormComponent,
     AcademyFormComponent
 ],
   imports: [
