@@ -15,6 +15,14 @@ const bcryptSalt = parseInt(process.env.BCRYPT);
 const debug = require("debug")("server:user.controller");
 const fields = Object.keys(_.omit(User.schema.paths, ["__v", "_id"]));
 
+
+const logInPromise = (user, req) => new Promise((resolve, reject) => {
+  req.login(user, (err) => {
+    if (err) return reject('Something went wrong');
+    resolve(user);
+  });
+});
+
 const signup = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -24,7 +32,7 @@ const signup = (req, res, next) => {
     return;
   }
 
-  User.findOne({ email }, "email", (err, user) => {
+  User.findOne({ email }).then(user => {
     if (user !== null) {
       res.status(409).json({ message: "User already exists" });
       return;
@@ -38,26 +46,25 @@ const signup = (req, res, next) => {
       password: hashPass
     });
 
-    newUser.save(err => {
-      if (err) {
-        res.status(400).json({ message: "Something went wrong" });
-      } else {
-        res.status(200).json({ message: "User saved" });
+    return newUser.save().then(user => {
+      welcomeMail.to = email;
+      transporter
+        .sendMail(welcomeMail)
+        .then(info => debug("Nodemailer Info: " + info))
+        .catch(err => debug("Nodemailer Error: " + err));
 
-        welcomeMail.to = email;
-        transporter
-          .sendMail(welcomeMail)
-          .then(info => debug("Nodemailer Info: " + info))
-          .catch(err => debug("Nodemailer Error: " + err));
-      }
-    });
-  });
+        logInPromise(user, req)
+        
+        res.status(200).json(user)
+    }).catch(err => res.status(400).json({ message: "Something went wrong when saving user" }));
+  })
+    .catch(e => res.status(400).json({ message: "Something went wrong" }))
 };
 
 const logout = (req, res) => {
   const user = req.user;
   if (user) {
-    req.session.destroy(function(err) {
+    req.session.destroy(function (err) {
       res.status(200).json({ message: "Logged out" });
     });
   } else {
@@ -67,7 +74,7 @@ const logout = (req, res) => {
 
 const getThisUser = (req, res, next) => {
   debug(req.user);
-  
+
   if (req.user) {
     User.findById(req.user.id)
       .then(user => {
@@ -146,10 +153,10 @@ const update = (req, res, next) => {
 };
 
 const loggedin = (req, res) => {
-  if(req.user){
-      return res.status(200).json(req.user);
-  }else{
-      return res.status(400).json({message:"You should loggin first"});
+  if (req.user) {
+    return res.status(200).json(req.user);
+  } else {
+    return res.status(400).json({ message: "You should loggin first" });
   }
 }
 
@@ -157,7 +164,7 @@ const erase = (req, res, next) => {
   if (req.user) {
     User.findByIdAndRemove(req.user.id)
       .then(() => {
-        req.session.destroy(function(err) {
+        req.session.destroy(function (err) {
           res.status(200).json({ message: "User removed" });
         });
       })

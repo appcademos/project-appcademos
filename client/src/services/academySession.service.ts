@@ -8,7 +8,7 @@ import { RequestService } from '../services/request.service'
 
 
 @Injectable()
-export class academySessionService {
+export class AcademySessionService {
 
 academy:any;
  academyEvent: EventEmitter<any> = new EventEmitter();

@@ -24,14 +24,15 @@ user:any;
  handleUser(user?:object){
    this.user = user;
    this.userEvent.emit(this.user);
+
+   console.log("pepe",this.user);
    return this.user;
  }
 
  signup(user) {
-    this.request.post("/api/user/signup", user)
-     .map(res => res.json())
-     .map(user => this.handleUser(user))
-     .catch(this.handleError);
+    this.request.post("/user/signup", user).subscribe(
+      user => this.handleUser(user)
+    )
  }
 
  login(username, password) {

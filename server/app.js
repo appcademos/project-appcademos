@@ -13,20 +13,21 @@ const debug = require("debug")(`${path.basename(__dirname)}:app`);
 const MongoStore = require("connect-mongo")(session);
 const hashSecret = process.env.HASHCODE;
 const dbURL = process.env.DBURL;
-// const cors = require("./config/cors")(app);
+const cors = require("cors");
 
 mongoose.Promise = Promise;
 mongoose
-  .connect(dbURL)
-  .then(() => {
-    debug(`Connected to Mongo at ${dbURL}`);
-  })
-  .catch(err => {
-    debug("Error connecting to mongo", err);
-  });
+.connect(dbURL)
+.then(() => {
+  debug(`Connected to Mongo at ${dbURL}`);
+})
+.catch(err => {
+  debug("Error connecting to mongo", err);
+});
 
 const app = express();
 
+require("./config/cors")(app);
 // Middleware Setup
 app.use(logger("dev"));
 app.use(cookieParser());
