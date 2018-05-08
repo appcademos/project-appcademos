@@ -7,9 +7,13 @@ const {
   getOne,
   signup,
   update,
-  erase
+  erase, 
+  logout,
+  loggedin
 } = require("../api/academy/academy.controller");
 
+router.get('/loggedin',loggedin);
+router.get("/logout",logout)
 router.get("/:id", getOne);
 router.get("/", getAll);
 router.post(

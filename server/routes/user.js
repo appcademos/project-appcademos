@@ -8,12 +8,14 @@ const {
   getThisUser,
   getUser,
   update,
-  erase
+  erase,
+  loggedin
 } = require("../api/user/user.controller");
 
 router.get("/logout", logout);
 router.get("/:id", getUser);
 router.get("/", getThisUser);
+router.get('/loggedin',loggedin);
 router.put("/update", update);
 router.post(
   "/login",

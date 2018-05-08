@@ -77,6 +77,26 @@ const signup = (req, res, next) => {
     });
 };
 
+const logout = (req, res) => {
+  const user = req.user;
+  if (user) {
+    req.session.destroy(function(err) {
+      res.status(200).json({ message: "Logged out" });
+    });
+  } else {
+    res.status(400).json({ message: "You are not logged in!" });
+  }
+};
+
+const loggedin = (req, res) => {
+  if(req.user){
+      return res.status(200).json(req.user);
+  }else{
+      return res.status(400).json({message:"You should loggin first"});
+  }
+}
+
+
 const update = (req, res, next) => {
   let updates = _.pick(req.body, fields);
 
@@ -142,4 +162,4 @@ const erase = (req, res, next) => {
   }
 };
 
-module.exports = { getAll, getOne, signup, update, erase };
+module.exports = { getAll, getOne, signup, update, erase, logout, loggedin};

@@ -145,6 +145,14 @@ const update = (req, res, next) => {
   }
 };
 
+const loggedin = (req, res) => {
+  if(req.user){
+      return res.status(200).json(req.user);
+  }else{
+      return res.status(400).json({message:"You should loggin first"});
+  }
+}
+
 const erase = (req, res, next) => {
   if (req.user) {
     User.findByIdAndRemove(req.user.id)
@@ -163,4 +171,4 @@ const erase = (req, res, next) => {
   }
 };
 
-module.exports = { signup, logout, getThisUser, getUser, update, erase };
+module.exports = { signup, logout, getThisUser, getUser, update, erase, loggedin };
