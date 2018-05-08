@@ -1,5 +1,5 @@
-import { Injectable, EventEmitter} from '@angular/core';
-import { Http } from '@angular/http';
+import { Injectable, EventEmitter } from '@angular/core';
+import { Http, Jsonp } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Rx';
@@ -10,49 +10,34 @@ import { RequestService } from '../services/request.service'
 @Injectable()
 export class UserSessionService {
 
-user:any;
- userEvent: EventEmitter<any> = new EventEmitter();
+  user: any;
+  userEvent: EventEmitter<any> = new EventEmitter();
 
- constructor(private request: RequestService) {
-   this.isLoggedIn()
- }
+  constructor(private request: RequestService) {
+    this.isLoggedIn()
+  }
 
- handleError(e) {
-   return Observable.throw(e.json().message);
- }
+  handleUser(user?: object) {
+    this.user = user;
+    this.userEvent.emit(this.user);
+    console.log("pepe", this.user);
+    return this.user;
+  }
 
- handleUser(user?:object){
-   this.user = user;
-   this.userEvent.emit(this.user);
+  signup(user) {
+    this.request.post("/api/user/signup", user).subscribe(user => this.handleUser(user))
+  }
 
-   console.log("pepe",this.user);
-   return this.user;
- }
+  login(username, password) {
+    this.request.post("/user/login", { username, password }).subscribe(user => this.handleUser(user))
+  }
 
- signup(user) {
-    this.request.post("/user/signup", user).subscribe(
-      user => this.handleUser(user)
-    )
- }
+  logout() {
+    this.request.get("/api/user/logout").subscribe(() => this.handleUser())
+  }
 
- login(username, password) {
-    this.request.post("/api/user/login", {username,password})
-     .map(res => res.json())
-     .map(user => this.handleUser(user))
-     .catch(this.handleError);
- }
-
- logout() {
-    this.request.get("/api/user/logout")
-     .map(() => this.handleUser())
-     .catch(this.handleError);
- }
-
- isLoggedIn() {
-    this.request.get("/api/user/loggedin")
-     .map(res => res.json())
-     .map(user => this.handleUser(user))
-     .catch(this.handleError);
- }
+  isLoggedIn() {
+    this.request.get("/api/user/loggedin").subscribe(user => this.handleUser(user))
+  }
 
 }

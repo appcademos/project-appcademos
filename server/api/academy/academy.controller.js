@@ -38,43 +38,50 @@ const getOne = (req, res, next) => {
     });
 };
 
+const logInPromise = (user, req) => new Promise((resolve, reject) => {
+  req.login(user, (err) => {
+    if (err) return reject('Something went wrong');
+    resolve(user);
+  });
+});
+
 const signup = (req, res, next) => {
   const { name, email } = req.body;
   const password = req.body.password;
-  const exists = false;
 
-  Academy.findOne({ email })
-    .then(foundUser => {
-      debug(foundUser);
-      if (!foundUser) {
-        const salt = bcrypt.genSaltSync(bcryptSalt);
-        const hashPass = bcrypt.hashSync(password, salt);
+  if (email === "" || password === "") {
+    res.status(400).json({ message: "Indicate email and password" });
+    return;
+  }
 
-        const newAcademy = new Academy({
-          name,
-          email,
-          password: hashPass
-        });
-
-        newAcademy.save(err => {
-          if (err) {
-            debug(err);
-            return res.status(400).json({ message: "Something went wrong" });
-          } else {
-            return res.status(201).json({ message: "Academy saved" });
-            welcomeAcademy.to = email;
-            transporter
-              .sendMail(welcomeAcademy)
-              .then(info => debug(info))
-              .catch(err => debug(err));
-          }
-        });
-      }
-    })
-    .catch(err => {
-      next(err);
+  Academy.findOne({ email }).then(foundUser => {
+    if (foundUser !== null) {
+      res.status(409).json({ message: "Academy already exists" });
       return;
+    }
+
+    const salt = bcrypt.genSaltSync(bcryptSalt);
+    const hashPass = bcrypt.hashSync(password, salt);
+
+    const newAcademy = new Academy({
+      name,
+      email,
+      password: hashPass
     });
+
+    return newAcademy.save().then(academy => {
+      welcomeMail.to = email;
+      transporter
+        .sendMail(welcomeAcademy)
+        .then(info => debug("Nodemailer Info: " + info))
+        .catch(err => debug("Nodemailer Error: " + err));
+
+        logInPromise(academy, req)
+        
+        res.status(200).json(academy)
+    }).catch(err => res.status(400).json({ message: "Something went wrong when saving user" }));
+  })
+    .catch(e => res.status(400).json({ message: "Something went wrong" }))
 };
 
 const logout = (req, res) => {

@@ -17,13 +17,13 @@ const cors = require("cors");
 
 mongoose.Promise = Promise;
 mongoose
-.connect(dbURL)
-.then(() => {
-  debug(`Connected to Mongo at ${dbURL}`);
-})
-.catch(err => {
-  debug("Error connecting to mongo", err);
-});
+  .connect(dbURL)
+  .then(() => {
+    debug(`Connected to Mongo at ${dbURL}`);
+  })
+  .catch(err => {
+    debug("Error connecting to mongo", err);
+  });
 
 const app = express();
 
@@ -71,5 +71,6 @@ app.use((req, res, next) => {
 app.locals.title = "Appcademos";
 
 require("./routes/routes")(app);
+
 
 module.exports = app;

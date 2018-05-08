@@ -1,8 +1,8 @@
 module.exports = app => {
-  app.use("/academy", require("./academy"));
-  app.use("/course", require("./course"));
-  app.use("/review", require("./review"));
-  app.use("/user", require("./user"));
+  app.use("/api/academy", require("./academy"));
+  app.use("/api/course", require("./course"));
+  app.use("/api/review", require("./review"));
+  app.use("/api/user", require("./user"));
   app.use("/", require("./home"));
-  app.use(require("./badRequest")(app));
+
 };

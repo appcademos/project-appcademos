@@ -28,6 +28,7 @@ export class RequestService {
     post(query: String, data: Object) {
         return this.http.post(`${environment.BASEURL}${query}`, data, this.options)
         .map(res=> res.json())
+        .catch(err => err.json())
     }
 
     delete(query:String) {
