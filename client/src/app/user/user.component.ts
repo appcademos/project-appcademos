@@ -4,7 +4,7 @@ import { RequestService } from "../../services/request.service";
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  styleUrls: ['../../sass/components/user.component.scss']
 })
 export class UserComponent implements OnInit {
 

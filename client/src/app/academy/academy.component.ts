@@ -4,7 +4,7 @@ import { RequestService } from '../../services/request.service';
 @Component({
   selector: 'app-academy',
   templateUrl: './academy.component.html',
-  styleUrls: ['./academy.component.scss']
+  styleUrls: ['../../sass/components/academy.component.scss']
 })
 export class AcademyComponent implements OnInit {
 

@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  BASEURL: 'http://localhost:3000'
+  BASEURL: 'http://localhost:3000',
+  MAPS: 'AIzaSyCEoxh5mWJLhzA_1UoacS3dfl1iBK61j7c'
 };

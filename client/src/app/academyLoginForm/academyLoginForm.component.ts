@@ -4,7 +4,7 @@ import { AcademySessionService } from '../../services/academySession.service';
 @Component({
   selector: 'app-academyLoginForm',
   templateUrl: './academyLoginForm.component.html',
-  styleUrls: ['./academyLoginForm.component.scss']
+  styleUrls: ['../../sass/components/academyLoginForm.component.scss']
 })
 export class AcademyLoginFormComponent implements OnInit {
   email: String;
