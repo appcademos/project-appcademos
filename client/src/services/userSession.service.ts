@@ -30,7 +30,8 @@ export class UserSessionService {
   login(user) {
     this.request
       .post("/api/user/login", user)
-      .subscribe(user => this.handleUser(user));
+      .subscribe(user => {    
+        this.handleUser(user)});
   }
 
   logout() {
@@ -39,7 +40,7 @@ export class UserSessionService {
 
   isLoggedIn() {
     this.request
-      .get("/api/user/loggedin")
-      .subscribe(user => this.handleUser(user));
+    .get("/api/user/loggedin")
+    .subscribe(user => this.handleUser(user));
   }
 }

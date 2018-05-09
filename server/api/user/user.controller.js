@@ -16,7 +16,6 @@ const debug = require("debug")("server:user.controller");
 const fields = Object.keys(_.omit(User.schema.paths, ["__v", "_id"]));
 
 const loggedin = (req, res) => {
-  debug("19", req.user);
   if (req.user) {
     return res.status(200).json(req.user);
   } else {
@@ -26,6 +25,7 @@ const loggedin = (req, res) => {
 
 const logInPromise = (user, req) =>
   new Promise((resolve, reject) => {
+    debug("29");
     req.login(user, err => {
       if (err) return reject("Something went wrong");
       resolve(user);
@@ -90,8 +90,6 @@ const logout = (req, res) => {
 };
 
 const getThisUser = (req, res, next) => {
-  debug(req.user);
-
   if (req.user) {
     User.findById(req.user.id)
       .then(user => {
@@ -107,7 +105,6 @@ const getThisUser = (req, res, next) => {
 };
 
 const getUser = (req, res, next) => {
-  debug(req.user);
   User.findById(req.params.id)
     .then(user => {
       res.status(200).json({ user });
@@ -188,11 +185,11 @@ const erase = (req, res, next) => {
 };
 
 module.exports = {
+  loggedin,
   signup,
   logout,
   getThisUser,
   getUser,
   update,
-  erase,
-  loggedin
+  erase
 };

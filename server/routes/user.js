@@ -3,13 +3,13 @@ const router = express.Router();
 const passport = require("passport");
 
 const {
+  loggedin,
   signup,
   logout,
   getThisUser,
   getUser,
   update,
-  erase,
-  loggedin
+  erase
 } = require("../api/user/user.controller");
 
 router.get("/loggedin", loggedin);
