@@ -16,7 +16,7 @@ const {
 } = require("../../config/nodemailer/transporter");
 
 const getAll = (req, res, next) => {
-  Academy.find()
+  Academy.find().select("-password")
     .then(academies => {
       res.status(200).json({ academies });
     })
@@ -27,7 +27,7 @@ const getAll = (req, res, next) => {
 };
 
 const getOne = (req, res, next) => {
-  Academy.findById(req.params.id)
+  Academy.findById(req.params.id).select("-password")
     .then(academy => {
       res.status(200).json({ academy });
     })
@@ -39,7 +39,7 @@ const getOne = (req, res, next) => {
 
 const getThisAcademy = (req, res, next) => {
   if (req.user) {
-    Academy.findById(req.user.id)
+    Academy.findById(req.user.id).select("-password")
       .then(user => {
         res.status(200).json({ user });
       })

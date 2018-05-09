@@ -91,7 +91,7 @@ const logout = (req, res) => {
 
 const getThisUser = (req, res, next) => {
   if (req.user) {
-    User.findById(req.user.id)
+    User.findById(req.user.id).select("-password")
       .then(user => {
         res.status(200).json({ user });
       })
@@ -105,7 +105,7 @@ const getThisUser = (req, res, next) => {
 };
 
 const getUser = (req, res, next) => {
-  User.findById(req.params.id)
+  User.findById(req.params.id).select("-password")
     .then(user => {
       res.status(200).json({ user });
     })
