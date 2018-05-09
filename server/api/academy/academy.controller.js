@@ -15,50 +15,34 @@ const {
   welcomeAcademy
 } = require("../../config/nodemailer/transporter");
 
-const getAll = (req, res, next) => {
-  Academy.find().select("-password")
-    .then(academies => {
-      res.status(200).json({ academies });
-    })
-    .catch(err => {
-      debug(err);
-      res.status(400).json({ message: "Error requesting academies" });
-    });
-};
-
-const getOne = (req, res, next) => {
-  Academy.findById(req.params.id).select("-password")
-    .then(academy => {
-      res.status(200).json({ academy });
-    })
-    .catch(err => {
-      debug(err);
-      res.status(400).json({ message: "Academy not found" });
-    });
-};
-
-const getThisAcademy = (req, res, next) => {
-  if (req.user) {
-    Academy.findById(req.user.id).select("-password")
-      .then(user => {
-        res.status(200).json({ user });
-      })
-      .catch(err => {
-        debug(err);
-        res.status(400).json({ message: "Error retrieving user" });
-      });
-  } else {
-    res.status(400).json({ message: "Academy not logged" });
-  }
-};
-
-const logInPromise = (user, req) =>
+const logInPromise = (user, req) => {
   new Promise((resolve, reject) => {
     req.login(user, err => {
-      if (err) return reject("Something went wrong");
+      if (err) return reject("Something went wrong at user login after signup");
       resolve(user);
     });
   });
+};
+
+const loggedIn = (req, res) => {
+  if (req.user) {
+    return res.status(200).json(req.user);
+  } else {
+    return res.status(400).json({ message: "You should login first" });
+  }
+};
+
+const logout = (req, res) => {
+  const user = req.user;
+  debug(user);
+  if (user) {
+    req.session.destroy(function(err) {
+      res.status(200).json({ message: "Logged out" });
+    });
+  } else {
+    res.status(400).json({ message: "You are not logged in!" });
+  }
+};
 
 const signup = (req, res, next) => {
   const { email, name } = req.body;
@@ -94,10 +78,13 @@ const signup = (req, res, next) => {
             .then(info => debug("Nodemailer Info: " + info))
             .catch(err => debug("Nodemailer Error: " + err));
 
-          logInPromise(user, req).then(user => res.status(200).json(user)).catch(err => res
-            .status(400)
-            .json({ message: "Something went wrong when loggin in academy" })
-          )
+          logInPromise(user, req)
+            .then(user => res.status(200).json(user))
+            .catch(err =>
+              res.status(400).json({
+                message: "Something went wrong when loggin in academy"
+              })
+            );
         })
         .catch(err =>
           res
@@ -108,25 +95,45 @@ const signup = (req, res, next) => {
     .catch(e => res.status(400).json({ message: "Something went wrong!!!" }));
 };
 
-const logout = (req, res) => {
-  const user = req.user;
-  debug(user)
-  if (user) {
-    req.session.destroy(function (err) {
-      res.status(200).json({ message: "Logged out" });
+const getAll = (req, res, next) => {
+  Academy.find()
+    .select("-password")
+    .then(academies => {
+      res.status(200).json({ academies });
+    })
+    .catch(err => {
+      debug(err);
+      res.status(500).json({ message: "Error requesting academies" });
     });
-  } else {
-    res.status(400).json({ message: "You are not logged in!" });
-  }
 };
 
-const loggedin = (req, res) => {
+const getOne = (req, res, next) => {
+  Academy.findById(req.params.id)
+    .select("-password")
+    .then(academy => {
+      res.status(200).json({ academy });
+    })
+    .catch(err => {
+      debug(err);
+      res.status(400).json({ message: "Academy not found" });
+    });
+};
+
+const getThis = (req, res, next) => {
   if (req.user) {
-    return res.status(200).json(req.user);
+    Academy.findById(req.user.id)
+      .select("-password")
+      .then(user => {
+        res.status(200).json({ user });
+      })
+      .catch(err => {
+        debug(err);
+        res.status(400).json({ message: "Error retrieving academy" });
+      });
   } else {
-    return res.status(400).json({ message: "You should loggin first" });
+    res.status(400).json({ message: "You should login as an Academy" });
   }
-}
+};
 
 const update = (req, res, next) => {
   let updates = _.pick(req.body, fields);
@@ -179,7 +186,7 @@ const erase = (req, res, next) => {
   if (user) {
     Academy.findByIdAndRemove(user._id)
       .then(() => {
-        req.session.destroy(function (err) {
+        req.session.destroy(function(err) {
           res.status(200).json({ message: "Academy removed" });
         });
       })
@@ -193,4 +200,13 @@ const erase = (req, res, next) => {
   }
 };
 
-module.exports = { getAll, getOne, signup, update, erase, logout, loggedin, getThisAcademy };
+module.exports = {
+  loggedIn,
+  logout,
+  signup,
+  getAll,
+  getOne,
+  getThis,
+  update,
+  erase
+};

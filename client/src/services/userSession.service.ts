@@ -8,9 +8,14 @@ import { RequestService } from "../services/request.service";
 
 @Injectable()
 export class UserSessionService {
-
   constructor(private request: RequestService) {
     this.isLoggedIn();
+  }
+
+  isLoggedIn() {
+    this.request
+      .get("/api/user/session")
+      .subscribe(user => this.request.handleUser(user));
   }
 
   signup(user) {
@@ -20,19 +25,14 @@ export class UserSessionService {
   }
 
   login(user) {
-    this.request
-      .post("/api/user/login", user)
-      .subscribe(user => {    
-        this.request.handleUser(user)});
+    this.request.post("/api/user/login", user).subscribe(user => {
+      this.request.handleUser(user);
+    });
   }
 
   logout() {
-    this.request.get("/api/user/logout").subscribe(() => this.request.handleUser());
-  }
-
-  isLoggedIn() {
     this.request
-    .get("/api/user/loggedin")
-    .subscribe(user => this.request.handleUser(user));
+      .get("/api/user/logout")
+      .subscribe(() => this.request.handleUser());
   }
 }

@@ -31,18 +31,18 @@
     <div class="collapse navbar-collapse" id="navbarNavMenu2">
         <ul class="w-100 navbar-nav d-flex justify-content-around">
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['']">First Certificate
+                <a class="nav-link" [routerLink]="['']">{{"First Certificate" | uppercase}}
                   <span class="sr-only">(current)</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" [routerLink]="['']">Advanced</a>
+                <a class="nav-link" [routerLink]="['']">{{"Advanced" | uppercase}}</a>
               </li>
               <li class="nav-item">
-                <a *ngIf="!request.user" class="nav-link" [routerLink]="['']">Inglés Nível B2</a>
+                <a *ngIf="!request.user" class="nav-link" [routerLink]="['']">{{"Inglés Nível B2" | uppercase}}</a>
               </li>
               <li class="nav-item">
-                <a *ngIf="!request.user" class="nav-link" [routerLink]="['']">Inglés Nível C1</a>
+                <a *ngIf="!request.user" class="nav-link" [routerLink]="['']">{{"Inglés Nível C1" | uppercase}}</a>
               </li>
               <li class="nav-item">
                 <a *ngIf="!request.user" class="nav-link" [routerLink]="['']">TOEFL</a>

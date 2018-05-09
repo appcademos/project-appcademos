@@ -3,20 +3,20 @@ const router = express.Router();
 const passport = require("passport");
 
 const {
-  loggedin,
-  signup,
+  loggedIn,
   logout,
+  signup,
   getThisUser,
   getUser,
   update,
   erase
 } = require("../api/user/user.controller");
 
-router.get("/loggedin", loggedin);
+router.get("/session", loggedIn);
 router.get("/logout", logout);
-router.get("/:id", getUser);
+router.get("/single/:id", getUser);
 router.get("/", getThisUser);
-router.put("/update", update);
+router.put("/update/:id", update);
 router.post("/login", passport.authenticate("user-local"), function(req, res) {
   res.status(200).json(req.user);
 });
