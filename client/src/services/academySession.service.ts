@@ -10,34 +10,27 @@ import { RequestService } from '../services/request.service'
 @Injectable()
 export class AcademySessionService {
 
-  academy: any;
-  academyEvent: EventEmitter<any> = new EventEmitter();
+
 
   constructor(private request: RequestService) {
     this.isLoggedIn()
   }
 
-  handleAcademy(academy?: object) {
-    this.academy = academy;
-    this.academyEvent.emit(this.academy);
-    console.log("pepe", this.academy);
-    return this.academy;
-  }
 
   signup(academy) {
-    this.request.post("/api/academy/signup", academy).subscribe(academy => this.handleAcademy(academy))
+    this.request.post("/api/academy/signup", academy).subscribe(academy => this.request.handleUser(academy))
   }
 
-  login(academyName, password) {
-    this.request.post("/api/academy/login", { academyName, password }).subscribe(academy => this.handleAcademy(academy))
+  login(academy) {
+    this.request.post("/api/academy/login", academy).subscribe(academy => this.request.handleUser(academy))
   }
 
   logout() {
-    this.request.get("/api/academy/logout").subscribe(() => this.handleAcademy())
+    this.request.get("/api/academy/logout").subscribe(() => this.request.handleUser())
   }
 
   isLoggedIn() {
-    this.request.get("/api/academy/loggedin").subscribe(academy => this.handleAcademy(academy))
+    this.request.get("/api/academy/loggedin").subscribe(academy => this.request.handleUser(academy))
   }
 
 }

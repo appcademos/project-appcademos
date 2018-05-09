@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserSessionService } from '../../services/userSession.service';
+import { RequestService } from "../../services/request.service";
 
 @Component({
   selector: 'app-user',
@@ -8,13 +8,7 @@ import { UserSessionService } from '../../services/userSession.service';
 })
 export class UserComponent implements OnInit {
 
-  user: any;
-
-  constructor(public userSession: UserSessionService) {
-    this.userSession.userEvent.subscribe(user => {
-      if (user) this.user = user;
-    });
-  }
+  constructor(public request: RequestService) {}
 
   ngOnInit() {
   }

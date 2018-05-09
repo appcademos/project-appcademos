@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, EventEmitter } from "@angular/core";
 import { Http } from "@angular/http";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
@@ -7,9 +7,17 @@ import { environment } from "../environments/environment";
 
 @Injectable()
 export class RequestService {
+  user: any;
+  userEvent: EventEmitter<any> = new EventEmitter();
   options: any = { withCredentials: true };
 
   constructor(private http: Http) {}
+
+  handleUser(user?: object) {
+    this.user = user;
+    this.userEvent.emit(this.user);
+    return this.user;
+  }
 
   get(query: String) {
     return this.http

@@ -25,7 +25,6 @@ const loggedin = (req, res) => {
 
 const logInPromise = (user, req) =>
   new Promise((resolve, reject) => {
-    debug("29");
     req.login(user, err => {
       if (err) return reject("Something went wrong");
       resolve(user);
@@ -65,9 +64,10 @@ const signup = (req, res, next) => {
             .then(info => debug("Nodemailer Info: " + info))
             .catch(err => debug("Nodemailer Error: " + err));
 
-          logInPromise(user, req);
-
-          res.status(200).json(user);
+          logInPromise(user, req).then(user => res.status(200).json(user)).catch(err => res
+            .status(400)
+            .json({ message: "Something went wrong when loggin in user" })
+          )
         })
         .catch(err =>
           res
@@ -81,7 +81,7 @@ const signup = (req, res, next) => {
 const logout = (req, res) => {
   const user = req.user;
   if (user) {
-    req.session.destroy(function(err) {
+    req.session.destroy(function (err) {
       res.status(200).json({ message: "Logged out" });
     });
   } else {
@@ -170,7 +170,7 @@ const erase = (req, res, next) => {
   if (req.user) {
     User.findByIdAndRemove(req.user.id)
       .then(() => {
-        req.session.destroy(function(err) {
+        req.session.destroy(function (err) {
           res.status(200).json({ message: "User removed" });
         });
       })

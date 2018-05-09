@@ -19,7 +19,9 @@ import { AllCoursesComponent } from './allCourses/allCourses.component';
 import { OneCourseComponent } from './oneCourse/oneCourse.component';
 import { UserLoginFormComponent } from './userLoginForm/userLoginForm.component';
 import { UserSignupFormComponent } from './userSignupForm/userSignupForm.component';
-import { AcademyFormComponent } from './academyForm/academyForm.component';
+import { AcademyLoginFormComponent } from './academyLoginForm/academyLoginForm.component';
+import { AcademySignupFormComponent } from './academySignupForm/academySignupForm.component';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { AcademyFormComponent } from './academyForm/academyForm.component';
     OneCourseComponent,
     UserLoginFormComponent,
     UserSignupFormComponent,
-    AcademyFormComponent
+    AcademyLoginFormComponent,
+    AcademySignupFormComponent,
+    MapComponent
 ],
   imports: [
     BrowserModule,

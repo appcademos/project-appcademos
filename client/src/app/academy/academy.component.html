@@ -1,3 +1,6 @@
 <p>
   academy works!
 </p>
+<div *ngIf="!request.user">
+  <app-academyLoginForm></app-academyLoginForm>
+</div>
