@@ -24,10 +24,6 @@ document.addEventListener(
                     infoWindow.setPosition(pos);
                     infoWindow.setContent(marker.title);
                     map.setCenter(pos);
-
-                    
-
-
                 }, function () {
                     handleLocationError(true, infoWindow, map.getCenter());
                 });
