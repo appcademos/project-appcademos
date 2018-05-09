@@ -23,27 +23,27 @@ export class RequestService {
     return this.http
       .get(`${environment.BASEURL}${query}`, this.options)
       .map(res => res.json())
-      .catch(error => Observable.throw("Error in request GET service"));
+      .catch(error => Observable.throw(error.json().message));
   }
 
   put(query: String, data: Object) {
     return this.http
       .put(`${environment.BASEURL}${query}`, data, this.options)
       .map(res => res.json())
-      .catch(error => Observable.throw("Error in request PUT service"));
+      .catch(error => Observable.throw(error.json().message));
   }
 
   post(query: String, data: Object) {
     return this.http
       .post(`${environment.BASEURL}${query}`, data, this.options)
       .map(res => res.json())
-      .catch(error => Observable.throw("Error in request POST service"));
+      .catch(error => Observable.throw(error.json().message));
   }
 
   delete(query: String) {
     return this.http
       .delete(`${environment.BASEURL}${query}`, this.options)
       .map(res => res.json())
-      .catch(error => Observable.throw("Error in request DELETE service"));
+      .catch(error => Observable.throw(error.json().message));
   }
 }
