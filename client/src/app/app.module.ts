@@ -28,6 +28,7 @@ import { AcademyLoginFormComponent } from "./academyLoginForm/academyLoginForm.c
 import { AcademySignupFormComponent } from "./academySignupForm/academySignupForm.component";
 import { MapComponent } from "./map/map.component";
 import { environment } from "../environments/environment";
+import { GeolocationService } from "../services/geolocation.service";
 
 @NgModule({
   declarations: [
@@ -54,7 +55,7 @@ import { environment } from "../environments/environment";
       apiKey: environment.MAPS
     })
   ],
-  providers: [RequestService, UserSessionService, AcademySessionService],
+  providers: [RequestService, UserSessionService, AcademySessionService, GeolocationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
