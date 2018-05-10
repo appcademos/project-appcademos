@@ -4,7 +4,7 @@ import { RequestService } from "../../services/request.service";
 @Component({
   selector: "app-map",
   templateUrl: "./map.component.html",
-  styleUrls: ["../../sass/components/map.component.scss"]
+  styleUrls: ["./map.component.scss"]
 })
 export class MapComponent implements OnInit {
 

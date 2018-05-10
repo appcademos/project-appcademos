@@ -4,7 +4,7 @@ import { UserSessionService } from "../../services/userSession.service";
 @Component({
   selector: "app-userLoginForm",
   templateUrl: "./userLoginForm.component.html",
-  styleUrls: ["../../sass/components/userLoginForm.component.scss"]
+  styleUrls: ["./userLoginForm.component.scss"]
 })
 export class UserLoginFormComponent implements OnInit {
   

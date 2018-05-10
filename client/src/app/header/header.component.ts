@@ -4,7 +4,7 @@ import { RequestService } from '../../services/request.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['../../sass/components/header.component.scss']
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
 
