@@ -4,6 +4,8 @@ import { UserComponent } from './user/user.component';
 import { AcademyComponent } from './academy/academy.component';
 import { AllCoursesComponent } from './allCourses/allCourses.component';
 import { OneCourseComponent } from './oneCourse/oneCourse.component';
+import { UserLoginFormComponent } from './userLoginForm/userLoginForm.component';
+import { UserSignupFormComponent } from './userSignupForm/userSignupForm.component';
 
 export const routes: Routes = [
    { path: '', component: HomeComponent},
@@ -11,5 +13,6 @@ export const routes: Routes = [
    { path: 'academy', component: AcademyComponent},
    { path: 'courses', component: AllCoursesComponent},
    { path: 'courses/:id', component: OneCourseComponent},
+   { path: 'signup', component: UserSignupFormComponent},
    { path: '**', redirectTo: ''}
 ];
