@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const academySchema = new Schema(
   {
-    website: String,
+    phone: Number,
     imagePath: String,
     imageName: String,
     description: String,
@@ -22,7 +22,7 @@ const academySchema = new Schema(
     },
     name: {
       type: String,
-      required: true
+      required: false
     },
     location: {
       type: { type: String },

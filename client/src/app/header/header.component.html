@@ -7,15 +7,15 @@
     <div class="collapse navbar-collapse" id="navbarNavMenu">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item mr-4">
-          <a class="nav-link" [routerLink]="['']">{{"Quiénes Somos"}}
+          <a class="nav-link" [routerLink]="['']">Quiénes Somos
             <span class="sr-only">(current)</span>
           </a>
         </li>
         <li class="nav-item mr-4">
-          <a class="nav-link" [routerLink]="['']">{{"Contacto"}}</a>
+          <a class="nav-link" [routerLink]="['']">Contacto</a>
         </li>
         <li class="nav-item">
-          <a *ngIf="!request.user" class="nav-link" [routerLink]="['signup']">{{"Iniciar Sesión"}}</a>
+          <a *ngIf="!request.user" class="nav-link" [routerLink]="['signup']">Iniciar Sesión</a>
         </li>
       </ul>
     </div>
@@ -31,24 +31,24 @@
     <div class="collapse navbar-collapse" id="navbarNavMenu2">
       <ul class="w-100 navbar-nav d-flex justify-content-around">
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['']">{{"First Certificate" | uppercase}}
+          <a class="nav-link" [routerLink]="['']">First Certificate
             <span class="sr-only">(current)</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['']">{{"Advanced" | uppercase}}</a>
+          <a class="nav-link" [routerLink]="['']">Advanced</a>
         </li>
         <li class="nav-item">
-          <a *ngIf="!request.user" class="nav-link" [routerLink]="['']">{{"Inglés Nível B2" | uppercase}}</a>
+          <a  class="nav-link" [routerLink]="['']">Inglés Nível B</a>
         </li>
         <li class="nav-item">
-          <a *ngIf="!request.user" class="nav-link" [routerLink]="['']">{{"Inglés Nível C1" | uppercase}}</a>
+          <a class="nav-link" [routerLink]="['']">Inglés Nível C1</a>
         </li>
         <li class="nav-item">
-          <a *ngIf="!request.user" class="nav-link" [routerLink]="['']">TOEFL</a>
+          <a class="nav-link" [routerLink]="['']">TOEFL</a>
         </li>
         <li class="nav-item">
-          <a *ngIf="!request.user" class="nav-link" [routerLink]="['']">IELTS</a>
+          <a class="nav-link" [routerLink]="['']">IELTS</a>
         </li>
       </ul>
     </div>

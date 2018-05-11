@@ -17,7 +17,7 @@ router.get("/logout", logout);
 router.get("/single/:id", getUser);
 router.get("/", getThisUser);
 router.put("/update/:id", update);
-router.post("/login", passport.authenticate("user-local"), function(req, res) {
+router.post("/login", passport.authenticate("user-local"), function (req, res) {
   res.status(200).json(req.user);
 });
 router.post("/signup", signup);

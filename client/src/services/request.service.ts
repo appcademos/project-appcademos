@@ -15,6 +15,7 @@ export class RequestService {
 
   handleUser(user?: object) {
     this.user = user;
+    console.log(this.user);
     this.userEvent.emit(this.user);
     return this.user;
   }
@@ -24,6 +25,7 @@ export class RequestService {
       .get(`${environment.BASEURL}${query}`, this.options)
       .map(res => res.json())
       .catch(error => Observable.throw(error.json().message));
+      
   }
 
   put(query: String, data: Object) {

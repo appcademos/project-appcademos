@@ -16,10 +16,10 @@ const {
 } = require("../../config/nodemailer/transporter");
 
 const logInPromise = (user, req) => {
-  new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     req.login(user, err => {
       if (err) return reject("Something went wrong at user login after signup");
-      resolve(user);
+      return resolve(user);
     });
   });
 };
@@ -35,7 +35,7 @@ const loggedIn = (req, res) => {
 const logout = (req, res) => {
   const user = req.user;
   if (user) {
-    req.session.destroy(function(err) {
+    req.session.destroy(function (err) {
       res.status(200).json({ message: "Logged out" });
     });
   } else {
@@ -44,8 +44,7 @@ const logout = (req, res) => {
 };
 
 const signup = (req, res, next) => {
-  const email = req.body.email;
-  const password = req.body.password;
+  const { email, password } = req.body;
 
   if (email === "" || password === "") {
     res.status(401).json({ message: "Indicate email and password" });
@@ -70,21 +69,10 @@ const signup = (req, res, next) => {
       return newUser
         .save()
         .then(user => {
-          welcomeMail.to = email;
-          transporter
-            .sendMail(welcomeMail)
-            .then(info => debug("Nodemailer Info: " + info))
-            .catch(err => debug("Nodemailer Error: " + err));
 
           logInPromise(user, req)
-            .then(user => res.status(200).json(user))
-            .catch(err => res.status(500).json({ message: err }));
+            .then(user => res.status(200).json(user));
         })
-        .catch(err =>
-          res
-            .status(400)
-            .json({ message: "Something went wrong when saving user" })
-        );
     })
     .catch(e =>
       res
@@ -177,7 +165,7 @@ const erase = (req, res, next) => {
   if (req.user) {
     User.findByIdAndRemove(req.user.id)
       .then(() => {
-        req.session.destroy(function(err) {
+        req.session.destroy(function (err) {
           res.status(200).json({ message: "User removed" });
         });
       })
