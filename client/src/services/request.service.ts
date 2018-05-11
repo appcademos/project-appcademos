@@ -15,7 +15,6 @@ export class RequestService {
 
   handleUser(user?: object) {
     this.user = user;
-    console.log(this.user);
     this.userEvent.emit(this.user);
     return this.user;
   }
