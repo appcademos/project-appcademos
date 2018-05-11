@@ -45,8 +45,7 @@ const logout = (req, res) => {
 };
 
 const signup = (req, res, next) => {
-  const { email, name } = req.body;
-  const password = req.body.password;
+  const { email, name, phone, location, password } = req.body;
 
   if (email === "" || password === "") {
     res.status(400).json({ message: "Indicate email and password" });
