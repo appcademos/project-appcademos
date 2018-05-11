@@ -31,6 +31,7 @@ import { MapComponent } from "./map/map.component";
 import { environment } from "../environments/environment";
 import { GeolocationService } from "../services/geolocation.service";
 import { SearchboxCoursesComponent } from './searchbox-courses/searchbox-courses.component';
+import { IsAcademyButtonComponent } from './isAcademyButton/isAcademyButton.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { SearchboxCoursesComponent } from './searchbox-courses/searchbox-courses
     AcademyLoginFormComponent,
     AcademySignupFormComponent,
     MapComponent,
-    SearchboxCoursesComponent
+    SearchboxCoursesComponent,
+    IsAcademyButtonComponent
 ],
   imports: [
     BrowserModule,

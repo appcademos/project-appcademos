@@ -27,7 +27,18 @@ mongoose
 
 const app = express();
 
-require("./config/cors")(app);
+var whitelist = [
+  `${process.env.CORS_ALLOW}`,
+];
+var corsOptions = {
+  origin: function (origin, callback) {
+    var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
+    callback(null, originIsWhitelisted);
+  },
+  credentials: true
+};
+app.use(cors(corsOptions));
+
 // Middleware Setup
 app.use(logger("dev"));
 app.use(cookieParser());

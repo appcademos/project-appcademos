@@ -16,10 +16,10 @@ const {
 } = require("../../config/nodemailer/transporter");
 
 const logInPromise = (user, req) => {
-  new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     req.login(user, err => {
       if (err) return reject("Something went wrong at user login after signup");
-      resolve(user);
+      return resolve(user);
     });
   });
 };
@@ -34,9 +34,8 @@ const loggedIn = (req, res) => {
 
 const logout = (req, res) => {
   const user = req.user;
-  debug(user);
   if (user) {
-    req.session.destroy(function(err) {
+    req.session.destroy(function (err) {
       res.status(200).json({ message: "Logged out" });
     });
   } else {
@@ -45,17 +44,17 @@ const logout = (req, res) => {
 };
 
 const signup = (req, res, next) => {
-  const { email, name, phone, location, password } = req.body;
+  const { name, email, location, password } = req.body;
 
   if (email === "" || password === "") {
-    res.status(400).json({ message: "Indicate email and password" });
+    res.status(401).json({ message: "Indicate email and password" });
     return;
   }
 
   Academy.findOne({ email })
     .then(user => {
       if (user !== null) {
-        res.status(409).json({ message: "User already exists" });
+        res.status(409).json({ message: "user already exists" });
         return;
       }
 
@@ -64,34 +63,21 @@ const signup = (req, res, next) => {
 
       const newAcademy = new Academy({
         email,
-        name,
         password: hashPass
       });
 
-      return newAcademy
+      newAcademy
         .save()
         .then(user => {
-          welcomeAcademy.to = email;
-          transporter
-            .sendMail(welcomeAcademy)
-            .then(info => debug("Nodemailer Info: " + info))
-            .catch(err => debug("Nodemailer Error: " + err));
-
           logInPromise(user, req)
-            .then(user => res.status(200).json(user))
-            .catch(err =>
-              res.status(400).json({
-                message: "Something went wrong when loggin in academy"
-              })
-            );
+            .then(user => res.status(200).json(user));
         })
-        .catch(err =>
-          res
-            .status(400)
-            .json({ message: "Something went wrong when saving academy", err })
-        );
     })
-    .catch(e => res.status(400).json({ message: "Something went wrong!!!" }));
+    .catch(e =>
+      res
+        .status(400)
+        .json({ message: "Something went wrong when trying to save Academy" })
+    );
 };
 
 const getAll = (req, res, next) => {
@@ -185,7 +171,7 @@ const erase = (req, res, next) => {
   if (user) {
     Academy.findByIdAndRemove(user._id)
       .then(() => {
-        req.session.destroy(function(err) {
+        req.session.destroy(function (err) {
           res.status(200).json({ message: "Academy removed" });
         });
       })
