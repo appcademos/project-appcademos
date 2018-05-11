@@ -1,4 +1,9 @@
-<p>
-  home works!
-</p>
-<app-map></app-map>
+<div class="carousel-holder">
+  <app-searchbox-courses></app-searchbox-courses>
+  <ngb-carousel>
+    <ng-template ngbSlide>
+      <div class="slide-overlay"></div>
+      <img [src]="images[0]" class="object-fit_fill">
+  </ng-template>
+</ngb-carousel>
+</div>

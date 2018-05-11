@@ -7,6 +7,7 @@ import { RouterModule } from "@angular/router";
 
 // LIBRARIES
 import { AgmCoreModule } from "@agm/core";
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 // SERVICES
 import { RequestService } from "../services/request.service";
@@ -29,6 +30,7 @@ import { AcademySignupFormComponent } from "./academySignupForm/academySignupFor
 import { MapComponent } from "./map/map.component";
 import { environment } from "../environments/environment";
 import { GeolocationService } from "../services/geolocation.service";
+import { SearchboxCoursesComponent } from './searchbox-courses/searchbox-courses.component';
 
 @NgModule({
   declarations: [
@@ -44,8 +46,9 @@ import { GeolocationService } from "../services/geolocation.service";
     UserSignupFormComponent,
     AcademyLoginFormComponent,
     AcademySignupFormComponent,
-    MapComponent
-  ],
+    MapComponent,
+    SearchboxCoursesComponent
+],
   imports: [
     BrowserModule,
     FormsModule,
@@ -53,7 +56,8 @@ import { GeolocationService } from "../services/geolocation.service";
     RouterModule.forRoot(routes),
     AgmCoreModule.forRoot({
       apiKey: environment.MAPS
-    })
+    }),
+    NgbModule.forRoot()
   ],
   providers: [RequestService, UserSessionService, AcademySessionService, GeolocationService],
   bootstrap: [AppComponent]

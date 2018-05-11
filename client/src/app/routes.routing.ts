@@ -13,5 +13,3 @@ export const routes: Routes = [
    { path: 'courses/:id', component: OneCourseComponent},
    { path: '**', redirectTo: ''}
 ];
-
-

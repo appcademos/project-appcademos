@@ -1,0 +1,30 @@
+.searchbox-holder{
+  left: 0;
+  right: 0;
+  top: 30%;
+  margin: auto;
+  position: absolute;
+  z-index: 1000;
+  input {
+    position: relative;
+    border-radius: 18px;
+    border: 3px solid #555555;
+    font-size: 1.5em;
+    padding: 0 0 0 15px;
+  }
+
+  button {
+    background-color: #ffffff;
+    border: 6px solid #C8102E;
+    color: #000000;
+    font-size: 1.5em;
+    border-radius: 20px;
+    width: 150px;
+    height: 80px;
+  }
+}
+
+#searchbox-courses {
+  width: 600px;
+  height: 80px;
+}

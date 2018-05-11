@@ -1,10 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex flex-column justify-content-between" id="navbarFirst">
   <div class="container d-flex justify-content-center align-items-start">
     <a class="navbar-brand mt-3" [routerLink]="['']">APPCADEMOS</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavMenu" aria-controls="navbarNavMenu" aria-expanded="false"
-      aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+
     <div class="collapse navbar-collapse" id="navbarNavMenu">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item mr-4">
@@ -22,35 +19,36 @@
     </div>
   </div>
 </nav>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbarSecond">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavMenu2" aria-controls="navbarNavMenu2" aria-expanded="false"
-      aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="container d-flex justify-content-center p-0">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavMenu2" aria-controls="navbarNavMenu2"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="container d-flex justify-content-center p-0">
     <div class="collapse navbar-collapse" id="navbarNavMenu2">
-        <ul class="w-100 navbar-nav d-flex justify-content-around">
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['']">{{"First Certificate" | uppercase}}
-                  <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" [routerLink]="['']">{{"Advanced" | uppercase}}</a>
-              </li>
-              <li class="nav-item">
-                <a *ngIf="!request.user" class="nav-link" [routerLink]="['']">{{"Inglés Nível B2" | uppercase}}</a>
-              </li>
-              <li class="nav-item">
-                <a *ngIf="!request.user" class="nav-link" [routerLink]="['']">{{"Inglés Nível C1" | uppercase}}</a>
-              </li>
-              <li class="nav-item">
-                <a *ngIf="!request.user" class="nav-link" [routerLink]="['']">TOEFL</a>
-              </li>
-              <li class="nav-item">
-                <a *ngIf="!request.user" class="nav-link" [routerLink]="['']">IELTS</a>
-              </li>
-        </ul>
+      <ul class="w-100 navbar-nav d-flex justify-content-around">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['']">{{"First Certificate" | uppercase}}
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['']">{{"Advanced" | uppercase}}</a>
+        </li>
+        <li class="nav-item">
+          <a *ngIf="!request.user" class="nav-link" [routerLink]="['']">{{"Inglés Nível B2" | uppercase}}</a>
+        </li>
+        <li class="nav-item">
+          <a *ngIf="!request.user" class="nav-link" [routerLink]="['']">{{"Inglés Nível C1" | uppercase}}</a>
+        </li>
+        <li class="nav-item">
+          <a *ngIf="!request.user" class="nav-link" [routerLink]="['']">TOEFL</a>
+        </li>
+        <li class="nav-item">
+          <a *ngIf="!request.user" class="nav-link" [routerLink]="['']">IELTS</a>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>
