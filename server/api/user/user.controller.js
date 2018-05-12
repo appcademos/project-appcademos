@@ -23,7 +23,6 @@ const logInPromise = (user, req) => {
   return new Promise((resolve, reject) => {
     req.login(user, err => {
       if (err) {
-        debug("24", err)
         return reject(err);
       }
       return resolve(user);
@@ -35,7 +34,7 @@ const loggedIn = (req, res) => {
   if (req.user) {
     return res.status(200).json(req.user);
   } else {
-    return res.status(401).json({
+    return res.status(400).json({
       message: "You should login first"
     });
   }
@@ -119,7 +118,6 @@ const signup = (req, res, next) => {
 };
 
 const login = (req, res, next) => {
-  debug("119", req.user, req.pepe);
   if (req.user) {
     return res.json("User already logged in");
   }

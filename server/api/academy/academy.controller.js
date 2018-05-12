@@ -20,10 +20,10 @@ const {
 
 const logInPromise = (academy, req) => {
   return new Promise((resolve, reject) => {
-    req.login(academy, err => {
-      if (err) return reject("Something went wrong at academy login after signup");
-      return resolve(academy);
-    });
+      req.login(academy, err => {
+        if (err) return reject("Something went wrong at academy login after signup");
+        return resolve(academy);
+      });
   });
 };
 
@@ -32,7 +32,7 @@ const loggedIn = (req, res) => {
     return res.status(200).json(req.academy);
   } else {
     return res.status(400).json({
-      message: "You should login first"
+      message: "You are not logged in"
     });
   }
 };
@@ -233,9 +233,8 @@ const update = (req, res, next) => {
 };
 
 const erase = (req, res, next) => {
-  const user = req.session.user;
-  if (user) {
-    Academy.findByIdAndRemove(user._id)
+  if (req.academy) {
+    Academy.findByIdAndRemove(req.academy._id)
       .then(() => {
         req.session.destroy(function (err) {
           res.status(200).json({
