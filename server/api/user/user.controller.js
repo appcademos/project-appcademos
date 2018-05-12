@@ -9,6 +9,9 @@ const bcryptSalt = parseInt(process.env.BCRYPT);
 const Academy = require("../academy/academy.model");
 const debug = require("debug")("server:user.controller");
 const fields = Object.keys(_.omit(User.schema.paths, ["__v", "_id"]));
+passport.initialize({
+  userProperty: "user"
+});
 
 const {
   transporter,
@@ -19,7 +22,10 @@ const {
 const logInPromise = (user, req) => {
   return new Promise((resolve, reject) => {
     req.login(user, err => {
-      if (err) return reject(err);
+      if (err) {
+        debug("24", err)
+        return reject(err);
+      }
       return resolve(user);
     });
   });
@@ -113,7 +119,8 @@ const signup = (req, res, next) => {
 };
 
 const login = (req, res, next) => {
-  if(req.user){
+  debug("119", req.user, req.pepe);
+  if (req.user) {
     return res.json("User already logged in");
   }
   passport.authenticate("user-local", (err, user, info) => {

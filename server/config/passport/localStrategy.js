@@ -7,14 +7,23 @@ const bcrypt = require("bcrypt");
 passport.use(
   "user-local",
   new LocalStrategy((username, password, next) => {
-    User.findOne({ email: username })
+    passport.initialize({
+      userProperty: "user"
+    });
+    User.findOne({
+        email: username
+      })
       .then(foundUser => {
-        if(!foundUser){
-          next(null, false, { message: "User not found" });
+        if (!foundUser) {
+          next(null, false, {
+            message: "User not found"
+          });
           return;
         }
         if (!bcrypt.compareSync(password, foundUser.password)) {
-          next(null, false, { message: "Incorrect password" });
+          next(null, false, {
+            message: "Incorrect password"
+          });
           return;
         }
         next(null, foundUser);
@@ -29,14 +38,24 @@ passport.use(
 passport.use(
   "academy-local",
   new LocalStrategy((username, password, next) => {
-    Academy.findOne({ email: username })
+    passport.initialize({
+      userProperty: "academy"
+    });
+
+    Academy.findOne({
+        email: username
+      })
       .then(foundAcademy => {
-        if(!foundAcademy){
-          next(null, false, { message: "Academy not found" });
+        if (!foundAcademy) {
+          next(null, false, {
+            message: "Academy not found"
+          });
           return;
         }
         if (!bcrypt.compareSync(password, foundAcademy.password)) {
-          next(null, false, { message: "Incorrect password" });
+          next(null, false, {
+            message: "Incorrect password"
+          });
           return;
         }
         next(null, foundAcademy);

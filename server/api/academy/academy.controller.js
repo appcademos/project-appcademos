@@ -9,6 +9,9 @@ const debug = require("debug")("server:academy.controller");
 const fields = Object.keys(_.omit(Academy.schema.paths, ["__v", "_id"]));
 const bcryptSalt = parseInt(process.env.BCRYPT);
 const salt = bcrypt.genSaltSync(bcryptSalt);
+passport.initialize({
+  userProperty: "academy"
+});
 
 const {
   transporter,
@@ -25,8 +28,8 @@ const logInPromise = (academy, req) => {
 };
 
 const loggedIn = (req, res) => {
-  if (req.user) {
-    return res.status(200).json(req.user);
+  if (req.academy) {
+    return res.status(200).json(req.academy);
   } else {
     return res.status(400).json({
       message: "You should login first"
@@ -122,7 +125,6 @@ const login = (req, res, next) => {
     }
     logInPromise(academy, req)
       .then(academy => res.status(200).json(academy.email));
-      debug("126", req.user, req.academy)
 
   })(req, res, next);
 }
@@ -159,8 +161,8 @@ const getOne = (req, res, next) => {
 };
 
 const getThis = (req, res, next) => {
-  if (req.user) {
-    Academy.findById(req.user.id)
+  if (req.academy) {
+    Academy.findById(req.academy.id)
       .select("-password")
       .then(user => {
         res.status(200).json({
@@ -183,7 +185,7 @@ const update = (req, res, next) => {
   let updates = _.pick(req.body, fields);
 
   if (req.body.newPassword) {
-    Academy.findById(req.user.id)
+    Academy.findById(req.academy.id)
       .then(academy => {
         if (bcrypt.compareSync(req.body.password, academy.password)) {
           const hashPass = bcrypt.hashSync(req.body.newPassword, salt);
@@ -214,7 +216,7 @@ const update = (req, res, next) => {
       });
   } else {
     updates = _.omit(updates, ["password"]);
-    Academy.findByIdAndUpdate(req.user.id, updates)
+    Academy.findByIdAndUpdate(req.academy.id, updates)
       .then(academy => {
         res
           .status(200)
