@@ -1,38 +1,57 @@
-import { Injectable } from "@angular/core";
-import { Http, Response } from "@angular/http";
+import { Injectable, EventEmitter } from "@angular/core";
+import { Http } from "@angular/http";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
 import { Observable } from "rxjs/Rx";
 import { environment } from "../environments/environment";
-import { RequestService } from "../services/request.service";
 
 @Injectable()
 export class UserSessionService {
-  constructor(private request: RequestService) {
-    this.isLoggedIn();
+  user: any;
+  userEvent: EventEmitter<any> = new EventEmitter();
+  options: any = { withCredentials: true };
+
+  constructor(private http: Http) {
+    this.isLoggedIn().subscribe();
+  }
+
+  handleUser(user?: object) {
+    this.user = user;
+    this.userEvent.emit(this.user);
+    return this.user;
   }
 
   isLoggedIn() {
-    this.request
-      .get("/api/user/session")
-      .subscribe(user => this.request.handleUser(user));
+    return this.http
+      .get(`${environment.BASEURL}/api/user/session`, this.options)
+      .map(res => res.json())
+      .map(user => this.handleUser(user))
+      .catch(error => Observable.throw(error.json().message));
   }
 
   signup(user) {
-    this.request
-      .post("/api/user/signup", user)
-      .subscribe(user => this.request.handleUser(user));
+    return this.http
+      .post(`${environment.BASEURL}/api/user/signup`, user, this.options)
+      .map(user => {
+        return this.handleUser(user);
+      })
+      .map(res => res.json())
+      .catch(error => Observable.throw(error.json().message));
   }
 
   login(user) {
-    this.request.post("/api/user/login", user).subscribe(user => {
-      this.request.handleUser(user);
-    });
+    return this.http
+      .post(`${environment.BASEURL}/api/user/login`, user, this.options)
+      .map(res => res.json())
+      .map(user => this.handleUser(user))
+      .catch(error => Observable.throw(error.json().message));
   }
 
   logout() {
-    this.request
-      .get("/api/user/logout")
-      .subscribe(() => this.request.handleUser());
+    return this.http
+      .get(`${environment.BASEURL}/api/user/logout`, this.options)
+      .map(res => res.json())
+      .map(() => this.handleUser())
+      .catch(error => Observable.throw(error.json().message));
   }
 }

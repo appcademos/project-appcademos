@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const User = require("./user.model");
 const passport = require("passport");
 const bcryptSalt = parseInt(process.env.BCRYPT);
+const Academy = require("../academy/academy.model");
 const debug = require("debug")("server:user.controller");
 const fields = Object.keys(_.omit(User.schema.paths, ["__v", "_id"]));
 
@@ -28,7 +29,9 @@ const loggedIn = (req, res) => {
   if (req.user) {
     return res.status(200).json(req.user);
   } else {
-    return res.status(401).json({ message: "You should login first" });
+    return res.status(401).json({
+      message: "You should login first"
+    });
   }
 };
 
@@ -36,48 +39,76 @@ const logout = (req, res) => {
   const user = req.user;
   if (user) {
     req.session.destroy(function (err) {
-      res.status(200).json({ message: "Logged out" });
+      res.status(200).json({
+        message: "Logged out"
+      });
     });
   } else {
-    res.status(400).json({ message: "You are not logged in!" });
+    res.status(400).json({
+      message: "You are not logged in!"
+    });
   }
 };
 
 const signup = (req, res, next) => {
-  const { email, password } = req.body;
+  const {
+    email,
+    password
+  } = req.body;
 
   if (email === "" || password === "") {
-    res.status(401).json({ message: "Indicate email and password" });
+    res.status(401).json({
+      message: "Indicate email and password"
+    });
     return;
   }
 
-  User.findOne({ email })
+  User.findOne({
+      email
+    })
     .then(user => {
       if (user !== null) {
-        res.status(409).json({ message: "User already exists" });
+        res.status(409).json({
+          message: "User already exists"
+        });
         return;
+      } else {
+        Academy.findOne({
+            email
+          })
+          .then(user => {
+            if (user !== null) {
+              res.status(409).json({
+                message: "Email already registered"
+              });
+              return;
+            } else {
+
+              const salt = bcrypt.genSaltSync(bcryptSalt);
+              const hashPass = bcrypt.hashSync(password, salt);
+
+              const newUser = new User({
+                email,
+                password: hashPass
+              });
+
+              return newUser
+                .save()
+                .then(user => {
+
+                  logInPromise(user, req)
+                    .then(user => res.status(200).json(user));
+                })
+            }
+          })
       }
-
-      const salt = bcrypt.genSaltSync(bcryptSalt);
-      const hashPass = bcrypt.hashSync(password, salt);
-
-      const newUser = new User({
-        email,
-        password: hashPass
-      });
-
-      return newUser
-        .save()
-        .then(user => {
-
-          logInPromise(user, req)
-            .then(user => res.status(200).json(user));
-        })
     })
     .catch(e =>
       res
-        .status(400)
-        .json({ message: "Something went wrong when trying to find user" })
+      .status(400)
+      .json({
+        message: "Something went wrong when trying to find user"
+      })
     );
 };
 
@@ -86,27 +117,37 @@ const getThisUser = (req, res, next) => {
     User.findById(req.user.id)
       .select("-password")
       .then(user => {
-        res.status(200).json({ user });
+        res.status(200).json({
+          user
+        });
       })
       .catch(err => {
         debug(err);
-        res.status(400).json({ message: "Error retrieving user" });
+        res.status(400).json({
+          message: "Error retrieving user"
+        });
       });
   } else {
-    res.status(400).json({ message: "You should login first" });
+    res.status(400).json({
+      message: "You should login first"
+    });
   }
 };
 
-// Get another user from database
+// View other user's profile
 const getUser = (req, res, next) => {
   User.findById(req.params.id)
     .select("-password")
     .then(user => {
-      res.status(200).json({ user });
+      res.status(200).json({
+        user
+      });
     })
     .catch(err => {
       debug(err);
-      res.status(400).json({ message: "Error retrieving user" });
+      res.status(400).json({
+        message: "Error retrieving user"
+      });
     });
 };
 
@@ -133,7 +174,9 @@ const update = (req, res, next) => {
               });
             });
         } else {
-          res.status(400).json({ message: "Incorrect password" });
+          res.status(400).json({
+            message: "Incorrect password"
+          });
           return;
         }
       })
@@ -166,15 +209,21 @@ const erase = (req, res, next) => {
     User.findByIdAndRemove(req.user.id)
       .then(() => {
         req.session.destroy(function (err) {
-          res.status(200).json({ message: "User removed" });
+          res.status(200).json({
+            message: "User removed"
+          });
         });
       })
       .catch(err => {
         debug(err);
-        res.status(500).json({ message: "Error when erasing user" });
+        res.status(500).json({
+          message: "Error when erasing user"
+        });
       });
   } else {
-    res.status(400).json({ message: "You are not logged in!" });
+    res.status(400).json({
+      message: "You are not logged in!"
+    });
     return;
   }
 };

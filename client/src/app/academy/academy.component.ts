@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RequestService } from '../../services/request.service';
+import { AcademySessionService } from '../../services/academySession.service';
 
 @Component({
   selector: 'app-academy',
@@ -8,7 +8,7 @@ import { RequestService } from '../../services/request.service';
 })
 export class AcademyComponent implements OnInit {
 
-  constructor(public request: RequestService) { }
+  constructor(public academySession: AcademySessionService) { }
 
   ngOnInit() {
   }

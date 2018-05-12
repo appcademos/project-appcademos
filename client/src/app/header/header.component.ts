@@ -1,16 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { RequestService } from '../../services/request.service';
+import { Component, OnInit } from "@angular/core";
+import { AcademySessionService } from "../../services/academySession.service";
+import { UserSessionService } from "../../services/userSession.service";
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  selector: "app-header",
+  templateUrl: "./header.component.html",
+  styleUrls: ["./header.component.scss"]
 })
 export class HeaderComponent implements OnInit {
+  constructor(
+    private academyService: AcademySessionService,
+    private userService: UserSessionService
+  ) {}
 
-  constructor(public request: RequestService) { }
+  ngOnInit() {}
 
-  ngOnInit() {
+  logout() {
+    if (this.academyService.academy) {
+      this.academyService.logout().subscribe();
+    } else {
+      this.userService.logout().subscribe();
+    }
   }
-
 }

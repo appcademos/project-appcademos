@@ -13,16 +13,13 @@ const academySchema = new Schema(
       default: false
     },
     email: {
-      type: String,
-      required: true
+      type: String
     },
     password: {
-      type: String,
-      required: true
+      type: String
     },
     name: {
-      type: String,
-      required: false
+      type: String
     },
     location: {
       type: { type: String },
