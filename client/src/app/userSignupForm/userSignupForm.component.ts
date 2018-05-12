@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
   styleUrls: ["./userSignupForm.component.scss"]
 })
 export class UserSignupFormComponent implements OnInit {
-  isLogin: Boolean = false;
+  isLogin: Boolean = true;
   email: String;
   password: String;
 
@@ -17,7 +17,6 @@ export class UserSignupFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.userService.user)
     if(this.userService.user){
       this.router.navigate(["/user"]);
     }

@@ -13,6 +13,6 @@ export const routes: Routes = [
    { path: 'academy', component: AcademyComponent},
    { path: 'courses', component: AllCoursesComponent},
    { path: 'courses/:id', component: OneCourseComponent},
-   { path: 'signup', component: UserSignupFormComponent},
+   { path: 'enter', component: UserSignupFormComponent},
    { path: '**', redirectTo: ''}
 ];
