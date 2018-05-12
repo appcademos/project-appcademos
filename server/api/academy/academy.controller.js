@@ -35,8 +35,7 @@ const loggedIn = (req, res) => {
 };
 
 const logout = (req, res) => {
-  const user = req.user;
-  if (user) {
+  if (req.academy) {
     req.session.destroy(function (err) {
       res.status(200).json({
         message: "Logged out"
@@ -114,15 +113,16 @@ const signup = (req, res, next) => {
 };
 
 const login = (req, res, next) => {
-  passport.authenticate("academy-local", (err, user, info) => {
+  passport.authenticate("academy-local", (err, academy, info) => {
     if (err) {
       return next(err);
     }
-    if (!user) {
+    if (!academy) {
       return res.status(401).json(info);
     }
-    logInPromise(user, req)
-      .then(user => res.status(200).json(user));
+    logInPromise(academy, req)
+      .then(academy => res.status(200).json(academy.email));
+      debug("126", req.user, req.academy)
 
   })(req, res, next);
 }

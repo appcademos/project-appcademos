@@ -19,7 +19,7 @@ const {
 const logInPromise = (user, req) => {
   return new Promise((resolve, reject) => {
     req.login(user, err => {
-      if (err) return reject("Something went wrong at user login after signup");
+      if (err) return reject(err);
       return resolve(user);
     });
   });
@@ -111,6 +111,24 @@ const signup = (req, res, next) => {
       })
     );
 };
+
+const login = (req, res, next) => {
+  if(req.user){
+    return res.json("User already logged in");
+  }
+  passport.authenticate("user-local", (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      debug("116", req.user, req.academy);
+      return res.json(info.message);
+    }
+    logInPromise(user, req)
+      .then(user => res.status(200).json(user.email)).catch(err => debug("128", err));
+
+  })(req, res, next);
+}
 
 const getThisUser = (req, res, next) => {
   if (req.user) {
@@ -232,6 +250,7 @@ module.exports = {
   loggedIn,
   logout,
   signup,
+  login,
   getThisUser,
   getUser,
   update,
