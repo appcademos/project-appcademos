@@ -31,6 +31,10 @@ import { environment } from "../environments/environment";
 import { GeolocationService } from "../services/geolocation.service";
 import { SearchboxCoursesComponent } from './searchbox-courses/searchbox-courses.component';
 import { IsAcademyButtonComponent } from './isAcademyButton/isAcademyButton.component';
+import { MapSearchboxComponent } from './map-searchbox/map-searchbox.component';
+import { MapMarkersService } from "../services/map-markers.service";
+import { AcademyMapMarkerComponent } from './academy-map-marker/academy-map-marker.component';
+import { CoursesMapMarkersComponent } from './courses-map-markers/courses-map-markers.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +52,10 @@ import { IsAcademyButtonComponent } from './isAcademyButton/isAcademyButton.comp
     AcademySignupFormComponent,
     MapComponent,
     SearchboxCoursesComponent,
-    IsAcademyButtonComponent
+    IsAcademyButtonComponent,
+    MapSearchboxComponent,
+    AcademyMapMarkerComponent,
+    CoursesMapMarkersComponent
 ],
   imports: [
     BrowserModule,
@@ -62,7 +69,7 @@ import { IsAcademyButtonComponent } from './isAcademyButton/isAcademyButton.comp
     }),
     NgbModule.forRoot()
   ],
-  providers: [UserSessionService, AcademySessionService, GeolocationService],
+  providers: [UserSessionService, AcademySessionService, GeolocationService, MapMarkersService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
