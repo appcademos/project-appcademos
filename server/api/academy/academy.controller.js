@@ -124,7 +124,7 @@ const login = (req, res, next) => {
       return res.status(401).json(info);
     }
     logInPromise(academy, req)
-      .then(academy => res.status(200).json(academy.email));
+      .then(academy => res.status(200).json(academy));
 
   })(req, res, next);
 }

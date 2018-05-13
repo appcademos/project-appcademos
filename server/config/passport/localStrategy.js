@@ -18,7 +18,6 @@ passport.use(
           next(null, false, {
             message: "User not found"
           });
-          return;
         }
         if (!bcrypt.compareSync(password, foundUser.password)) {
           next(null, false, {

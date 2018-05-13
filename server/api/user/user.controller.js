@@ -119,14 +119,14 @@ const signup = (req, res, next) => {
 
 const login = (req, res, next) => {
   if (req.user) {
-    return res.json("User already logged in");
+    return res.status(400).json({message: "User already logged in"});
   }
   passport.authenticate("user-local", (err, user, info) => {
     if (err) {
       return next(err);
     }
     if (!user) {
-      return res.json(info.message);
+      return res.status(400).json(info);
     }
     logInPromise(user, req)
       .then(user => res.status(200).json(user)).catch(err => debug("132", err));
