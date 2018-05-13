@@ -1,8 +1,11 @@
-<agm-map [latitude]="userLocation.lat" [longitude]="userLocation.lng" [zoom]="zoom">
+<div class="form-group">
+  <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+</div>
+<agm-map [latitude]="currentPos.lat" [longitude]="currentPos.lng" [zoom]="zoom">
   <agm-marker *ngFor="let m of markers; let i = index" [latitude]="m.lat" [longitude]="m.lng" [label]="m.label" [markerDraggable]="m.draggable">
 
     <agm-info-window>
-      <strong>InfoWindow content</strong>
+      <strong>{{m.content}}</strong>
     </agm-info-window>
 
   </agm-marker>

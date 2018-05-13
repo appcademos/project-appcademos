@@ -118,7 +118,7 @@ const login = (req, res, next) => {
       return next(err);
     }
     if (!academy) {
-      return res.status(401).json(info);
+      return res.status(400).json(info);
     }
     logInPromise(academy, req)
       .then(academy => res.status(200).json(academy));
@@ -126,14 +126,13 @@ const login = (req, res, next) => {
   })(req, res, next);
 }
 
-
 const getAll = (req, res, next) => {
   Academy.find()
     .select("-password")
     .then(academies => {
-      res.status(200).json({
-        academies
-      });
+      res.status(200).json(
+        {academies}
+      );
     })
     .catch(err => {
       res.status(500).json({

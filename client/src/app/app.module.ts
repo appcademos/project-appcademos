@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { routes } from "./routes.routing";
 import { HttpModule } from "@angular/http";
 import { RouterModule } from "@angular/router";
@@ -10,7 +10,6 @@ import { AgmCoreModule } from "@agm/core";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 // SERVICES
-import { RequestService } from "../services/request.service";
 import { UserSessionService } from "../services/userSession.service";
 import { AcademySessionService } from "../services/academySession.service";
 
@@ -55,13 +54,15 @@ import { IsAcademyButtonComponent } from './isAcademyButton/isAcademyButton.comp
     BrowserModule,
     FormsModule,
     HttpModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes),
     AgmCoreModule.forRoot({
-      apiKey: environment.MAPS
+      apiKey: environment.MAPS,
+      libraries: ["places"]
     }),
     NgbModule.forRoot()
   ],
-  providers: [RequestService, UserSessionService, AcademySessionService, GeolocationService],
+  providers: [UserSessionService, AcademySessionService, GeolocationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
