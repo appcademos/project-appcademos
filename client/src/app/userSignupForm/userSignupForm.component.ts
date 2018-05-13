@@ -12,12 +12,10 @@ export class UserSignupFormComponent implements OnInit {
   email: String;
   password: String;
 
-  constructor(private router: Router, public userService: UserSessionService) {
-    
-  }
+  constructor(private router: Router, public userService: UserSessionService) {}
 
   ngOnInit() {
-    if(this.userService.user){
+    if (this.userService.user) {
       this.router.navigate(["/user"]);
     }
   }
@@ -27,18 +25,22 @@ export class UserSignupFormComponent implements OnInit {
       username: this.email,
       password: this.password
     };
-    this.userService.login(user).subscribe(user => console.log(user));
+    this.userService.login(user).subscribe(user => {
+      if (user) {
+        this.router.navigate(["/user"]);
+      }
+    });
   }
-  
+
   signup() {
     const user = {
       email: this.email,
       password: this.password
     };
     this.userService.signup(user).subscribe(user => {
-      if(user){
+      if (user) {
         this.router.navigate(["/user"]);
       }
-      console.log(user)});
+    });
   }
 }

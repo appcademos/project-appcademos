@@ -8,7 +8,6 @@ import { environment } from "../environments/environment";
 @Injectable()
 export class UserSessionService {
   user: any;
-  userEvent: EventEmitter<any> = new EventEmitter();
   options: any = { withCredentials: true };
 
   constructor(private http: Http) {
@@ -17,7 +16,6 @@ export class UserSessionService {
 
   handleUser(user?: object) {
     this.user = user;
-    this.userEvent.emit(this.user);
     return this.user;
   }
 
@@ -32,10 +30,8 @@ export class UserSessionService {
   signup(user) {
     return this.http
       .post(`${environment.BASEURL}/api/user/signup`, user, this.options)
-      .map(user => {
-        return this.handleUser(user);
-      })
       .map(res => res.json())
+      .map(user => this.handleUser(user))
       .catch(error => Observable.throw(error.json().message));
   }
 

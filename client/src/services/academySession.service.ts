@@ -8,7 +8,6 @@ import { environment } from "../environments/environment";
 @Injectable()
 export class AcademySessionService {
   academy: any;
-  academyEvent: EventEmitter<any> = new EventEmitter();
   options: any = { withCredentials: true };
 
   constructor(private http: Http) {
@@ -17,7 +16,6 @@ export class AcademySessionService {
 
   handleAcademy(academy?: object) {
     this.academy = academy;
-    this.academyEvent.emit(this.academy);
     return this.academy;
   }
 

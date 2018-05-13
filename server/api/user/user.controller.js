@@ -32,9 +32,9 @@ const logInPromise = (user, req) => {
 
 const loggedIn = (req, res) => {
   if (req.user) {
-    return res.status(200).json(req.user);
+    res.status(200).json(req.user);
   } else {
-    return res.status(400).json({
+    res.status(400).json({
       message: "You should login first"
     });
   }
@@ -126,11 +126,10 @@ const login = (req, res, next) => {
       return next(err);
     }
     if (!user) {
-      debug("116", req.user, req.academy);
       return res.json(info.message);
     }
     logInPromise(user, req)
-      .then(user => res.status(200).json(user.email)).catch(err => debug("128", err));
+      .then(user => res.status(200).json(user)).catch(err => debug("132", err));
 
   })(req, res, next);
 }
@@ -140,9 +139,9 @@ const getThisUser = (req, res, next) => {
     User.findById(req.user.id)
       .select("-password")
       .then(user => {
-        res.status(200).json({
+        res.status(200).json(
           user
-        });
+        );
       })
       .catch(err => {
         debug(err);

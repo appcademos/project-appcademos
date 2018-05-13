@@ -1,3 +1,10 @@
 <p>
   user works!
 </p>
+<div *ngIf="!userService.user">
+  <p>Not logged!</p>
+</div>
+<div *ngIf="userService.user">
+  <p>Logged!</p>
+  <p>This is user {{userService.user.email}}</p>
+</div>
