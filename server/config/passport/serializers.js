@@ -12,6 +12,7 @@ passport.deserializeUser((userIdFromSession, cb) => {
       if (!userDocument) {
         Academy.findById(userIdFromSession)
           .then(userDocument => {
+            passport.initialize({userProperty: "academy"})
             cb(null, userDocument);
           })
           .catch(err => {
@@ -19,6 +20,7 @@ passport.deserializeUser((userIdFromSession, cb) => {
             return;
           });
       } else {
+        passport.initialize({userProperty: "user"});
         cb(null, userDocument);
       }
     })

@@ -7,9 +7,11 @@ const bcrypt = require("bcrypt");
 passport.use(
   "user-local",
   new LocalStrategy((username, password, next) => {
+
     passport.initialize({
       userProperty: "user"
     });
+
     User.findOne({
         email: username
       })
@@ -37,6 +39,7 @@ passport.use(
 passport.use(
   "academy-local",
   new LocalStrategy((username, password, next) => {
+
     passport.initialize({
       userProperty: "academy"
     });

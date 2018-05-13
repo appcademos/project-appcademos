@@ -15,10 +15,10 @@
           <a class="nav-link" [routerLink]="['']">Contacto</a>
         </li>
         <li *ngIf="userService.user" class="nav-item mr-4">
-          <a class="nav-link">Bienvenido, <span [innerHTML]="userService.user.name || userService.user.email"></span></a>
+          <a class="nav-link">Bienvenido, {{userService.user.email || userService.user.name}}</a>
         </li>
         <li *ngIf="academyService.academy" class="nav-item mr-4">
-          <a class="nav-link">Bienvenido, <span [innerHTML]="academyService.academy.name || academyService.academy.email"></span></a>
+          <a class="nav-link">Bienvenido, {{academyService.academy.email || academyService.academy.name}}</a>
         </li>
         <li class="nav-item">
           <a *ngIf="!academyService.academy && !userService.user" class="nav-link" [routerLink]="['enter']">Iniciar Sesión</a>

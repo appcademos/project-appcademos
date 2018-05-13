@@ -9,9 +9,6 @@ const debug = require("debug")("server:academy.controller");
 const fields = Object.keys(_.omit(Academy.schema.paths, ["__v", "_id"]));
 const bcryptSalt = parseInt(process.env.BCRYPT);
 const salt = bcrypt.genSaltSync(bcryptSalt);
-passport.initialize({
-  userProperty: "academy"
-});
 
 const {
   transporter,
@@ -20,10 +17,10 @@ const {
 
 const logInPromise = (academy, req) => {
   return new Promise((resolve, reject) => {
-      req.login(academy, err => {
-        if (err) return reject("Something went wrong at academy login after signup");
-        return resolve(academy);
-      });
+    req.login(academy, err => {
+      if (err) return reject("Something went wrong at academy login after signup");
+      return resolve(academy);
+    });
   });
 };
 
