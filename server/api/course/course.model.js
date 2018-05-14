@@ -9,7 +9,6 @@ const courseSchema = new Schema(
       required: true
     },
     level: String,
-    minAge: Number,
     group: [String],
     hours: Number,
     startDate: Date,
@@ -20,6 +19,7 @@ const courseSchema = new Schema(
     description: String,
     teacher: String,
     tags: [String],
+    reviews: [{}],
     students: [
       {
         type: Schema.Types.ObjectId,
