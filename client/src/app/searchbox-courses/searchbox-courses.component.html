@@ -1,8 +1,8 @@
 <div class="container w-50 p-0 d-flex justify-content-center searchbox-holder">
   <div class="input-group" id="searchbox-courses">
-    <input type="text" class="form-control" placeholder="Encuentra tu curso...">
+    <input type="text" name="searchcourses" [(ngModel)]="searchcourses" class="form-control" placeholder="Encuentra tu curso...">
   </div>
   <span class="input-group-btn">
-    <button class="btn btn-secondary ml-3" type="button">BUSCAR</button>
+    <button class="btn btn-secondary ml-3" type="button" (click)="findCourses()">BUSCAR</button>
   </span>
 </div>

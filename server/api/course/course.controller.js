@@ -6,12 +6,12 @@ const debug = require("debug")("server:course.controller");
 const fields = Object.keys(_.omit(Course.schema.paths, ["__v", "_id"]));
 
 const getAll = (req, res, next) => {
-  Course.find()
+  let query = req.query.course.replace(/'+'/g, '[\s]');
+  Course.find({title: {$regex:query, $options:"i"}})
     .then(courses => {
-      res.status(200).json({ courses });
+      res.status(200).json( courses );
     })
     .catch(err => {
-      debug(err);
       res.status(400).json({ message: "Error requesting courses" });
     });
 };
