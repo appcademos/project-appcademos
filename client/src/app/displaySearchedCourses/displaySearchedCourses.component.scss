@@ -1,29 +1,31 @@
-.course-list{
-    padding: 0;
+.course-list {
+  padding: 0;
 }
 
-.course-item{
-    list-style-type: none;
-    height: 250px;
+.course-item {
+  list-style-type: none;
+  height: 250px;
 }
 
-.course-item-image{
-    height: auto;
-    width: 25%;
+.course-item-image {
+  height: auto;
+  width: 25%;
 }
 
 .star {
-    position: relative;
-    display: inline-block;
-    font-size: 1.5rem;
-    color: #d3d3d3;
-  }
-  .full {
-    color: red;
-  }
-  .half {
-    position: absolute;
-    display: inline-block;
-    overflow: hidden;
-    color: red;
-  }
+  position: relative;
+  display: inline-block;
+  font-size: 1.5rem;
+  color: #d3d3d3;
+}
+
+.full {
+  color: #C8102E;
+}
+
+.half {
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+  color: #C8102E;
+}

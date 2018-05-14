@@ -34,11 +34,11 @@
             <ng-template #t let-fill="fill">
               <span class="star" [class.full]="fill === 100">
                 <span class="half" [style.width.%]="fill">★</span>★</span>
-              </ng-template>
-              <ngb-rating rate="{{calcReviewGrade(course.reviews)}}" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
-              <a [routerLink]="" class="ml-2">Reviews ({{course.reviews.length}})
-              </a>
-            </div>
+            </ng-template>
+            <ngb-rating rate="{{calcReviewGrade(course.reviews)}}" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+            <a [routerLink]="" class="ml-2">Reviews ({{course.reviews.length}})
+            </a>
+          </div>
         </div>
       </li>
     </ul>

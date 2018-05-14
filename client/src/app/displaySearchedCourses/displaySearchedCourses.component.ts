@@ -31,7 +31,4 @@ export class DisplaySearchedCoursesComponent implements OnInit {
       this.average = average / reviews.length;  
       return this.average;
     }
-
-  
-
 }
