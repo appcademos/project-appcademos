@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { CoursesService } from "../../services/courses.service";
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-displaySearchedCourses",

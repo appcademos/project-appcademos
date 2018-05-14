@@ -1,10 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { Http } from "@angular/http";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/catch";
-import { Observable } from "rxjs/Rx";
 import { environment } from "../../environments/environment";
 import { CoursesService } from "../../services/courses.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-searchbox-courses",
@@ -12,14 +9,23 @@ import { CoursesService } from "../../services/courses.service";
   styleUrls: ["./searchbox-courses.component.scss"]
 })
 export class SearchboxCoursesComponent implements OnInit {
-  options: any = { withCredentials: true };
-  constructor(private courses: CoursesService) {}
   searchcourses: String;
+
+  constructor(private courses: CoursesService, private router: Router) {
+    // Prevent server delay from showing previous results on courses page
+    this.courses.searching = true;
+  }
 
   ngOnInit() {}
 
   findCourses() {
-    this.searchcourses = this.searchcourses.toLowerCase();
-    this.courses.findCourses(this.searchcourses).subscribe();
+    if (this.searchcourses) {
+      this.searchcourses = this.searchcourses.toLowerCase();
+      this.router.navigate(["/search"], {
+        queryParams: { course: this.searchcourses }
+      });
+    } else {
+      console.log("Do something, for God's sake!");
+    }
   }
 }

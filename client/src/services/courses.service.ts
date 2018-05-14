@@ -11,12 +11,11 @@ export class CoursesService {
   options: any = { withCredentials: true };
   searchcourses: String;
   foundCourses: Array<any> = [];
+  searching: Boolean = true;
 
   constructor(private http: Http, private router: Router) {}
   findCourses(searchcourses) {
-    
-    searchcourses = searchcourses.replace(/[\s]/g, "+");
-    this.searchcourses = searchcourses;
+    this.searchcourses = searchcourses.replace(/[\s]/g, "+");
 
     return this.http
       .get(
@@ -25,8 +24,11 @@ export class CoursesService {
       )
       .map(res => res.json())
       .map(courses => {
-        if(courses){
-          this.router.navigate(['/search'], { queryParams: { course: this.searchcourses } });
+        this.searching = false;
+        if (courses) {
+          this.router.navigate(["/search"], {
+            queryParams: { course: this.searchcourses }
+          });
         }
         this.foundCourses = courses;
         console.log(this.foundCourses);
