@@ -7,7 +7,7 @@ const fields = Object.keys(_.omit(Course.schema.paths, ["__v", "_id"]));
 
 const getAll = (req, res, next) => {
   let query = req.query.course.replace(/'+'/g, '[\s]');
-  Course.find({title: {$regex:query, $options:"i"}})
+  Course.find({$or:[{title: {$regex:query, $options:"i"}},{tags :{$regex:query,$options:"i"}}]})
     .then(courses => {
       res.status(200).json( courses );
     })

@@ -18,7 +18,9 @@ findCourses(searchcourses) {
 
     return this.http.get(`${environment.BASEURL}/api/course/search?course=${this.searchcourses}`, this.options)
       .map(res => res.json())
-      .map(courses => this.foundCourses = courses)
+      .map(courses => {this.foundCourses = courses
+    console.log(this.foundCourses)
+    })
       .catch(error => Observable.throw(error.json().message));
   }
 }

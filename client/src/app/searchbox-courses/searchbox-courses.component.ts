@@ -21,6 +21,7 @@ export class SearchboxCoursesComponent implements OnInit {
   }
   findCourses() {
     console.log("searchbox called");
+    this.searchcourses = this.searchcourses.toLowerCase();
     this.courses.findCourses(this.searchcourses).subscribe();
   }
 }
