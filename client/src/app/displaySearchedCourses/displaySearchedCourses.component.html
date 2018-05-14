@@ -31,7 +31,7 @@
             </div>
           </div>
           <div class="text-right p-2 btest">
-            <a [routerLink]="[]">Reviews ({{course.reviews.length}})</a>
+            <a [routerLink]="">Reviews ({{course.reviews.length}}) {{calcReviewGrade(course.reviews)}} Stars</a>
           </div>
         </div>
       </li>

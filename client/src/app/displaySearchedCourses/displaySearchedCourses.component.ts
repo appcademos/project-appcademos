@@ -20,4 +20,12 @@ export class DisplaySearchedCoursesComponent implements OnInit {
       }
     });
   }
+
+  calcReviewGrade(reviews) {
+    let average = 0;
+    reviews.forEach(review => {
+      average += review.grade;
+    });
+    return average / reviews.length;
+  }
 }
