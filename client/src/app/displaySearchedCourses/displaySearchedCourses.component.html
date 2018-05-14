@@ -1,10 +1,24 @@
-<p>
-  displaySearchedCourses works!
-</p>
-<div>
-  <ul>
-    <li *ngFor="let course of courseService.foundCourses">
-      {{course.title}}
+<div *ngIf="courseService.foundCourses.length === 0">
+  <h3>No hay cursos</h3>
+</div>
+<div *ngIf="courseService.foundCourses.length !== 0">
+  <ul class="course-list">
+    <li *ngFor="let course of courseService.foundCourses" class="course-item mt-3 d-flex btest">
+      <div class="course-item-image btest">
+        <img [src]="" alt="">
+      </div>
+      <div class="w-75 p-1 btest">
+        <h3 class="p-0 m-0">{{course.title}}</h3>
+        <small class="text-muted">{{course.academy.name}}</small>
+        <div class="p-0 mt-2 btest w-100">
+            <div class="col-12 p-0" *ngIf="course.description.length > 300">
+                <p>{{course.description | slice:0:300}}... <a [routerLink]="">Ver más</a></p>
+            </div>
+            <div class="col-12 p-0" *ngIf="course.description.length <= 300">
+                <p>{{course.description}}</p>
+            </div>
+          </div>
+      </div>
     </li>
   </ul>
 </div>
