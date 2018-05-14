@@ -8,6 +8,8 @@ import { Router, ActivatedRoute } from "@angular/router";
   styleUrls: ["./displaySearchedCourses.component.scss"]
 })
 export class DisplaySearchedCoursesComponent implements OnInit {
+  average: Number;
+  stars: Array<any> = [];
   constructor(
     private courseService: CoursesService,
     private activatedRoute: ActivatedRoute
@@ -18,14 +20,18 @@ export class DisplaySearchedCoursesComponent implements OnInit {
       if (params.course) {
         this.courseService.findCourses(params.course).subscribe();
       }
-    });
-  }
+    });      
+    }
+  
+    calcReviewGrade(reviews) {
+      let average = 0;
+      reviews.forEach(review => {
+        average += review.grade;
+      });
+      this.average = average / reviews.length;  
+      return this.average;
+    }
 
-  calcReviewGrade(reviews) {
-    let average = 0;
-    reviews.forEach(review => {
-      average += review.grade;
-    });
-    return average / reviews.length;
-  }
+  
+
 }
