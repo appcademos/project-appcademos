@@ -1,0 +1,47 @@
+<p>
+  createCourseForm works!
+</p>
+<div class="container">
+    
+    <h1>Crear Curso</h1>
+  
+  
+    <form>
+      <div class="form-group">
+        <label for="exampleInputtitle">Nombre del curso</label>
+        <input type="text" class="form-control" [(ngModel)]="title" name="title" id="exampleInputtitle" aria-describedby="titleHelp"
+          placeholder="Nombre del curso">
+      </div>
+      <div class="form-group">
+          <label for="exampleInputhours">Numero de horas</label>
+          <input type="number" class="form-control" [(ngModel)]="hours" name="hours" id="exampleInputhours" aria-describedby="hoursHelp"
+            placeholder="Nº de horas">
+        </div>
+      <div class="form-group">
+        <label for="exampleInputName">Precio</label>
+        <input type="number" class="form-control" [(ngModel)]="price" name="price" id="exampleInputPrice" placeholder="Precio">€
+      </div>
+      <div class="form-group">
+        <label for="exampleInputStartdate">Fecha de inicio</label>
+        <input type="date" class="form-control" [(ngModel)]="startDate" name="startdate" id="exampleInputStartdate" placeholder="Fecha de inicio">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputDescription">Descripción del curso</label>
+        <input type="text" class="form-control" [(ngModel)]="description" name="description" id="exampleInputPhone" placeholder="Descripción del curso">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputsizeclass">Alumnos por clase</label>
+        <input type="password" class="form-control" [(ngModel)]="password" name="password" id="exampleInputsizeclass" placeholder="Número de alumnos por clase">
+      </div>
+      <label for="exampleInputTags">Etiquetas</label>
+      <select multiple class="form-control" id="exampleInputTags">
+          <option>First Certificate</option>
+          <option>Advanced</option>
+          <option>Inglés nivel B2</option>
+          <option>Inglés nivel C1</option>
+          <option>TOEFL</option>
+          <option>IELTS</option>
+      </select>
+      <button type="submit" class="btn btn-primary" (click)="createCourse()">Crear curso</button>
+    </form>
+  

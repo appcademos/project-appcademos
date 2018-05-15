@@ -9,12 +9,13 @@ const courseSchema = new Schema(
       required: true
     },
     level: String,
-    minAge: Number,
     group: [String],
     hours: Number,
     startDate: Date,
-    imagePath: String,
-    imageName: String,
+    image: [{
+      imagePath: String,
+      imageName: String
+    }],
     successRate: Number,
     sizeClass: Number,
     description: String,
