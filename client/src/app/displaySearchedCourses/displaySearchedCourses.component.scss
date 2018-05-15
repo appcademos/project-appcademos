@@ -1,0 +1,37 @@
+.course-list {
+  padding: 0;
+}
+
+.course-item {
+  list-style-type: none;
+  min-height: 220px;
+  box-sizing: border-box;
+  border: 1px solid #c4c4c4;
+  border-radius: 5px;
+  -webkit-box-shadow: 6px 5px 11px -2px rgba(0, 0, 0, 0.37);
+  -moz-box-shadow: 6px 5px 11px -2px rgba(0, 0, 0, 0.37);
+  box-shadow: 6px 5px 11px -2px rgba(0, 0, 0, 0.37);
+}
+
+.course-item-image {
+  min-height: 200px;
+  border-right: 1px solid #c4c4c4;
+}
+
+.star {
+  position: relative;
+  display: inline-block;
+  font-size: 1.7rem;
+  color: #c4c4c4;
+}
+
+.full {
+  color: #C8102E;
+}
+
+.half {
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+  color: #C8102E;
+}

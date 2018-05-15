@@ -21,6 +21,7 @@ const courseSchema = new Schema(
     description: String,
     teacher: String,
     tags: [String],
+    reviews: [],
     students: [
       {
         type: Schema.Types.ObjectId,

@@ -1,27 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/catch";
-import { Observable } from "rxjs/Rx";
+import { Component, OnInit } from "@angular/core";
 import { environment } from "../../environments/environment";
-import { CoursesService } from '../../services/courses.service';
-
-
+import { CoursesService } from "../../services/courses.service";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-searchbox-courses',
-  templateUrl: './searchbox-courses.component.html',
-  styleUrls: ['./searchbox-courses.component.scss']
+  selector: "app-searchbox-courses",
+  templateUrl: "./searchbox-courses.component.html",
+  styleUrls: ["./searchbox-courses.component.scss"]
 })
 export class SearchboxCoursesComponent implements OnInit {
-  options: any = { withCredentials: true };
-  constructor(private courses: CoursesService) { }
   searchcourses: String;
-  ngOnInit() {
+
+  constructor(private courses: CoursesService, private router: Router) {
+    // Prevent server delay from showing previous results on courses page
+    this.courses.searching = true;
   }
+
+  ngOnInit() {}
+
   findCourses() {
-    console.log("searchbox called");
-    this.searchcourses = this.searchcourses.toLowerCase();
-    this.courses.findCourses(this.searchcourses).subscribe();
+    if (this.searchcourses) {
+      this.searchcourses = this.searchcourses.toLowerCase();
+      this.router.navigate(["/search"], {
+        queryParams: { course: this.searchcourses }
+      });
+    } else {
+      console.log("Do something, for God's sake!");
+    }
   }
 }
