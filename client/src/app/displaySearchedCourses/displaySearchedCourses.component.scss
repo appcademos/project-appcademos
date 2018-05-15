@@ -4,19 +4,25 @@
 
 .course-item {
   list-style-type: none;
-  height: 250px;
+  min-height: 220px;
+  box-sizing: border-box;
+  border: 1px solid #c4c4c4;
+  border-radius: 5px;
+  -webkit-box-shadow: 6px 5px 11px -2px rgba(0, 0, 0, 0.37);
+  -moz-box-shadow: 6px 5px 11px -2px rgba(0, 0, 0, 0.37);
+  box-shadow: 6px 5px 11px -2px rgba(0, 0, 0, 0.37);
 }
 
 .course-item-image {
-  height: auto;
-  width: 25%;
+  min-height: 200px;
+  border-right: 1px solid #c4c4c4;
 }
 
 .star {
   position: relative;
   display: inline-block;
-  font-size: 1.5rem;
-  color: #d3d3d3;
+  font-size: 1.7rem;
+  color: #c4c4c4;
 }
 
 .full {
