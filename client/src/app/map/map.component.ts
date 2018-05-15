@@ -32,6 +32,7 @@ export class MapComponent implements OnInit {
   constructor(private http: Http, private geoquest: GeolocationService, private markerService: MapMarkersService) {}
 
   ngOnInit() {
+    this.markerService.markers = [];
     this.setCurrentPosition();
 
     return this.http

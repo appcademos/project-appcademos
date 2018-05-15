@@ -31,7 +31,6 @@ export class CoursesService {
           });
         }
         this.foundCourses = courses;
-        console.log(this.foundCourses);
       })
       .catch(error => Observable.throw(error.json().message));
   }
