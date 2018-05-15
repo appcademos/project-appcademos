@@ -1,0 +1,44 @@
+.single-course-col-left {
+  img {
+    min-height: 300px;
+  }
+}
+
+.single-course-demands {
+  margin-top: 20px;
+  border-left: 2px solid #000000;
+}
+
+.course-description {
+  border-radius: 10px;
+  box-shadow: 0px 0px 16px -4px #000000;
+  margin-bottom: 30px;
+  ul {
+    padding: 0;
+  }
+  li {
+    list-style-type: none;
+  }
+}
+
+.average-label {
+  color: rgb(236, 201, 0);
+}
+
+.star {
+  position: relative;
+  display: inline-block;
+  color: #c4c4c4;
+  font-size: 1.0rem;
+}
+
+.full {
+  color: rgb(236, 201, 0);
+}
+
+.half {
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+  color: rgb(236, 201, 0);
+}
