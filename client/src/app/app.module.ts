@@ -37,6 +37,7 @@ import { AcademyMapMarkerComponent } from './academy-map-marker/academy-map-mark
 import { CoursesMapMarkersComponent } from './courses-map-markers/courses-map-markers.component';
 import { CoursesService } from "../services/courses.service";
 import { DisplaySearchedCoursesComponent } from './displaySearchedCourses/displaySearchedCourses.component';
+import { CreateCourseFormComponent } from './createCourseForm/createCourseForm.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { DisplaySearchedCoursesComponent } from './displaySearchedCourses/displa
     MapSearchboxComponent,
     AcademyMapMarkerComponent,
     CoursesMapMarkersComponent,
-    DisplaySearchedCoursesComponent
+    DisplaySearchedCoursesComponent,
+    CreateCourseFormComponent
 ],
   imports: [
     BrowserModule,
