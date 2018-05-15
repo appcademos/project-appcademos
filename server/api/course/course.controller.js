@@ -28,7 +28,7 @@ const getAll = (req, res, next) => {
       return Promise.all(courses.map(course =>
           Review.find({
             course: course.id
-          }).then(reviews => {
+          }).populate("author").then(reviews => {
             for (let i = 0; i < reviews.length; i++) {
               if (reviews[i].course == course.id) {
                 course.reviews.push(reviews[i]);
@@ -55,6 +55,7 @@ const getOne = (req, res, next) => {
       Review.find({
           course: course.id
         })
+        .populate("author")
         .then(reviews => {
           res.status(200).json({
             course,

@@ -1,5 +1,13 @@
-<div class="container" *ngIf="courseObj">
+<ng-template #t let-fill="fill">
+  <span class="star" [class.full]="fill === 100">
+    <span class="half" [style.width.%]="fill">
+      <i class="fas fa-star"></i>
+    </span>
+    <i class="fas fa-star"></i>
+  </span>
+</ng-template>
 
+<div class="container" *ngIf="courseObj">
   <div class="row mb-4">
     <div class="col-md-4 single-course-col-left">
       <img src="" alt="" class="mt-2 btest">
@@ -12,23 +20,16 @@
             <h4 class="p-0 m-0">{{average | number : '1.1'}}</h4>
           </div>
           <div>
-            <ng-template #t let-fill="fill">
-              <span class="star" [class.full]="fill === 100">
-                <span class="half" [style.width.%]="fill">
-                  <i class="fas fa-star"></i>
-                </span>
-                <i class="fas fa-star"></i>
-              </span>
-            </ng-template>
             <ngb-rating rate="{{calcReviewGrade(courseObj.reviews)}}" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
           </div>
           <div class="d-flex justify-content-center ml-auto">
-            <a [routerLink]="['']" *ngIf="courseObj.reviews.length === 1" class="m-0">{{courseObj.reviews.length}} avaliación</a>
-            <a [routerLink]="['']" *ngIf="courseObj.reviews.length !== 1" class="m-0">{{courseObj.reviews.length}} avaliaciones</a>
+            <a [routerLink]="['']" *ngIf="courseObj.reviews.length === 1" class="m-0">{{courseObj.reviews.length}} opinión</a>
+            <a [routerLink]="['']" *ngIf="courseObj.reviews.length !== 1" class="m-0">{{courseObj.reviews.length}} opiniones</a>
           </div>
         </div>
       </div>
     </div>
+
     <div class="col-md-8">
       <h1 class="mt-2">
         {{courseObj.course.title}}
@@ -58,26 +59,17 @@
       <h5>
         Precio por hora: {{courseObj.course.price / courseObj.course.hours | currency: "EUR"}}/h
       </h5>
-      <div class="p-2 single-course-demands">
+      <div class="pl-2 single-course-demands">
         <h4>Requisitos del curso</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus rutrum egestas augue at semper. Morbi posuere orci
-          at nulla fermentum, vehicula tempus libero elementum. Ut et urna eu diam ornare lacinia sit amet non tellus. Sed
-          ac diam eu tortor feugiat vestibulum. Nunc ultrices malesuada nisl, quis sollicitudin nibh efficitur id. Aliquam
-          justo nibh, dignissim quis nulla sit amet, tempor egestas velit. Sed id varius ipsum. Etiam vel vulputate dui,
-          nec euismod velit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id mollis quam. Nulla congue
-          eu augue sit amet faucibus. Curabitur mattis consectetur erat, eget finibus dui efficitur in. Fusce fringilla ligula
-          tortor, vitae tristique est ultrices eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
-          ridiculus mus. </p>
+        <p>{{courseObj.course.requirements}}</p>
       </div>
     </div>
   </div>
 
-  <div class="row mt-5">
-    <div class="col-lg-2">
-
-    </div>
-    <div class="col-lg-10 course-description">
-      <h5>Descripción del curso:</h5>
+  <div class="row d-flex justify-content-center mt-5">
+    <div class="col-lg-8 p-4 course-description">
+      <h5>Descripción del curso</h5>
+      <hr>
       <p>{{courseObj.course.description}}</p>
       <ul>
         <li>
@@ -90,15 +82,49 @@
           <h6>Porcentaje de aprobados:</h6> {{courseObj.course.approvedRate}}
         </li>
         <li>
-            <h6>¿Por qué elegir la academia {{courseObj.course.academy.name}}?</h6>
-            {{courseObj.course.academy.about}}
+          <h6>¿Por qué elegir la academia {{courseObj.course.academy.name}}?</h6>
+          {{courseObj.course.academy.about}}
         </li>
         <li>
-            <h6>¿Qué sabrás al finalizar el curso?</h6>
-            {{courseObj.course.about}}
+          <h6>¿Qué sabrás al finalizar el curso?</h6>
+          {{courseObj.course.about}}
         </li>
       </ul>
     </div>
   </div>
 
+  <div *ngIf="courseObj.reviews" id="all-reviews">
+    <div class="d-flex flex-column align-items-center">
+      <h3>Opiniones sobre el curso</h3>
+      <div class="d-flex align-items-center mb-4">
+        <ngb-rating rate="{{calcReviewGrade(courseObj.reviews)}}" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+        <div class="d-flex justify-content-center ml-auto">
+          <p *ngIf="courseObj.reviews.length === 1" class="m-0 ml-2">({{courseObj.reviews.length}} opinión)</p>
+          <p *ngIf="courseObj.reviews.length !== 1" class="m-0 ml-2">({{courseObj.reviews.length}} opiniones)</p>
+        </div>
+      </div>
+
+      <div *ngFor="let review of courseObj.reviews" class="row mb-4 single-review btest">
+
+        <div class="col-md-2 btest">
+          <p class="m-0 mb-2">{{review.created_at | date: 'dd/MM/yyyy'}}</p>
+          <p class="m-0">{{review.author.name || "Anónimo"}}</p>
+        </div>
+
+        <div class="col-md-10">
+          <div class="d-flex flex-column btest">
+            <ngb-rating rate="{{review.grade}}" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+            <p class="m-0 mb-2 mt-1">
+              {{review.title}}
+            </p>
+            <p class="m-0">
+              {{review.description}}
+            </p>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
 </div>

@@ -12,6 +12,7 @@ const courseSchema = new Schema(
     group: [String],
     hours: Number,
     about: String,
+    requirements: String,
     startDate: Date,
     imagePath: String,
     imageName: String,

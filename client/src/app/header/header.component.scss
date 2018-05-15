@@ -2,7 +2,7 @@
   height: 100px;
   background-color: #C8102E !important;
   li {
-    font-size: 1.2em;
+    font-size: 1.0em;
   }
   a {
     color: #ffffff !important;
@@ -11,19 +11,24 @@
 
 #navbarSecond {
   padding: 0 0 5px 0;
-  background-color: rgb(172, 14, 40) !important;
+  background-color: #ffffff !important;
   box-shadow: inset 0px 3px 5px #00000062;
+  border-bottom: 2px solid #000000;
   li {
     padding: 13px 0 8px 0;
-    font-size: 1.2em;
+    font-size: 1.0em;
+    color: #000000 !important;
+    a {
+      color: #000000 !important;
+    }
     &:hover {
       padding: 9px 0;
       background-color: #C8102E;
-      box-shadow: 0px 5px 2px #00000062;
+      box-shadow: 0px 3px 5px #00000062;
+      a{
+        color: #ffffff !important;
+      }
     }
-  }
-  a {
-    color: #ffffff !important;
   }
 }
 
