@@ -12,7 +12,7 @@ export const routes: Routes = [
    { path: 'user', component: UserComponent},
    { path: 'academy', component: AcademyComponent},
    { path: 'search', component: AllCoursesComponent},
-   { path: 'courses/:id', component: OneCourseComponent},
+   { path: 'course/view', component: OneCourseComponent},
    { path: 'enter', component: UserSignupFormComponent},
    { path: '**', redirectTo: ''}
 ];

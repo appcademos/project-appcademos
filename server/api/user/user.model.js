@@ -13,13 +13,9 @@ const userSchema = new Schema(
       type: Boolean,
       default: false
     },
-    willAttend: {
+    canReview: {
       type: Boolean,
       default: false
-    },
-    persist: {
-      type: Boolean,
-      default: true
     },
     email: {
       type: String,

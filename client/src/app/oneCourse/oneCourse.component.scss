@@ -1,0 +1,41 @@
+.single-course-col-left {
+  img {
+    min-height: 300px;
+  }
+}
+
+.single-course-demands {
+  border: 2px solid #d3d3d3;
+  border-radius: 5px;
+}
+
+.course-description {
+  ul {
+    padding: 0;
+  }
+  li {
+    list-style-type: none;
+  }
+}
+
+.average-label {
+  color: #C8102E;
+}
+
+.star {
+  position: relative;
+  display: inline-block;
+  color: #c4c4c4;
+  font-size: 1.5rem;
+}
+
+.full {
+  color: #C8102E;
+}
+
+.half {
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+  color: #C8102E;
+}

@@ -52,7 +52,6 @@ const getOne = (req, res, next) => {
     .populate("students")
     .exec()
     .then(course => {
-      debug(course);
       Review.find({
           course: course.id
         })
