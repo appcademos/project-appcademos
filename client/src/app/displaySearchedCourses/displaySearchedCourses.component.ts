@@ -20,7 +20,7 @@ export class DisplaySearchedCoursesComponent implements OnInit {
       if (params.course) {
         this.courseService.findCourses(params.course).subscribe();
       }
-    });      
+    });
     }
   
     calcReviewGrade(reviews) {
