@@ -2,9 +2,9 @@
   <h3 *ngIf="!isLogin">Register as a Student</h3>
   <h3 *ngIf="isLogin">Login</h3>
 
-  <div class="w-100 mt-5">
-    <form class="w-75">
-      <div class="d-flex w-75 align-items-center">
+  <div class="row w-75 mt-5">
+    <form class="w-100">
+      <div class="row w-100 m-0">
         <div class="form-group col-md-4 m-0 p-2">
           <input type="email" class="form-control" [(ngModel)]="email" name="email" id="exampleInputEmail1" aria-describedby="emailHelp"
             placeholder="Enter email">
@@ -12,12 +12,12 @@
         <div class="form-group col-md-4 m-0 p-2">
           <input type="password" class="form-control" [(ngModel)]="password" name="password" id="exampleInputPassword1" placeholder="Password">
         </div>
-        <button *ngIf="!isLogin" type="submit" class="btn btn-signup form-btn col-md-4" (click)="signup()">Sign Up!</button>
-        <button *ngIf="isLogin" type="submit" class="btn btn-signup form-btn col-md-4" (click)="login()">Login</button>
+        <button *ngIf="!isLogin" type="submit" class="btn btn-signup form-btn col-md-4 mt-2" (click)="signup()">Sign Up!</button>
+        <button *ngIf="isLogin" type="submit" class="btn btn-signup form-btn col-md-4 mt-2" (click)="login()">Login</button>
       </div>
 
       <div>
-        <div class="form-check">
+        <div class="form-check text-center">
           <input *ngIf="!isLogin" type="checkbox" class="form-check-input mt-2" id="termsAndConditions">
           <label *ngIf="!isLogin" class="form-check-label mt-2" for="termsAndConditions">I agree with the
             <a [routerLink]="['']">terms and conditions</a> of this website</label>
