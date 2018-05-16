@@ -38,24 +38,23 @@
     <div class="collapse navbar-collapse" id="navbarNavMenu2">
       <ul class="w-100 navbar-nav d-flex justify-content-around">
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['']">First Certificate
-            <span class="sr-only">(current)</span>
+          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'first certificate' }">First Certificate
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['']">Advanced</a>
+          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'advanced' }">Advanced</a>
         </li>
         <li class="nav-item">
-          <a  class="nav-link" [routerLink]="['']">Inglés Nivel B</a>
+          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'nivel b' }">Inglés Nivel B</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['']">Inglés Nivel C1</a>
+          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'nivel c1' }">Inglés Nivel C1</a>
         </li>
         <li class="nav-item pr-4 pl-4">
-          <a class="nav-link" [routerLink]="['']">TOEFL</a>
+          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'toefl' }">TOEFL</a>
         </li>
         <li class="nav-item pr-4 pl-4">
-          <a class="nav-link" [routerLink]="['']">IELTS</a>
+          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'ielts' }">IELTS</a>
         </li>
       </ul>
     </div>
