@@ -4,7 +4,7 @@
 
   <div class="w-100 d-flex justify-content-center mt-5">
     <form class="w-100 d-flex flex-column align-items-center">
-      <div class="d-flex w-75 align-items-center">
+      <div class="row">
         <div class="form-group col-md-3 m-0 p-2">
           <input type="email" class="form-control" [(ngModel)]="email" name="email" id="exampleInputEmail1" aria-describedby="emailHelp"
             placeholder="Enter email">
@@ -15,9 +15,9 @@
         <div class="form-group col-md-3 m-0 p-2" *ngIf="!isLogin">
           <input type="phone" class="form-control" [(ngModel)]="phone" name="password" id="exampleInputPhone" placeholder="Teléfono">
         </div>
-        <button *ngIf="!isLogin" type="submit" class="btn btn-signup form-btn col-md-3" (click)="signup()">Sign Up!</button>
-        <button *ngIf="isLogin" type="submit" class="btn btn-signup form-btn col-md-3" (click)="login()">Login</button>
-        <button [hidden]="!visible" type="submit" class="btn btn-signup form-btn col-md-3" (click)="login()">Login</button>
+        <button *ngIf="!isLogin" type="submit" class="btn btn-signup form-btn col-md-3 mt-2" (click)="signup()">Sign Up!</button>
+        <button *ngIf="isLogin" type="submit" class="btn btn-signup form-btn col-md-3 mt-2" (click)="login()">Login</button>
+        <button [hidden]="!visible" type="submit" class="btn btn-signup form-btn col-md-3 mt-2" (click)="login()">Login</button>
       </div>
       <div>
 

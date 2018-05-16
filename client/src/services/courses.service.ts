@@ -10,13 +10,18 @@ import { MapMarkersService } from "./map-markers.service";
 @Injectable()
 export class CoursesService {
   options: any = { withCredentials: true };
-  searchcourses: String;
   foundCourses: Array<any> = [];
   searching: Boolean = true;
+  searchcourses: String;
   viewCourse: any;
 
-  constructor(private http: Http, private router: Router, private mapService: MapMarkersService) {}
+  constructor(
+    private http: Http,
+    private router: Router,
+    private mapService: MapMarkersService
+  ) {}
   findCourses(searchcourses) {
+    this.mapService.markers = [];
     this.searchcourses = searchcourses.replace(/[\s]/g, "+");
 
     return this.http
@@ -27,31 +32,45 @@ export class CoursesService {
       .map(res => res.json())
       .map(courses => {
         this.searching = false;
+
         if (courses) {
           this.router.navigate(["/search"], {
             queryParams: { course: this.searchcourses }
           });
         }
         this.foundCourses = courses;
-        courses.forEach(course => {
-          this.mapService.markers.push({
-            lat: course.academy.location.coordinates[0],
-            lng: course.academy.location.coordinates[1],
-            draggable: false
-          });          
-        });
+        this.setCoursesMarkers(courses);
       })
       .catch(error => Observable.throw(error.json().message));
   }
 
+  setCoursesMarkers(courses) {
+    courses.forEach(course => {
+      this.mapService.markers.push({
+        lat: course.academy.location.coordinates[0],
+        lng: course.academy.location.coordinates[1],
+        draggable: false
+      });
+    });
+  }
+
   getCourse(id) {
     return this.http
-      .get(
-        `${environment.BASEURL}/api/course/${id}`,
-        this.options
-      )
+      .get(`${environment.BASEURL}/api/course/${id}`, this.options)
       .map(res => res.json())
-      .map(course => this.viewCourse = course)
+      .map(course => (this.viewCourse = course))
+      .catch(error => Observable.throw(error.json().message));
+  }
+
+  getAll() {
+    return this.http
+      .get(`${environment.BASEURL}/api/course/all`, this.options)
+      .map(res => res.json())
+      .map(courses => {
+        this.searching = false;
+        this.foundCourses = courses;
+        this.setCoursesMarkers(courses);
+      })
       .catch(error => Observable.throw(error.json().message));
   }
 }

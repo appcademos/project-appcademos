@@ -37,16 +37,6 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this.markerService.markers = [];
     this.setCurrentPosition();
-
-/*           this.courseService.foundCourses.forEach(elem => {
-            console.log(elem)
-            this.markerService.markers.push({
-              lat: elem.location.coordinates[0],
-              lng: elem.location.coordinates[1],
-              draggable: false
-            });
-          }); */
-
   }
 
   private setCurrentPosition() {

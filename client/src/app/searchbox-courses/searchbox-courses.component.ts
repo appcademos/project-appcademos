@@ -25,7 +25,7 @@ export class SearchboxCoursesComponent implements OnInit {
         queryParams: { course: this.searchcourses }
       });
     } else {
-      console.log("Do something, for God's sake!");
+      this.router.navigate(["/all"]);
     }
   }
 }

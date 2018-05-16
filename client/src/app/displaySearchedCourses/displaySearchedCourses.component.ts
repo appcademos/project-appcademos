@@ -16,19 +16,25 @@ export class DisplaySearchedCoursesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.queryParams.subscribe(params => {
-      if (params.course) {
-        this.courseService.findCourses(params.course).subscribe();
+    this.activatedRoute.url.subscribe(url => {
+      if (url[0].path !== "all") {
+        this.activatedRoute.queryParams.subscribe(params => {
+          if (params.course.length !== 0) {
+            this.courseService.findCourses(params.course).subscribe();
+          }
+        });
+      } else {
+        this.courseService.getAll().subscribe();
       }
     });
-    }
-  
-    calcReviewGrade(reviews) {
-      let average = 0;
-      reviews.forEach(review => {
-        average += review.grade;
-      });
-      this.average = average / reviews.length;  
-      return this.average;
-    }
+  }
+
+  calcReviewGrade(reviews) {
+    let average = 0;
+    reviews.forEach(review => {
+      average += review.grade;
+    });
+    this.average = average / reviews.length;
+    return this.average;
+  }
 }

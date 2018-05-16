@@ -8,6 +8,34 @@ const fields = Object.keys(_.omit(Course.schema.paths, ["__v", "_id"]));
 const getAll = (req, res, next) => {
 
   let courseReviews = [];
+
+  Course.find()
+    .populate("academy")
+    .then(courses => {
+      return Promise.all(courses.map(course =>
+          Review.find({
+            course: course.id
+          }).populate("author").then(reviews => {
+            for (let i = 0; i < reviews.length; i++) {
+              if (reviews[i].course == course.id) {
+                course.reviews.push(reviews[i]);
+              }
+            }
+          })))
+        .then(() => {
+          res.status(200).json(courses)
+        })
+    })
+    .catch(err => {
+      res.status(400).json({
+        message: "Error requesting courses"
+      });
+    });
+};
+
+const getSearched = (req, res, next) => {
+
+  let courseReviews = [];
   let query = req.query.course.replace(/'+'/g, '[\s]');
 
   Course.find({
@@ -142,6 +170,7 @@ const erase = (req, res, next) => {
 
 module.exports = {
   getAll,
+  getSearched,
   getOne,
   create,
   update,

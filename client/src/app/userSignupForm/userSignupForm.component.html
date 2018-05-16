@@ -1,9 +1,9 @@
-<div class="container d-flex flex-column align-items-center pt-5 btest">
+<div class="container d-flex flex-column align-items-center pt-5">
   <h3 *ngIf="!isLogin">Register as a Student</h3>
   <h3 *ngIf="isLogin">Login</h3>
 
-  <div class="w-100 d-flex justify-content-center mt-5">
-    <form class="w-100 d-flex flex-column align-items-center">
+  <div class="w-100 mt-5">
+    <form class="w-75">
       <div class="d-flex w-75 align-items-center">
         <div class="form-group col-md-4 m-0 p-2">
           <input type="email" class="form-control" [(ngModel)]="email" name="email" id="exampleInputEmail1" aria-describedby="emailHelp"
@@ -14,16 +14,16 @@
         </div>
         <button *ngIf="!isLogin" type="submit" class="btn btn-signup form-btn col-md-4" (click)="signup()">Sign Up!</button>
         <button *ngIf="isLogin" type="submit" class="btn btn-signup form-btn col-md-4" (click)="login()">Login</button>
-        <button [hidden]="!visible" type="submit" class="btn btn-signup form-btn col-md-4" (click)="login()">Login</button>
       </div>
-      <div>
 
+      <div>
         <div class="form-check">
           <input *ngIf="!isLogin" type="checkbox" class="form-check-input mt-2" id="termsAndConditions">
           <label *ngIf="!isLogin" class="form-check-label mt-2" for="termsAndConditions">I agree with the
             <a [routerLink]="['']">terms and conditions</a> of this website</label>
         </div>
       </div>
+
     </form>
   </div>
   <div>
