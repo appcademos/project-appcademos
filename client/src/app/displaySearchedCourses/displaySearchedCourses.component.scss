@@ -27,17 +27,17 @@
 .star {
   position: relative;
   display: inline-block;
-  font-size: 1.7rem;
   color: #c4c4c4;
+  font-size: 1.5rem;
 }
 
 .full {
-  color: #C8102E;
+  color: rgb(236, 201, 0);
 }
 
 .half {
   position: absolute;
   display: inline-block;
   overflow: hidden;
-  color: #C8102E;
+  color: rgb(236, 201, 0);
 }

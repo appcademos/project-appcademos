@@ -1,21 +1,21 @@
-import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { UserComponent } from './user/user.component';
-import { AcademyComponent } from './academy/academy.component';
-import { AllCoursesComponent } from './allCourses/allCourses.component';
-import { OneCourseComponent } from './oneCourse/oneCourse.component';
-import { UserLoginFormComponent } from './userLoginForm/userLoginForm.component';
-import { UserSignupFormComponent } from './userSignupForm/userSignupForm.component';
-import { CheckoutComponent } from './checkout/checkout.component';
+import { Routes } from "@angular/router";
+import { UserComponent } from "./user/user.component";
+import { HomeComponent } from "./home/home.component";
+import { AcademyComponent } from "./academy/academy.component";
+import { CheckoutComponent } from "./checkout/checkout.component";
+import { OneCourseComponent } from "./oneCourse/oneCourse.component";
+import { AllCoursesComponent } from "./allCourses/allCourses.component";
+import { UserLoginFormComponent } from "./userLoginForm/userLoginForm.component";
+import { UserSignupFormComponent } from "./userSignupForm/userSignupForm.component";
 
 export const routes: Routes = [
-   { path: '', component: HomeComponent},
-   { path: 'user', component: UserComponent},
-   { path: 'academy', component: AcademyComponent},
-   { path: 'search', component: AllCoursesComponent},
-   { path: 'all', component: AllCoursesComponent},
-   { path: 'course/view', component: OneCourseComponent},
-   { path: 'enter', component: UserSignupFormComponent},
-   {path: 'checkout', component: CheckoutComponent},
-   { path: '**', redirectTo: ''}
+    { path: "", component: HomeComponent },
+    { path: "user", component: UserComponent },
+    { path: "all", component: AllCoursesComponent },
+    { path: "academy", component: AcademyComponent },
+    { path: "search", component: AllCoursesComponent },
+    { path: "checkout", component: CheckoutComponent },
+    { path: "enter", component: UserSignupFormComponent },
+    { path: "course/view", component: OneCourseComponent },
+    { path: "**", redirectTo: "" }
 ];
