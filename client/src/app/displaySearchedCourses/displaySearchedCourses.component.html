@@ -1,5 +1,5 @@
 <div *ngIf="courseService.searching === false">
-  
+
   <div *ngIf="courseService.foundCourses.length === 0">
     <h3>No hay cursos</h3>
   </div>
@@ -13,7 +13,9 @@
         <div class="col-md-9 d-flex flex-column justify-content-between">
           <div class="row">
             <div class="col-md-9">
-              <h3 class="mt-2 m-0"><a [routerLink]="['/course/view']" [queryParams]="{id: course._id}" (click)="courseService.viewCourse = courseIndex">{{course.title}}</a></h3>
+              <h3 class="mt-2 m-0">
+                <a [routerLink]="['/course/view']" [queryParams]="{id: course._id}" (click)="courseService.viewCourse = courseIndex">{{course.title}}</a>
+              </h3>
               <small class="text-muted">{{course.academy.name}}</small>
             </div>
             <div class=" col-md-3 p-2 text-right">

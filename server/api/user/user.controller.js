@@ -53,12 +53,9 @@ const logout = (req, res) => {
 };
 
 const signup = (req, res, next) => {
-  const {
-    email,
-    password
-  } = req.body;
+  let userData = _.pick(req.body, fields);
 
-  if (email === "" || password === "") {
+  if (userData.email === "" || userData.password === "") {
     res.status(401).json({
       message: "Indicate email and password"
     });
@@ -66,7 +63,7 @@ const signup = (req, res, next) => {
   }
 
   User.findOne({
-      email
+      email: userData.email
     })
     .then(user => {
       if (user !== null) {
@@ -76,7 +73,7 @@ const signup = (req, res, next) => {
         return;
       } else {
         Academy.findOne({
-            email
+            email: userData.email
           })
           .then(user => {
             if (user !== null) {
@@ -87,12 +84,9 @@ const signup = (req, res, next) => {
             } else {
 
               const salt = bcrypt.genSaltSync(bcryptSalt);
-              const hashPass = bcrypt.hashSync(password, salt);
+              userData.password = bcrypt.hashSync(userData.password, salt);
 
-              const newUser = new User({
-                email,
-                password: hashPass
-              });
+              const newUser = new User(userData);
 
               return newUser
                 .save()
