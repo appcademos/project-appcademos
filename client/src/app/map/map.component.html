@@ -1,4 +1,12 @@
 <agm-map [latitude]="currentPos.lat" [longitude]="currentPos.lng" [zoom]="markerService.zoom">
-  <app-courses-map-markers></app-courses-map-markers>
-  <app-academy-map-marker></app-academy-map-marker>
+  <agm-marker *ngIf="markerService.userLoc" [latitude]="markerService.userLoc.lat" [longitude]="markerService.userLoc.lng"
+    [label]="markerService.userLoc.label" [markerDraggable]="markerService.userLoc.draggable">
+    <agm-info-window>
+      <strong>{{markerService.userLoc.content}}</strong>
+    </agm-info-window>
+  </agm-marker>
+
+  <agm-marker *ngFor="let course of markerService.markers; let i = index" [latitude]="course.lat" [longitude]="course.lng" [label]="course.label"
+    [markerDraggable]="course.draggable">
+  </agm-marker>
 </agm-map>

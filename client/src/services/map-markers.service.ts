@@ -9,12 +9,13 @@ interface marker {
     draggable: boolean;
   }
   
-
 @Injectable()
 export class MapMarkersService {
     zoom: number = 15;
     markers: marker[] = [];
+    userLoc: marker;
     academyMarker: marker;
+    searchedCourses: Array<any> = [];
 
 constructor() { }
 
