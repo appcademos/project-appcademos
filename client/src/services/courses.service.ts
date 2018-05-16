@@ -12,6 +12,7 @@ export class CoursesService {
   searchcourses: String;
   foundCourses: Array<any> = [];
   searching: Boolean = true;
+  viewCourse: any;
 
   constructor(private http: Http, private router: Router) {}
   findCourses(searchcourses) {
@@ -32,6 +33,17 @@ export class CoursesService {
         }
         this.foundCourses = courses;
       })
+      .catch(error => Observable.throw(error.json().message));
+  }
+
+  getCourse(id) {
+    return this.http
+      .get(
+        `${environment.BASEURL}/api/course/${id}`,
+        this.options
+      )
+      .map(res => res.json())
+      .map(course => this.viewCourse = course)
       .catch(error => Observable.throw(error.json().message));
   }
 }

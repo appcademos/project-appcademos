@@ -6,14 +6,14 @@
 
   <div *ngIf="courseService.foundCourses.length !== 0">
     <ul class="course-list">
-      <li *ngFor="let course of courseService.foundCourses" class="course-item mb-3 row">
+      <li *ngFor="let course of courseService.foundCourses; let courseIndex = index" class="course-item mb-3 row">
         <div class="col-md-3 course-item-image">
           <img [src]="" alt="">
         </div>
         <div class="col-md-9 d-flex flex-column justify-content-between">
           <div class="row">
             <div class="col-md-9">
-              <h3 class="mt-2 m-0">{{course.title}}</h3>
+              <h3 class="mt-2 m-0"><a [routerLink]="['/course/view']" [queryParams]="{id: course._id}" (click)="courseService.viewCourse = courseIndex">{{course.title}}</a></h3>
               <small class="text-muted">{{course.academy.name}}</small>
             </div>
             <div class=" col-md-3 p-2 text-right">
@@ -25,7 +25,7 @@
           <div class="row">
             <div class="col-md-12" *ngIf="course.description.length > 250">
               <p>{{course.description | slice:0:250}}...
-                <a [routerLink]="">Ver más</a>
+                <a [routerLink]="['/course/view']" [queryParams]="{id: course._id}" (click)="courseService.viewCourse = courseIndex">Ver más</a>
               </p>
             </div>
             <div class="col-md-12" *ngIf="course.description.length <= 250">
