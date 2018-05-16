@@ -5,6 +5,7 @@ import "rxjs/add/operator/catch";
 import { Observable } from "rxjs/Rx";
 import { environment } from "../environments/environment";
 import { Router } from "@angular/router";
+import { MapMarkersService } from "./map-markers.service";
 
 @Injectable()
 export class CoursesService {
@@ -14,7 +15,7 @@ export class CoursesService {
   searching: Boolean = true;
   viewCourse: any;
 
-  constructor(private http: Http, private router: Router) {}
+  constructor(private http: Http, private router: Router, private mapService: MapMarkersService) {}
   findCourses(searchcourses) {
     this.searchcourses = searchcourses.replace(/[\s]/g, "+");
 
@@ -32,6 +33,13 @@ export class CoursesService {
           });
         }
         this.foundCourses = courses;
+        courses.forEach(course => {
+          this.mapService.markers.push({
+            lat: course.academy.location.coordinates[0],
+            lng: course.academy.location.coordinates[1],
+            draggable: false
+          });          
+        });
       })
       .catch(error => Observable.throw(error.json().message));
   }
