@@ -27,7 +27,7 @@
           <div class="row">
             <div class="col-md-12" *ngIf="course.description.length > 250">
               <p>{{course.description | slice:0:250}}...
-                <a [routerLink]="['/course/view']" [queryParams]="{id: course._id}" (click)="courseService.viewCourse = courseIndex">Ver más</a>
+                <a [routerLink]="['/course/view']" [queryParams]="{id: course._id}">Ver más</a>
               </p>
             </div>
             <div class="col-md-12" *ngIf="course.description.length <= 250">
