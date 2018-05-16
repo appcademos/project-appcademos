@@ -1,30 +1,32 @@
 .searchbox-holder{
   left: 0;
   right: 0;
-  top: 30%;
+  top: 70%;
   margin: auto;
   position: absolute;
   z-index: 1000;
   input {
     position: relative;
     border-radius: 18px;
-    border: 3px solid #555555;
-    font-size: 1.5em;
+    border: 3px solid gainsboro;
+    font-size: 1em;
     padding: 0 0 0 15px;
+    height:40px;
   }
-
   button {
-    background-color: #ffffff;
+    background-color:#C8102E ;
     border: 6px solid #C8102E;
-    color: #000000;
-    font-size: 1.5em;
-    border-radius: 20px;
-    width: 150px;
-    height: 80px;
-  }
+    color:white;
+    font-size: 1em;
+    border-radius: 18px;
+    width: 100px;
+    height: 40px;
+    margin-left: 5px;
+  } 
 }
-
-#searchbox-courses {
-  width: 600px;
-  height: 80px;
+@media (max-width: 768px){
+  .searchbox-holder{
+    top:70%;
+  }
+  
 }
