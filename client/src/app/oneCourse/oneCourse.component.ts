@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { CoursesService } from "../../services/courses.service";
 import { ActivatedRoute } from "@angular/router";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-oneCourse",
@@ -12,7 +13,8 @@ export class OneCourseComponent implements OnInit {
   average: number;
   constructor(
     private courseService: CoursesService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -20,10 +22,13 @@ export class OneCourseComponent implements OnInit {
       if (params.id) {
         this.courseService.getCourse(params.id).subscribe(() => {
           this.courseObj = this.courseService.viewCourse;
-          
         });
       }
     });
+  }
+
+  backClicked() {
+    this.location.back();
   }
 
   calcReviewGrade(reviews) {
@@ -31,7 +36,7 @@ export class OneCourseComponent implements OnInit {
     reviews.forEach(review => {
       average += review.grade;
     });
-    this.average = average / reviews.length;  
+    this.average = average / reviews.length;
     return this.average;
   }
 }
