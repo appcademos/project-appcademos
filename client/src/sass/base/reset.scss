@@ -2,10 +2,16 @@ body {
   font: 16px 'Roboto', sans-serif, Tahoma, Verdana, sans-serif;
 }
 
-.container{
+.container {
   max-width: 1920px;
 }
 
-.btest{
+.btest {
   border: 1px solid #000000;
+}
+
+ngb-rating {
+  &:focus {
+    outline: none;
+  }
 }
