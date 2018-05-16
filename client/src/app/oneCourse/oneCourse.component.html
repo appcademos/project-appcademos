@@ -41,10 +41,10 @@
           <small class="text-muted">{{courseObj.course.academy.name}}</small>
         </div>
         <div class="col-md-4 pt-3 pb-3">
-          <button class="btn btn-danger d-none d-lg-block" [routerLink]="['checkout']">
+          <button class="btn btn-danger d-none d-lg-block" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">
             <h5 class="m-0">Reservar mi plaza</h5>
           </button>
-          <button class="btn btn-danger d-lg-none w-100 fixed-bottom" [routerLink]="['checkout']">
+          <button class="btn btn-danger d-lg-none w-100 fixed-bottom" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">
             <h5 class="m-0"> Reservar mi plaza</h5>
           </button>
         </div>
