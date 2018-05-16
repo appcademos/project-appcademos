@@ -42,6 +42,11 @@
   transform: translate(-50%, -50%);
   z-index: 200;
 }
+.logos{
+  img{
+    height: 100px;
+  }
+}
 @media (max-width: 768px){
   .hero-text{
     top:50px;

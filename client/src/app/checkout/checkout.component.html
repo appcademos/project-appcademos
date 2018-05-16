@@ -1,0 +1,45 @@
+<p>
+  checkout works!
+</p>
+<div class="container d-flex flex-column align-items-center pt-5 btest">
+    <h3 *ngIf="!isLogin">Register as a Student</h3>
+    <h3 *ngIf="isLogin">Login</h3>
+  
+    <div class="w-100 d-flex justify-content-center mt-5">
+      <form class="w-100 d-flex flex-column align-items-center">
+        <div class="d-flex w-75 align-items-center">
+          <div class="form-group col-md-3 m-0 p-2">
+            <input type="email" class="form-control" [(ngModel)]="email" name="email" id="exampleInputEmail1" aria-describedby="emailHelp"
+              placeholder="Enter email">
+          </div>
+          <div class="form-group col-md-3 m-0 p-2">
+            <input type="password" class="form-control" [(ngModel)]="password" name="password" id="exampleInputPassword1" placeholder="Password">
+          </div>
+          <div class="form-group col-md-3 m-0 p-2" *ngIf="!isLogin">
+              <input type="phone" class="form-control" [(ngModel)]="phone" name="password" id="exampleInputPhone" placeholder="Teléfono">
+            </div>
+          <button *ngIf="!isLogin" type="submit" class="btn btn-signup form-btn col-md-3" (click)="signup()">Sign Up!</button>
+          <button *ngIf="isLogin" type="submit" class="btn btn-signup form-btn col-md-3" (click)="login()">Login</button>
+          <button [hidden]="!visible" type="submit" class="btn btn-signup form-btn col-md-3" (click)="login()">Login</button>
+        </div>
+        <div>
+  
+          <div class="form-check">
+            <input *ngIf="!isLogin" type="checkbox" class="form-check-input mt-2" id="termsAndConditions">
+            <label *ngIf="!isLogin" class="form-check-label mt-2" for="termsAndConditions">I agree with the
+              <a [routerLink]="['']">terms and conditions</a> of this website</label>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div>
+      <p *ngIf="!isLogin" class="signin-link mt-2">{{"Already have an account?" | uppercase}}
+        <a (click)="isLogin = true">{{"Sign-in here" | uppercase}}</a>
+      </p>
+      <p *ngIf="isLogin" class="signin-link">{{"Don't have an account?" | uppercase}}
+        <a (click)="isLogin = false">{{"Sign-up here" | uppercase}}</a>
+      </p>
+    </div>
+  </div>
+
+  
