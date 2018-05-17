@@ -21,15 +21,37 @@
           <label for="phone">Tu teléfono sólo será utilizado por la academia</label>
           <input type="phone" class="form-control" [(ngModel)]="phone" name="password" id="exampleInputPhone" placeholder="Teléfono">
         </div>
+<<<<<<< HEAD
         <button *ngIf="!isLogin" type="submit" class="btn btn-signup form-btn col-md-12 mt-2" (click)="signup()">Registrarme</button>
         <button *ngIf="isLogin" type="submit" class="btn btn-signup form-btn col-md-12 mt-2" (click)="login()">Iniciar Sesión</button>
+=======
+<<<<<<< HEAD
+        <button *ngIf="!isLogin" type="submit" class="btn btn-signup form-btn col-md-3 mt-2" (click)="signup()">Sign Up!</button>
+        <button *ngIf="isLogin" type="submit" class="btn btn-signup form-btn col-md-3 mt-2" (click)="login()">Login</button>
+        <button [hidden]="!visible" type="submit" class="btn btn-signup form-btn col-md-3 mt-2" (click)="login()">Login</button>
+        <div class="text-center">
+          <div class="form-check">
+            <input *ngIf="!isLogin" type="checkbox" class="form-check-input mt-2" id="termsAndConditions">
+            <label *ngIf="!isLogin" class="form-check-label mt-2" for="termsAndConditions">I agree with the
+              <a [routerLink]="['']">terms and conditions</a> of this website</label>
+          </div>
+=======
+        <button *ngIf="!isLogin" type="submit" class="btn btn-signup form-btn col-md-12 mt-2" (click)="signup()">Sign Up!</button>
+        <button *ngIf="isLogin" type="submit" class="btn btn-signup form-btn col-md-12 mt-2" (click)="login()">Login</button>
+>>>>>>> c28787219d6be09557ba41667cbc55f8157e71e0
       </div>
       <div>
 
         <div class="form-check">
           <input *ngIf="!isLogin" type="checkbox" class="form-check-input mt-2" id="termsAndConditions">
+<<<<<<< HEAD
           <label *ngIf="!isLogin" class="form-check-label mt-2" for="termsAndConditions">Acepto los
             <a [routerLink]="['']">términos y condiciones</a> de Appcademos.com</label>
+=======
+          <label *ngIf="!isLogin" class="form-check-label mt-2" for="termsAndConditions">I agree with the
+            <a [routerLink]="['']">terms and conditions</a> of this website</label>
+>>>>>>> master
+>>>>>>> c28787219d6be09557ba41667cbc55f8157e71e0
         </div>
       </div>
     </form>
