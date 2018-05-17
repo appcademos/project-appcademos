@@ -18,13 +18,12 @@
         <button *ngIf="!isLogin" type="submit" class="btn btn-signup form-btn col-md-3 mt-2" (click)="signup()">Sign Up!</button>
         <button *ngIf="isLogin" type="submit" class="btn btn-signup form-btn col-md-3 mt-2" (click)="login()">Login</button>
         <button [hidden]="!visible" type="submit" class="btn btn-signup form-btn col-md-3 mt-2" (click)="login()">Login</button>
-      </div>
-      <div>
-
-        <div class="form-check">
-          <input *ngIf="!isLogin" type="checkbox" class="form-check-input mt-2" id="termsAndConditions">
-          <label *ngIf="!isLogin" class="form-check-label mt-2" for="termsAndConditions">I agree with the
-            <a [routerLink]="['']">terms and conditions</a> of this website</label>
+        <div class="text-center">
+          <div class="form-check">
+            <input *ngIf="!isLogin" type="checkbox" class="form-check-input mt-2" id="termsAndConditions">
+            <label *ngIf="!isLogin" class="form-check-label mt-2" for="termsAndConditions">I agree with the
+              <a [routerLink]="['']">terms and conditions</a> of this website</label>
+          </div>
         </div>
       </div>
     </form>
