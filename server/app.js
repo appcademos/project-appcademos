@@ -28,7 +28,7 @@ mongoose
 const app = express();
 
 var whitelist = [
-  `${process.env.CORS_ALLOW}`,
+  `'${process.env.CORS_ALLOW}'`,
 ];
 var corsOptions = {
   origin: function (origin, callback) {
@@ -69,11 +69,12 @@ app.use(
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 app.use(express.static(path.join(__dirname, "public")));
-app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 
 app.locals.title = "Appcademos";
 
 require("./routes/routes")(app);
-
+app.use(function (req, res) {
+  res.sendfile(__dirname + '/public/index.html');
+});
 
 module.exports = app;
