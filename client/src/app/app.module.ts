@@ -5,7 +5,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { routes } from "./routes.routing";
 
-import { environment } from "../environments/environment";
+import { environment } from "../environments/environment.prod";
 
 // LIBRARIES
 import { AgmCoreModule } from "@agm/core";
@@ -69,7 +69,7 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
 ],
   imports: [
     AgmCoreModule.forRoot({
-      apiKey: environment.MAPS,
+      apiKey: "AIzaSyCYxJxUvlC9d_-w181lx5OxjJvtCwfDJ6w",
       libraries: ["places"]
     }),
     BrowserModule,
