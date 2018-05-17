@@ -1,10 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light d-flex flex-column justify-content-between" id="navbarFirst">
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex flex-column justify-content-between" id="navbarFirst">
   <div class="container d-flex justify-content-center align-items-start">
     <a class="navbar-brand mt-3" [routerLink]="['']">
       <img src="../../assets/public/images/logo.png" alt="headerlogo" height="30">
     </a>
 
-    <div class="collapse navbar-collapse" id="navbarNavMenu">
+    <div class="navbar-collapse" id="navbarNavMenu">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item mr-4">
           <a class="nav-link" [routerLink]="['']">Quiénes Somos
@@ -30,12 +30,8 @@
 </nav>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbarSecond">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavMenu2" aria-controls="navbarNavMenu2"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
   <div class="container d-flex justify-content-center p-0">
-    <div class="collapse navbar-collapse" id="navbarNavMenu2">
+    <div class="navbar-collapse" id="navbarNavMenu2">
       <ul class="w-100 navbar-nav d-flex justify-content-around">
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'first certificate' }">First Certificate
@@ -58,5 +54,36 @@
         </li>
       </ul>
     </div>
+  </div>
+</nav> -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbarFirst">
+  <a class="navbar-brand" [routerLink]="['']">
+    <img src="../../assets/public/images/logo.png" alt="headerlogo" height="30">
+  </a>
+  <button class="navbar-toggler" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div [ngbCollapse]="isNavbarCollapsed" class="navbar-collapse" id="navbarNavMenu">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item mr-4">
+        <a class="nav-link" [routerLink]="['']">Quiénes Somos
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item mr-4">
+        <a class="nav-link" [routerLink]="['']">Contacto</a>
+      </li>
+      <li *ngIf="userService.user" class="nav-item mr-4">
+        <a class="nav-link">Bienvenido, {{userService.user.email || userService.user.name}}</a>
+      </li>
+      <li *ngIf="academyService.academy" class="nav-item mr-4">
+        <a class="nav-link">Bienvenido, {{academyService.academy.email || academyService.academy.name}}</a>
+      </li>
+      <li class="nav-item">
+        <a *ngIf="!academyService.academy && !userService.user" class="nav-link" [routerLink]="['enter']">Iniciar Sesión</a>
+        <a *ngIf="academyService.academy || userService.user" class="nav-link" (click)="logout()">Logout</a>
+      </li>
+    </ul>
   </div>
 </nav>

@@ -8,6 +8,7 @@ import { UserSessionService } from "../../services/userSession.service";
   styleUrls: ["./header.component.scss"]
 })
 export class HeaderComponent implements OnInit {
+  isNavbarCollapsed: boolean = true;
   constructor(
     private academyService: AcademySessionService,
     private userService: UserSessionService
