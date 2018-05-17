@@ -69,7 +69,7 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
 ],
   imports: [
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCYxJxUvlC9d_-w181lx5OxjJvtCwfDJ6w',
+      apiKey: environment.MAPS,
       libraries: ["places"]
     }),
     BrowserModule,
