@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   BASEURL: '',
-  MAPS: 'AIzaSyCYxJxUvlC9d_-w181lx5OxjJvtCwfDJ6w'
+  MAPS: 'AIzaSyCneU6o_5a6VhAT9Cm2l9eWOi3BYoAHjg4'
 };
