@@ -7,6 +7,7 @@ import { OneCourseComponent } from "./oneCourse/oneCourse.component";
 import { AllCoursesComponent } from "./allCourses/allCourses.component";
 import { UserLoginFormComponent } from "./userLoginForm/userLoginForm.component";
 import { UserSignupFormComponent } from "./userSignupForm/userSignupForm.component";
+import { ConfirmationComponent } from "./confirmation/confirmation.component";
 
 export const routes: Routes = [
     { path: "", component: HomeComponent },
@@ -15,6 +16,7 @@ export const routes: Routes = [
     { path: "academy", component: AcademyComponent },
     { path: "search", component: AllCoursesComponent },
     { path: "checkout", component: CheckoutComponent },
+    { path:"confirmation", component : ConfirmationComponent},
     { path: "enter", component: UserSignupFormComponent },
     { path: "course/view", component: OneCourseComponent },
     { path: "**", redirectTo: "" }
