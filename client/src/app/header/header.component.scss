@@ -34,3 +34,7 @@
 .navbar-brand {
   font-size: 2em;
 }
+
+.navbar-toggler:focus {
+  outline: none;
+}

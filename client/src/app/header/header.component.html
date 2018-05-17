@@ -1,62 +1,3 @@
-<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex flex-column justify-content-between" id="navbarFirst">
-  <div class="container d-flex justify-content-center align-items-start">
-    <a class="navbar-brand mt-3" [routerLink]="['']">
-      <img src="../../assets/public/images/logo.png" alt="headerlogo" height="30">
-    </a>
-
-    <div class="navbar-collapse" id="navbarNavMenu">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item mr-4">
-          <a class="nav-link" [routerLink]="['']">Quiénes Somos
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item mr-4">
-          <a class="nav-link" [routerLink]="['']">Contacto</a>
-        </li>
-        <li *ngIf="userService.user" class="nav-item mr-4">
-          <a class="nav-link">Bienvenido, {{userService.user.email || userService.user.name}}</a>
-        </li>
-        <li *ngIf="academyService.academy" class="nav-item mr-4">
-          <a class="nav-link">Bienvenido, {{academyService.academy.email || academyService.academy.name}}</a>
-        </li>
-        <li class="nav-item">
-          <a *ngIf="!academyService.academy && !userService.user" class="nav-link" [routerLink]="['enter']">Iniciar Sesión</a>
-          <a *ngIf="academyService.academy || userService.user" class="nav-link" (click)="logout()">Logout</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbarSecond">
-  <div class="container d-flex justify-content-center p-0">
-    <div class="navbar-collapse" id="navbarNavMenu2">
-      <ul class="w-100 navbar-nav d-flex justify-content-around">
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'first certificate' }">First Certificate
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'advanced' }">Advanced</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'nivel b' }">Inglés Nivel B</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'nivel c1' }">Inglés Nivel C1</a>
-        </li>
-        <li class="nav-item pr-4 pl-4">
-          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'toefl' }">TOEFL</a>
-        </li>
-        <li class="nav-item pr-4 pl-4">
-          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'ielts' }">IELTS</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav> -->
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbarFirst">
   <a class="navbar-brand" [routerLink]="['']">
     <img src="../../assets/public/images/logo.png" alt="headerlogo" height="30">
@@ -84,6 +25,53 @@
         <a *ngIf="!academyService.academy && !userService.user" class="nav-link" [routerLink]="['enter']">Iniciar Sesión</a>
         <a *ngIf="academyService.academy || userService.user" class="nav-link" (click)="logout()">Logout</a>
       </li>
+      <li class="nav-item d-lg-none ml-4">
+        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'first certificate' }">First Certificate
+        </a>
+      </li>
+      <li class="nav-item d-lg-none ml-4">
+        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'advanced' }">Advanced</a>
+      </li>
+      <li class="nav-item d-lg-none ml-4">
+        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'nivel b' }">Inglés Nivel B</a>
+      </li>
+      <li class="nav-item d-lg-none ml-4">
+        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'nivel c1' }">Inglés Nivel C1</a>
+      </li>
+      <li class="nav-item d-lg-none ml-4">
+        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'toefl' }">TOEFL</a>
+      </li>
+      <li class="nav-item d-lg-none ml-4">
+        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'ielts' }">IELTS</a>
+      </li>
     </ul>
+  </div>
+</nav>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light d-none d-lg-block" id="navbarSecond">
+  <div class="container d-flex justify-content-center p-0">
+    <div class="navbar-collapse" id="navbarNavMenu2">
+      <ul class="w-100 navbar-nav d-flex justify-content-around">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'first certificate' }">First Certificate
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'advanced' }">Advanced</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'nivel b' }">Inglés Nivel B</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'nivel c1' }">Inglés Nivel C1</a>
+        </li>
+        <li class="nav-item pr-4 pl-4">
+          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'toefl' }">TOEFL</a>
+        </li>
+        <li class="nav-item pr-4 pl-4">
+          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'ielts' }">IELTS</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
