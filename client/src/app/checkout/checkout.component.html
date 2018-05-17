@@ -1,20 +1,21 @@
-<div *ngIf="!userservice.user" class="container d-flex flex-column align-items-center pt-5 btest">
-  <h3 *ngIf="!isLogin">Register as a Student</h3>
-  <h3 *ngIf="isLogin">Login</h3>
-
-  <div class="w-100 d-flex justify-content-center mt-5">
-    <form class="w-100 d-flex flex-column align-items-center">
-      <div class="row">
-        <div class="form-group col-md-3 m-0 p-2">
+<div class="container pt-5">
+  <div class="row">
+  <div *ngIf="!userservice.user" class="col-md-6 text-center">
+    <h3 *ngIf="!isLogin">Register as a Student</h3>
+    <h3 *ngIf="isLogin">Login</h3>
+    <form>
+      <div class="col-md-12">
+        <div class="form-group col-md-12 p-0">
           <input type="email" class="form-control" [(ngModel)]="email" name="email" id="exampleInputEmail1" aria-describedby="emailHelp"
             placeholder="Enter email">
         </div>
-        <div class="form-group col-md-3 m-0 p-2">
+        <div class="form-group col-md-12 p-0">
           <input type="password" class="form-control" [(ngModel)]="password" name="password" id="exampleInputPassword1" placeholder="Password">
         </div>
-        <div class="form-group col-md-3 m-0 p-2" *ngIf="!isLogin">
+        <div class="form-group col-md-12 p-0" *ngIf="!isLogin">
           <input type="phone" class="form-control" [(ngModel)]="phone" name="password" id="exampleInputPhone" placeholder="Teléfono">
         </div>
+<<<<<<< HEAD
         <button *ngIf="!isLogin" type="submit" class="btn btn-signup form-btn col-md-3 mt-2" (click)="signup()">Sign Up!</button>
         <button *ngIf="isLogin" type="submit" class="btn btn-signup form-btn col-md-3 mt-2" (click)="login()">Login</button>
         <button [hidden]="!visible" type="submit" class="btn btn-signup form-btn col-md-3 mt-2" (click)="login()">Login</button>
@@ -24,21 +25,37 @@
             <label *ngIf="!isLogin" class="form-check-label mt-2" for="termsAndConditions">I agree with the
               <a [routerLink]="['']">terms and conditions</a> of this website</label>
           </div>
+=======
+        <button *ngIf="!isLogin" type="submit" class="btn btn-signup form-btn col-md-12 mt-2" (click)="signup()">Sign Up!</button>
+        <button *ngIf="isLogin" type="submit" class="btn btn-signup form-btn col-md-12 mt-2" (click)="login()">Login</button>
+      </div>
+      <div>
+
+        <div class="form-check">
+          <input *ngIf="!isLogin" type="checkbox" class="form-check-input mt-2" id="termsAndConditions">
+          <label *ngIf="!isLogin" class="form-check-label mt-2" for="termsAndConditions">I agree with the
+            <a [routerLink]="['']">terms and conditions</a> of this website</label>
+>>>>>>> master
         </div>
       </div>
     </form>
+
+    <div>
+      <p *ngIf="!isLogin" class="signin-link mt-2">{{"Already have an account?" | uppercase}}
+        <a (click)="isLogin = true">{{"Sign-in here" | uppercase}}</a>
+      </p>
+      <p *ngIf="isLogin" class="signin-link mt-2">{{"Don't have an account?" | uppercase}}
+        <a (click)="isLogin = false">{{"Sign-up here" | uppercase}}</a>
+      </p>
+    </div>
   </div>
-  <div>
-    <p *ngIf="!isLogin" class="signin-link mt-2">{{"Already have an account?" | uppercase}}
-      <a (click)="isLogin = true">{{"Sign-in here" | uppercase}}</a>
-    </p>
-    <p *ngIf="isLogin" class="signin-link">{{"Don't have an account?" | uppercase}}
-      <a (click)="isLogin = false">{{"Sign-up here" | uppercase}}</a>
-    </p>
+  <div class="col-md-6 text-center">
+    <h3>Detalles del curso</h3>
+    <div *ngIf="viewCourse" class="text-left">
+      <h5>Nombre: {{viewCourse.title}}</h5>
+      <h5>Precio: {{viewCourse.price | currency: "EUR"}}</h5>
+      <h5>Inicio de clases: {{viewCourse.startDate}}</h5>
+    </div>
   </div>
-  <div *ngIf="viewCourse">
-    <h5>{{viewCourse.title}}</h5>
-    <h5>{{viewCourse.price}}</h5>
-    <h5>{{viewCourse.startDate}}</h5>
-  </div>
+</div>
 </div>
