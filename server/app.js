@@ -28,7 +28,7 @@ mongoose
 const app = express();
 
 var whitelist = [
-  `'${process.env.CORS_ALLOW}'`,
+  `${process.env.CORS_ALLOW}`,
 ];
 var corsOptions = {
   origin: function (origin, callback) {
