@@ -40,6 +40,7 @@ import { SearchboxCoursesComponent } from "./searchbox-courses/searchbox-courses
 import { UserComponent } from "./user/user.component";
 import { UserLoginFormComponent } from "./userLoginForm/userLoginForm.component";
 import { UserSignupFormComponent } from "./userSignupForm/userSignupForm.component";
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
@@ -63,8 +64,9 @@ import { UserSignupFormComponent } from "./userSignupForm/userSignupForm.compone
     SearchboxCoursesComponent,
     UserComponent,
     UserLoginFormComponent,
-    UserSignupFormComponent
-  ],
+    UserSignupFormComponent,
+    ConfirmationComponent
+],
   imports: [
     AgmCoreModule.forRoot({
       apiKey: environment.MAPS,
