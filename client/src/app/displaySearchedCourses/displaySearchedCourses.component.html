@@ -25,13 +25,13 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12" *ngIf="course.description.length > 250">
-              <p>{{course.description | slice:0:250}}...
-                <a [routerLink]="['/course/view']" [queryParams]="{id: course._id}">Ver más</a>
+            <div class="col-md-12">
+              <p>
+                Inicio: {{course.startDate | date: "dd/MM/yyyy"}}
               </p>
-            </div>
-            <div class="col-md-12" *ngIf="course.description.length <= 250">
-              <p>{{course.description}}</p>
+              <p>
+                Dirección: {{course.academy.address}}
+              </p>
             </div>
           </div>
           <div class="text-right p-2 d-flex align-items-center justify-content-end">

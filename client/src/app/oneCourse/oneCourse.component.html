@@ -93,7 +93,7 @@
           <h6>Nº máximo de alumnos en clase:</h6> {{courseObj.course.sizeClass}}
         </li>
         <li>
-          <h6>Porcentaje de aprobados:</h6> {{courseObj.course.approvedRate}}
+          <h6>Porcentaje de aprobados:</h6> {{courseObj.course.approvedRate | percent}}
         </li>
         <li>
           <h6>¿Por qué elegir la academia {{courseObj.course.academy.name}}?</h6>

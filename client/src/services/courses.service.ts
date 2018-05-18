@@ -40,6 +40,7 @@ export class CoursesService {
         }
         this.foundCourses = courses;
         this.setCoursesMarkers(courses);
+        console.log(courses);
       })
       .catch(error => Observable.throw(error.json().message));
   }
