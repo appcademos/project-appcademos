@@ -1,10 +1,13 @@
-<div class="container mt-4 pt-4 pb-4">
-  <div class="row">
-    <div class="col-lg-7 pr-5 pl-5">
-      <app-displaySearchedCourses></app-displaySearchedCourses>
-    </div>
-    <div class="col-lg-5" id="map-courses">
+<div class="container">
+  <div class="col-lg-12">
+    <button type="button" class="btn btn-outline-primary m-3" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+      aria-controls="map-courses">
+      <span *ngIf="isCollapsed">Ver mapa</span>
+      <span *ngIf="!isCollapsed">Ocultar mapa</span>      
+    </button>
+    <div class="col-lg-12 mb-3" id="map-courses" [ngbCollapse]="isCollapsed">
       <app-map></app-map>
     </div>
+      <app-displaySearchedCourses></app-displaySearchedCourses>
   </div>
 </div>
