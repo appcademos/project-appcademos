@@ -18,11 +18,17 @@
             <img class="mw-100" [src]="course.images[0].imagePath" alt="course.images[0].imageName">
           </div>
           <div class="card-body">
-            <h5 class="card-title">{{course.title}}</h5>
-            <small class="text-muted">{{course.academy.name}}</small>
-            <p class="card-text">
-              {{course.price | currency:'EUR'}}
-            </p>
+            <div class="row justify-content-between m-0">
+              <div class="p-0">
+                <h5 class="card-title m-0">{{course.title}}</h5>
+                <small class="text-muted">{{course.academy.name}}</small>
+              </div>
+              <div class="p-2 text-right">
+                <p class="card-text">
+                  {{course.price | currency:'EUR'}}
+                </p>
+              </div>
+            </div>
             <p class="card-text">
               Inicio: {{course.startDate | date: "dd/MM/yyyy"}}
             </p>
