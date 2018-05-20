@@ -7,7 +7,7 @@ const {
   create,
   update,
   erase
-} = require("../api/review/review.controller");
+} = require("./review.controller");
 
 router.get("/:id", getOne);
 router.get("/", getAll);
