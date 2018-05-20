@@ -230,7 +230,7 @@ const update = (req, res, next) => {
 
 const erase = (req, res, next) => {
   if (req.academy) {
-    Academy.findByIdAndRemove(req.academy._id)
+    Academy.findByIdAndRemove(req.academy.id)
       .then(() => {
         req.session.destroy(function (err) {
           res.status(200).json({

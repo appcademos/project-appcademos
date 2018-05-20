@@ -8,14 +8,12 @@ const {
   signup,
   login,
   getThisUser,
-  getUser,
   update,
   erase
 } = require("./user.controller");
 
 router.get("/session", loggedIn);
 router.get("/logout", logout);
-router.get("/single/:id", getUser);
 router.get("/", getThisUser);
 router.put("/update/:id", update);
 router.post("/login", login);
