@@ -106,65 +106,94 @@ const getOne = (req, res, next) => {
 };
 
 const create = (req, res, next) => {
-  const properties = _.pick(req.body, fields);
-  const newCourse = new Course(properties);
+  if (req.academy) {
+    if (req.academy.isVerified) {
+      const properties = _.pick(req.body, fields);
+      let newCourse = new Course(properties);
+      newCourse.academy = req.academy.id;
 
-  newCourse.save(err => {
-    if (err) {
-      debug(err);
-      res
-        .status(400)
-        .json({
-          message: "Something went wrong when trying to create course"
-        });
+      newCourse.save(err => {
+        if (err) {
+          res
+            .status(400)
+            .json({
+              message: "Something went wrong when trying to create course"
+            });
+        } else {
+          res.status(200).json({
+            message: "Course saved"
+          });
+        }
+      });
     } else {
-      res.status(201).json({
-        message: "Course saved"
+      res.status(400).json({
+        message: "You are not verified to create courses"
       });
     }
-  });
+  } else {
+    res.status(400).json({
+      message: "You should login first"
+    });
+  }
 };
 
 const update = (req, res, next) => {
   const updates = _.pick(req.body, fields);
 
-  Course.findByIdAndUpdate(req.params.id, updates)
+  Course.findById(req.params.id)
     .then(course => {
-      res.status(200).json({
-        message: "Course updated."
-      });
+      if (course.academy === req.academy.id) {
+        Course.update(req.params.id, updates)
+          .then(() => {
+            res.status(200).json({
+              message: "Course updated."
+            });
+          })
+          .catch(err => {
+            debug(err);
+            res.status(400).json({
+              message: "Error updating course"
+            });
+          });
+      } else {
+        res.status(400).json({
+          message: "You can only edit your own courses"
+        });
+      }
     })
-    .catch(err => {
-      debug(err);
-      res.status(400).json({
-        message: "Error updating course"
-      });
-    });
 };
 
 const erase = (req, res, next) => {
-  Course.findByIdAndRemove(req.params.id).then(() => {
-    Review.find({
-        course: req.params.id
-      })
-      .remove()
-      .then(() => {
-        res.status(200).json({
-          message: "Course removed"
+  Course.findById(req.params.id).then(course => {
+    if (course.academy === req.academy.id) {
+      Course.remove(req.params.id).then(() => {
+          Review.find({
+              course: req.params.id
+            })
+            .remove()
+            .then(() => {
+              res.status(200).json({
+                message: "Course removed"
+              });
+            })
+            .catch(err => {
+              debug(err);
+              res.status(400).json({
+                message: "Error erasing reviews"
+              });
+            });
+        })
+        .catch(err => {
+          debug(err);
+          res.status(400).json({
+            message: "Error erasing course"
+          });
         });
-      })
-      .catch(err => {
-        debug(err);
-        res.status(400).json({
-          message: "Error erasing reviews"
-        });
-      })
-      .catch(err => {
-        debug(err);
-        res.status(400).json({
-          message: "Error erasing course"
-        });
+    } else {
+      res.status(400).json({
+        message: "You can only erase your own courses"
       });
+    }
   });
 };
 

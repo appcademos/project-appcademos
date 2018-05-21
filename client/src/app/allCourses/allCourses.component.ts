@@ -8,7 +8,7 @@ import { CoursesService } from '../../services/courses.service';
   styleUrls: ['./allCourses.component.scss']
 })
 export class AllCoursesComponent implements OnInit {
-
+  public isCollapsed = true;
   constructor(private courseService: CoursesService) {
     this.courseService.searching = true;
   }

@@ -149,21 +149,6 @@ const getThisUser = (req, res, next) => {
   }
 };
 
-// View other user's profile
-const getUser = (req, res, next) => {
-  User.findById(req.params.id)
-    .select("-password")
-    .then(user => {
-      res.status(200).json(user);
-    })
-    .catch(err => {
-      debug(err);
-      res.status(400).json({
-        message: "Error retrieving user"
-      });
-    });
-};
-
 const update = (req, res, next) => {
   let updates = _.pick(req.body, fields);
 
@@ -247,7 +232,6 @@ module.exports = {
   signup,
   login,
   getThisUser,
-  getUser,
   update,
   erase
 };
