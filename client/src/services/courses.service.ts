@@ -22,6 +22,7 @@ export class CoursesService {
   ) {}
   findCourses(searchcourses) {
     this.mapService.markers = [];
+
     this.searchcourses = searchcourses.replace(/[\s]/g, "+");
 
     return this.http
