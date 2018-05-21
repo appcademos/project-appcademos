@@ -41,7 +41,6 @@ export class CoursesService {
         }
         this.foundCourses = courses;
         this.setCoursesMarkers(courses);
-        console.log(courses);
       })
       .catch(error => Observable.throw(error.json().message));
   }
@@ -74,5 +73,13 @@ export class CoursesService {
         this.setCoursesMarkers(courses);
       })
       .catch(error => Observable.throw(error.json().message));
+  }
+
+  setSearchValue(value) {
+    if (value === "Precio") {
+      this.foundCourses.sort(function(a, b) {
+        return a.price - b.price;
+      });
+    }
   }
 }
