@@ -26,23 +26,23 @@
         <a *ngIf="academyService.academy || userService.user" class="nav-link" (click)="logout()">Logout</a>
       </li>
       <li class="nav-item d-lg-none ml-4">
-        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'first certificate' }">First Certificate
+        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'first certificate' }" (click)="isNavbarCollapsed = true">First Certificate
         </a>
       </li>
       <li class="nav-item d-lg-none ml-4">
-        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'advanced' }">Advanced</a>
+        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'advanced' }" (click)="isNavbarCollapsed = true">Advanced</a>
       </li>
       <li class="nav-item d-lg-none ml-4">
-        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'nivel b' }">Inglés Nivel B</a>
+        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'nivel b' }" (click)="isNavbarCollapsed = true">Inglés Nivel B</a>
       </li>
       <li class="nav-item d-lg-none ml-4">
-        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'nivel c1' }">Inglés Nivel C1</a>
+        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'nivel c1' }" (click)="isNavbarCollapsed = true">Inglés Nivel C1</a>
       </li>
       <li class="nav-item d-lg-none ml-4">
-        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'toefl' }">TOEFL</a>
+        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'toefl' }" (click)="isNavbarCollapsed = true">TOEFL</a>
       </li>
       <li class="nav-item d-lg-none ml-4">
-        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'ielts' }">IELTS</a>
+        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'ielts' }" (click)="isNavbarCollapsed = true">IELTS</a>
       </li>
     </ul>
   </div>
@@ -53,23 +53,23 @@
     <div class="navbar-collapse" id="navbarNavMenu2">
       <ul class="w-100 navbar-nav d-flex justify-content-around">
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'first certificate' }">First Certificate
+          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'first certificate' }" (click)="isNavbarCollapsed = true">First Certificate
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'advanced' }">Advanced</a>
+          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'advanced' }" (click)="isNavbarCollapsed = true">Advanced</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'nivel b' }">Inglés Nivel B</a>
+          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'nivel b' }" (click)="isNavbarCollapsed = true">Inglés Nivel B</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'nivel c1' }">Inglés Nivel C1</a>
+          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'nivel c1' }" (click)="isNavbarCollapsed = true">Inglés Nivel C1</a>
         </li>
         <li class="nav-item pr-4 pl-4">
-          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'toefl' }">TOEFL</a>
+          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'toefl' }" (click)="isNavbarCollapsed = true">TOEFL</a>
         </li>
         <li class="nav-item pr-4 pl-4">
-          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'ielts' }">IELTS</a>
+          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'ielts' }" (click)="isNavbarCollapsed = true">IELTS</a>
         </li>
       </ul>
     </div>
