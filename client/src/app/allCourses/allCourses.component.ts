@@ -13,7 +13,7 @@ export class AllCoursesComponent implements OnInit {
 
   constructor(private courseService: CoursesService) {
     this.courseService.searching = true;
-    this.select = ["Precio", "type2", "type3"];
+    this.select = ["Precio"];
   }
 
   setFilter(value) {

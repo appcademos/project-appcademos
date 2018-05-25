@@ -1,3 +1,5 @@
+@import '../../sass/abstracts/variables.scss';
+
 .course-list {
   padding: 0;
 }
@@ -30,6 +32,8 @@
 
 .card-price{
   font-size: 1.2em;
+  font-weight: bold;
+  color: $main-red;
 }
 
 .course-item-image {
@@ -46,12 +50,12 @@
 }
 
 .full {
-  color: rgb(236, 201, 0);
+  color: $main-yellow;
 }
 
 .half {
   position: absolute;
   display: inline-block;
   overflow: hidden;
-  color: rgb(236, 201, 0);
+  color: $main-yellow;
 }

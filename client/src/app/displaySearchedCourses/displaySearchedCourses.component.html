@@ -10,8 +10,8 @@
 
   <div *ngIf="courseService.foundCourses.length !== 0">
 
-    <div class="row justify-content-center">
-      <div class="col-auto mb-3" *ngFor="let course of courseService.foundCourses; let courseIndex = index">
+    <div class="card-group">
+      <div class="p-2 d-flex justify-content-center" *ngFor="let course of courseService.foundCourses; let courseIndex = index">
         <div class="card course-item">
           <div class="course-item-img" *ngIf="course.images.length !== 0">
             <img class="mw-100" [src]="course.images[0].imagePath" alt="course.images[0].imageName">
@@ -23,7 +23,7 @@
                 <small class="text-muted">{{course.academy.name}}</small>
               </div>
               <div class="text-right">
-                <p class="card-text badge badge-warning card-price">
+                <p class="card-text card-price">
                   {{course.price | currency:'EUR'}}
                 </p>
               </div>
