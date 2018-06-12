@@ -11,6 +11,8 @@ export class UserSignupFormComponent implements OnInit {
   isLogin: Boolean = true;
   email: String;
   password: String;
+  instauser: String;
+  preferences: String;
 
   constructor(private router: Router, public userService: UserSessionService) {}
 
@@ -35,7 +37,9 @@ export class UserSignupFormComponent implements OnInit {
   signup() {
     const user = {
       email: this.email,
-      password: this.password
+      password: this.password,
+      instauser: this.instauser,
+      preferences: this.preferences,
     };
     this.userService.signup(user).subscribe(user => {
       if (user) {

@@ -6,6 +6,8 @@ const userSchema = new Schema(
     name: String,
     lastName: String,
     phone: Number,
+    instauser: String,
+    preferences: String,
     birthdate: Date,
     imageName: String,
     imagePath: String,
