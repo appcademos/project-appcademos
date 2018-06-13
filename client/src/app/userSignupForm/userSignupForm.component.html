@@ -62,32 +62,50 @@
           <label for="exampleInputPassword1">Usuario de Instagram (anunciaremos los ganadores por ahí)</label>
           <input type="text" class="form-control" [(ngModel)]="instauser" name="password" id="exampleInputText2" placeholder="Tu usuario de instagram">
         </div>
+        <label>¿En qué cursos estás interesado?</label>
         <div class="form-check">
-          <label>¿En qué cursos estás interesado?</label>
-          <input class="form-check-input" [(ngModel)]="preferences" type="radio" name="exampleRadios" id="exampleRadios1" value="FCE"multiple>
-          <label class="form-check-label" for="exampleRadios1">
+          <input class="form-check-input mt-2" [(ngModel)]="preferences[0]" type="checkbox" name="examplecheckboxs" id="examplecheckboxs1" value="FCE"multiple>
+          <label class="form-check-label mt-2" for="examplecheckboxs1">
             First Certificate
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" [(ngModel)]="preferences" type="radio" name="exampleRadios" id="exampleRadios2" value="CAE">
-          <label class="form-check-label" for="exampleRadios2">
+          <input class="form-check-input mt-2" [(ngModel)]="preferences" type="checkbox" name="examplecheckboxs" id="examplecheckboxs2" value="CAE">
+          <label class="form-check-label mt-2" for="examplecheckboxs2">
             Advanced
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" [(ngModel)]="preferences" type="radio" name="exampleRadios" id="exampleRadios3" value="TOEFL">
-          <label class="form-check-label" for="exampleRadios3">
+          <input class="form-check-input mt-2" [(ngModel)]="preferences" type="checkbox" name="examplecheckboxs" id="examplecheckboxs3" value="TOEFL">
+          <label class="form-check-label mt-2" for="examplecheckboxs3">
             TOEFL
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" [(ngModel)]="preferences" type="radio" name="exampleRadios" id="exampleRadios4" value="IELTS">
-          <label class="form-check-label" for="exampleRadios4">
+          <input class="form-check-input mt-2" [(ngModel)]="preferences" type="checkbox" name="examplecheckboxs" id="examplecheckboxs4" value="IELTS">
+          <label class="form-check-label mt-2" for="examplecheckboxs4">
             IELTS
           </label>
         </div>
-        <br>
+        <div class="form-check">
+            <input class="form-check-input mt-2" [(ngModel)]="preferences" type="checkbox" name="examplecheckboxs" id="examplecheckboxs5" value="B2">
+            <label class="form-check-label mt-2" for="examplecheckboxs5">
+              Nivel B2
+            </label>
+          </div>
+          <div class="form-check">
+              <input class="form-check-input mt-2" [(ngModel)]="preferences" type="checkbox" name="examplecheckboxs" id="examplecheckboxs6" value="C1">
+              <label class="form-check-label mt-2" for="examplecheckboxs6">
+               Nivel C1
+              </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input mt-2" [(ngModel)]="preferences" type="checkbox" name="examplecheckboxs" id="examplecheckboxs7" value="Proficiency">
+                <label class="form-check-label mt-2" for="examplecheckboxs7">
+                  Proficiency
+                </label>
+              </div>
+              <br>
         <div class="form-check">
           <input type="checkbox" class="form-check-input mt-2" id="termsAndConditions">
           <label class="form-check-label mt-2" for="termsAndConditions">Acepto la
