@@ -7,11 +7,7 @@ const userSchema = new Schema(
     lastName: String,
     phone: Number,
     instauser: String,
-    preferences: [
-      {
-      type:String
-    }
-  ],
+    preferences: String,
     birthdate: Date,
     imageName: String,
     imagePath: String,
