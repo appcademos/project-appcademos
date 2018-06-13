@@ -1,16 +1,16 @@
 <div class="container d-flex flex-column align-items-center pt-5">
-  <h3>Regístrate en Appcademos</h3>
+  <h3>Sorteo de Appcademos</h3>
   <!-- <h3 *ngIf="isLogin">Login</h3> -->
 
   <div class="row w-75 mt-5">
     <form class="w-100">
       <div class="row w-100 m-0">
-        <h4>Si ya cumples las dos primeras reglas:</h4>
+        <h4>Si ya has cumplido los 2 primeros pasos:</h4>
         <ul>
           <li>Seguir a @appcademos en Instagram</li>
-          <li>Mencionar a 2 amigos en el post del sorteo</li>
+          <li>Mencionar a 2 amigos en la foto del SORTEO</li>
         </ul>
-        <h4>Sólo te queda rellenar este registro para participar en el sorteo:</h4>
+        <h4>Sólo te queda inscribirte en el SORTEO</h4>
         <!-- <div class="form-group col-md-4 m-0 p-2">
           <input type="email" class="form-control" [(ngModel)]="email" name="email" id="exampleInputEmail1" aria-describedby="emailHelp"
             placeholder="Enter email">
@@ -44,6 +44,11 @@
       </div>
 
       <form>
+          <div class="form-group">
+              <label for="exampleInputEmail1">Nombre y Apellidos</label>
+              <input type="text" class="form-control" [(ngModel)]="name" name="name" id="exampleInputText1" aria-describedby="textHelp"
+                placeholder="Tu nombre y apellidos">
+            </div>
         <div class="form-group">
           <label for="exampleInputEmail1">Correo electrónico</label>
           <input type="email" class="form-control" [(ngModel)]="email" name="email" id="exampleInputEmail1" aria-describedby="emailHelp"
@@ -54,10 +59,11 @@
           <input type="password" class="form-control" [(ngModel)]="password" name="password" id="exampleInputPassword1" placeholder="Escribe una contraseña">
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Usuario de Instagram</label>
-          <input type="text" class="form-control" [(ngModel)]="instauser" name="password" id="exampleInputText1" placeholder="Tu usuario de instagram">
+          <label for="exampleInputPassword1">Usuario de Instagram (anunciaremos los ganadores por ahí)</label>
+          <input type="text" class="form-control" [(ngModel)]="instauser" name="password" id="exampleInputText2" placeholder="Tu usuario de instagram">
         </div>
         <div class="form-check">
+          <label>¿En qué cursos estás interesado?</label>
           <input class="form-check-input" [(ngModel)]="preferences" type="radio" name="exampleRadios" id="exampleRadios1" value="FCE"multiple>
           <label class="form-check-label" for="exampleRadios1">
             First Certificate
@@ -70,14 +76,14 @@
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" [(ngModel)]="preferences" type="radio" name="exampleRadios" id="exampleRadios2" value="TOEFL">
-          <label class="form-check-label" for="exampleRadios2">
+          <input class="form-check-input" [(ngModel)]="preferences" type="radio" name="exampleRadios" id="exampleRadios3" value="TOEFL">
+          <label class="form-check-label" for="exampleRadios3">
             TOEFL
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" [(ngModel)]="preferences" type="radio" name="exampleRadios" id="exampleRadios2" value="IELTS">
-          <label class="form-check-label" for="exampleRadios2">
+          <input class="form-check-input" [(ngModel)]="preferences" type="radio" name="exampleRadios" id="exampleRadios4" value="IELTS">
+          <label class="form-check-label" for="exampleRadios4">
             IELTS
           </label>
         </div>
@@ -86,5 +92,5 @@
           <label class="form-check-label mt-2" for="termsAndConditions">Acepto los
             <a [routerLink]="['']">términos y condiciones</a> de Appcademos</label>
         </div>
-        <button type="submit" class="btn btn-signup form-btn col-md-4 mt-2" (click)="signup()">¡Registrarme!</button>
+        <button type="submit" class="btn btn-signup form-btn col-md-4 mt-2" (click)="signup()">INSCRIBIRME EN EL SORTEO</button>
       </form>
