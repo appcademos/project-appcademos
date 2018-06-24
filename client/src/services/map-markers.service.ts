@@ -11,7 +11,7 @@ interface marker {
   
 @Injectable()
 export class MapMarkersService {
-    zoom: number = 15;
+    zoom: number = 9.5;
     markers: marker[] = [];
     userLoc: marker;
     academyMarker: marker;
