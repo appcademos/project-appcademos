@@ -18,13 +18,21 @@ const reviewSchema = new Schema(
       required: true
     },
     author: {
-      type: Schema.Types.ObjectId,
-      ref: "User"
-    },
-    course: {
-      type: Schema.Types.ObjectId,
-      ref: "Course",
+      type:String,
       required: true
+      // type: Schema.Types.ObjectId,
+      // ref: "User"
+    },
+    // course: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "Course",
+    //   required: true
+    // }
+    academy: {
+      type: Schema.Types.ObjectId,
+      ref: "Academy",
+      required: true
+      
     }
   },
   {

@@ -4,7 +4,9 @@ const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const User = require("../user/user.model");
-const Academy = require("./academy.model");
+const Academy = require("../academy/academy.model");
+const Course = require("../course/course.model");
+const Review = require("../review/review.model");
 const debug = require("debug")("server:academy.controller");
 const fields = Object.keys(_.omit(Academy.schema.paths, ["__v", "_id"]));
 const bcryptSalt = parseInt(process.env.BCRYPT);
@@ -127,29 +129,81 @@ const login = (req, res, next) => {
 }
 
 const getAll = (req, res, next) => {
+  // Academy.find()
+  //   .select("-password")
+  //   .then(academies => {
+  //     res.status(200).json(
+  //       {academies}
+  //     );
+  //   })
+  //   .catch(err => {
+  //     res.status(500).json({
+  //       message: "Error requesting academies"
+  //     });
+  //   });
+ 
   Academy.find()
-    .select("-password")
-    .then(academies => {
-      res.status(200).json(
-        {academies}
-      );
-    })
-    .catch(err => {
-      res.status(500).json({
-        message: "Error requesting academies"
-      });
+  .then(academies => {
+    if (req.academy)
+    return Promise.all(academies.map(academy =>
+        Review.find({
+          academy: academy.id
+        }).populate("author").then(reviews => {
+          for (let i = 0; i < reviews.length; i++) {
+            if (reviews[i].academy == academy.id) {
+              academy.reviews.push(reviews[i]);
+            }
+          }
+        })))
+      .then(() => {
+        res.status(200).json(academies)
+      })
+  })
+  .catch(err => {
+    res.status(400).json({
+      message: "Error requesting academies!"
     });
+  });
 };
 
+
+
 const getOne = (req, res, next) => {
-  Academy.findById(req.params.id)
-    .select("-password")
+  // Academy.findById(req.params.id)
+  //   .select("-password")
+  //   .then(academy => {
+  //     res.status(200).json({
+  //       academy
+  //     });
+  //   })
+  //   .catch(err => {
+  //     res.status(400).json({
+  //       message: "Academy not found"
+  //     });
+  //   });
+
+    Academy.findById(req.params.id)
+    .exec()
     .then(academy => {
-      res.status(200).json({
-        academy
-      });
+      Review.find({
+          academy: academy.id
+        })
+        .populate("author")
+        .then(reviews => {
+          res.status(200).json({
+            academy,
+            reviews
+          });
+        })
+        .catch(err => {
+          debug(err);
+          res.status(400).json({
+            message: "Error when retrieving reviews"
+          });
+        });
     })
     .catch(err => {
+      debug(err);
       res.status(400).json({
         message: "Academy not found"
       });

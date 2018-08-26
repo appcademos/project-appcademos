@@ -2,6 +2,7 @@ const _ = require("lodash");
 const Review = require("./review.model");
 const User = require("../user/user.model");
 const Course = require("../course/course.model");
+const Academy = require("../academy/academy.model")
 const debug = require("debug")("server:review.controller");
 const fields = Object.keys(_.omit(Review.schema.paths, ["__v", "_id"]));
 
