@@ -1,49 +1,24 @@
 <div class="container d-flex flex-column align-items-center pt-5">
-  <h3>Sorteo de Appcademos</h3>
-  <!-- <h3 *ngIf="isLogin">Login</h3> -->
+  <h3 *ngIf="!isLogin">Regístrate en Appcademos</h3>
+ <h3 *ngIf="isLogin">Inicia Sesión</h3>
 
   <div class="row w-75 mt-5">
     <form class="w-100">
       <div class="row w-100 m-0">
-        <h4>Si ya has cumplido los 2 primeros pasos:</h4>
-        <ul>
-          <li>Seguir a @appcademos en Instagram</li>
-          <li>Mencionar a 2 amigos en la foto del SORTEO</li>
-        </ul>
-        <h4>Sólo te queda inscribirte en el SORTEO</h4>
-        <!-- <div class="form-group col-md-4 m-0 p-2">
-          <input type="email" class="form-control" [(ngModel)]="email" name="email" id="exampleInputEmail1" aria-describedby="emailHelp"
-            placeholder="Enter email">
-        </div>
         <div class="form-group col-md-4 m-0 p-2">
-          <input type="password" class="form-control" [(ngModel)]="password" name="password" id="exampleInputPassword1" placeholder="Password">
-        </div>
-        <button *ngIf="!isLogin" type="submit" class="btn btn-signup form-btn col-md-4 mt-2" (click)="signup()">Sign Up!</button>
-        <button *ngIf="isLogin" type="submit" class="btn btn-signup form-btn col-md-4 mt-2" (click)="login()">Login</button>
-      </div>
+        <form *ngIf="isLogin">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Correo electrónico</label>
+                <input type="email" class="form-control" [(ngModel)]="email" name="email" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="Introduce tu correo electrónico">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Contraseña</label>
+                <input type="password" class="form-control" [(ngModel)]="password" name="password" id="exampleInputPassword1" placeholder="Introduce tu contraseña">
+              </div>
 
-      <div>
-        <div class="form-check text-center">
-          <input *ngIf="!isLogin" type="checkbox" class="form-check-input mt-2" id="termsAndConditions">
-          <label *ngIf="!isLogin" class="form-check-label mt-2" for="termsAndConditions">I agree with the
-            <a [routerLink]="['']">terms and conditions</a> of this website</label>
-        </div>
-      </div>
-
-    </form>
-  </div>
-  <div>
-    <p *ngIf="!isLogin" class="signin-link mt-2">{{"Already have an account?" | uppercase}}
-      <a (click)="isLogin = true">{{"Sign-in here" | uppercase}}</a>
-    </p>
-    <p *ngIf="isLogin" class="signin-link">{{"Don't have an account?" | uppercase}}
-      <a (click)="isLogin = false">{{"Sign-up here" | uppercase}}</a>
-    </p>
-  </div> -->
-        <!-- <app-isAcademyButton></app-isAcademyButton> -->
-      </div>
-
-      <form>
+        </form>
+          <form *ngIf="!isLogin">
           <div class="form-group">
               <label for="exampleInputEmail1">Nombre y Apellidos</label>
               <input type="text" class="form-control" [(ngModel)]="name" name="name" id="exampleInputText1" aria-describedby="textHelp"
@@ -58,63 +33,25 @@
           <label for="exampleInputPassword1">Contraseña</label>
           <input type="password" class="form-control" [(ngModel)]="password" name="password" id="exampleInputPassword1" placeholder="Escribe una contraseña">
         </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Usuario de Instagram (anunciaremos los ganadores por ahí)</label>
-          <input type="text" class="form-control" [(ngModel)]="instauser" name="password" id="exampleInputText2" placeholder="Tu usuario de instagram">
-        </div>
-        <label>¿En qué cursos estás interesado?</label>
-        <div class="form-check">
-          <input class="form-check-input mt-2" [(ngModel)]="preferences" type="radio" name="exampleRadios" id="exampleRadios1" value="FCE"multiple>
-          <label class="form-check-label mt-2" for="exampleRadios1">
-            First Certificate
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input mt-2" [(ngModel)]="preferences" type="radio" name="exampleRadios" id="exampleRadios2" value="CAE">
-          <label class="form-check-label mt-2" for="exampleRadios2">
-            Advanced
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input mt-2" [(ngModel)]="preferences" type="radio" name="exampleRadios" id="exampleRadios3" value="TOEFL">
-          <label class="form-check-label mt-2" for="exampleRadios3">
-            TOEFL
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input mt-2" [(ngModel)]="preferences" type="radio" name="exampleRadios" id="exampleRadios4" value="IELTS">
-          <label class="form-check-label mt-2" for="exampleRadios4">
-            IELTS
-          </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input mt-2" [(ngModel)]="preferences" type="radio" name="exampleRadios" id="exampleRadios5" value="B2">
-            <label class="form-check-label mt-2" for="exampleRadios5">
-              Nivel B2
-            </label>
-          </div>
-          <div class="form-check">
-              <input class="form-check-input mt-2" [(ngModel)]="preferences" type="radio" name="exampleRadios" id="exampleRadios6" value="C1">
-              <label class="form-check-label mt-2" for="exampleRadios6">
-               Nivel C1
-              </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input mt-2" [(ngModel)]="preferences" type="radio" name="exampleRadios" id="exampleRadios7" value="Proficiency">
-                <label class="form-check-label mt-2" for="exampleRadios7">
-                  Proficiency
-                </label>
-              </div>
-        <br>
+       
         <div class="form-check">
           <input type="checkbox" class="form-check-input mt-2" id="termsAndConditions">
           <label class="form-check-label mt-2" for="termsAndConditions">Acepto la
             <a href="https://docs.google.com/document/d/1syysOVjW1KyL6f_N9-DCHaTkRjeYDvDW1SxyUrDVvgE/edit?usp=sharing"target="_blank">política de privacidad</a> de Appcademos</label>
         </div>
-        <div class="form-check">
-            <input type="checkbox" class="form-check-input mt-2" id="termsAndConditions2">
-            <label class="form-check-label mt-2" for="termsAndConditions">Acepto las
-              <a href="https://docs.google.com/document/d/1rBpHmcKeaM3zOtPVADN13zkyLW9z6lcnMQlvlgIIm6U/edit?usp=sharing"target="_blank">bases</a> del sorteo</label>
-          </div>
-        <button type="submit" class="btn btn-danger form-btn col-md-4 mt-2" (click)="signup()">INSCRIBIRME EN EL SORTEO</button>
+        <button type="submit" class="btn btn-danger form-btn col-md-4 mt-2" (click)="signup()">REGISTRARME</button>
+        <button *ngIf="isLogin" type="submit" class="btn btn-signup form-btn col-md-4 mt-2" (click)="login()">Login</button>
       </form>
+      </div>
+
+  </div>
+  <div>
+    <p *ngIf="!isLogin" class="signin-link mt-2">{{"¿Ya tienes una cuenta?" | uppercase}}
+      <a (click)="isLogin = true">{{"Inicia Sesión" | uppercase}}</a>
+    </p>
+    <p *ngIf="isLogin" class="signin-link">{{"¿Aún no tienes una cuenta?" | uppercase}}
+      <a (click)="isLogin = false">{{"Regístrate" | uppercase}}</a>
+    </p>
+  </div>
+           <app-isAcademyButton></app-isAcademyButton>
+    

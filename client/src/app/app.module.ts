@@ -41,51 +41,54 @@ import { UserComponent } from "./user/user.component";
 import { UserLoginFormComponent } from "./userLoginForm/userLoginForm.component";
 import { UserSignupFormComponent } from "./userSignupForm/userSignupForm.component";
 import { ConfirmationComponent } from "./confirmation/confirmation.component";
+import { AcademyprofileComponent } from './academyprofile/academyprofile.component';
 
 @NgModule({
-  declarations: [
-    AcademyComponent,
-    AcademyMapMarkerComponent,
-    AcademyLoginFormComponent,
-    AcademySignupFormComponent,
-    AllCoursesComponent,
-    AppComponent,
-    CheckoutComponent,
-    CoursesMapMarkersComponent,
-    CreateCourseFormComponent,
-    DisplaySearchedCoursesComponent,
-    FooterComponent,
-    HeaderComponent,
-    HomeComponent,
-    IsAcademyButtonComponent,
-    MapComponent,
-    MapSearchboxComponent,
-    OneCourseComponent,
-    SearchboxCoursesComponent,
-    UserComponent,
-    UserLoginFormComponent,
-    UserSignupFormComponent,
-    ConfirmationComponent
+   declarations: [
+      AcademyComponent,
+      AcademyMapMarkerComponent,
+      AcademyLoginFormComponent,
+      AcademySignupFormComponent,
+      AllCoursesComponent,
+      AppComponent,
+      CheckoutComponent,
+      CoursesMapMarkersComponent,
+      CreateCourseFormComponent,
+      DisplaySearchedCoursesComponent,
+      FooterComponent,
+      HeaderComponent,
+      HomeComponent,
+      IsAcademyButtonComponent,
+      MapComponent,
+      MapSearchboxComponent,
+      OneCourseComponent,
+      SearchboxCoursesComponent,
+      UserComponent,
+      UserLoginFormComponent,
+      UserSignupFormComponent,
+      ConfirmationComponent,
+      AcademyprofileComponent
+   ],
+
+imports: [
+  AgmCoreModule.forRoot({
+    apiKey: "AIzaSyCYxJxUvlC9d_-w181lx5OxjJvtCwfDJ6w",
+    libraries: ["places"]
+  }),
+  BrowserModule,
+  FormsModule,
+  HttpModule,
+  NgbModule.forRoot(),
+  ReactiveFormsModule,
+  RouterModule.forRoot(routes)
 ],
-  imports: [
-    AgmCoreModule.forRoot({
-      apiKey: "AIzaSyCYxJxUvlC9d_-w181lx5OxjJvtCwfDJ6w",
-      libraries: ["places"]
-    }),
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    NgbModule.forRoot(),
-    ReactiveFormsModule,
-    RouterModule.forRoot(routes)
-  ],
-  providers: [
-    AcademySessionService,
-    CoursesService,
-    GeolocationService,
-    MapMarkersService,
-    UserSessionService
-  ],
-  bootstrap: [AppComponent]
+providers: [
+  AcademySessionService,
+  CoursesService,
+  GeolocationService,
+  MapMarkersService,
+  UserSessionService
+],
+bootstrap: [AppComponent]
 })
 export class AppModule {}

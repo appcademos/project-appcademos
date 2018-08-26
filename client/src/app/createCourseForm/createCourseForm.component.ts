@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CoursesService } from '../../services/courses.service';
+import {AcademySessionService} from '../../services/academySession.service'
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-createCourseForm',
@@ -8,7 +10,7 @@ import { CoursesService } from '../../services/courses.service';
 })
 export class CreateCourseFormComponent implements OnInit {
 
-  constructor(private courseService: CoursesService) { }
+  constructor( private academyService: AcademySessionService, private courseService: CoursesService) { }
   price: Number;
   title: {
     type: String,
@@ -19,7 +21,19 @@ export class CreateCourseFormComponent implements OnInit {
   sizeClass: Number;
   description: String;
   tags: [String];
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }
+// createCourse(){
+// const course = {
+// price: this.price,
+// title: this.title,
+// hours: this.hours,
+// startDate: this.startDate,
+// sizeClass: this.sizeClass,
+// description: this.description,
+// tags: this.tags
+// }
+
+// this.courseService.createCourse(course).subscribe
+// };

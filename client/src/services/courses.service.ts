@@ -82,4 +82,9 @@ export class CoursesService {
       });
     }
   }
+  createCourse(course){
+    return this.http
+      .post(`${environment.BASEURL}/api/course/create`, course, this.options)
+      .map(res => res.json());
+  }
 }
