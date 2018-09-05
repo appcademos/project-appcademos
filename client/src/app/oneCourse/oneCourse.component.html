@@ -11,8 +11,8 @@
   <button class="btn btn-info btn-sm" (click)="backClicked()">
     <i class="fas fa-arrow-left"></i> Volver a la búsqueda</button>
   <div class="row mb-4">
-    <div class="col-md-4 single-course-col-left">
-      <img src="" alt="" class="mt-2 btest">
+    <div class="col-md-4 single-course-col-left" *ngIf="courseObj.course.images.length !== 0">
+          <img class="mt-2 btest" [src]="courseObj.course.images[0].imagePath" alt="courseObj.course.images[0].imageName">
       <div class="mt-2">
         <h6>
           Opiniones verificadas de alumnos del centro:
@@ -25,8 +25,8 @@
             <ngb-rating rate="{{calcReviewGrade(courseObj.reviews)}}" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
           </div>
           <div class="d-flex justify-content-center ml-auto">
-            <a [routerLink]="['']" *ngIf="courseObj.course.academy.reviews.length === 1" class="m-0">{{courseObj.course.academy.reviews.length}} opinión</a>
-            <a [routerLink]="['']" *ngIf="courseObj.course.academy.reviews.length !== 1" class="m-0">{{courseObj.course.academy.reviews.length}} opiniones</a>
+            <a [routerLink]="['']" *ngIf="courseObj.course.reviews.length === 1" class="m-0">{{courseObj.course.reviews.length}} opinión</a>
+            <a [routerLink]="['']" *ngIf="courseObj.course.reviews.length !== 1" class="m-0">{{courseObj.course.reviews.length}} opiniones</a>
           </div>
         </div>
       </div>
@@ -107,7 +107,7 @@
     </div>
   </div>
 
-  <div *ngIf="courseObj.course.academy.reviews" class="col-lg-12 p-0 d-flex justify-content-center" id="all-reviews">
+  <div *ngIf="courseObj.course.reviews" class="col-lg-12 p-0 d-flex justify-content-center" id="all-reviews">
 
     <div class="col-lg-8 p-0">
       <div class="d-flex flex-column align-items-center">
@@ -115,13 +115,13 @@
         <div class="d-flex align-items-center mb-4">
           <ngb-rating rate="{{calcReviewGrade(courseObj.course.academy.reviews)}}" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
           <div class="d-flex justify-content-center ml-auto">
-            <p *ngIf="courseObj.course.academy.reviews.length === 1" class="m-0 ml-2">({{courseObj.course.academy.reviews.length}} opinión)</p>
-            <p *ngIf="courseObj.course.academy.reviews.length !== 1" class="m-0 ml-2">({{courseObj.course.academy.reviews.length}} opiniones)</p>
+            <p *ngIf="courseObj.course.reviews.length === 1" class="m-0 ml-2">({{courseObj.course.academy.reviews.length}} opinión)</p>
+            <p *ngIf="courseObj.course.reviews.length !== 1" class="m-0 ml-2">({{courseObj.course.academy.reviews.length}} opiniones)</p>
           </div>
         </div>
       </div>
 
-      <div *ngFor="let review of courseObj.course.academy.reviews" class="col-lg-12 mb-4 pb-1 pt-1 single-review">
+      <div *ngFor="let review of courseObj.course.reviews" class="col-lg-12 mb-4 pb-1 pt-1 single-review">
 
         <div class="row">
 

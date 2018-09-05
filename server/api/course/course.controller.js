@@ -14,7 +14,7 @@ const getAll = (req, res, next) => {
     .then(courses => {
       return Promise.all(courses.map(course =>
           Review.find({
-            course: course.id
+            academy: academy.id
           }).populate("author").then(reviews => {
             for (let i = 0; i < reviews.length; i++) {
               if (reviews[i].course == course.id) {

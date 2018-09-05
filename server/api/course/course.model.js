@@ -15,8 +15,8 @@ const courseSchema = new Schema(
     requirements: String,
     startDate: Date,
     images: [{
-      imagePath: String,
-      imageName: String
+      imagePath: String},
+      {imageName: String
     }],
     approvedRate: Number,
     sizeClass: Number,
