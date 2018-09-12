@@ -2,14 +2,16 @@
   <ol class="breadcrumb">
     <li class="breadcrumb-item active" [routerLink]="['']">Inicio</li>
     <li class="breadcrumb-item">{{courseService.searchcourses}}</li>
+    
   </ol>
   
   <div class="row">
     <div class="col-md-2">
-      <select class="form-control" (change)="setFilter(filterBox.value)" #filterBox>
+      <h4>Las mejores academias de inglés en Moncloa:</h4>
+      <!-- <select class="form-control" (change)="setFilter(filterBox.value)" #filterBox>
         <option></option>
         <option *ngFor="let selected of select" [value]="selected">{{selected}}</option>
-      </select>
+      </select> -->
     </div>
   </div>
 
