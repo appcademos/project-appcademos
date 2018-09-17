@@ -26,23 +26,26 @@
         <a *ngIf="academyService.academy || userService.user" class="nav-link" (click)="logout()">Logout</a>
       </li>
       <li class="nav-item d-lg-none ml-4">
-        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'first certificate' }" (click)="isNavbarCollapsed = true">First Certificate
+        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'first' }" (click)="isNavbarCollapsed = true">First Certificate
         </a>
       </li>
       <li class="nav-item d-lg-none ml-4">
         <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'advanced' }" (click)="isNavbarCollapsed = true">Advanced</a>
       </li>
       <li class="nav-item d-lg-none ml-4">
-        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'nivel b2' }" (click)="isNavbarCollapsed = true">Inglés Nivel B2</a>
+        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'b2' }" (click)="isNavbarCollapsed = true">Inglés Nivel B2</a>
       </li>
       <li class="nav-item d-lg-none ml-4">
-        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'nivel c1' }" (click)="isNavbarCollapsed = true">Inglés Nivel C1</a>
+        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'c1' }" (click)="isNavbarCollapsed = true">Inglés Nivel C1</a>
       </li>
       <li class="nav-item d-lg-none ml-4">
         <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'toefl' }" (click)="isNavbarCollapsed = true">TOEFL</a>
       </li>
       <li class="nav-item d-lg-none ml-4">
         <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'ielts' }" (click)="isNavbarCollapsed = true">IELTS</a>
+      </li>
+      <li class="nav-item d-lg-none ml-4">
+        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'toeic' }" (click)="isNavbarCollapsed = true">TOEIC</a>
       </li>
     </ul>
   </div>
@@ -70,6 +73,9 @@
         </li>
         <li class="nav-item pr-4 pl-4">
           <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'ielts' }" (click)="isNavbarCollapsed = true">IELTS</a>
+        </li>
+        <li class="nav-item pr-4 pl-4">
+          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'toeic' }" (click)="isNavbarCollapsed = true">TOEIC</a>
         </li>
       </ul>
     </div>
