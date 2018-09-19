@@ -47,6 +47,9 @@
       <li class="nav-item d-lg-none ml-4">
         <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'toeic' }" (click)="isNavbarCollapsed = true">TOEIC</a>
       </li>
+      <li class="nav-item  d-lg-none ml-4">
+        <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'proficiency' }" (click)="isNavbarCollapsed = true">Proficiency</a>
+      </li>
     </ul>
   </div>
 </nav>
@@ -56,7 +59,7 @@
     <div class="navbar-collapse" id="navbarNavMenu2">
       <ul class="w-100 navbar-nav d-flex justify-content-around">
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'first certificate' }" (click)="isNavbarCollapsed = true">First Certificate
+          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'first' }" (click)="isNavbarCollapsed = true">First Certificate
           </a>
         </li>
         <li class="nav-item">
@@ -76,6 +79,9 @@
         </li>
         <li class="nav-item pr-4 pl-4">
           <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'toeic' }" (click)="isNavbarCollapsed = true">TOEIC</a>
+        </li>
+        <li class="nav-item pr-4 pl-4">
+          <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'proficiency' }" (click)="isNavbarCollapsed = true">Proficiency</a>
         </li>
       </ul>
     </div>
