@@ -29,7 +29,7 @@ const courseSchema = new Schema(
     description: String,
     teacher: String,
     tags: [String],
-    reviews: [],
+    // reviews: [],
     students: [
       {
         type: Schema.Types.ObjectId,

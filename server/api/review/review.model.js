@@ -19,9 +19,9 @@ const reviewSchema = new Schema(
     },
     author: {
       type:String,
-      required: true
-      // type: Schema.Types.ObjectId,
-      // ref: "User"
+      required: true,
+      type: Schema.Types.ObjectId,
+      ref: "User"
     },
     // course: {
     //   type: Schema.Types.ObjectId,

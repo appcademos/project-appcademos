@@ -24,7 +24,7 @@
   <div class="col-center" *ngIf="courseObj.course.images.length !== 0">
     <img class="img-fluid" [src]="courseObj.course.images[0].imagePath" alt="courseObj.course.images[0].imageName">
     <!--number of reviews-->
-    <!-- <div class="mt-2">
+    <div class="mt-2">
         <h6>
           Opiniones verificadas de alumnos del centro:
         </h6>
@@ -33,24 +33,24 @@
             <h4 class="p-0 m-0">{{average | number : '1.1'}}</h4>
           </div>
           <div>
-            <ngb-rating rate="{{calcReviewGrade(courseObj.reviews)}}" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+            <ngb-rating rate="{{calcReviewGrade(courseObj.course.academy.reviews)}}" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
           </div>
           <div class="d-flex justify-content-center ml-auto">
-            <a [routerLink]="['']" *ngIf="courseObj.course.reviews.length === 1" class="m-0">{{courseObj.course.reviews.length}} opinión</a>
-            <a [routerLink]="['']" *ngIf="courseObj.course.reviews.length !== 1" class="m-0">{{courseObj.course.reviews.length}} opiniones</a>
+            <a [routerLink]="['']" *ngIf="courseObj.course.reviews.length === 1" class="m-0">{{courseObj.course.academy.reviews.length}} opinión</a>
+            <a [routerLink]="['']" *ngIf="courseObj.course.reviews.length !== 1" class="m-0">{{courseObj.course.academy.reviews.length}} opiniones</a>
           </div>
         </div>
-      </div> -->
+      </div>
 
 
-    <!-- <div class="col-md-4 pt-3 pb-3">
+    <div class="col-md-4 pt-3 pb-3">
       <button class="btn btn-danger d-none d-lg-block" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">
         <h5 class="m-0">Reservar mi plaza</h5>
       </button>
       <button class="btn btn-danger d-lg-none w-100 fixed-bottom" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">
         <h5 class="m-0"> Reservar mi plaza</h5>
       </button>
-    </div> -->
+    </div>
 
 
 
