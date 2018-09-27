@@ -23,16 +23,10 @@ const reviewSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User"
     },
-    // course: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: "Course",
-    //   required: true
-    // }
-    academy: {
+    course: {
       type: Schema.Types.ObjectId,
-      ref: "Academy",
+      ref: "Course",
       required: true
-      
     }
   },
   {

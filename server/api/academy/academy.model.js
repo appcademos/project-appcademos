@@ -10,7 +10,6 @@ const academySchema = new Schema(
     confirmationCode: String,
     address: String,
     about: String,
-    reviews: [],
     isVerified: {
       type: Boolean,
       default: false
