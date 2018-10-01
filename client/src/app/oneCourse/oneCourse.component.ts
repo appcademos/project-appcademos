@@ -43,6 +43,6 @@ export class OneCourseComponent implements OnInit {
 
   scrollToDiv(selector)
   {
-      $("html, body").animate({ scrollTop: $(selector).offset().top }
+      $("html, body").animate({ scrollTop: $(selector).offset().top });
   }
 }
