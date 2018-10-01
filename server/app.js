@@ -15,11 +15,15 @@ const hashSecret = process.env.HASHCODE;
 const dbURL = process.env.DBURL;
 const cors = require("cors");
 
+const DataSeed = require('./bin/data_seed');
+
 mongoose.Promise = Promise;
 mongoose
   .connect(dbURL)
   .then(() => {
     debug(`Connected to Mongo at ${dbURL}`);
+
+    DataSeed.seed();
   })
   .catch(err => {
     debug("Error connecting to mongo", err);
@@ -29,6 +33,7 @@ const app = express();
 
 var whitelist = [
   `${process.env.CORS_ALLOW}`,
+  'http://localhost'
 ];
 var corsOptions = {
   origin: function (origin, callback) {

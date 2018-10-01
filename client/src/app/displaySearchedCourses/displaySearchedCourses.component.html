@@ -10,8 +10,8 @@
 
   <div *ngIf="courseService.foundCourses.length !== 0">
 
-      
-    <div class="card-group">
+
+    <div class="card-group mb-5">
       <div class="p-2 d-flex justify-content-center" *ngFor="let course of courseService.foundCourses; let courseIndex = index">
         <div class="card course-item">
           <div class="course-item-img" *ngIf="course.images.length !== 0">
@@ -41,7 +41,7 @@
             </div>
             <div class="card-text d-flex justify-content-between align-items-center">
                 <p class="m-0"> Clases a la semana: {{course.weekclasses}}</p>
-                
+
               </div>
           </div>
           <div class="card-footer d-flex align-items-center justify-content-between">

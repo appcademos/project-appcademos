@@ -18,7 +18,6 @@ const reviewSchema = new Schema(
       required: true
     },
     author: {
-      type:String,
       required: true,
       type: Schema.Types.ObjectId,
       ref: "User"
@@ -28,12 +27,11 @@ const reviewSchema = new Schema(
     //   ref: "Course",
     //   required: true
     // }
-    academy: {
+    /*academy: {
       type: Schema.Types.ObjectId,
       ref: "Academy",
       required: true
-      
-    }
+  }*/
   },
   {
     timestamps: {

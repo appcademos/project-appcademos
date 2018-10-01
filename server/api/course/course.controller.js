@@ -4,32 +4,51 @@ const User = require("../user/user.model");
 const Review = require("../review/review.model");
 const debug = require("debug")("server:course.controller");
 const fields = Object.keys(_.omit(Course.schema.paths, ["__v", "_id"]));
+const mongoose = require("mongoose");
 
-const getAll = (req, res, next) => {
+const getAll = (req, res) => {
 
-  let courseReviews = [];
+    let courseReviews = [];
 
-  Course.find()
-    .populate("academy")
-    .then(courses => {
-      return Promise.all(courses.map(course =>
-          Review.find({
-            academy: academy.id
-          }).populate("author").then(reviews => {
-            for (let i = 0; i < reviews.length; i++) {
-              if (reviews[i].course == course.id) {
-                course.reviews.push(reviews[i]);
-              }
-            }
-          })))
-        .then(() => {
-          res.status(200).json(courses)
-        })
+    Course.find()
+    .populate(
+    {
+        path: 'academy',
+        populate:
+        {
+            path: 'reviews',
+            model: 'Review'
+        }
     })
-    .catch(err => {
-      res.status(400).json({
-        message: "Error requesting courses"
-      });
+    .then(courses =>
+    {
+        res.status(200).json(courses);
+        /*return Promise.all(courses.map(course =>
+        {
+            Review.find({ academy: academy.id })
+            .populate("author").then(reviews =>
+            {
+                for (let i = 0; i < reviews.length; i++)
+                {
+                    if (reviews[i].course == course.id)
+                    {
+                        course.reviews.push(reviews[i]);
+                    }
+                }
+            })))
+            .then(() =>
+            {
+                res.status(200).json(courses);
+            })
+        }*/
+    })
+    .catch(err =>
+    {
+        console.log(error);
+        res.status(400).json(
+        {
+            message: "Error requesting courses"
+        });
     });
 };
 
@@ -53,6 +72,7 @@ const getSearched = (req, res, next) => {
     })
     .populate("academy")
     .then(courses => {
+
       return Promise.all(courses.map(course =>
           Review.find({
             course: course.id
@@ -68,6 +88,7 @@ const getSearched = (req, res, next) => {
         })
     })
     .catch(err => {
+        console.log(err);
       res.status(400).json({
         message: "Error requesting courses"
       });
@@ -76,26 +97,25 @@ const getSearched = (req, res, next) => {
 
 const getOne = (req, res, next) => {
   Course.findById(req.params.id)
-    .populate("academy")
+      .populate(
+      {
+          path: 'academy',
+          populate:
+          {
+              path: 'reviews',
+              model: 'Review',
+              populate:
+              {
+                  path: 'author',
+                  model: 'User'
+              }
+          }
+      })
+    //.populate("academy")
     .populate("students")
     .exec()
     .then(course => {
-      Review.find({
-          course: course.id
-        })
-        .populate("author")
-        .then(reviews => {
-          res.status(200).json({
-            course,
-            reviews
-          });
-        })
-        .catch(err => {
-          debug(err);
-          res.status(400).json({
-            message: "Error when retrieving reviews"
-          });
-        });
+        res.status(200).json({ course });
     })
     .catch(err => {
       debug(err);
