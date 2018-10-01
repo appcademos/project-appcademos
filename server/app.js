@@ -23,7 +23,7 @@ mongoose
   .then(() => {
     debug(`Connected to Mongo at ${dbURL}`);
 
-    DataSeed.seed();
+    //DataSeed.seed();
   })
   .catch(err => {
     debug("Error connecting to mongo", err);
