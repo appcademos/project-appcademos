@@ -22,7 +22,6 @@ export class OneCourseComponent implements OnInit {
       if (params.id) {
         this.courseService.getCourse(params.id).subscribe(() => {
           this.courseObj = this.courseService.viewCourse;
-          console.log(this.courseObj);
         });
       }
     });
@@ -43,6 +42,6 @@ export class OneCourseComponent implements OnInit {
 
   scrollToDiv(selector)
   {
-      $("html, body").animate({ scrollTop: $(selector).offset().top });
+      jQuery("html, body").animate({ scrollTop: jQuery(selector).offset().top });
   }
 }
