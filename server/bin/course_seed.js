@@ -1,22 +1,36 @@
 require("dotenv").config();
 
-const dbURL = process.env.DBURL;
-const mongoose = require("mongoose");
 const courseData = require("./course_data");
 const Course = require("../api/course/course.model");
+const Academy = require("../api/academy/academy.model");
 
-mongoose
-  .connect(dbURL)
-  .then(() => {
-    Course.collection.drop();
+module.exports =
+{
+    seedCourses: function()
+    {
+        Academy.findOne()
+        .then(academy =>
+        {
+            courseData.map(course =>
+            {
+                course.academy = academy._id;
+            });
 
-    Course.create(courseData)
-      .then(() => {
-        console.log("Courses created");
-        mongoose.disconnect();
-      })
-      .catch(err => console.log(err));
-  })
-  .catch(err => {
-    console.log("Error connecting to mongo", err);
-  });
+            Course.collection.drop();
+
+            Course.create(courseData)
+            .then(() =>
+            {
+                console.log("Courses created");
+            })
+            .catch(err =>
+            {
+                console.log(err);
+            });
+        })
+        .catch(error =>
+        {
+            console.log(error);
+        });
+    }
+}

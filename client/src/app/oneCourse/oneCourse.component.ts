@@ -22,6 +22,7 @@ export class OneCourseComponent implements OnInit {
       if (params.id) {
         this.courseService.getCourse(params.id).subscribe(() => {
           this.courseObj = this.courseService.viewCourse;
+          console.log(this.courseObj);
         });
       }
     });
@@ -38,5 +39,10 @@ export class OneCourseComponent implements OnInit {
     });
     this.average = average / reviews.length;
     return this.average;
+  }
+
+  scrollToDiv(selector)
+  {
+      $("html, body").animate({ scrollTop: $(selector).offset().top }
   }
 }

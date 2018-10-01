@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const academySchema = new Schema(
-  {
+ {
     phone: Number,
     imagePath: String,
     imageName: String,
@@ -10,6 +10,10 @@ const academySchema = new Schema(
     confirmationCode: String,
     address: String,
     about: String,
+    reviews: [{
+      type: Schema.Types.ObjectId,
+      ref: "Review"
+    }],
     isVerified: {
       type: Boolean,
       default: false
@@ -27,7 +31,6 @@ const academySchema = new Schema(
       type: { type: String },
       coordinates: [Number]
     }
-    
   },
   {
     timestamps: {
