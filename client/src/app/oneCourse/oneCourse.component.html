@@ -83,13 +83,8 @@
         <div class="d-flex align-items-center mb-4">
           <ngb-rating rate="{{calcReviewGrade(courseObj.course.reviews)}}" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
           <div class="d-flex justify-content-center ml-auto">
-<<<<<<< HEAD
-            <p *ngIf="courseObj.course.reviews.length === 1" class="m-0 ml-2">({{courseObj.course.reviews.length}} opinión)</p>
-            <p *ngIf="courseObj.course.reviews.length !== 1" class="m-0 ml-2">({{courseObj.course.reviews.length}} opiniones)</p>
-=======
             <p *ngIf="courseObj.course.academy.reviews.length === 1" class="m-0 ml-2">({{courseObj.course.academy.reviews.length}} opinión)</p>
             <p *ngIf="courseObj.course.academy.reviews.length !== 1" class="m-0 ml-2">({{courseObj.course.academy.reviews.length}} opiniones)</p>
->>>>>>> alvaro
           </div>
         </div>
       </div>
