@@ -1,5 +1,5 @@
-<script>(function() { 
-    var qs,js,q,s,d=document, gi=d.getElementById, ce=d.createElement, gt=d.getElementsByTagName, id="typef_orm", b="https://embed.typeform.com/"; 
+<script>(function() {
+    var qs,js,q,s,d=document, gi=d.getElementById, ce=d.createElement, gt=d.getElementsByTagName, id="typef_orm", b="https://embed.typeform.com/";
   if(!gi.call(d,id)) { js=ce.call(d,"script");
    js.id=id; js.src=b+"embed.js";
    q=gt.call(d,"script")[0];
@@ -7,9 +7,13 @@
 <div class="container pt-5">
   <div class="row">
 <!-- Typeform -->
-<div class="typeform-widget" data-url="https://appcademos.typeform.com/to/OFGQDl" style="width: 100%; height: 500px;"></div>
-<div style="font-family: Sans-Serif;font-size: 12px;color: #999;opacity: 0.5; padding-top: 5px;"> powered by <a href="https://admin.typeform.com/signup?utm_campaign=OFGQDl&utm_source=typeform.com-12438924-Pro&utm_medium=typeform&utm_content=typeform-embedded-poweredbytypeform&utm_term=ES" style="color: #999" target="_blank">Typeform</a> </div>
+<!--<script> (function() { var qs,js,q,s,d=document, gi=d.getElementById, ce=d.createElement, gt=d.getElementsByTagName, id="typef_orm", b="https://embed.typeform.com/"; if(!gi.call(d,id)) { js=ce.call(d,"script"); js.id=id; js.src=b+"embed.js"; q=gt.call(d,"script")[0]; q.parentNode.insertBefore(js,q) } })() </script>
 
+<div class="typeform-widget" data-url="https://appcademos.typeform.com/to/OFGQDl" style="width: 100%; height: 500px;">
+</div>
+<div style="font-family: Sans-Serif;font-size: 12px;color: #999;opacity: 0.5; padding-top: 5px;"> powered by <a href="https://admin.typeform.com/signup?utm_campaign=OFGQDl&utm_source=typeform.com-12438924-Pro&utm_medium=typeform&utm_content=typeform-embedded-poweredbytypeform&utm_term=ES" style="color: #999" target="_blank">Typeform</a>
+</div>-->
+<iframe src="https://appcademos.typeform.com/to/OFGQDl" style="border: 0; width: 100%; height: 500px;"></iframe>
 
  <!-- Registro + Detalles -->
   <!-- <div *ngIf="!userservice.user" class="col-md-6 text-center">
@@ -64,7 +68,7 @@
       <h5>Nombre: {{viewCourse.title}}</h5>
       <h5>Precio: {{viewCourse.price | currency: "EUR"}}</h5>
       <h5>Inicio de clases: {{viewCourse.startDate | date: "dd/MM/yyyy"}}</h5>
-      
+
     </div>
     <div *ngIf="isLogin" class="col-md-4 pt-3 pb-3">
         <button class="btn btn-primary d-none d-lg-block" [routerLink]="['/confirmation']">
