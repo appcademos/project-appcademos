@@ -39,4 +39,9 @@ export class OneCourseComponent implements OnInit {
     this.average = average / reviews.length;
     return this.average;
   }
+
+  scrollToDiv(selector)
+  {
+      jQuery("html, body").animate({ scrollTop: jQuery(selector).offset().top });
+  }
 }
