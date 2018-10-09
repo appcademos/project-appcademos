@@ -41,7 +41,9 @@
   border-right: 1px solid #c4c4c4;
   z-index: 0;
 }
-
+.average-label {
+  color: rgb(236, 201, 0);
+}
 .star {
   position: relative;
   display: inline-block;
@@ -50,12 +52,12 @@
 }
 
 .full {
-  color: $main-yellow;
+  color: rgb(236, 201, 0);
 }
 
 .half {
   position: absolute;
   display: inline-block;
   overflow: hidden;
-  color: $main-yellow;
+  color:rgb(236, 201, 0) ;
 }
