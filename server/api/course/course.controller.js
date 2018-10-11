@@ -70,7 +70,15 @@ const getSearched = (req, res, next) => {
         }
       }]
     })
-    .populate("academy")
+    .populate(
+      {
+          path: 'academy',
+          populate:
+          {
+              path: 'reviews',
+              model: 'Review'
+          }
+      })
     .then(courses => {
 
       return Promise.all(courses.map(course =>
