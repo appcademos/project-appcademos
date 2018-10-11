@@ -1,17 +1,34 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, Event,NavigationEnd } from '@angular/router';
 
-@Component({
+@Component(
+{
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-  title = 'Appcademos';
+export class AppComponent implements OnInit
+{
+    currentUrl = null;
+    title = 'Appcademos';
 
-  constructor() {
-  }
+    constructor(private router: Router)
+    {
+        router.events.subscribe((event: Event) =>
+        {
+            if (event instanceof NavigationEnd)
+            {
+                if (event.url != this.currentUrl)
+                {
+                    window.scrollTo(0, 0);
+                    this.currentUrl = event.url;
+                }
+            }
+        });
+    }
 
-  ngOnInit() {}
+    ngOnInit()
+    {
 
-
+    }
 }

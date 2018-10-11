@@ -7,302 +7,306 @@
   </span>
 </ng-template>
 
-<div class="container" *ngIf="courseObj">
-  <button class="btn btn-info btn-sm" (click)="backClicked()">
-    <i class="fas fa-arrow-left"></i> Volver a la búsqueda</button>
+<div class="container pt-4" *ngIf="courseObj">
+    <button id="backButton" class="btn btn-md mb-3" (click)="backClicked()">
+        <i class="fas fa-arrow-left"></i> Volver a la búsqueda
+    </button>
 
-  <div class="row-md-8">
+    <div class="row-md-8">
     <div class="d-flex">
-      <div class="col-md-8">
-        <h2 class="mt-2">
-          {{courseObj.course.title}}
-        </h2>
+      <div class="col-md-12 p-0 mt-2">
         <small class="text-muted">{{courseObj.course.academy.name}}</small>
-      </div>
-    </div>
-  </div>
-  <div class="col-center" *ngIf="courseObj.course.images.length !== 0">
-    <img class="img-fluid" [src]="courseObj.course.images[0].imagePath" alt="courseObj.course.images[0].imageName">
-    <!--number of reviews-->
-    <div class="mt-2">
-        <h6>
-          Opiniones verificadas de alumnos del centro:
-        </h6>
-        <div class="d-flex align-items-center">
-          <div class="average-label mr-2">
-            <h4 class="p-0 m-0">{{average | number : '1.1'}}</h4>
-          </div>
-          <div>
-            <ngb-rating rate="{{calcReviewGrade(courseObj.course.academy.reviews)}}" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
-          </div>
-          <div class="d-flex justify-content-center ml-auto">
-            <div (click)="scrollToDiv('#all-reviews')" *ngIf="courseObj.course.academy.reviews.length === 1" class="m-0 text-primary btn"><u>{{courseObj.course.academy.reviews.length}} opinión</u></div>
-            <div (click)="scrollToDiv('#all-reviews')" *ngIf="courseObj.course.academy.reviews.length !== 1" class="m-0 text-primary btn"><u>{{courseObj.course.academy.reviews.length}} opiniones</u></div>
-          </div>
-        </div>
-      </div>
-
-
-    <div class="col-md-4 pt-3 pb-3">
-      <button class="btn btn-danger d-none d-lg-block" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">
-        <h5 class="m-0">Reservar mi plaza</h5>
-      </button>
-      <button class="btn btn-danger d-lg-none w-100 fixed-bottom" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">
-        <h5 class="m-0"> Reservar mi plaza</h5>
-      </button>
-    </div>
-
-
-
-    <div class="row d-flex justify-content-center mt-5">
-      <div class="col-lg-8 p-4 course-description">
-        <h4>Precio: {{courseObj.course.price | currency: "EUR"}} </h4>
-        <h5>Inicio de clases: {{courseObj.course.startDate | date: "dd/MM/yyyy"}}</h5>
-        <div>
-          <h5 class="mr-3">
-            Horarios:
-          </h5>
-        </div>
-        <div class="row pl-3 mb-2">
-          <div class="custom-control custom-radio mr-3" *ngFor="let group of courseObj.course.group; let i = index">
-            <input type="radio" id="groupCourseSelection{{i}}" name="customRadio" class="custom-control-input">
-            <label class="custom-control-label" for="groupCourseSelection{{i}}">{{group}}</label>
-          </div>
-        </div>
-        <h5>
-          Nº de horas: {{courseObj.course.hours}}
-        </h5>
-      </div>
-    </div>
-    <!--reviews-->
-    <div *ngIf="courseObj.course.academy.reviews" class="col-lg-12 p-0 d-flex justify-content-center" id="all-reviews">
-
-    <div class="col-lg-8 p-0">
-      <div class="d-flex flex-column align-items-center">
-        <h3>Opiniones sobre el curso</h3>
-        <div class="d-flex align-items-center mb-4">
-          <ngb-rating rate="{{calcReviewGrade(courseObj.course.academy.reviews)}}" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
-          <div class="d-flex justify-content-center ml-auto">
-            <p *ngIf="courseObj.course.academy.reviews.length === 1" class="m-0 ml-2">({{courseObj.course.academy.reviews.length}} opinión)</p>
-            <p *ngIf="courseObj.course.academy.reviews.length !== 1" class="m-0 ml-2">({{courseObj.course.academy.reviews.length}} opiniones)</p>
-          </div>
-        </div>
-      </div>
-
-      <div *ngFor="let review of courseObj.course.academy.reviews" class="col-lg-12 mb-4 pb-1 pt-1 single-review">
-
-        <div class="row">
-
-          <div class="col-md-2">
-            <p class="m-0 mb-2">{{review.created_at | date: 'dd/MM/yyyy'}}</p>
-            <p class="m-0">{{review.author.name || "Anónimo"}}</p>
-          </div>
-
-          <div class="col-md-10">
-            <div class="d-flex flex-column">
-              <ngb-rating rate="{{review.grade}}" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
-              <h6 class="m-0 mb-2 mt-1">
-                {{review.title}}
-              </h6>
-              <p class="m-0">
-                {{review.description}}
-              </p>
-            </div>
-          </div>
-        </div>
-        <hr>
-
+        <h1 class="ml-0 mt-1 fw-600">
+          {{courseObj.course.title}}
+      </h1>
       </div>
     </div>
   </div>
 
-    <!--collapse-->
-    <div class="col-md-10">
-      <div class="accordion" id="accordionExample">
-        <div class="card">
-          <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
-              Este curso es para ti si...
-              <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                +
-              </button>
-            </h5>
-          </div>
+    <div class="col-center" *ngIf="courseObj.course.images.length !== 0">
 
-          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-            <div class="card-body">
-              <div *ngFor="let foryouif of courseObj.course.foryouif; let i = index">
-                <input type="radio" id="foryouif{{i}}" name="customRadio" class="custom-control-input">
-                <label class="custom-control-label" for="foryouif{{i}}">{{foryouif}}</label>
-              </div>
+        <img class="img-fluid" [src]="courseObj.course.images[0].imagePath" alt="courseObj.course.images[0].imageName">
 
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header" id="headingTwo">
-            <h5 class="mb-0">
-              Información general
-              <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                +
-              </button>
-            </h5>
-          </div>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-            <div class="card-body">
-              <ul>
-                <li>Dirección: {{courseObj.course.academy.address}}</li>
-                <li>Nº máximo de alumnos en clase: {{courseObj.course.sizeClass}}</li>
-                <li>Porcentaje de aprobados: {{courseObj.course.approvedRate | percent}}</li>
+        <!--number of reviews-->
+        <div class="mt-4">
+            <p class="fw-500 m-0 mb-1">Opiniones verificadas de alumnos del centro:</p>
+            <div class="d-flex align-items-center" (click)="scrollToDiv('#all-reviews')">
+              <!--<div class="average-label mr-2">
+                <h4 class="p-0 m-0">{{average | number : '1.1'}}</h4>
+            </div>-->
+              <ngb-rating rate="{{calcReviewGrade(courseObj.course.academy.reviews)}}" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
 
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header" id="headingThree">
-            <h5 class="mb-0">
-              Cómo serán las clases
-              <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                +
-              </button>
-            </h5>
-          </div>
-          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-            <div class="card-body">
-              <div *ngFor="let howareclasses of courseObj.course.howareclasses; let i = index">
-                <input type="radio" id="howareclasses{{i}}" name="customRadio" class="custom-control-input">
-                <label class="custom-control-label" for="howareclasses{{i}}">{{howareclasses}}</label>
+              <div class="mt-1 ml-3">
+                <div *ngIf="courseObj.course.academy.reviews.length === 1" class="m-0">{{courseObj.course.academy.reviews.length}} opinión</div>
+                <div *ngIf="courseObj.course.academy.reviews.length !== 1" class="m-0">{{courseObj.course.academy.reviews.length}} opiniones</div>
               </div>
             </div>
+         </div>
 
-          </div>
 
-
-        </div>
-        <div class="accordion" id="accordionExample2">
-          <div class="card">
-            <div class="card-header" id="headingFour">
-              <h5 class="mb-0">
-                Temario y Material
-                <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                  +
-                </button>
-              </h5>
-            </div>
-            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-              <div class="card-body">
-                <b>Temario</b>
-                <div *ngFor="let theme of courseObj.course.theme; let i = index">
-                  <input type="radio" id="theme{{i}}" name="customRadio" class="custom-control-input">
-                  <label class="custom-control-label" for="theme{{i}}">{{theme}}</label>
+        <div class="col-lg-12 mt-4 course-description">
+              <div class="content">
+                <h4 class="fw-500">Precio: <span class="red-color fw-600">{{courseObj.course.price | currency: "EUR"}}</span></h4>
+                <h5 class="fw-400"><span class="fw-500">Inicio de clases:</span> {{courseObj.course.startDate | date: "dd/MM/yyyy"}}</h5>
+                <div>
+                  <h5 class="mr-3 fw-500">Horarios:</h5>
                 </div>
-                <b>Material</b>
-                <div *ngFor="let material of courseObj.course.material; let i = index">
-                  <input type="radio" id="material{{i}}" name="customRadio" class="custom-control-input">
-                  <label class="custom-control-label" for="material{{i}}">{{material}}</label>
+                <div class="row pl-3 mb-2 fw-400">
+                  <div class="custom-control custom-radio mr-3" *ngFor="let group of courseObj.course.group; let i = index">
+                    <input type="radio" id="groupCourseSelection{{i}}" name="customRadio" class="custom-control-input">
+                    <label class="custom-control-label" for="groupCourseSelection{{i}}">{{group}}</label>
+                  </div>
                 </div>
+                <h5 class="fw-400">
+                  <span class="fw-500">Nº de horas:</span> {{courseObj.course.hours}}
+                </h5>
               </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="headingFive">
-              <h5 class="mb-0">
-                ¿Por qué elegir la academia {{courseObj.course.academy.name}}?
-                <button class="btn  collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                  +
-                </button>
-              </h5>
-            </div>
-            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
-              <div class="card-body">
-                {{courseObj.course.academy.about}}
+
+              <div class="d-flex align-self-stretch">
+                  <div class="vertical-separator"></div>
+
+                  <button class="reservation-button align-self-center" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">
+                      Reservar mi plaza
+                  </button>
               </div>
-            </div>
           </div>
-          <div class="card">
-            <div class="card-header" id="headingSix">
-              <h5 class="mb-0">
-                Qué sabrás al finalizar este curso
-                <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                  +
-                </button>
-              </h5>
-            </div>
-            <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
-              <div class="card-body">
-                <div *ngFor="let about of courseObj.course.about; let i = index">
-                  <input type="radio" id="about{{i}}" name="customRadio" class="custom-control-input">
-                  <label class="custom-control-label" for="about{{i}}">{{about}}</label>
+
+        <!--collapse-->
+        <div class="col-md-8 mb-5 p-0 pb-3">
+          <div class="accordion" id="accordionExample">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                    <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                      +
+                    </button>
+                    Este curso es para ti si...
+                </h5>
+              </div>
+
+              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                  <div *ngFor="let foryouif of courseObj.course.foryouif; let i = index">
+                    <input type="radio" id="foryouif{{i}}" name="customRadio" class="custom-control-input">
+                    <label class="custom-control-label" for="foryouif{{i}}">{{foryouif}}</label>
+                  </div>
+
                 </div>
               </div>
             </div>
             <div class="card">
-              <div class="card-header" id="headingSeven">
+              <div class="card-header" id="headingTwo">
                 <h5 class="mb-0">
-                  Cómo conseguir tu clase de prueba
-                  <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                  <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                     +
                   </button>
+                  Información general
                 </h5>
               </div>
-              <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                 <div class="card-body">
-                  En Appcademos queremos que estés 100% segur@ de que este curso es el ideal para ti. Por ello, siempre acordamos con todas
-                  nuestras academias una clase de prueba para ti.
-                  <br> Cómo conseguirla:
                   <ul>
-                    <li>Rellenas el formulario. Al rellenarlo te comprometes a asistir, la academia tiene plazas limitadas.</li>
-                    <li>La academia te llama ese mismo dia para solucionar dudas. Asistes a clase y enseñas el recibo que te
-                      daremos con el que podrás asistir.</li>
-                    <li>No pagas nada si no te gusta. Al salir, tienes 24 horas enteras para decidir si quieres continuar o no
-                      el curso. Si decides no continuar, escríbenos un Whatsapp o correo y no pagarás nada.</li>
+                    <li><span class="fw-500">Dirección:</span> {{courseObj.course.academy.address}}</li>
+                    <li><span class="fw-500">Nº máximo de alumnos en clase:</span> {{courseObj.course.sizeClass}}</li>
+                    <li><span class="fw-500">Porcentaje de aprobados:</span> {{courseObj.course.approvedRate | percent}}</li>
                   </ul>
-                  *Para que no tengas que preocuparte por contactarnos, si te gusta el curso, no hace falta que nos digas nada, daremos por
-                  hecho que has encontrado tu curso ideal y cobraremos el importe total del curso a la tarjeta proporcionada.
                 </div>
               </div>
             </div>
-
-          </div>
-
-          <div class="accordion" id="accordionExample3">
             <div class="card">
-              <div class="card-header" id="headingEight">
+              <div class="card-header" id="headingThree">
                 <h5 class="mb-0">
-                  Requisitos del curso
-                  <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                  <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                     +
                   </button>
+                  Cómo serán las clases
                 </h5>
               </div>
-              <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordionExample">
+              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                 <div class="card-body">
-                  <div *ngFor="let requirements of courseObj.course.requirements; let i = index">
-                    <input type="radio" id="requirements{{i}}" name="customRadio" class="custom-control-input">
-                    <label class="custom-control-label" for="requirements{{i}}">{{requirements}}</label>
+                  <div *ngFor="let howareclasses of courseObj.course.howareclasses; let i = index">
+                    <input type="radio" id="howareclasses{{i}}" name="customRadio" class="custom-control-input">
+                    <label class="custom-control-label" for="howareclasses{{i}}">{{howareclasses}}</label>
+                  </div>
+                </div>
+
+              </div>
+
+
+            </div>
+            <div class="accordion" id="accordionExample2">
+              <div class="card">
+                <div class="card-header" id="headingFour">
+                  <h5 class="mb-0">
+                    <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                      +
+                    </button>
+                    Temario y Material
+                  </h5>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <span class="fw-500">Temario</span>
+                    <div *ngFor="let theme of courseObj.course.theme; let i = index">
+                      <input type="radio" id="theme{{i}}" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label" for="theme{{i}}">{{theme}}</label>
+                    </div>
+                    <span class="fw-500">Material</span>
+                    <div *ngFor="let material of courseObj.course.material; let i = index">
+                      <input type="radio" id="material{{i}}" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label" for="material{{i}}">{{material}}</label>
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="card">
-                <div class="card-header" id="headingNine">
+                <div class="card-header" id="headingFive">
                   <h5 class="mb-0">
-                    Beneficios de este curso con Appcademos
-                    <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                    <button class="btn  collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
                       +
                     </button>
+                    ¿Por qué elegir la academia {{courseObj.course.academy.name}}?
                   </h5>
                 </div>
-                <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordionExample">
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
                   <div class="card-body">
-                    <ul>
-                      <li>Reserva tu clase de prueba sin compromiso en 1 click</li>
-                      <li>Asistencia gratuita por asesor experto en la academia {{courseObj.course.academy.name}}</li>
-                      <li>Siempre te sale más barato el curso, si después de la clase de prueba decides continuar. Este mes:
-                        10€ de descuento al rellenar tu formulario.</li>
-                    </ul>
+                    {{courseObj.course.academy.about}}
                   </div>
                 </div>
               </div>
+              <div class="card">
+                <div class="card-header" id="headingSix">
+                  <h5 class="mb-0">
+                    <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                      +
+                    </button>
+                    Qué sabrás al finalizar este curso
+                  </h5>
+                </div>
+                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <div *ngFor="let about of courseObj.course.about; let i = index">
+                      <input type="radio" id="about{{i}}" name="customRadio" class="custom-control-input">
+                      <label class="custom-control-label" for="about{{i}}">{{about}}</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header" id="headingSeven">
+                    <h5 class="mb-0">
+                      <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                        +
+                      </button>
+                      Cómo conseguir tu clase de prueba
+                    </h5>
+                  </div>
+                  <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionExample">
+                    <div class="card-body">
+                      En Appcademos queremos que estés 100% segur@ de que este curso es el ideal para ti. Por ello, siempre acordamos con todas
+                      nuestras academias una clase de prueba para ti.
+                      <br><br><span class="fw-500">Cómo conseguirla:</span>
+                      <br><br>
+                      <ul>
+                        <li><span class="fw-500">Rellenas el formulario</span>. Al rellenarlo te comprometes a asistir, la academia tiene plazas limitadas.</li>
+                        <li>La academia te llama ese mismo dia para solucionar dudas. <span class="fw-500">Asistes a clase</span> y enseñas el <span class="fw-500">recibo</span> que te
+                          daremos con el que podrás asistir.</li>
+                        <li><span class="fw-500">No pagas nada si no te gusta</span>. Al salir, tienes 24 horas enteras para decidir si quieres continuar o no
+                          el curso. Si decides no continuar, escríbenos un Whatsapp o correo y no pagarás nada.</li>
+                      </ul>
+                      *Para que no tengas que preocuparte por contactarnos, si te gusta el curso, no hace falta que nos digas nada, daremos por
+                      hecho que has encontrado tu curso ideal y cobraremos el importe total del curso a la tarjeta proporcionada.
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="accordion" id="accordionExample3">
+                <div class="card">
+                  <div class="card-header" id="headingEight">
+                    <h5 class="mb-0">
+                      <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                        +
+                      </button>
+                      Requisitos del curso
+                    </h5>
+                  </div>
+                  <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordionExample">
+                    <div class="card-body">
+                      <div *ngFor="let requirements of courseObj.course.requirements; let i = index">
+                        <input type="radio" id="requirements{{i}}" name="customRadio" class="custom-control-input">
+                        <label class="custom-control-label" for="requirements{{i}}">{{requirements}}</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header" id="headingNine">
+                      <h5 class="mb-0">
+                        <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                          +
+                        </button>
+                        Beneficios de este curso con <span class="fw-600 red-color">Appcademos</span>
+                      </h5>
+                    </div>
+                    <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordionExample">
+                      <div class="card-body">
+                        <ul>
+                          <li>Reserva tu clase de prueba <span class="fw-500">sin compromiso en 1 click</span>.</li><br>
+                          <li><span class="fw-500">Asistencia gratuita</span> por asesor experto en la academia {{courseObj.course.academy.name}}.</li><br>
+                          <li><span class="fw-500">Siempre te sale más barato</span> el curso, si después de la clase de prueba decides continuar. <span class="fw-500">Este mes:
+                            10€ de descuento al rellenar tu formulario.</span></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
+        </div>
+
+        <!--reviews-->
+        <div *ngIf="courseObj.course.academy.reviews" class="col-lg-12 p-0 d-flex justify-content-center pb-5 mb-5" id="all-reviews">
+
+            <div class="col-lg-8 p-0">
+              <div class="d-flex flex-column align-items-center">
+                <h3>Opiniones sobre el curso</h3>
+                <div class="d-flex align-items-center mb-4">
+                  <ngb-rating rate="{{calcReviewGrade(courseObj.course.academy.reviews)}}" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                  <div class="d-flex justify-content-center ml-auto">
+                    <p *ngIf="courseObj.course.academy.reviews.length === 1" class="m-0 ml-2">({{courseObj.course.academy.reviews.length}} opinión)</p>
+                    <p *ngIf="courseObj.course.academy.reviews.length !== 1" class="m-0 ml-2">({{courseObj.course.academy.reviews.length}} opiniones)</p>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngFor="let review of courseObj.course.academy.reviews" class="col-lg-12 mb-4 pb-1 pt-1 single-review">
+
+                <div class="row">
+
+                  <div class="col-md-2">
+                    <p class="m-0 fw-600">{{review.author.name || "Anónimo"}}</p>
+                    <small class="m-0 mb-2 text-muted">{{review.created_at | date: 'dd/MM/yyyy'}}</small>
+
+                    <ngb-rating class="mt-1" rate="{{review.grade}}" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                  </div>
+
+                  <div class="col-md-10">
+                    <div class="d-flex flex-column">
+                      <h6 class="m-0 mb-2 mt-1">
+                        {{review.title}}
+                      </h6>
+                      <p class="m-0">
+                        {{review.description}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+
+              </div>
+            </div>
+        </div>
+    </div>
+</div>

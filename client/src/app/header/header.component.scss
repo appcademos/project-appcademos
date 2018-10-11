@@ -1,42 +1,70 @@
 @import '../../sass/abstracts/variables.scss';
 
-#navbarFirst {
-  background-color: $main-red !important;
-  li {
-    font-size: 1.0em;
-  }
-  a {
-    color: #ffffff !important;
-  }
+.navbar
+{
+    padding-left: 24px;
+    padding-right: 24px;
 }
 
-#navbarSecond {
-  padding: 0 0 5px 0;
-  background-color: $main-red !important;
-  box-shadow: inset 0px 3px 5px #00000062;
-  border-bottom: 2px solid lightgrey;
-  li {
-    padding: 13px 0 8px 0;
-    font-size: 1.0em;
-    color: #ffffff !important;
-    a {
-      color: #ffffff !important;
-    }
-    &:hover {
-      padding: 9px 0;
-      background-color: $main-red;
-      box-shadow: 0px 3px 5px #00000062;
-      a{
+#navbarFirst
+{
+  background-color: $red-color !important;
+  padding-bottom: 24px;
+
+  li
+  {
+      font-size: 15px;
+      font-weight: 500;
+  }
+  a { color: #ffffff !important; }
+}
+#navbarSecond
+{
+    z-index: 1;
+    padding: 0 12px 12px;
+    background-color: $red-color !important;
+    box-shadow: 0 3px 4px rgba(0,0,0,0.2);
+
+    li
+    {
+        border-radius: 16px;
+        font-size: 15px;
+        font-weight: 500;
         color: #ffffff !important;
-      }
+        text-align: center;
+
+        a
+        {
+            color: #ffffff !important;
+            padding: 7px 12px;
+        }
+        &:hover
+        {
+            background-color: #fff;
+            box-shadow: 0px 1px 4px rgba(0,0,0,0.24);
+
+            a { color: $red-color !important; }
+        }
+        &:active
+        {
+            box-shadow: none;
+        }
     }
-  }
 }
 
-.navbar-brand {
+.navbar-brand
+{
   font-size: 2em;
 }
-
-.navbar-toggler:focus {
+.navbar-toggler:focus
+{
   outline: none;
+}
+
+@media (max-width: 990px)
+{
+    #navbarFirst
+    {
+        padding-bottom: 12px;
+    }
 }

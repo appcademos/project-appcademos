@@ -1,13 +1,99 @@
-.breadcrumb{
-    li{
-        cursor: pointer;
-        
-    }
-    background-color: white
+.container
+{
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 48px;
 }
-.container{
-    background-color:#eeeeee;
+
+.breadcrumb
+{
+    background-color: white;
+    margin-bottom: 0;
+
+    li { cursor: pointer; }
 }
-.col-md-2{
+.col-md-2
+{
     text-align: center;
+}
+
+.search-title
+{
+    margin-top: 32px;
+    padding: 0 16px;
+}
+
+#whatsappBanner
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #EBEBEB;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    padding: 20px;
+    margin: 0 auto 16px;
+    color: #484848;
+    max-width: 840px;
+
+    .title
+    {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+    .wp-button
+    {
+        margin-left: 12px;
+        background: #01E675;
+        padding: 12px 16px;
+        color: #fff;
+        border-radius: 6px;
+        font-weight: 500;
+        text-decoration: none !important;
+        min-width: 188px;
+        transition: 0.16s all;
+
+        &:hover
+        {
+            box-shadow: 0 8px 20px -10px #01E675;
+        }
+        &:active
+        {
+            box-shadow: none;
+        }
+
+        i
+        {
+            font-size: 1.2em;
+            margin-right: 4px;
+        }
+    }
+}
+
+@media (max-width: 1024px)
+{
+    .container
+    {
+        padding: 0 24px;
+    }
+}
+@media (max-width: 580px)
+{
+    .search-title
+    {
+        padding: 0;
+    }
+}
+@media (max-width: 480px)
+{
+    #whatsappBanner
+    {
+        flex-direction: column;
+
+        .wp-button
+        {
+            margin-top: 16px;
+        }
+    }
 }

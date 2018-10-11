@@ -1,41 +1,63 @@
 @import '../../sass/abstracts/variables.scss';
 
-.course-list {
+.course-list
+{
   padding: 0;
 }
-
-.course-item {
+.card-group
+{
+    padding: 0;
+}
+.course-link
+{
+    text-decoration: none !important;
+    color: inherit;
+}
+.course-item-container
+{
+    width: 25%;
+    padding: 0 12px 24px;
+}
+.course-item
+{
   list-style-type: none;
-  width: 20rem;
   box-sizing: border-box;
-  border-radius: 3px;
-  -webkit-box-shadow: 0px 2px 9px -1px rgba(0, 0, 0, 0.205);
-  -moz-box-shadow: 0px 2px 9px -1px rgba(0, 0, 0, 0.205);
-  box-shadow: 0px 2px 9px -1px rgba(0, 0, 0, 0.205);
-  a {
-    color: #000000;
-    &:hover {
-      text-decoration: none;
+  border-radius: 8px !important;
+  overflow: hidden;
+  -webkit-box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.16);
+  -moz-box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.16);
+  border: 0;
+
+  a
+  {
+      text-decoration: none !important;
+      color: inherit;
+  }
+}
+
+.course-titles
+{
+    flex: 0.9;
+}
+.card-text
+{
+    color: #484848;
+    opacity: 0.8;
+    font-size: 15px;
+
+    i
+    {
+        color: #484848;
+        opacity: 0.5;
+        margin-right: 8px;
     }
-  }
-  button {
-    cursor: pointer;
-  }
 }
-
-.card-text{
-  i{
-    color: #0971B2;
-    font-size: 1.5em;
-  }
-}
-
 .card-price{
   font-size: 1.2em;
   font-weight: bold;
-  color: $main-red;
+  color: $red-color;
 }
-
 .course-item-image {
   max-height: 200px;
   border-right: 1px solid #c4c4c4;
@@ -44,20 +66,50 @@
 .average-label {
   color: rgb(236, 201, 0);
 }
+
+.card-footer
+{
+    font-size: 14px;
+    padding: 12px 1rem;
+}
 .star {
   position: relative;
   display: inline-block;
   color: #c4c4c4;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
+  margin-left: 4px;
 }
-
 .full {
   color: rgb(236, 201, 0);
 }
-
 .half {
   position: absolute;
   display: inline-block;
   overflow: hidden;
   color:rgb(236, 201, 0) ;
+}
+
+
+@media (max-width: 1180px)
+{
+    .course-item-container
+    {
+        width: 33%;
+    }
+}
+@media (max-width: 880px)
+{
+    .course-item-container
+    {
+        width: 50%;
+    }
+}
+@media (max-width: 580px)
+{
+    .course-item-container
+    {
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
