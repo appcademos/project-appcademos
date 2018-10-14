@@ -10,6 +10,10 @@ const academySchema = new Schema(
     confirmationCode: String,
     address: String,
     about: String,
+    images: [{
+      imagePath: String},
+      {imageName: String
+    }],
     reviews: [{
       type: Schema.Types.ObjectId,
       ref: "Review"
