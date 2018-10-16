@@ -9,7 +9,7 @@ const academySchema = new Schema(
     description: String,
     confirmationCode: String,
     address: String,
-    about: String,
+    about: [String],
     images: [{
       imagePath: String},
       {imageName: String
