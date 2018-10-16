@@ -170,7 +170,9 @@
                 </div>
                 <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
                   <div class="card-body">
-                    {{courseObj.course.academy.about}}
+                      <div *ngFor="let about of courseObj.course.academy.about; let i = index">
+                          <input type="radio" id="about{{i}}" name="customRadio" class="custom-control-input">
+                          <label class="custom-control-label" for="about{{i}}">{{about}}</label>
                   </div>
                 </div>
               </div>
