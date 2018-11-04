@@ -27,8 +27,11 @@
                   </div>
                   <div class="text-right">
                     <p class="card-text card-price">
+                      <p class="oldprice">
+                        {{course.oldPrice | currency: 'EUR'}}
+                      </p>
                       {{course.price | currency:'EUR'}}
-                    </p>
+                  
                   </div>
                 </div>
                 <div class="card-text d-flex align-items-center mb-2">

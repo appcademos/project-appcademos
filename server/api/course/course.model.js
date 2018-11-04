@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const courseSchema = new Schema(
   {
     price: Number,
+    oldPrice: Number,
     title: {
       type: String,
       required: true
