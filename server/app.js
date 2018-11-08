@@ -14,6 +14,7 @@ const MongoStore = require("connect-mongo")(session);
 const hashSecret = process.env.HASHCODE;
 const dbURL = process.env.DBURL;
 const cors = require("cors");
+var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
 
 const DataSeed = require('./bin/data_seed');
 
@@ -81,5 +82,7 @@ require("./routes/routes")(app);
 app.use(function (req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
+
+app.use(redirectToHTTPS(undefined, [/\/app/], 301));
 
 module.exports = app;
