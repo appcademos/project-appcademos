@@ -97,6 +97,7 @@ app.post('/git-pull', function(req, res)
         res.status(400).send('Payload is empty.');
     }
 
+    var crypto = require('crypto');
     const hmac = crypto.createHmac('sha1', secret);
     const digest = 'sha1=' + hmac.update(payload).digest('hex');
     const checksum = req.headers[headerChecksumKey];
@@ -105,7 +106,7 @@ app.post('/git-pull', function(req, res)
         res.status(401).send('Checksum verification failed.');
     }
     else // Checksum verified correctly
-    {        
+    {
         const exec = require('child_process').exec;
         var yourscript = exec('sh git-pull.sh',
         (error, stdout, stderr) =>
