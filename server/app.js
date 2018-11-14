@@ -107,7 +107,7 @@ app.post('/git-pull', function(req, res)
     }
     else // Checksum verified correctly
     {
-        const exec = require('child_process').exec;
+        /*const exec = require('child_process').exec;
         var yourscript = exec('sh git-pull.sh',
         (error, stdout, stderr) =>
         {
@@ -115,7 +115,7 @@ app.post('/git-pull', function(req, res)
             console.log(`${stderr}`);
             if (error !== null)
                 console.log(`exec error: ${error}`);
-        });
+        });*/
 
         res.status(200).end();
     }
