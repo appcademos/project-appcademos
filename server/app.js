@@ -85,11 +85,11 @@ app.locals.title = "Appcademos";
 // Pull master branch from github
 app.post('/git-pull', function(req, res)
 {
-    console.log(req);
+    console.log(req.body);
 
     // Verify checksum first
     const secret = process.env.GIT_PULL_SECRET;
-    const headerChecksumKey = 'X-Hub-Signature';
+    const headerChecksumKey = 'x-hub-signature';
 
     const payload = JSON.stringify(req.body);
     if (!payload)
