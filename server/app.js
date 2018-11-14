@@ -85,8 +85,6 @@ app.locals.title = "Appcademos";
 // Pull master branch from github
 app.post('/git-pull', function(req, res)
 {
-    console.log(req.body);
-
     // Verify checksum first
     const secret = process.env.GIT_PULL_SECRET;
     const headerChecksumKey = 'x-hub-signature';
@@ -107,15 +105,19 @@ app.post('/git-pull', function(req, res)
     }
     else // Checksum verified correctly
     {
-        /*const exec = require('child_process').exec;
-        var yourscript = exec('sh git-pull.sh',
-        (error, stdout, stderr) =>
+        // Check that the push to Github was on the master branch
+        if (req.body.ref != null && req.body.ref == 'refs/heads/master')
         {
-            console.log(`${stdout}`);
-            console.log(`${stderr}`);
-            if (error !== null)
-                console.log(`exec error: ${error}`);
-        });*/
+            const exec = require('child_process').exec;
+            var yourscript = exec('sh git-pull.sh',
+            (error, stdout, stderr) =>
+            {
+                console.log(`${stdout}`);
+                console.log(`${stderr}`);
+                if (error !== null)
+                    console.log(`exec error: ${error}`);
+            });
+        }
 
         res.status(200).end();
     }
