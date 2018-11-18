@@ -14,6 +14,7 @@ const MongoStore = require("connect-mongo")(session);
 const hashSecret = process.env.HASHCODE;
 const dbURL = process.env.DBURL;
 const cors = require("cors");
+var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
 
 const DataSeed = require('./bin/data_seed');
 
@@ -30,6 +31,9 @@ mongoose
   });
 
 const app = express();
+
+if (process.env.DEBUG == undefined)
+    app.use(redirectToHTTPS(undefined, [/\/app/], 301));
 
 var whitelist = [
   `${process.env.CORS_ALLOW}`,
@@ -76,6 +80,48 @@ app.set("view engine", "hbs");
 app.use(express.static(path.join(__dirname, "public")));
 
 app.locals.title = "Appcademos";
+
+
+// Pull master branch from github
+app.post('/git-pull', function(req, res)
+{
+    // Verify checksum first
+    const secret = process.env.GIT_PULL_SECRET;
+    const headerChecksumKey = 'x-hub-signature';
+
+    const payload = JSON.stringify(req.body);
+    if (!payload)
+    {
+        res.status(400).send('Payload is empty.');
+    }
+
+    var crypto = require('crypto');
+    const hmac = crypto.createHmac('sha1', secret);
+    const digest = 'sha1=' + hmac.update(payload).digest('hex');
+    const checksum = req.headers[headerChecksumKey];
+    if (!checksum || !digest || checksum !== digest)
+    {
+        res.status(401).send('Checksum verification failed.');
+    }
+    else // Checksum verified correctly
+    {
+        // Check that the push to Github was on the master branch
+        if (req.body.ref != null && req.body.ref == 'refs/heads/master')
+        {
+            const exec = require('child_process').exec;
+            var yourscript = exec('sh git-pull.sh',
+            (error, stdout, stderr) =>
+            {
+                console.log(`${stdout}`);
+                console.log(`${stderr}`);
+                if (error !== null)
+                    console.log(`exec error: ${error}`);
+            });
+        }
+
+        res.status(200).end();
+    }
+});
 
 require("./routes/routes")(app);
 app.use(function (req, res) {
