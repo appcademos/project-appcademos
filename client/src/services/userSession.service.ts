@@ -11,7 +11,7 @@ export class UserSessionService {
   options: any = { withCredentials: true };
 
   constructor(private http: Http) {
-    this.isLoggedIn().subscribe();
+    //this.isLoggedIn().subscribe();
   }
 
   handleUser(user?: object) {

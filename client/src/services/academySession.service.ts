@@ -11,7 +11,7 @@ export class AcademySessionService {
   options: any = { withCredentials: true };
 
   constructor(private http: Http) {
-    this.isLoggedIn().subscribe();
+    //this.isLoggedIn().subscribe();
   }
 
   handleAcademy(academy?: object) {
@@ -52,5 +52,5 @@ export class AcademySessionService {
       .map(() => this.handleAcademy())
       .catch(error => Observable.throw(error.json().message));
   }
- 
+
 }

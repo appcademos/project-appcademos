@@ -1,73 +1,145 @@
-<div>
-  <div class="overlay"></div>
-  <div class="hero-image">
-      <div class="hero-text">
-        <h1><strong>Encuentra tu academia de inglés ideal más cercana</strong></h1>
-        <p>TODA LA INFORMACIÓN EN UNA MISMA WEB</p>
-      </div>
-      <app-searchbox-courses></app-searchbox-courses>
+<div id="hero">
+    <div class="gradient-overlay"></div>
+    <div class="overlay"></div>
+    <div class="hero-content">
+        <div class="hero-text">
+            <p>RESERVA TU CLASE DE PRUEBA AL INSTANTE</p>
+            <h1>Encuentra tu academia de inglés ideal asesorado por un experto</h1>
+        </div>
+
+        <div #searchbox id="searchbox" [ngClass]="{'searchPanelOpened': showSearchPanel}">
+            <input
+                #searchInput
+                type="text"
+                name="query"
+                [(ngModel)]="query"
+                class="form-control"
+                placeholder="Encuentra tu curso..."
+                (keyup.enter)="findCourses()"
+                (focus)="doShowSearchPanel()"
+                (keyup.esc)="onInputPressEsc()"
+            >
+            <button class="btn btn-secondary d-flex justify-content-center" type="button" (click)="findCourses()">
+                <i class="icon icon-search size-24"></i>
+            </button>
+            <a class="allCourses" routerLink="/all">Ver todos los cursos <i class="icon size-10 icon-arrow-right-white"></i></a>
+
+            <div class="search-panel" [hidden]="!showSearchPanel">
+                <div class="title fs-15 fw-600">Nuestros cursos</div>
+                <div class="content">
+                    <a class="search-panel-item" [routerLink]="['search']" [queryParams]="{ course: 'first' }">First certificate</a>
+                    <a class="search-panel-item" [routerLink]="['search']" [queryParams]="{ course: 'advanced' }">Advanced</a>
+                    <a class="search-panel-item" [routerLink]="['search']" [queryParams]="{ course: 'objetivo b1' }">Inglés Nivel B1</a>
+                    <a class="search-panel-item" [routerLink]="['search']" [queryParams]="{ course: 'objetivo b2' }">Inglés Nivel B2</a>
+                    <a class="search-panel-item" [routerLink]="['search']" [queryParams]="{ course: 'objetivo c1' }">Inglés Nivel C1</a>
+                    <a class="search-panel-item" [routerLink]="['search']" [queryParams]="{ course: 'toefl' }">TOEFL</a>
+                    <a class="search-panel-item" [routerLink]="['search']" [queryParams]="{ course: 'ielts' }">IELTS</a>
+                    <a class="search-panel-item" [routerLink]="['search']" [queryParams]="{ course: 'toeic' }">TOEIC</a>
+                    <a class="search-panel-item" [routerLink]="['search']" [queryParams]="{ course: 'proficiency' }">Proficiency</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="container">
-
-  <div class="col-lg-12 mt-3 pt-4 pb-4 align-items-center">
-    <h2 class="text-center mb-5"><strong>Estás a tres pasos de aprender inglés</strong></h2>
-    <div class="row d-flex flex-row justify-content-center align-items-start m">
-
-      <div class="col-md-3 d-flex flex-column align-items-center text-center p-2">
-        <div class="d-flex justify-content-center align-items-center rounded-circulo mb-2">1</div>
-        <h4>Compara entre los cursos de las academias</h4>
-      </div>
-      <div class="col-md-3 d-flex flex-column align-items-center text-center p-2">
-        <div class="d-flex justify-content-center align-items-center rounded-circulo mb-2">2</div>
-        <h4>Te ayudamos a elegir (si lo necesitas) </h4>
-      </div>
-      <div class="col-md-3 d-flex flex-column align-items-center text-center p-2">
-        <div class="d-flex justify-content-center align-items-center rounded-circulo mb-2">3</div>
-        <h4>Asiste a la clase de prueba y decide si continúas</h4>
-      </div>
-
-    </div>
-  </div>
-  <hr>
-  <div class="col-lg-12 mt-4 pt-4 pb-4 icons">
-
-    <h2 class="text-center mb-4"><strong>Beneficios de Appcademos</strong></h2>
-
-    <div class="row align-items-center">
-      <div class="col-md-4 p-4 text-center">
-        <img src="../../assets/public/images/info-1.png">
-        <h4 class="mt-3" style="font-weight: 600;">Recomendacion objetiva e imparcial</h4>
-        <h5>Te decimos los pros y los contras de cada opción</h5>
-      </div>
-      <div class="col-md-4 p-4 text-center">
-        <img src="../../assets/public/images/satisfaction-1.png">
-        <h4 class="mt-3" style="font-weight: 600;">97% de recomendaciones exitosas en los últimos 6 meses</h4>
-        <h5>Nuestros usuarios acaban felices con el curso elegido</h5>
-      </div>
-      <div class="col-md-4 p-4 text-center">
-        <img src="../../assets/public/images/iconorun.png">
-        <h4 class="mt-3" style="font-weight: 600;">La información más fiable</h4>
-        <h5>Nuestros asesores visitan los centros personalmente y conocen la información de todos los cursos</h5>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="col-lg-12 mt-4 pt-4 pb-4 logos">
-
-      <h4 class="text-center mb-4">Apoyados por</h4>
-
-      <div class="row d-flex flex-row justify-content-center align-items-start">
-        <div class="col-md-3 d-flex flex-column align-items-center text-center p-2">
-          <img src="../../assets/public/images/tetuanvalley.png">
+<section id="top-banner">
+    <div class="responsive-container">
+        <div class="card-banner fw-600 text-center color-black-80">
+            ¿No sabes tu nivel de inglés o qué certificado sacarte? <span (click)="utils.scrollToElement('footer')" class="color-red underlined cursor-pointer">Contacta con nosotros</span>
         </div>
-        <div class="col-md-3 d-flex flex-column align-items-center text-center p-2">
-          <img src="../../assets/public/images/clubempresarialicade.png">
-        </div>
-        <div class="col-md-3 d-flex flex-column align-items-center text-center p-2">
-          <img src="../../assets/public/images/seklab.png">
-        </div>
-      </div>
     </div>
+</section>
+
+<section id="featured">
+    <div class="responsive-container">
+        <h2>Cursos más buscados</h2>
+        <app-courses-carousel [courses]="featuredCourses"></app-courses-carousel>
+    </div>
+</section>
+
+<section id="triptic">
+    <div class="responsive-container">
+        <h2>Hacemos que encontrar tu academia ideal sea fácil</h2>
+        <div class="triptic-container">
+            <div class="triptic-item">
+                <div class="icon size-92 icon-red-search-compare"></div>
+                <div class="title">Busca y compara</div>
+                <div class="text color-black-80">Información de todas las academias actualizada a diario y opiniones de otros alumnos.</div>
+            </div>
+            <div class="triptic-item">
+                <div class="icon size-92 icon-red-help"></div>
+                <div class="title">Te ayudamos a elegir (si lo necesitas)</div>
+                <div class="text color-black-80">Háblanos por <span class="fw-500">WhatsApp</span> y te ayudaremos gratuitamente a elegir qué opción te encaja mejor.</div>
+            </div>
+            <div class="triptic-item">
+                <div class="icon size-92 icon-red-class"></div>
+                <div class="title">Reserva al instante tu clase de prueba <span class="color-red">sin pagar nada</span></div>
+                <div class="text color-black-80">Asiste a clase y decide si continúas.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="verified-academies">
+    <div class="background"></div>
+    <div class="responsive-container">
+        <h2><span class="green-dots">A</span>cademias verificadas por nosotros, <span class="color-green">para ti</span></h2>
+        <p class="text-center fs-18">Nos aseguramos que cumplen nuestros requisitos de calidad:</p>
+        <div class="cards-container">
+            <div class="card-banner">
+                <div class="icon size-18 icon-green-check"></div>
+                <p class="color-green fw-500 fs-18"><span class="fw-700">Visitamos personalmente</span> los centros</p>
+            </div>
+            <div class="card-banner">
+                <div class="icon size-18 icon-green-check"></div>
+                <p class="color-green fw-500 fs-18"><span class="fw-700">Hablamos con alumnos</span> para saber su opinión de la academia</p>
+            </div>
+        </div>
+        <div class="help-container">
+            <p class="fs-20 fw-600 text-center">Estamos para ayudarte</p>
+            <div class="pictures">
+                <div class="picture">
+                    <div class="image"></div>
+                    <p class="text-center fs-18 fw-600">Álvaro Castro</p>
+                </div>
+                <div class="picture">
+                    <div class="image"></div>
+                    <p class="text-center fs-18 fw-600">Antea Martín</p>
+                </div>
+                <div class="picture">
+                    <div class="image"></div>
+                    <p class="text-center fs-18 fw-600">Nacho Campomanes</p>
+                </div>
+            </div>
+            <a href="https://www.facebook.com/appcademos" target="_blank" class="button green">Mira lo que dicen de nosotros en Facebook <i class="icon size-14 icon-arrow-right-white"></i></a>
+        </div>
+    </div>
+</section>
+
+<section id="happy-users">
+    <div class="background"></div>
+    <div class="responsive-container">
+        <h2>Usuarios <span class="color-red">felices</span> con sus cursos</h2>
+        <div class="cards-container">
+            <div class="card-banner">
+                <div class="quote">“Los asesores está genial. Son como un comparador al que puedes hablar.”</div>
+                <div class="author">Jorge Varade</div>
+            </div>
+            <div class="card-banner">
+                <div class="quote">“Muy atentos y siempre disponibles para resolver mis dudas.”</div>
+                <div class="author">Marta Blázquez</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="partners">
+    <div class="responsive-container">
+        <h2>Apoyados por</h2>
+        <div class="partners-container">
+            <img src="../../assets/public/images/tetuan_valley.png" />
+            <img src="../../assets/public/images/club_empresarial_icade.png" />
+            <img src="../../assets/public/images/seklab.png" />
+        </div>
+    </div>
+</section>
