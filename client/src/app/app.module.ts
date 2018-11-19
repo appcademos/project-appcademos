@@ -36,12 +36,13 @@ import { IsAcademyButtonComponent } from "./isAcademyButton/isAcademyButton.comp
 import { MapComponent } from "./map/map.component";
 import { MapSearchboxComponent } from "./map-searchbox/map-searchbox.component";
 import { OneCourseComponent } from "./oneCourse/oneCourse.component";
-import { SearchboxCoursesComponent } from "./searchbox-courses/searchbox-courses.component";
 import { UserComponent } from "./user/user.component";
 import { UserLoginFormComponent } from "./userLoginForm/userLoginForm.component";
 import { UserSignupFormComponent } from "./userSignupForm/userSignupForm.component";
 import { ConfirmationComponent } from "./confirmation/confirmation.component";
 import { AcademyprofileComponent } from './academyprofile/academyprofile.component';
+import { CourseCardComponent } from './course-card/course-card.component';
+import { CoursesCarouselComponent } from './courses-carousel/courses-carousel.component';
 
 @NgModule({
    declarations: [
@@ -62,12 +63,13 @@ import { AcademyprofileComponent } from './academyprofile/academyprofile.compone
       MapComponent,
       MapSearchboxComponent,
       OneCourseComponent,
-      SearchboxCoursesComponent,
       UserComponent,
       UserLoginFormComponent,
       UserSignupFormComponent,
       ConfirmationComponent,
-      AcademyprofileComponent
+      AcademyprofileComponent,
+      CourseCardComponent,
+      CoursesCarouselComponent
    ],
 
 imports: [
