@@ -1,0 +1,99 @@
+.courses-carousel-container
+{
+    position: relative;
+
+    .prev-button,
+    .next-button
+    {
+        position: absolute;
+        z-index: 2;
+        height: 48px;
+        width: 48px;
+        top: 136px;
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        background: white;
+        border-radius: 50%;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.32);
+        cursor: pointer;
+    }
+    .prev-button.slick-disabled,
+    .next-button.slick-disabled
+    {
+        display: none !important;
+    }
+    .prev-button
+    {
+        left: -20px;
+
+        i
+        {
+            margin-left: -4px;
+        }
+    }
+    .next-button
+    {
+        right: -20px;
+
+        i
+        {
+            margin-right: -4px;
+        }
+    }
+}
+.courses-carousel
+{
+    position: relative;
+    z-index: 1;
+
+    .courses-carousel-item
+    {
+        margin-right: 16px;
+    }
+    .courses-carousel-item:last-child
+    {
+        margin-right: 0;
+    }
+}
+
+
+@media (max-width: 768px)
+{
+    .courses-carousel-container
+    {
+        .prev-button
+        {
+            left: -12px;
+        }
+        .next-button
+        {
+            right: -12px;
+        }
+    }
+}
+@media (max-width: 550px)
+{
+    .courses-carousel-container
+    {
+        .prev-button,
+        .next-button
+        {
+            display: none !important;
+        }
+    }
+}
+@media (max-width: 480px)
+{
+    .courses-carousel-container
+    {
+        .prev-button
+        {
+            left: -8px;
+        }
+        .next-button
+        {
+            right: -8px;
+        }
+    }
+}

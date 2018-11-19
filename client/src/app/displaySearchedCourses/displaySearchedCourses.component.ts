@@ -7,34 +7,32 @@ import { ActivatedRoute } from "@angular/router";
   templateUrl: "./displaySearchedCourses.component.html",
   styleUrls: ["./displaySearchedCourses.component.scss"]
 })
-export class DisplaySearchedCoursesComponent implements OnInit {
-  average: Number;
-  stars: Array<any> = [];
-  constructor(
-    private courseService: CoursesService,
-    private activatedRoute: ActivatedRoute
-  ) {}
+export class DisplaySearchedCoursesComponent implements OnInit
+{
+    constructor(private courseService: CoursesService,
+                private activatedRoute: ActivatedRoute)
+    {
 
-  ngOnInit() {
-    this.activatedRoute.url.subscribe(url => {
-      if (url[0].path !== "all") {
-        this.activatedRoute.queryParams.subscribe(params => {
-          if (params.course.length !== 0) {
-            this.courseService.findCourses(params.course).subscribe();
-          }
+    }
+
+    ngOnInit()
+    {
+        this.activatedRoute.url.subscribe(url =>
+        {
+            if (url[0].path !== "all")
+            {
+                this.activatedRoute.queryParams.subscribe(params =>
+                {
+                    if (params.course.length !== 0)
+                    {
+                        this.courseService.findCourses(params.course).subscribe();
+                    }
+                });
+            }
+            else
+            {
+                this.courseService.getAll().subscribe();
+            }
         });
-      } else {
-        this.courseService.getAll().subscribe();
-      }
-    });
-  }
-
-  calcReviewGrade(reviews) {
-    let average = 0;
-    reviews.forEach(review => {
-      average += review.grade;
-    });
-    this.average = average / reviews.length;
-    return this.average;
-  }
+    }
 }

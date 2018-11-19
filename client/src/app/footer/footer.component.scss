@@ -1,8 +1,180 @@
 @import '../../sass/abstracts/variables.scss';
 
-.footer-contact
-{
-    background-color: $green-color;
 
-    i { font-size: 2em; }
+footer
+{
+    padding: 48px 0;
+    border-top: 1px solid $black-16;
+
+    .contact-cards
+    {
+        margin-top: 24px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .card-banner
+    {
+        flex: 0.5;
+        display: flex;
+        flex-direction: row;
+        padding: 32px 28px;
+        text-decoration: none;
+
+        &:first-child
+        {
+            margin-right: 12px;
+        }
+        &:last-child
+        {
+            margin-left: 12px;
+        }
+
+        .icon
+        {
+            flex-shrink: 0;
+            margin-right: 16px;
+        }
+        .icon-whatsapp-green
+        {
+            height: 48px;
+            width: 48px;
+        }
+        .icon-email
+        {
+            height: 48px;
+            width: 64px;
+            opacity: 0.24;
+        }
+
+        .text-content .title
+        {
+            margin-bottom: 8px;
+        }
+        .text-content .text
+        {
+            word-break: break-all;
+        }
+    }
+
+    .bottom
+    {
+        display: flex;
+        flex-direction: row;
+
+        border-top: 1px solid $black-16;
+        margin-top: 48px;
+        padding: 32px 32px 0;
+
+        & > *
+        {
+            flex: 0.5;
+        }
+        .left
+        {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .right
+        {
+            text-align: right;
+
+            .contact
+            {
+                margin-bottom: 12px;
+            }
+            .contact .title
+            {
+                margin-bottom: 4px;
+            }
+            .social-icons
+            {
+                margin-top: 32px;
+
+                a
+                {
+                    margin-left: 24px;
+                }
+                a:first-child
+                {
+                    margin-left: 0;
+                }
+                .icon
+                {
+                    opacity: 0.8;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 920px)
+{
+    footer
+    {
+        .contact-cards
+        {
+            flex-direction: column;
+        }
+        .card-banner
+        {
+            flex: 1;
+            margin: 0 0 12px 0 !important;
+        }
+    }
+}
+@media (max-width: 768px)
+{
+    footer
+    {
+        .bottom
+        {
+            padding: 32px 12px 0;
+        }
+    }
+}
+@media (max-width: 620px)
+{
+    footer
+    {
+        .bottom
+        {
+            flex-direction: column;
+
+            .left
+            {
+                justify-content: flex-start;
+
+                p:first-child
+                {
+                    margin-bottom: 16px;
+                }
+            }
+            .right
+            {
+                text-align: center;
+
+                .contact-container
+                {
+                    margin-top: 48px;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 520px)
+{
+    footer
+    {
+        .card-banner
+        {
+            padding: 24px 20px;
+
+            .icon
+            {
+                display: none;
+            }
+        }
+    }
 }

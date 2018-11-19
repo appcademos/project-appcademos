@@ -1,0 +1,39 @@
+<a class="course-link" [routerLink]="['/course/view']" [queryParams]="{id: course._id}">
+   <div class="course-item">
+     <div class="course-item-image" [ngStyle]="{ 'background-image': 'url(' + course.images[0].imagePath + ')' }" alt="course.images[0].imageName"></div>
+
+     <div class="course-body">
+         <div class="course-academy fs-13 color-black-50 fw-600">{{ course.academy.name }}</div>
+         <a [routerLink]="['/course/view']" [queryParams]="{id: course._id}">
+             <div class="course-title fs-19 fw-600">{{ course.title }}</div>
+         </a>
+
+        <div class="course-icon-text">
+            <i class="icon size-15 icon-calendar"></i>
+            <p>{{ course.startDate | date: "dd-MM-yyyy" }}&nbsp;&nbsp;|&nbsp;&nbsp;{{ course.weekclasses + ((course.weekclasses == 1) ? ' clase semanal' : ' clases semanales') }}</p>
+        </div>
+
+        <div class="course-icon-text">
+            <i class="icon size-15 icon-location"></i>
+            <p>{{ course.academy.address }}</p>
+        </div>
+
+        <div class="course-rating">
+            <ngb-rating [(rate)]="average" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
+            <p>{{ course.academy.reviews.length }}</p>
+        </div>
+
+        <div class="course-price fw-600 fs-22 color-red">
+            <div class="oldprice" *ngIf="course.oldPrice">{{ course.oldPrice }}€</div>
+            <div class="price">{{ course.price }}€</div>
+         </div>
+     </div>
+   </div>
+</a>
+
+<ng-template #starTemplate let-fill="fill">
+    <span class="star" [class.full]="fill === 100">
+        <span class="half" [style.width.%]="fill">★</span>
+        ★
+    </span>
+</ng-template>

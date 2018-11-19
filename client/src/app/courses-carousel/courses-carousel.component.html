@@ -1,0 +1,12 @@
+<div class="courses-carousel-container">
+    <div class="courses-carousel" *ngIf="courses">
+        <app-course-card class="courses-carousel-item" *ngFor="let course of courses; let last = last" [course]="course">{{ onLoopFinished(last) }}</app-course-card>
+    </div>
+
+    <div class="prev-button">
+        <i class="icon size-22 icon-arrow-left"></i>
+    </div>
+    <div class="next-button">
+        <i class="icon size-22 icon-arrow-right"></i>
+    </div>
+</div>

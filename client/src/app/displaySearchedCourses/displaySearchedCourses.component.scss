@@ -8,90 +8,12 @@
 {
     padding: 0;
 }
-.course-link
-{
-    text-decoration: none !important;
-    color: inherit;
-}
 .course-item-container
 {
     width: 25%;
     padding: 0 12px 24px;
 }
-.course-item
-{
-  list-style-type: none;
-  box-sizing: border-box;
-  border-radius: 8px !important;
-  overflow: hidden;
-  -webkit-box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.16);
-  -moz-box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.16);
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.16);
-  border: 0;
 
-  a
-  {
-      text-decoration: none !important;
-      color: inherit;
-  }
-}
-
-.course-titles
-{
-    flex: 0.9;
-}
-.card-text
-{
-    color: #484848;
-    opacity: 0.8;
-    font-size: 15px;
-
-    i
-    {
-        color: #484848;
-        opacity: 0.5;
-        margin-right: 8px;
-    }
-}
-.card-price{
-  font-size: 1.2em;
-  font-weight: bold;
-  color: $red-color;
-}
-.course-item-image {
-  max-height: 200px;
-  border-right: 1px solid #c4c4c4;
-  z-index: 0;
-}
-.average-label {
-  color: rgb(236, 201, 0);
-}
-
-.card-footer
-{
-    font-size: 14px;
-    padding: 12px 1rem;
-}
-.star {
-  position: relative;
-  display: inline-block;
-  color: #c4c4c4;
-  font-size: 1.1rem;
-  margin-left: 4px;
-}
-.full {
-  color: rgb(236, 201, 0);
-}
-.half {
-  position: absolute;
-  display: inline-block;
-  overflow: hidden;
-  color:rgb(236, 201, 0) ;
-}
-.oldprice{
-    text-decoration: line-through;
-    color: #D7213E;
-}
 
 @media (max-width: 1180px)
 {

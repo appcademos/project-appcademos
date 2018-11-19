@@ -1,0 +1,105 @@
+@import '../../sass/abstracts/variables.scss';
+
+.course-link {
+  text-decoration: none !important;
+  color: inherit;
+  outline: none !important;
+
+  *
+  {
+      outline: none !important;
+  }
+}
+.course-item {
+
+  a {
+    text-decoration: none !important;
+    color: inherit;
+  }
+}
+
+.course-item-image
+{
+    height: 180px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+}
+
+.course-body
+{
+    padding: 12px 12px 4px 4px;
+
+    .course-academy
+    {
+        margin-bottom: 4px;
+    }
+    .course-title
+    {
+        margin-bottom: 12px;
+    }
+}
+.course-icon-text
+{
+    display: flex;
+    flex-direction: row;
+    font-size: 15px;
+    color: $black-80;
+    margin-bottom: 8px;
+
+    .icon
+    {
+        opacity: 0.4;
+        margin-right: 8px;
+    }
+}
+.course-rating
+{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    margin-top: -3px;
+
+    p
+    {
+        font-size: 11px;
+        font-weight: 600;
+        margin-left: 4px;
+        color: rgba(72,72,72,0.6);
+    }
+
+    .star
+    {
+        position: relative;
+        display: inline-block;
+        color: rgba(72,72,72,0.24);
+        font-size: 13px;
+        margin-right: 3px;
+    }
+    .full
+    {
+        color: $yellow-star-color;
+    }
+    .half
+    {
+        position: absolute;
+        display: inline-block;
+        overflow: hidden;
+        color: $yellow-star-color;
+    }
+}
+.course-price
+{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    margin-top: 12px;
+
+    .oldprice
+    {
+        text-decoration: line-through;
+        color: $black-50;
+        margin-right: 12px;
+    }
+}
