@@ -3,7 +3,11 @@
      <div class="course-item-image" [ngStyle]="{ 'background-image': 'url(' + course.images[0].imagePath + ')' }" alt="course.images[0].imageName"></div>
 
      <div class="course-body">
-         <div class="course-academy fs-13 color-black-50 fw-600">{{ course.academy.name }}</div>
+        <div class="course-academy-container">
+            <div class="course-academy fs-13 color-black-50 fw-600">{{ course.academy.name }}</div>
+            <div class="verified" *ngIf="course.academy.isVerified"><i class="icon size-9 icon-green-check"></i>VERIFICADA</div>
+        </div>
+
          <a [routerLink]="['/course/view']" [queryParams]="{id: course._id}">
              <div class="course-title fs-19 fw-600">{{ course.title }}</div>
          </a>
