@@ -14,7 +14,17 @@ export class AppComponent implements OnInit
 
     constructor(private router: Router)
     {
-        router.events.subscribe((event: Event) =>
+        this.scrollToTopOnRouteChange();
+        this.setIsIos();
+    }
+    ngOnInit()
+    {
+
+    }
+
+    scrollToTopOnRouteChange()
+    {
+        this.router.events.subscribe((event: Event) =>
         {
             if (event instanceof NavigationEnd)
             {
@@ -26,9 +36,9 @@ export class AppComponent implements OnInit
             }
         });
     }
-
-    ngOnInit()
+    setIsIos()
     {
-
+        if (userAgent.isIos())
+            document.querySelector('html').classList.add('is-ios');
     }
 }

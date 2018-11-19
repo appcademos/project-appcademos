@@ -42,7 +42,16 @@ export class HeaderComponent implements OnInit
     }
     ngDoCheck()
     {
-        document.body.style.overflow = (this.isMobileNavVisible) ? 'hidden' : 'visible';
+        if (this.isMobileNavVisible)
+        {
+            document.querySelector('html').classList.add('noscroll');
+            document.querySelector('body').classList.add('noscroll');
+        }
+        else
+        {
+            document.querySelector('html').classList.remove('noscroll');
+            document.querySelector('body').classList.remove('noscroll');
+        }
     }
     onResizeWindow(event)
     {
