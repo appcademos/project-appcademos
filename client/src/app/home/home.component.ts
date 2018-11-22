@@ -63,8 +63,6 @@ export class HomeComponent implements OnInit
 
     onClickAnywhere(event)
     {
-        console.log('onClickAnywhere');
-
         if (!this.searchbox.nativeElement.contains(event.target))
             this.doHideSearchPanel();
     }

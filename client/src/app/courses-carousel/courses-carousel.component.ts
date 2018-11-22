@@ -11,6 +11,8 @@ export class CoursesCarouselComponent implements OnInit
     @Input() slickElementSelector: string;
     @Input() courses: any;
 
+    carouselReady: boolean = false;
+
     constructor() { }
 
     ngOnInit() {}
@@ -25,6 +27,7 @@ export class CoursesCarouselComponent implements OnInit
             {
                 coursesCarousel.on('init', () =>
                 {
+                    this.carouselReady = true;
                     $('.courses-carousel .slick-list').css('overflow', 'visible');
                 });
                 coursesCarousel.on('breakpoint', () =>
@@ -37,6 +40,7 @@ export class CoursesCarouselComponent implements OnInit
                     infinite: false,
                     slidesToShow: 4,
                     slidesToScroll: 1,
+                    speed: 300,
                     prevArrow: $('.courses-carousel-container .prev-button'),
                     nextArrow: $('.courses-carousel-container .next-button'),
                     responsive:

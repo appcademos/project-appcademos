@@ -1,4 +1,4 @@
-<div class="courses-carousel-container">
+<div class="courses-carousel-container" [style.opacity]="carouselReady ? 1 : 0">
     <div class="courses-carousel" *ngIf="courses">
         <app-course-card class="courses-carousel-item" *ngFor="let course of courses; let last = last" [course]="course">{{ onLoopFinished(last) }}</app-course-card>
     </div>
