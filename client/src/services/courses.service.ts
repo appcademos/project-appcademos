@@ -20,29 +20,23 @@ export class CoursesService {
     private router: Router,
     private mapService: MapMarkersService
   ) {}
-  findCourses(searchcourses) {
+
+  findCourses(searchcourses)
+  {
     this.mapService.markers = [];
 
     this.searchcourses = searchcourses.replace(/[\s]/g, "+");
 
     return this.http
-      .get(
-        `${environment.BASEURL}/api/course/search?course=${this.searchcourses}`,
-        this.options
-      )
-      .map(res => res.json())
-      .map(courses => {
+    .get(`${environment.BASEURL}/api/course/search?course=${this.searchcourses}`, this.options)
+    .map(res => res.json())
+    .map(courses =>
+    {
         this.searching = false;
-
-        if (courses) {
-          this.router.navigate(["/search"], {
-            queryParams: { course: this.searchcourses }
-          });
-        }
         this.foundCourses = courses;
         this.setCoursesMarkers(courses);
-      })
-      .catch(error => Observable.throw(error.json().message));
+    })
+    .catch(error => Observable.throw(error.json().message));
   }
 
   setCoursesMarkers(courses) {
@@ -87,6 +81,6 @@ export class CoursesService {
       .post(`${environment.BASEURL}/api/course/create`, course, this.options)
       .map(res => res.json())
       .catch(error => Observable.throw(error.json().message));
-      
+
   }
 }

@@ -17,7 +17,7 @@ export const routes: Routes = [
     { path: "academy", component: AcademyComponent },
     { path: "search", component: AllCoursesComponent },
     { path: "checkout", component: CheckoutComponent },
-    { path:"confirmation", component : ConfirmationComponent},
+    { path: "confirmation", component : ConfirmationComponent},
     { path: "enter", component: UserSignupFormComponent },
     { path: "course/view", component: OneCourseComponent },
     { path: "academyprofile", component: AcademyprofileComponent},

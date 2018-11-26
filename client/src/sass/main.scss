@@ -25,6 +25,15 @@ body
     position: relative;
     height: 100%;
 }
+.noselect
+{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
 .is-ios *
 {
@@ -130,6 +139,16 @@ p
     height: 24px;
     width: 24px;
 }
+.icon.size-42
+{
+    height: 42px;
+    width: 42px;
+}
+.icon.size-44
+{
+    height: 44px;
+    width: 44px;
+}
 .icon.size-92
 {
     height: 92px;
@@ -143,6 +162,10 @@ p
 .icon-arrow-right-white
 {
     background-image: url('../assets/public/images/icons/arrow_right_white.svg');
+}
+.icon-arrow-left-white
+{
+    background-image: url('../assets/public/images/icons/arrow_left_white.svg');
 }
 .icon-red-search-compare
 {
@@ -224,6 +247,46 @@ p
 {
     background-image: url('../assets/public/images/icons/arrow_down_white.svg');
 }
+.icon-like-green
+{
+    background-image: url('../assets/public/images/icons/like_green.svg');
+}
+.icon-info-green
+{
+    background-image: url('../assets/public/images/icons/info_green.svg');
+}
+.icon-class-green
+{
+    background-image: url('../assets/public/images/icons/class_green.svg');
+}
+.icon-book-green
+{
+    background-image: url('../assets/public/images/icons/book_green.svg');
+}
+.icon-graduation-green
+{
+    background-image: url('../assets/public/images/icons/graduation_green.svg');
+}
+.icon-intelligence-green
+{
+    background-image: url('../assets/public/images/icons/intelligence_green.svg');
+}
+.icon-free-green
+{
+    background-image: url('../assets/public/images/icons/free_green.svg');
+}
+.icon-test-green
+{
+    background-image: url('../assets/public/images/icons/test_green.svg');
+}
+.icon-appcademos-a-red
+{
+    background-image: url('../assets/public/images/icons/appcademos_A_red.png');
+}
+.icon-avatar-green
+{
+    background-image: url('../assets/public/images/icons/avatar_green.svg');
+}
 
 
 
@@ -245,7 +308,7 @@ p
 .fs-17 { font-size: 17px; }
 .fs-18 { font-size: 18px; }
 .fs-19 { font-size: 19px; }
-.fs-20 { font-size: 20px; }
+.fs-20 { font-size: 20px !important; }
 .fs-22 { font-size: 22px; }
 .fs-24 { font-size: 24px; }
 .fs-28 { font-size: 28px; }
@@ -304,6 +367,9 @@ p
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    outline: none;
+    text-align: center;
+    @extend .noselect;
 
     transition: all 0.2s ease;
 
@@ -328,6 +394,19 @@ p
     &:active
     {
         box-shadow: 0 0 0 transparent;
+    }
+}
+.button.light-shadow
+{
+    box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+
+    &:hover
+    {
+        box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    }
+    &:active
+    {
+        box-shadow: none;
     }
 }
 
