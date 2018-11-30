@@ -6,7 +6,7 @@
     height: 580px;
 
     background-image: /*url('https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cbbd27149a8243a42eb2bd0bd918ba8f&auto=format&fit=crop&w=1650&q=80');*/ url("../../assets/public/images/moncloa.jpg");
-    background-position: center;
+    background-position: bottom center;
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -42,19 +42,6 @@
     left: 50%;
     transform: translate(-50%, 0);
     padding-bottom: 60px;
-
-    a.allCourses
-    {
-        margin-top: 12px;
-        margin-right: 12px;
-        float: right;
-        color: white;
-        text-align: right;
-        font-weight: 600;
-        font-size: 15px;
-
-        i { margin-left: 2px; }
-    }
 }
 .hero-content:after
 {
@@ -64,6 +51,7 @@
 }
 .hero-text
 {
+    margin-bottom: 48px;
     margin-left: 8px;
     color: white;
 
@@ -75,127 +63,6 @@
         margin-left: 2px;
         margin-bottom: 6px;
         letter-spacing: 1px;
-    }
-}
-
-#searchbox
-{
-    position: relative;
-    margin-top: 48px;
-
-    input
-    {
-        position: relative;
-        z-index: 1;
-        font-size: 18px;
-        padding: 0 0 0 20px;
-        height: 60px;
-        border: 0;
-        border-radius: 12px;
-        font-weight: 600;
-        box-shadow: 0 12px 20px rgba(0,0,0,0.32);
-
-        transition: 0.2s all;
-
-        &:focus
-        {
-            outline: none !important;
-            border: 0 !important;
-            box-shadow: 0 24px 40px rgba(0,0,0,0.32);
-        }
-        &:hover
-        {
-            box-shadow: 0 24px 40px rgba(0,0,0,0.32);
-        }
-
-        &::placeholder
-        { /* Chrome, Firefox, Opera, Safari 10.1+ */
-            color: $black-50;
-            opacity: 1; /* Firefox */
-        }
-        &:-ms-input-placeholder
-        { /* Internet Explorer 10-11 */
-            color: $black-50;
-        }
-        &::-ms-input-placeholder
-        { /* Microsoft Edge */
-            color: $black-50;
-        }
-    }
-    &.searchPanelOpened input
-    {
-        border-radius: 12px 12px 0 0;
-    }
-    button
-    {
-        position: absolute;
-        z-index: 3;
-        right: 5px;
-        top: 6px;
-        bottom: 6px;
-        background-color: $red-color;
-        color: white;
-        font-size: 1em;
-        border: 0;
-        border-radius: 8px;
-        width: 100px;
-        box-shadow: 0 2px 8px $red-color-50;
-
-        &:hover
-        {
-            box-shadow: 0 8px 12px $red-color-50;
-        }
-        &:active
-        {
-            background-color: $red-color;
-            border: 0;
-        }
-    }
-    .search-panel
-    {
-        position: absolute;
-        z-index: 2;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: white;
-        border-radius: 0 0 12px 12px;
-        padding: 20px 0px 12px 20px;
-        box-shadow: 0 12px 20px rgba(0,0,0,0.16);
-        border-top: 1px solid $black-16;
-
-        .content
-        {
-            margin-top: 12px;
-            display: flex;
-            flex-wrap: wrap;
-        }
-        .search-panel-item
-        {
-            color: $red-color-80;
-            text-align: center;
-            font-weight: 600;
-            padding: 8px 12px;
-            border: 1px solid #DCE0E0;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-            border-radius: 8px;
-            margin-right: 16px;
-            margin-bottom: 12px;
-            text-decoration: none;
-            transition: 0.2s all ease;
-
-            &:hover
-            {
-                color: white;
-                background: $red-color;
-                box-shadow: 0 3px 8px $red-color-50;
-                border-color: transparent;
-            }
-            &:active
-            {
-                box-shadow: none;
-            }
-        }
     }
 }
 
@@ -527,6 +394,7 @@ section#partners
     }
     .hero-text
     {
+        margin-bottom: 24px;
         margin-left: 0;
 
         p
@@ -534,10 +402,6 @@ section#partners
             font-size: 16px;
             line-height: 1.4;
         }
-    }
-    #searchbox
-    {
-        margin-top: 24px;
     }
 
     section#verified-academies .help-container
@@ -622,10 +486,6 @@ section#partners
     {
         padding-left: 20px;
         padding-right: 20px;
-    }
-    #searchbox button
-    {
-        width: 68px;
     }
 
     section#top-banner

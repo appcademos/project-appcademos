@@ -28,7 +28,6 @@ import { AppComponent } from "./app.component";
 import { CheckoutComponent } from "./checkout/checkout.component";
 import { CoursesMapMarkersComponent } from "./courses-map-markers/courses-map-markers.component";
 import { CreateCourseFormComponent } from "./createCourseForm/createCourseForm.component";
-import { DisplaySearchedCoursesComponent } from "./displaySearchedCourses/displaySearchedCourses.component";
 import { FooterComponent } from "./footer/footer.component";
 import { HeaderComponent } from "./header/header.component";
 import { HomeComponent } from "./home/home.component";
@@ -43,6 +42,7 @@ import { ConfirmationComponent } from "./confirmation/confirmation.component";
 import { AcademyprofileComponent } from './academyprofile/academyprofile.component';
 import { CourseCardComponent } from './course-card/course-card.component';
 import { CoursesCarouselComponent } from './courses-carousel/courses-carousel.component';
+import { SearchboxComponent } from './searchbox/searchbox.component';
 
 @NgModule({
    declarations: [
@@ -55,7 +55,6 @@ import { CoursesCarouselComponent } from './courses-carousel/courses-carousel.co
       CheckoutComponent,
       CoursesMapMarkersComponent,
       CreateCourseFormComponent,
-      DisplaySearchedCoursesComponent,
       FooterComponent,
       HeaderComponent,
       HomeComponent,
@@ -69,7 +68,8 @@ import { CoursesCarouselComponent } from './courses-carousel/courses-carousel.co
       ConfirmationComponent,
       AcademyprofileComponent,
       CourseCardComponent,
-      CoursesCarouselComponent
+      CoursesCarouselComponent,
+      SearchboxComponent
    ],
 
 imports: [

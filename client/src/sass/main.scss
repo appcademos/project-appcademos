@@ -77,6 +77,12 @@ p
     margin: 0;
 }
 
+input[type="text"]
+{
+    -webkit-appearance: none !important;
+    appearance: none !important;
+}
+
 .icon
 {
     display: inline-block;
@@ -286,6 +292,27 @@ p
 .icon-avatar-green
 {
     background-image: url('../assets/public/images/icons/avatar_green.svg');
+}
+.icon-filter
+{
+    background-image: url('../assets/public/images/icons/filter.svg');
+}
+.icon-close
+{
+    background-image: url('../assets/public/images/icons/close.svg');
+}
+
+
+
+.spinner
+{
+    margin: 0 auto;
+    width: 48px;
+    height: 48px;
+    background-image: url('../assets/public/images/spinner.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
 }
 
 
