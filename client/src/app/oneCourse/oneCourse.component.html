@@ -1,39 +1,325 @@
-<ng-template #t let-fill="fill">
-  <span class="star" [class.full]="fill === 100">
-    <span class="half" [style.width.%]="fill">
-      ★
+<ng-template #starTemplate let-fill="fill">
+    <span class="star" [class.full]="fill === 100">
+        <span class="half" [style.width.%]="fill">★</span>
+        ★
     </span>
-    ★
-  </span>
 </ng-template>
 
-<div class="container pt-4" *ngIf="courseObj">
-    <button id="backButton" class="btn btn-md mb-3" (click)="backClicked()">
-        <i class="fas fa-arrow-left"></i> Volver a la búsqueda
-    </button>
+<div *ngIf="courseObj">
+    <div class="responsive-container">
+        <div id="backButton" class="noselect" (click)="backClicked()">
+            <i class="icon size-12 icon-arrow-left"></i> Atrás
+        </div>
 
-    <div class="row-md-8">
-    <div class="d-flex">
-      <div class="col-md-12 p-0 mt-2">
-        <small class="text-muted">{{courseObj.course.academy.name}}</small>
-        <h1 class="ml-0 mt-1 fw-600">
-          {{courseObj.course.title}}
-      </h1>
-      </div>
+        <div class="title-view">
+            <div class="left">
+                <div class="academy">
+                    <div class="fs-14 fw-700 color-black-80">ACADEMIA {{ courseObj.course.academy.name.toUpperCase() }}</div>
+                    <div class="verified" *ngIf="courseObj.course.academy.isVerified"><i class="icon size-9 icon-green-check"></i>VERIFICADA</div>
+                </div>
+                <h1>{{ courseObj.course.title }}</h1>
+                <div class="course-rating">
+                    <ngb-rating [(rate)]="reviewsAverage" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
+                    <p>{{ courseObj.course.academy.reviews.length }}</p>
+                </div>
+            </div>
+            <div class="right">
+                <div class="old-price fw-500 fs-28" *ngIf="courseObj.course.oldPrice">{{ courseObj.course.oldPrice }}€</div>
+                <div class="price color-red fw-600 fs-32">{{ courseObj.course.price }}€</div>
+            </div>
+        </div>
     </div>
-  </div>
+
+    <div id="gallery" class="noselect">
+        <div class="left-area">
+            <i class="icon size-42 icon-arrow-left-white"></i>
+        </div>
+        <div class="right-area">
+            <i class="icon size-42 icon-arrow-right-white"></i>
+        </div>
+
+        <div class="background" [style.backgroundImage]="'url(' + currentGalleryImage.imagePath + ')'">
+            <div class="overlay"></div>
+        </div>
+
+        <div class="gallery-items">
+            <div class="gallery-item" *ngFor="let image of courseImages; let last = last">
+                {{ onGalleryLoopFinished(last) }}
+                <div class="image" [style.backgroundImage]="'url(' + image.imagePath + ')'"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="responsive-container">
+        <section id="info-box" class="card-banner">
+            <div class="content-container">
+                <div class="col-section">
+                    <div class="group">
+                        <div class="title">Inicio del curso</div>
+                        <div class="text fs-20">{{ courseObj.course.startDate | date: "dd-MM-yyyy" }}</div>
+                    </div>
+                    <div class="group">
+                        <div class="title">Nº de horas</div>
+                        <div class="text fs-20">{{ courseObj.course.hours }}</div>
+                    </div>
+                </div>
+                <div class="col-section">
+                    <div class="group">
+                        <div class="title">Horarios</div>
+                        <div class="radio-container" *ngFor="let group of courseObj.course.group; let i = index">
+                            <input type="radio" id="group-{{i}}" name="group" />
+                            <label for="group-{{i}}">{{ group }}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-section address">
+                    <div class="group">
+                        <div class="title">Dirección</div>
+                        <div class="text">{{ courseObj.course.academy.address }}</div>
+                        <div class="color-green fs-13 fw-500 cursor-pointer noselect" (click)="utils.scrollToElement('#location')">Ver mapa</div>
+                    </div>
+                </div>
+                <div class="separator"></div>
+                <div class="col-section price">
+                    <div class="group">
+                        <div class="title">Precio</div>
+                        <div class="text">
+                            <span class="old-price fs-20 fw-500" *ngIf="courseObj.course.oldPrice">{{ courseObj.course.oldPrice }}€</span>
+                            <span class="price fs-24 fw-600 color-red">{{ courseObj.course.price }}€</span>
+                        </div>
+                    </div>
+                    <div class="button light-shadow" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">Reservar mi plaza</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="expandible-info">
+            <div class="expandible-item noselect" id="expandible-item-1" *ngIf="courseObj.course.foryouif">
+                <div class="top" (click)="expandItem('expandible-item-1')">
+                    <i class="icon size-14 icon-arrow-down"></i>
+                    <i class="icon size-20 icon-like-green"></i>
+                    <div class="title">Este curso es para ti si…</div>
+                </div>
+                <div class="content">
+                    <div class="content-container">
+                        <ul>
+                            <li *ngFor="let foryouif of courseObj.course.foryouif">{{ foryouif }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="expandible-item noselect" id="expandible-item-2">
+                <div class="top" (click)="expandItem('expandible-item-2')">
+                    <i class="icon size-14 icon-arrow-down"></i>
+                    <i class="icon size-20 icon-info-green"></i>
+                    <div class="title">Información general</div>
+                </div>
+                <div class="content">
+                    <div class="content-container">
+                        <ul>
+                          <li><span class="fw-600">Dirección:</span> {{courseObj.course.academy.address}}</li>
+                          <li><span class="fw-600">Nº máximo de alumnos en clase:</span> {{courseObj.course.sizeClass}}</li>
+                          <li><span class="fw-600">Porcentaje de aprobados:</span> {{courseObj.course.approvedRate | percent}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="expandible-item noselect" id="expandible-item-3" *ngIf="courseObj.course.howareclasses">
+                <div class="top" (click)="expandItem('expandible-item-3')">
+                    <i class="icon size-14 icon-arrow-down"></i>
+                    <i class="icon size-20 icon-class-green"></i>
+                    <div class="title">Cómo serán las clases</div>
+                </div>
+                <div class="content">
+                    <div class="content-container">
+                        <ul>
+                            <li *ngFor="let howareclasses of courseObj.course.howareclasses">{{ howareclasses }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="expandible-item noselect" id="expandible-item-4" *ngIf="courseObj.course.theme || courseObj.course.theme.material">
+                <div class="top" (click)="expandItem('expandible-item-4')">
+                    <i class="icon size-14 icon-arrow-down"></i>
+                    <i class="icon size-20 icon-book-green"></i>
+                    <div class="title">Temario y material</div>
+                </div>
+                <div class="content">
+                    <div class="content-container">
+                        <div class="sub-section">
+                            <div class="title">Temario</div>
+                            <ul>
+                                <li *ngFor="let theme of courseObj.course.theme">{{ theme }}</li>
+                            </ul>
+                        </div>
+                        <div class="sub-section">
+                            <div class="title">Material</div>
+                            <ul>
+                                <li *ngFor="let material of courseObj.course.material">{{ material }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="expandible-item noselect" id="expandible-item-5" *ngIf="courseObj.course.academy.about">
+                <div class="top" (click)="expandItem('expandible-item-5')">
+                    <i class="icon size-14 icon-arrow-down"></i>
+                    <i class="icon size-20 icon-graduation-green"></i>
+                    <div class="title">¿Por qué elegir la academia <span class="color-green">{{ courseObj.course.academy.name }}</span>?</div>
+                </div>
+                <div class="content">
+                    <div class="content-container">
+                        <ul>
+                            <li *ngFor="let academyAbout of courseObj.course.academy.about">{{ academyAbout }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="expandible-item noselect" id="expandible-item-6" *ngIf="courseObj.course.about">
+                <div class="top" (click)="expandItem('expandible-item-6')">
+                    <i class="icon size-14 icon-arrow-down"></i>
+                    <i class="icon size-20 icon-intelligence-green"></i>
+                    <div class="title">¿Qué sabrás al finalizar este curso?</div>
+                </div>
+                <div class="content">
+                    <div class="content-container">
+                        <ul>
+                            <li *ngFor="let courseAbout of courseObj.course.about">{{ courseAbout }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="expandible-item noselect" id="expandible-item-7">
+                <div class="top" (click)="expandItem('expandible-item-7')">
+                    <i class="icon size-14 icon-arrow-down"></i>
+                    <i class="icon size-20 icon-free-green"></i>
+                    <div class="title">Cómo conseguir tu clase de prueba</div>
+                </div>
+                <div class="content">
+                    <div class="content-container">
+                        En Appcademos queremos que estés 100% segur@ de que este curso es el ideal para ti. Por ello, siempre acordamos con todas
+                        nuestras academias una clase de prueba para ti.
+                        <br><br>
+                        <div class="fw-700">Cómo conseguirla:</div>
+                        <br>
+                        <ul>
+                          <li><span class="fw-600">Rellenas el formulario</span>. Al rellenarlo te comprometes a asistir, la academia tiene plazas limitadas.</li>
+                          <li>La academia te llama ese mismo dia para solucionar dudas. <span class="fw-600">Asistes a clase</span> y enseñas el <span class="fw-600">recibo</span> que te
+                            daremos con el que podrás asistir.</li>
+                          <li><span class="fw-600">No pagas nada si no te gusta</span>. Al salir, tienes 24 horas enteras para decidir si quieres continuar o no
+                            el curso. Si decides no continuar, escríbenos un Whatsapp o correo y no pagarás nada.</li>
+                        </ul>
+                        <br>
+                        <div class="fs-14">* Para que no tengas que preocuparte por contactarnos, si te gusta el curso, no hace falta que nos digas nada, daremos por
+                        hecho que has encontrado tu curso ideal y cobraremos el importe total del curso a la tarjeta proporcionada.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="expandible-item noselect" id="expandible-item-8" *ngIf="courseObj.course.requirements">
+                <div class="top" (click)="expandItem('expandible-item-8')">
+                    <i class="icon size-14 icon-arrow-down"></i>
+                    <i class="icon size-22 icon-test-green"></i>
+                    <div class="title">Requisitos y Prueba de Nivel</div>
+                </div>
+                <div class="content">
+                    <div class="content-container">
+                        <ul>
+                            <li *ngFor="let requirement of courseObj.course.requirements">{{ requirement }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="expandible-item noselect" id="expandible-item-9">
+                <div class="top" (click)="expandItem('expandible-item-9')">
+                    <i class="icon size-14 icon-arrow-down"></i>
+                    <i class="icon size-22 icon-appcademos-a-red"></i>
+                    <div class="title">Beneficios de este curso con <span class="color-red">Appcademos</span></div>
+                </div>
+                <div class="content">
+                    <div class="content-container">
+                        <ul>
+                            <li>Reserva tu clase de prueba <span class="fw-600">sin compromiso en 1 click</span>.</li>
+                            <li><span class="fw-600">Asistencia gratuita</span> por asesor experto en la academia {{courseObj.course.academy.name}}.</li>
+                            <li><span class="fw-600">Siempre te sale más barato</span> el curso, si después de la clase de prueba decides continuar. <span class="fw-600">Este mes:
+                            10€ de descuento al rellenar tu formulario.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="reviews">
+            <h2>Opiniones verificadas de alumnos</h2>
+            <div class="rating">
+                <ngb-rating [(rate)]="reviewsAverage" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
+                <p> ·&nbsp;&nbsp;&nbsp;{{ courseObj.course.academy.reviews.length }} Opiniones</p>
+            </div>
+            <div class="carousel-container" [style.opacity]="reviewsCarouselReady ? 1 : 0">
+                <div class="carousel">
+                    <div class="review-group" *ngFor="let reviewGroup of reviews; let last = last">
+                        {{ onReviewsLoopFinished(last) }}
+
+                        <div class="review" *ngFor="let review of reviewGroup">
+                            <div class="icon size-44 icon-avatar-green"></div>
+                            <div>
+                                <div class="top">
+                                    <div class="title">{{ review.title }}</div>
+                                    <div class="author-container">
+                                        <div class="author">{{ review.author.name || "Anónimo" }}</div>
+                                        <ngb-rating class="rating" [(rate)]="review.grade" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
+                                    </div>
+                                </div>
+                                <div>{{ review.description }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="overlay"></div>
+                <div class="prev-button">
+                    <i class="icon size-22 icon-arrow-left"></i>
+                </div>
+                <div class="next-button">
+                    <i class="icon size-22 icon-arrow-right"></i>
+                </div>
+            </div>
+        </section>
+
+        <section id="location">
+            <h2>Dirección</h2>
+            <p>{{ courseObj.course.academy.address }}</p>
+            <div #map class="map"></div>
+        </section>
+    </div>
+
+    <section id="similar-courses">
+        <div class="responsive-container">
+            <h2>Cursos similares</h2>
+            <app-courses-carousel [courses]="similarCourses"></app-courses-carousel>
+        </div>
+    </section>
+</div>
+
+
+
+
+    <!--<div class="row-md-8">
+        <div class="d-flex">
+          <div class="col-md-12 p-0 mt-2">
+            <small class="text-muted">{{courseObj.course.academy.name}}</small>
+            <h1 class="ml-0 mt-1 fw-600">
+              {{courseObj.course.title}}
+          </h1>
+          </div>
+        </div>
+    </div>
 
     <div class="col-center" *ngIf="courseObj.course.images.length !== 0">
 
         <img class="img-fluid" [src]="courseObj.course.images[0].imagePath" alt="courseObj.course.images[0].imageName">
 
-        <!--number of reviews-->
         <div class="mt-4">
             <p class="fw-500 m-0 mb-1">Opiniones verificadas de alumnos del centro:</p>
             <div class="d-flex align-items-center" (click)="scrollToDiv('#all-reviews')">
-              <!--<div class="average-label mr-2">
-                <h4 class="p-0 m-0">{{average | number : '1.1'}}</h4>
-            </div>-->
               <ngb-rating rate="{{calcReviewGrade(courseObj.course.academy.reviews)}}" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
 
               <div class="mt-1 ml-3">
@@ -71,7 +357,6 @@
               </div>
           </div>
 
-        <!--collapse-->
         <div class="col-md-8 mb-5 p-0 pb-3">
           <div class="accordion" id="accordionExample">
             <div class="card">
@@ -268,7 +553,6 @@
           </div>
         </div>
 
-        <!--reviews-->
         <div *ngIf="courseObj.course.academy.reviews" class="col-lg-12 p-0 d-flex justify-content-center pb-5 mb-5" id="all-reviews">
 
             <div class="col-lg-8 p-0">
@@ -311,4 +595,4 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->

@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CoursesService } from "../../services/courses.service";
 import { Router } from "@angular/router";
 import { UtilsService } from '../../services/utils.service';
+import { SearchboxComponent } from '../searchbox/searchbox.component';
 
 @Component(
 {
@@ -13,12 +14,9 @@ import { UtilsService } from '../../services/utils.service';
 
 export class HomeComponent implements OnInit
 {
-    @ViewChild('searchbox') searchbox: ElementRef;
-    @ViewChild('searchInput') searchInput: ElementRef;
+    @ViewChild('searchbox') searchboxComponent: SearchboxComponent;
 
-    query: String;
     featuredCourses: any;
-    showSearchPanel: boolean;
 
     constructor(private courses: CoursesService, private router: Router, private utils: UtilsService)
     {
@@ -32,43 +30,29 @@ export class HomeComponent implements OnInit
 
         document.addEventListener('click', this.onClickAnywhere.bind(this));
     }
-    ngOnInit() { }
+    ngOnInit() { console.log(this.searchboxComponent); }
 
-    findCourses()
+    findCourses(query)
     {
-        if (this.query && this.query.length > 0)
+        if (query && query.length > 0)
         {
             this.router.navigate(["/search"],
             {
-                queryParams: { course: this.query.toLowerCase() }
+                queryParams: { course: query.toLowerCase() }
             });
         }
         else
         {
             setTimeout(() =>
             {
-                this.searchInput.nativeElement.focus();
+                this.searchboxComponent.focus();
             }, 0);
         }
     }
 
-    doShowSearchPanel()
-    {
-        this.showSearchPanel = true;
-    }
-    doHideSearchPanel()
-    {
-        this.showSearchPanel = false;
-    }
-
     onClickAnywhere(event)
     {
-        if (!this.searchbox.nativeElement.contains(event.target))
-            this.doHideSearchPanel();
-    }
-    onInputPressEsc()
-    {
-        this.doHideSearchPanel();
-        this.searchInput.nativeElement.blur();
+        if (!this.searchboxComponent.searchbox.nativeElement.contains(event.target))
+            this.searchboxComponent.doHideSearchPanel();
     }
 }

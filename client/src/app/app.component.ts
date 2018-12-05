@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, Event,NavigationEnd } from '@angular/router';
+import { Router, Event, NavigationEnd } from '@angular/router';
 declare var userAgent: any;
 
 @Component(

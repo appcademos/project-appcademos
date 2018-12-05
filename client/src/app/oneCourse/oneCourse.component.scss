@@ -1,206 +1,825 @@
 @import '../../sass/abstracts/variables.scss';
 
-.container
+
+h2
 {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 48px;
+    font-size: 24px !important;
 }
 
-img
+.responsive-container
 {
-    max-height: 380px;
-    border-radius: 12px;
-}
-
-.single-course-col-left {
-  img {
-    min-height: 300px;
-
-  }
-}
-
-.single-course-demands {
-  margin-top: 20px;
-  border-left: 2px solid #000000;
-}
-
-.course-description
-{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 24px;
-    font-weight: 300;
-  border-radius: 8px;
-  border: 1px solid #EAEAEA;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
-  margin-bottom: 48px;
-  ul {
-    padding: 0;
-  }
-  li {
-    list-style-type: none;
-  }
-}
-
-.average-label {
-  color: rgb(236, 201, 0);
-}
-
-.star {
-  position: relative;
-  display: inline-block;
-  color: #c4c4c4;
-  font-size: 1.5rem;
-  margin-right: 4px;
-}
-
-.full {
-  color: rgb(236, 201, 0);
-}
-
-.half {
-  position: absolute;
-  display: inline-block;
-  overflow: hidden;
-  color: rgb(236, 201, 0);
-}
-
-.oldprice{
-    text-decoration: line-through;
-    
+    padding-top: 24px;
 }
 
 #backButton
 {
+    display: inline-flex;
+    align-items: center;
     background: #fff;
-    color: #484848;
-    opacity: 0.8;
-    font-size: 15px;
-    border-radius: 6px;
-    border: 1px solid rgba(0,0,0,0.12);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    padding: 9px 12px 9px 10px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    color: $black-80;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    cursor: pointer;
 
-    transition: 0.16s all;
+    transition: 0.2s all;
 
     i
     {
         font-size: 1em;
-        margin-right: 4px;
+        margin-right: 6px;
+        opacity: 0.8;
     }
     &:active
     {
         background: rgba(0,0,0,0.04);
-        box-shadow: none;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.08);
     }
 }
 
-.reservation-button
+.title-view
 {
-    background: $green-color;
-    color: #fff;
-    border-radius: 8px;
-    border: 0;
-    padding: 16px 20px;
-    font-size: 18px;
-    cursor: pointer;
-    font-weight: 500;
-    box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
 
-    transition: 0.16s all;
-
-    &:active
+    .academy
     {
-        opacity: 0.88;
-        box-shadow: none;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .verified
+    {
+        flex: 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        align-self: center;
+        font-weight: 700;
+        font-size: 9px;
+        color: $green-color;
+        border: 1px solid $green-color;
+        border-radius: 4px;
+        padding: 3px 4px 2px;
+        letter-spacing: 0.8px;
+        margin-left: 12px;
+
+        i
+        {
+            margin-right: 4px;
+        }
+    }
+    h1
+    {
+        font-size: 32px;
+        margin-top: 4px;
+    }
+    .course-rating
+    {
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        margin-top: 12px;
+
+        p
+        {
+            font-size: 14px;
+            font-weight: 500;
+            margin-left: 8px;
+        }
+
+        .star
+        {
+            position: relative;
+            display: inline-block;
+            color: rgba(72,72,72,0.24);
+            font-size: 17px;
+            margin-right: 3px;
+        }
+        .full
+        {
+            color: $yellow-star-color;
+        }
+        .half
+        {
+            position: absolute;
+            display: inline-block;
+            overflow: hidden;
+            color: $yellow-star-color;
+        }
+    }
+    .right
+    {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-left: 20px;
+
+        .old-price
+        {
+            margin-right: 12px;
+            text-decoration: line-through;
+            color: $black-50;
+        }
     }
 }
 
-.vertical-separator
+#gallery
 {
-    width: 1px;
-    background: #E2E2E2;
-    align-self: stretch;
-    margin-right: 28px;
-}
+    margin-top: 20px;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+    background: $black-16;
 
-.accordion button
-{
-    border-radius: 50%;
-    background: $green-color-16;
-    width: 38px;
-    height: 38px;
-    font-size: 24px;
-    color: $green-color;
-    text-align: center;
-    padding: 0;
-    margin-right: 20px;
-}
-.accordion .card
-{
-    border-left: 0;
-    border-right: 0;
-}
-.accordion .card-header
-{
-    padding: 16px 0;
-    padding-right: 20px;
-    background: #fff;
-    border-radius: 0;
-    border: 0;
-}
-.accordion .card-body
-{
-    padding: 0 20px 28px 64px;
-    font-weight: 300;
-    line-height: 1.4em;
-
-    ul
+    .right-area,
+    .left-area
     {
-        padding-left: 0;
-    }
-}
-
-#all-reviews .single-review .star
-{
-    font-size: 14px;
-}
-
-
-@media (max-width: 1024px)
-{
-    .container
-    {
-        padding: 0 24px;
-    }
-}
-@media (max-width: 991px)
-{
-    .course-description
-    {
-        padding: 16px;
-    }
-    .vertical-separator
-    {
-        display: none;
-    }
-    .reservation-button
-    {
-        position: fixed;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 160px;
+        display: flex;
+        align-items: center;
         z-index: 3;
-        bottom: 12px;
-        left: 24px;
-        right: 24px;
-        box-shadow: 0 2px 3px rgba(0,0,0,0.2), 0 72px 48px 80px rgba(255,255,255,1);
+        cursor: pointer;
+
+        &.slick-disabled
+        {
+            pointer-events: none !important;
+            i
+            {
+                display: none;
+            }
+        }
+    }
+    .right-area
+    {
+        right: 0;
+        justify-content: flex-end;
+        background: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.5));
+        padding-right: 23px;
+    }
+    .left-area
+    {
+        left: 0;
+        justify-content: flex-start;
+        background: linear-gradient(to right, rgba(0,0,0,0.5), rgba(0,0,0,0));
+        padding-left: 23px;
     }
 
-    .accordion button
+    .background
     {
-        margin-right: 12px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        z-index: 1;
+        filter: blur(30px);
+        transform: translateZ(0);
+        transition: all 0.2s ease;
+
+        .overlay
+        {
+            background: rgba(255,255,255,0.5);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
     }
-    .accordion .card-body
+
+    .gallery-items
     {
-        padding-left: 8px;
+        height: 100%;
+        z-index: 2;
+    }
+    .gallery-item
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        outline: none;
+
+        .image
+        {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 400px;
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+        }
+    }
+}
+
+#info-box
+{
+    margin-top: 8px;
+    padding: 20px 24px;
+
+    .content-container
+    {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        max-width: 1024px;
+        margin: 0 auto;
+    }
+
+    .col-section
+    {
+        margin-right: 40px;
+        margin-top: 4px;
+        margin-bottom: 4px;
+
+        &:last-child
+        {
+            margin-right: 0;
+        }
+    }
+    .col-section.address
+    {
+        max-width: 160px;
+        margin-right: 0;
+
+        .text
+        {
+            margin-bottom: 5px;
+        }
+    }
+    .group
+    {
+        .title
+        {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .text
+        {
+            font-size: 18px;
+        }
+        .radio-container
+        {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 8px;
+            cursor: pointer;
+
+            &:last-child
+            {
+                margin-bottom: 0;
+            }
+        }
+        label
+        {
+            padding-left: 8px;
+            margin-bottom: 0;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        + .group
+        {
+            margin-top: 20px;
+        }
+    }
+    .separator
+    {
+
+        width: 1px;
+        background: #EAEAEA;
+        margin: 0 28px;
+    }
+
+    .col-section.price
+    {
+        .title
+        {
+            margin-bottom: 4px;
+        }
+        .button
+        {
+            display: block;
+            margin-top: 20px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            min-width: 170px;
+        }
+        .old-price
+        {
+            margin-right: 8px;
+            text-decoration: line-through;
+            color: $black-50;
+        }
+    }
+}
+
+#expandible-info
+{
+    margin-top: 48px;
+
+    .expandible-item
+    {
+        border-top: 1px solid $black-16;
+
+        &:last-child
+        {
+            border-bottom: 1px solid $black-16;
+        }
+
+        .top
+        {
+            padding: 24px 0;
+            cursor: pointer;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            .icon
+            {
+                flex-shrink: 0;
+            }
+            .icon-arrow-down
+            {
+                opacity: 0.32;
+                margin-right: 28px;
+
+                transition: all 0.2s ease;
+            }
+            .title
+            {
+                font-size: 18px;
+                font-weight: 700;
+                margin-left: 20px;
+            }
+            .icon-class-green
+            {
+                width: 28px;
+            }
+            .icon-book-green,
+            .icon-graduation-green
+            {
+                width: 26px;
+            }
+            .icon-intelligence-green
+            {
+                height: 24px;
+                width: 22px;
+            }
+            .icon-free-green
+            {
+                width: 30px;
+            }
+        }
+        .content
+        {
+            display: none;
+            overflow: hidden;
+
+            .content-container
+            {
+                padding: 0 20px 28px 82px;
+            }
+            ul
+            {
+                padding: 0;
+                margin: 0;
+            }
+            p, li
+            {
+                margin-bottom: 16px;
+
+                &:last-child
+                {
+                    margin-bottom: 0;
+                }
+            }
+            .sub-section
+            {
+                margin-bottom: 20px;
+
+                &:last-child
+                {
+                    margin-bottom: 0;
+                }
+
+                .title
+                {
+                    font-weight: 600;
+                    font-size: 14px;
+                    margin-bottom: 8px;
+                }
+                li
+                {
+                    margin-bottom: 12px;
+                }
+            }
+        }
+
+        &.expanded
+        {
+            .icon-arrow-down
+            {
+                transform: rotate(180deg);
+            }
+        }
+    }
+}
+
+#reviews
+{
+    margin-top: 60px;
+    overflow: hidden;
+
+    > .rating
+    {
+        margin-top: 12px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        p
+        {
+            font-weight: 600;
+            margin-left: 8px;
+            color: $black-50;
+        }
+
+        .star
+        {
+            position: relative;
+            display: inline-block;
+            color: rgba(72,72,72,0.24);
+            font-size: 22px;
+            margin-right: 3px;
+        }
+        .full
+        {
+            color: $yellow-star-color;
+        }
+        .half
+        {
+            position: absolute;
+            display: inline-block;
+            overflow: hidden;
+            color: $yellow-star-color;
+        }
+    }
+    .carousel-container
+    {
+        margin-top: 16px;
+        position: relative;
+
+        .overlay
+        {
+            pointer-events: none;
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            width: 40%;
+            background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1) 80%);
+            transform: translate(48px, 0);
+        }
+        .prev-button,
+        .next-button
+        {
+            position: absolute;
+            z-index: 2;
+            height: 48px;
+            width: 48px;
+            top: 50%;
+            transform: translate(0,-50%);
+            display: flex !important;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.32);
+            cursor: pointer;
+        }
+        .prev-button.slick-disabled,
+        .next-button.slick-disabled
+        {
+            display: none !important;
+        }
+        .prev-button
+        {
+            left: 12px;
+
+            i
+            {
+                margin-left: -4px;
+            }
+        }
+        .next-button
+        {
+            right: 12px;
+
+            i
+            {
+                margin-right: -4px;
+            }
+        }
+        .carousel
+        {
+            z-index: 1;
+            position: relative;
+            width: 70%;
+        }
+        .review-group
+        {
+            outline: none !important;
+
+            *
+            {
+                outline: none !important;
+            }
+        }
+        .review
+        {
+            padding: 24px 0;
+            padding-right: 44px;
+            margin-right: 44px;
+            border-bottom: 1px solid $black-16;
+            display: flex;
+            flex-direction: row;
+
+            .icon
+            {
+                margin-right: 24px;
+                min-width: 44px;
+                flex-shrink: 0;
+            }
+            .top
+            {
+                display: flex;
+                flex-direction: row;
+                margin-bottom: 8px;
+            }
+            .title
+            {
+                font-weight: 600;
+                margin-right: 24px;
+            }
+            .author-container
+            {
+                display: flex;
+                flex-direction: row;
+            }
+            .author
+            {
+                color: $black-50;
+                font-weight: 600;
+            }
+            .rating
+            {
+                margin-top: -1px;
+                margin-left: 20px;
+
+                .star
+                {
+                    position: relative;
+                    display: inline-block;
+                    color: rgba(72,72,72,0.24);
+                    font-size: 12px;
+                    margin-right: 2px;
+                }
+                .full
+                {
+                    color: $yellow-star-color;
+                }
+                .half
+                {
+                    position: absolute;
+                    display: inline-block;
+                    overflow: hidden;
+                    color: $yellow-star-color;
+                }
+            }
+        }
+    }
+}
+
+#location
+{
+    padding: 48px 0;
+    border-bottom: 1px solid $black-16;
+
+    h2
+    {
+        margin-bottom: 20px !important;
+    }
+
+    .map
+    {
+        margin-top: 24px;
+        height: 400px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+    }
+}
+
+#similar-courses
+{
+    padding-top: 32px;
+    padding-bottom: 80px;
+    overflow: hidden;
+
+    h2
+    {
+        margin-bottom: 24px !important;
+    }
+}
+
+
+@media (max-width: 870px)
+{
+    #info-box
+    {
+        .content-container
+        {
+            padding-bottom: 68px;
+        }
+        .separator
+        {
+            display: none;
+        }
+        .col-section,
+        .col-section.address
+        {
+            margin-right: 20px;
+        }
+        .col-section.price .button
+        {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+    }
+}
+@media (max-width: 768px)
+{
+    #info-box
+    {
+        .content-container
+        {
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+        .col-section:first-child
+        {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+        }
+        .col-section,
+        .col-section.address
+        {
+            margin-right: 0;
+            margin-bottom: 12px;
+            max-width: none;
+        }
+        .group
+        {
+            margin-right: 24px;
+        }
+        .group + .group
+        {
+            margin-top: 0;
+        }
+    }
+    #reviews
+    {
+        .carousel-container
+        {
+            .review
+            {
+                .top
+                {
+                    flex-direction: column;
+                }
+                .author-container
+                {
+                    margin-top: 4px;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 600px)
+{
+    #gallery
+    {
+        .right-area,
+        .left-area
+        {
+            width: 100px;
+        }
+    }
+    #reviews
+    {
+        .carousel-container
+        {
+            .carousel
+            {
+                width: 90%;
+            }
+        }
+    }
+}
+@media (max-width: 480px)
+{
+    .title-view
+    {
+        flex-direction: column;
+        align-items: flex-start;
+
+        .right
+        {
+            margin-left: 0;
+            margin-top: 20px;
+        }
+    }
+    #gallery
+    {
+        .right-area,
+        .left-area
+        {
+            width: 68px;
+        }
+        .right-area
+        {
+            padding-right: 8px;
+            background: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.32));
+        }
+        .left-area
+        {
+            padding-left: 8px;
+            background: linear-gradient(to right, rgba(0,0,0,0.32), rgba(0,0,0,0));
+        }
+    }
+    #reviews
+    {
+        .carousel-container
+        {
+            .review
+            {
+                flex-direction: column;
+                margin-right: 24px;
+
+                .icon
+                {
+                    margin-bottom: 8px;
+                }
+            }
+        }
+    }
+    #expandible-info
+    {
+        .expandible-item
+        {
+            .top
+            {
+                .icon-arrow-down
+                {
+                    margin-right: 12px;
+                }
+            }
+            .content
+            {
+                .content-container
+                {
+                    padding-left: 20px;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 375px)
+{
+    #info-box
+    {
+        margin-top: 0;
+        padding: 16px;
     }
 }

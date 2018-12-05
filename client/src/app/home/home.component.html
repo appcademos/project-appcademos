@@ -6,39 +6,7 @@
             <p>RESERVA TU CLASE DE PRUEBA AL INSTANTE</p>
             <h1>Encuentra tu academia de inglés ideal asesorado por un experto</h1>
         </div>
-
-        <div #searchbox id="searchbox" [ngClass]="{'searchPanelOpened': showSearchPanel}">
-            <input
-                #searchInput
-                type="text"
-                name="query"
-                [(ngModel)]="query"
-                class="form-control"
-                placeholder="Encuentra tu curso..."
-                (keyup.enter)="findCourses()"
-                (focus)="doShowSearchPanel()"
-                (keyup.esc)="onInputPressEsc()"
-            >
-            <button class="btn btn-secondary d-flex justify-content-center" type="button" (click)="findCourses()">
-                <i class="icon icon-search size-24"></i>
-            </button>
-            <a class="allCourses" routerLink="/all">Ver todos los cursos <i class="icon size-10 icon-arrow-right-white"></i></a>
-
-            <div class="search-panel" [hidden]="!showSearchPanel">
-                <div class="title fs-15 fw-600">Nuestros cursos</div>
-                <div class="content">
-                    <a class="search-panel-item" [routerLink]="['search']" [queryParams]="{ course: 'first' }">First certificate</a>
-                    <a class="search-panel-item" [routerLink]="['search']" [queryParams]="{ course: 'advanced' }">Advanced</a>
-                    <a class="search-panel-item" [routerLink]="['search']" [queryParams]="{ course: 'objetivo b1' }">Inglés Nivel B1</a>
-                    <a class="search-panel-item" [routerLink]="['search']" [queryParams]="{ course: 'objetivo b2' }">Inglés Nivel B2</a>
-                    <a class="search-panel-item" [routerLink]="['search']" [queryParams]="{ course: 'objetivo c1' }">Inglés Nivel C1</a>
-                    <a class="search-panel-item" [routerLink]="['search']" [queryParams]="{ course: 'toefl' }">TOEFL</a>
-                    <a class="search-panel-item" [routerLink]="['search']" [queryParams]="{ course: 'ielts' }">IELTS</a>
-                    <a class="search-panel-item" [routerLink]="['search']" [queryParams]="{ course: 'toeic' }">TOEIC</a>
-                    <a class="search-panel-item" [routerLink]="['search']" [queryParams]="{ course: 'proficiency' }">Proficiency</a>
-                </div>
-            </div>
-        </div>
+        <app-searchbox #searchbox (onSearch)="findCourses($event)"></app-searchbox>
     </div>
 </div>
 
