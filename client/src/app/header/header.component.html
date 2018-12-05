@@ -2,11 +2,13 @@
     <div class="responsive-container-header">
         <nav id="navbarTop">
             <a class="logo" [routerLink]="['']">
-                <img [src]="(isHome) ? '../../assets/public/images/logo_white.png' : '../../assets/public/images/logo_red.png'" alt="logo" height="28">
+                <img [hidden]="!isHome" src="../../assets/public/images/logo_white.png" alt="logo" height="28" />
+                <img [hidden]="isHome" src="../../assets/public/images/logo_red.png" alt="logo" height="28" />
             </a>
 
             <div class="logo-mobile" (click)="isMobileNavVisible = !isMobileNavVisible">
-                <img [src]="(isHome && !isMobileNavVisible) ? '../../assets/public/images/logo_white.png' : '../../assets/public/images/logo_red.png'" alt="logo" height="28">
+                <img [hidden]="!isHome || isMobileNavVisible" src="../../assets/public/images/logo_white.png" alt="logo" height="28" />
+                <img [hidden]="isHome && !isMobileNavVisible" src="../../assets/public/images/logo_red.png" alt="logo" height="28" />
                 <i class="icon size-12" [ngClass]="{'icon-arrow-down': !isHome || isMobileNavVisible, 'icon-arrow-down-white': isHome && !isMobileNavVisible}"></i>
             </div>
             <nav id="mobile-nav">
@@ -16,15 +18,15 @@
                 <div class="separator"></div>
                 <div class="nav-course-items">
                     <div class="title">Nuestros cursos</div>
-                    <a class="nav-course-item" [routerLink]="['search']" [queryParams]="{ course: 'first' }" (click)="isMobileNavVisible = false">First Certificate</a>
-                    <a class="nav-course-item" [routerLink]="['search']" [queryParams]="{ course: 'advanced' }" (click)="isMobileNavVisible = false">Advanced</a>
-                    <a class="nav-course-item" [routerLink]="['search']" [queryParams]="{ course: 'objetivo b1' }" (click)="isMobileNavVisible = false">Nivel B1</a>
-                    <a class="nav-course-item" [routerLink]="['search']" [queryParams]="{ course: 'objetivo b2' }" (click)="isMobileNavVisible = false">Nivel B2</a>
-                    <a class="nav-course-item" [routerLink]="['search']" [queryParams]="{ course: 'objetivo c1' }" (click)="isMobileNavVisible = false">Nivel C1</a>
-                    <a class="nav-course-item" [routerLink]="['search']" [queryParams]="{ course: 'toefl' }" (click)="isMobileNavVisible = false">TOEFL</a>
-                    <a class="nav-course-item" [routerLink]="['search']" [queryParams]="{ course: 'ielts' }" (click)="isMobileNavVisible = false">IELTS</a>
-                    <a class="nav-course-item" [routerLink]="['search']" [queryParams]="{ course: 'toeic' }" (click)="isMobileNavVisible = false">TOEIC</a>
-                    <a class="nav-course-item" [routerLink]="['search']" [queryParams]="{ course: 'proficiency' }" (click)="isMobileNavVisible = false">Proficiency</a>
+                    <a class="nav-course-item" routerLinkActive="active" [routerLink]="['search']" [queryParams]="{ course: 'first' }" (click)="isMobileNavVisible = false">First Certificate</a>
+                    <a class="nav-course-item" routerLinkActive="active" [routerLink]="['search']" [queryParams]="{ course: 'advanced' }" (click)="isMobileNavVisible = false">Advanced</a>
+                    <a class="nav-course-item" routerLinkActive="active" [routerLink]="['search']" [queryParams]="{ course: 'objetivo b1' }" (click)="isMobileNavVisible = false">Nivel B1</a>
+                    <a class="nav-course-item" routerLinkActive="active" [routerLink]="['search']" [queryParams]="{ course: 'objetivo b2' }" (click)="isMobileNavVisible = false">Nivel B2</a>
+                    <a class="nav-course-item" routerLinkActive="active" [routerLink]="['search']" [queryParams]="{ course: 'objetivo c1' }" (click)="isMobileNavVisible = false">Nivel C1</a>
+                    <a class="nav-course-item" routerLinkActive="active" [routerLink]="['search']" [queryParams]="{ course: 'toefl' }" (click)="isMobileNavVisible = false">TOEFL</a>
+                    <a class="nav-course-item" routerLinkActive="active" [routerLink]="['search']" [queryParams]="{ course: 'ielts' }" (click)="isMobileNavVisible = false">IELTS</a>
+                    <a class="nav-course-item" routerLinkActive="active" [routerLink]="['search']" [queryParams]="{ course: 'toeic' }" (click)="isMobileNavVisible = false">TOEIC</a>
+                    <a class="nav-course-item" routerLinkActive="active" [routerLink]="['search']" [queryParams]="{ course: 'proficiency' }" (click)="isMobileNavVisible = false">Proficiency</a>
                 </div>
                 <div class="separator"></div>
                 <div>
@@ -32,10 +34,10 @@
                         <i class="icon size-16 icon-whatsapp"></i>
                         <p>689 438 538</p>
                     </a>
-                    <div class="icon-text cursor-pointer">
+                    <!--<div class="icon-text cursor-pointer">
                         <i class="icon size-16 icon-user"></i>
                         <p>Iniciar sesión</p>
-                    </div>
+                    </div>-->
                 </div>
             </nav>
 
@@ -44,72 +46,23 @@
                     <i class="icon size-16" [ngClass]="{'icon-whatsapp': !isHome, 'icon-whatsapp-white': isHome}"></i>
                     <p>677 827 178</p>
                 </a>
-                <div class="icon-text cursor-pointer">
+                <!--<div class="icon-text cursor-pointer">
                     <i class="icon size-16" [ngClass]="{'icon-user': !isHome, 'icon-user-white': isHome}"></i>
                     <p>Iniciar sesión</p>
-                </div>
+                </div>-->
             </div>
-
-          <!--<button class="navbar-toggler" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div [ngbCollapse]="isNavbarCollapsed" class="navbar-collapse" id="navbarNavMenu">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item mr-4">
-                <a class="nav-link" href="https://wa.me/34677827178">Whatsapp: <span class="fw-300">677827178</span></a>
-              </li>
-              <li *ngIf="userService.user" class="nav-item mr-4">
-                <a class="nav-link">Bienvenido, {{userService.user.email || userService.user.name}}</a>
-              </li>
-              <li *ngIf="academyService.academy" class="nav-item mr-4">
-                <a class="nav-link">Bienvenido, {{academyService.academy.email || academyService.academy.name}}</a>
-              </li>
-              <li class="nav-item">
-                <a *ngIf="!academyService.academy && !userService.user" class="nav-link" [routerLink]="['enter']">Iniciar Sesión</a>
-                <a *ngIf="academyService.academy || userService.user" class="nav-link" (click)="logout()">Logout</a>
-              </li>
-              <li class="nav-item d-lg-none ml-4">
-                <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'first' }" (click)="isNavbarCollapsed = true">First Certificate
-                </a>
-              </li>
-              <li class="nav-item d-lg-none ml-4">
-                <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'advanced' }" (click)="isNavbarCollapsed = true">Advanced</a>
-              </li>
-              <li class="nav-item  d-lg-none ml-4">
-                <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'objetivo b1' }" (click)="isNavbarCollapsed = true">Nivel B1</a>
-              </li>
-              <li class="nav-item d-lg-none ml-4">
-                <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'objetivo b2' }" (click)="isNavbarCollapsed = true">Nivel B2</a>
-              </li>
-              <li class="nav-item d-lg-none ml-4">
-                <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'objetivo c1' }" (click)="isNavbarCollapsed = true">Nivel C1</a>
-              </li>
-              <li class="nav-item d-lg-none ml-4">
-                <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'toefl' }" (click)="isNavbarCollapsed = true">TOEFL</a>
-              </li>
-              <li class="nav-item d-lg-none ml-4">
-                <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'ielts' }" (click)="isNavbarCollapsed = true">IELTS</a>
-              </li>
-              <li class="nav-item d-lg-none ml-4">
-                <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'toeic' }" (click)="isNavbarCollapsed = true">TOEIC</a>
-              </li>
-              <li class="nav-item  d-lg-none ml-4">
-                <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'proficiency' }" (click)="isNavbarCollapsed = true">Proficiency</a>
-              </li>
-            </ul>
-          </div>-->
         </nav>
 
         <nav id="navbarBottom">
-            <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'first' }" (click)="isMobileNavVisible = false">First Certificate</a>
-            <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'advanced' }" (click)="isMobileNavVisible = false">Advanced</a>
-            <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'objetivo b1' }" (click)="isMobileNavVisible = false">Nivel B1</a>
-            <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'objetivo b2' }" (click)="isMobileNavVisible = false">Nivel B2</a>
-            <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'objetivo c1' }" (click)="isMobileNavVisible = false">Nivel C1</a>
-            <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'toefl' }" (click)="isMobileNavVisible = false">TOEFL</a>
-            <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'ielts' }" (click)="isMobileNavVisible = false">IELTS</a>
-            <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'toeic' }" (click)="isMobileNavVisible = false">TOEIC</a>
-            <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'proficiency' }" (click)="isMobileNavVisible = false">Proficiency</a>
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['search']" [queryParams]="{ course: 'first' }" (click)="isMobileNavVisible = false">First Certificate</a>
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['search']" [queryParams]="{ course: 'advanced' }" (click)="isMobileNavVisible = false">Advanced</a>
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['search']" [queryParams]="{ course: 'objetivo b1' }" (click)="isMobileNavVisible = false">Nivel B1</a>
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['search']" [queryParams]="{ course: 'objetivo b2' }" (click)="isMobileNavVisible = false">Nivel B2</a>
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['search']" [queryParams]="{ course: 'objetivo c1' }" (click)="isMobileNavVisible = false">Nivel C1</a>
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['search']" [queryParams]="{ course: 'toefl' }" (click)="isMobileNavVisible = false">TOEFL</a>
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['search']" [queryParams]="{ course: 'ielts' }" (click)="isMobileNavVisible = false">IELTS</a>
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['search']" [queryParams]="{ course: 'toeic' }" (click)="isMobileNavVisible = false">TOEIC</a>
+            <a class="nav-link" routerLinkActive="active" [routerLink]="['search']" [queryParams]="{ course: 'proficiency' }" (click)="isMobileNavVisible = false">Proficiency</a>
         </nav>
     </div>
 </header>

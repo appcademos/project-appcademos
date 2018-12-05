@@ -18,11 +18,12 @@ export class HeaderComponent implements OnInit
     isHome: boolean = false;
     isMobileNavVisible: boolean = false;
 
-    constructor(
-    private router: Router,
-    private academyService: AcademySessionService,
-    private userService: UserSessionService)
-    {}
+    constructor(private router: Router,
+                private academyService: AcademySessionService,
+                private userService: UserSessionService)
+    {
+
+    }
 
     ngOnInit()
     {

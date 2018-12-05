@@ -12,21 +12,6 @@
 
 <div class="responsive-container">
     <div class="search-view">
-        <!--<div class="searchbox">
-            <input
-                #searchInput
-                type="text"
-                name="query"
-                [(ngModel)]="query"
-                placeholder="Encuentra tu curso..."
-                (keyup.enter)="findCourses(query)"
-                (focus)="doShowSearchPanel()"
-                (keyup.esc)="onInputPressEsc()"
-            >
-            <button type="button" (click)="findCourses(query)">
-                <i class="icon icon-search size-20"></i>
-            </button>
-        </div>-->
         <app-searchbox #searchbox class="searchbox" [small]="true" (onSearch)="findCourses($event)"></app-searchbox>
         <div #orderbox class="orderbox noselect" [ngClass]="{'expanded': orderExpanded}">
             <div class="selector card-banner" (click)="orderExpanded = !orderExpanded">

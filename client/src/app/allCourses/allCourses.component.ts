@@ -1,7 +1,8 @@
 import { Component, ViewChild } from "@angular/core";
 import { CoursesService } from "../../services/courses.service";
-import { ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { SearchboxComponent } from '../searchbox/searchbox.component';
+import { Location } from '@angular/common';
 
 const ORDER_RELEVANCE = 1;
 const ORDER_PRICE_DESCENDING = 2;
@@ -27,12 +28,13 @@ export class AllCoursesComponent
     ]
     currentOrder: any = this.orders[0];
     orderExpanded: boolean = false;
-    query: string;
     searching: boolean = false;
 
 
     constructor(private courseService: CoursesService,
-                private activatedRoute: ActivatedRoute)
+                private activatedRoute: ActivatedRoute,
+                private router: Router,
+                private location: Location)
     {
         this.courseService.searching = true;
 
@@ -48,13 +50,14 @@ export class AllCoursesComponent
                 {
                     if (params.course.length !== 0)
                     {
-                        this.query = params.course;
+                        this.searchboxComponent.setInputValue(params.course);
                         this.findCourses(params.course);
                     }
                 });
             }
             else
             {
+                this.searchboxComponent.setInputValue('');
                 this.findCourses(null, true);
             }
         });
@@ -66,6 +69,9 @@ export class AllCoursesComponent
         {
             if (query != null && query.trim().length > 0)
             {
+                // Change the url
+                this.router.navigate(['/search'], { queryParams: { course: query } });
+
                 this.searching = true;
                 setTimeout(() =>
                 {

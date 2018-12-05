@@ -39,6 +39,11 @@ export class SearchboxComponent
         this.showSearchPanel = false;
     }
 
+    setInputValue(value)
+    {
+        this.query = value;
+    }
+
     onInputPressEsc()
     {
         this.doHideSearchPanel();
