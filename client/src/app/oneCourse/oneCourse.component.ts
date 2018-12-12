@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, ViewChild, HostListener } from "@angular/core";
 import { CoursesService } from "../../services/courses.service";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
@@ -6,6 +6,8 @@ import { UtilsService } from '../../services/utils.service';
 import { Router, Event, NavigationEnd } from '@angular/router';
 import { } from '@types/googlemaps';
 declare var $: any;
+
+const MOBILE_WIDTH = 870;
 
 @Component({
   selector: "app-oneCourse",
@@ -209,6 +211,19 @@ export class OneCourseComponent
                     nextArrow: $('#gallery .right-area')
                 });
             }
+        }
+    }
+
+    @HostListener('window:scroll')
+    onScroll()
+    {
+        // Hide fixed bottom if footer reached
+        if (window.innerWidth <= MOBILE_WIDTH)
+        {
+            if (window.pageYOffset + window.innerHeight - $('.fixed-button').outerHeight() >= $('footer').offset().top)
+                $('.fixed-button').hide();
+            else
+                $('.fixed-button').show();
         }
     }
 }

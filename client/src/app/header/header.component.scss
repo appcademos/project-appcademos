@@ -234,11 +234,6 @@ header.absolute #navbarBottom
                 box-shadow: 0 1px 2px rgba(0,0,0,0.2);
                 background: white;
 
-                &:active
-                {
-                    background: rgba(0,0,0,0.04);
-                }
-
                 .icon
                 {
                     margin-top: 4px;
@@ -253,6 +248,26 @@ header.absolute #navbarBottom
                     margin-top: 4px;
                     color: $black-80;
                     transition: 0.32s all ease;
+                }
+
+                &:active
+                {
+                    background: rgba(0,0,0,0.04);
+                }
+                &.isHome
+                {
+                    background: transparent;
+                    border-color: rgba(255,255,255,0.8);
+                    box-shadow: none;
+
+                    .title
+                    {
+                        color: rgba(255,255,255,0.8);
+                    }
+                    .icon
+                    {
+                        opacity: 0.6;
+                    }
                 }
             }
         }
