@@ -146,10 +146,6 @@ header.absolute #navbarTop
 {
     .icon-text { color: #ffffff !important; }
 }
-header.mobileOpened .logo-mobile > .icon
-{
-    transform: rotate(180deg);
-}
 header.mobileOpened #navbarTop #mobile-nav
 {
     transform: translate(0,0);
@@ -218,17 +214,46 @@ header.absolute #navbarBottom
             display: flex;
             flex: 1;
             flex-direction: row;
+            justify-content: space-between;
             align-items: center;
             cursor: pointer;
             padding-bottom: 18px;
             padding-top: 18px;
 
-            & > .icon
+            .mobile-nav-button
             {
+                height: 42px;
+                width: 42px;
                 margin-left: 12px;
-                opacity: 0.6;
-                margin-top: 5px;
-                transition: 0.32s all ease;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                border-radius: 8px;
+                border: 1px solid #EAEAEA;
+                box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+                background: white;
+
+                &:active
+                {
+                    background: rgba(0,0,0,0.04);
+                }
+
+                .icon
+                {
+                    margin-top: 4px;
+                    opacity: 0.52;
+                    transition: 0.32s all ease;
+                }
+                .title
+                {
+                    font-size: 9px;
+                    font-weight: 600;
+                    text-align: center;
+                    margin-top: 4px;
+                    color: $black-80;
+                    transition: 0.32s all ease;
+                }
             }
         }
         .logo-mobile > img,
@@ -238,15 +263,34 @@ header.absolute #navbarBottom
             z-index: 2;
         }
     }
-    header.mobileOpened .logo-mobile
+    header.mobileOpened #navbarTop .logo-mobile
     {
         background: white;
+
+        .mobile-nav-button
+        {
+            .icon
+            {
+                opacity: 1;
+                transform: rotate(180deg);
+                transform-origin: center;
+            }
+            .title
+            {
+                color: $red-color;
+            }
+        }
     }
-
-
 
     #navbarBottom
     {
         display: none;
+    }
+}
+@media (max-width: 340px)
+{
+    #navbarTop .logo-mobile img
+    {
+        height: 24px;
     }
 }

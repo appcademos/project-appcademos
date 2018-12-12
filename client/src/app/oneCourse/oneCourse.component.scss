@@ -321,6 +321,18 @@ h2
             padding-bottom: 15px;
             min-width: 170px;
         }
+        .fixed-button
+        {
+            display: none;
+            position: fixed;
+            z-index: 5;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: -webkit-linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1) 60%);
+            background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1) 60%);
+            padding: 12px 20px 20px;
+        }
         .old-price
         {
             margin-right: 8px;
@@ -655,10 +667,6 @@ h2
 {
     #info-box
     {
-        .content-container
-        {
-            padding-bottom: 68px;
-        }
         .separator
         {
             display: none;
@@ -668,12 +676,16 @@ h2
         {
             margin-right: 20px;
         }
-        .col-section.price .button
+        .col-section.price
         {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            & > .button
+            {
+                display: none;
+            }
+            .fixed-button
+            {
+                display: block;
+            }
         }
     }
 }

@@ -4,6 +4,8 @@ import { Router } from "@angular/router";
 import { UtilsService } from '../../services/utils.service';
 import { SearchboxComponent } from '../searchbox/searchbox.component';
 
+const MOBILE_WIDTH = 870;
+
 @Component(
 {
     selector: 'app-home',
@@ -12,7 +14,7 @@ import { SearchboxComponent } from '../searchbox/searchbox.component';
     providers: [UtilsService]
 })
 
-export class HomeComponent implements OnInit
+export class HomeComponent
 {
     @ViewChild('searchbox') searchboxComponent: SearchboxComponent;
 
@@ -30,7 +32,6 @@ export class HomeComponent implements OnInit
 
         document.addEventListener('click', this.onClickAnywhere.bind(this));
     }
-    ngOnInit() { console.log(this.searchboxComponent); }
 
     findCourses(query)
     {
@@ -54,5 +55,10 @@ export class HomeComponent implements OnInit
     {
         if (!this.searchboxComponent.searchbox.nativeElement.contains(event.target))
             this.searchboxComponent.doHideSearchPanel();
+    }
+    onFocusSearchbox()
+    {
+        if (window.innerWidth <= MOBILE_WIDTH)
+            this.utils.scrollToElement('#searchbox', 300, 20);
     }
 }

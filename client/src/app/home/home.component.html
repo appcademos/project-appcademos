@@ -6,7 +6,7 @@
             <p>RESERVA TU CLASE DE PRUEBA AL INSTANTE</p>
             <h1>Encuentra tu academia de inglés ideal asesorado por un experto</h1>
         </div>
-        <app-searchbox #searchbox (onSearch)="findCourses($event)"></app-searchbox>
+        <app-searchbox #searchbox (onSearch)="findCourses($event)" (onFocus)="onFocusSearchbox()"></app-searchbox>
     </div>
 </div>
 

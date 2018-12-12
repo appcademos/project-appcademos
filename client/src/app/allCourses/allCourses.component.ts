@@ -3,15 +3,19 @@ import { CoursesService } from "../../services/courses.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { SearchboxComponent } from '../searchbox/searchbox.component';
 import { Location } from '@angular/common';
+import { UtilsService } from '../../services/utils.service';
 
 const ORDER_RELEVANCE = 1;
 const ORDER_PRICE_DESCENDING = 2;
 const ORDER_PRICE_ASCENDING = 3;
 
+const MOBILE_WIDTH = 870;
+
 @Component({
   selector: "app-allCourses",
   templateUrl: "./allCourses.component.html",
-  styleUrls: ["./allCourses.component.scss"]
+  styleUrls: ["./allCourses.component.scss"],
+  providers: [UtilsService]
 })
 export class AllCoursesComponent
 {
@@ -34,7 +38,8 @@ export class AllCoursesComponent
     constructor(private courseService: CoursesService,
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
-                private location: Location)
+                private location: Location,
+                private utils: UtilsService)
     {
         this.courseService.searching = true;
 
@@ -153,5 +158,10 @@ export class AllCoursesComponent
             this.searchboxComponent.blur();
             this.searchboxComponent.doHideSearchPanel();
         }
+    }
+    onFocusSearchbox()
+    {
+        if (window.innerWidth <= MOBILE_WIDTH)
+            this.utils.scrollToElement('#searchbox', 300, 20);
     }
 }

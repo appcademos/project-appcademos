@@ -77,7 +77,6 @@ export class OneCourseComponent
     }
     backClicked()
     {
-        console.log(this.location);
         this.location.back();
     }
     calcReviewGrade(reviews)
@@ -184,8 +183,8 @@ export class OneCourseComponent
     setCourseImages()
     {
         this.courseImages = [...this.courseObj.course.images, ...this.courseObj.course.academy.images];
+        this.courseImages = this.courseImages.filter(courseImage => courseImage.imagePath != null);
         this.currentGalleryImage = this.courseImages[0];
-        console.log(this.courseImages);
     }
     onGalleryLoopFinished(last: boolean)
     {

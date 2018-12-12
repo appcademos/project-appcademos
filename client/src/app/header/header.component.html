@@ -9,7 +9,11 @@
             <div class="logo-mobile" (click)="isMobileNavVisible = !isMobileNavVisible">
                 <img [hidden]="!isHome || isMobileNavVisible" src="../../assets/public/images/logo_white.png" alt="logo" height="28" />
                 <img [hidden]="isHome && !isMobileNavVisible" src="../../assets/public/images/logo_red.png" alt="logo" height="28" />
-                <i class="icon size-12" [ngClass]="{'icon-arrow-down': !isHome || isMobileNavVisible, 'icon-arrow-down-white': isHome && !isMobileNavVisible}"></i>
+
+                <div class="mobile-nav-button noselect">
+                    <i class="icon size-12" [ngClass]="{'icon-arrow-down': !isMobileNavVisible, 'icon-arrow-down-red': isMobileNavVisible }"></i>
+                    <div class="title">MENU</div>
+                </div>
             </div>
             <nav id="mobile-nav">
                 <div>

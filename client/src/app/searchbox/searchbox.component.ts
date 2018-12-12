@@ -1,5 +1,8 @@
 import { Component, ViewChild, Input, Output, ElementRef, EventEmitter } from '@angular/core';
 
+const TAB_CERTIFICATES  = 1;
+const TAB_LEVELS        = 2;
+
 @Component({
   selector: 'app-searchbox',
   templateUrl: './searchbox.component.html',
@@ -9,12 +12,14 @@ export class SearchboxComponent
 {
     @Input() small: boolean;
     @Output() onSearch = new EventEmitter();
+    @Output() onFocus = new EventEmitter();
 
     @ViewChild('searchbox') searchbox: ElementRef;
     @ViewChild('searchInput') searchInput: ElementRef;
 
     query: String;
     showSearchPanel: boolean;
+    selectedTab: number = TAB_CERTIFICATES;
 
     constructor()
     {

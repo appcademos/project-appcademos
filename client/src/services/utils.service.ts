@@ -6,11 +6,11 @@ export class UtilsService
 {
     constructor() { }
 
-    scrollToElement(selector: string, duration: number = 600)
+    scrollToElement(selector: string, duration: number = 600, extraSpaceTop: number = 0)
     {
         $('html, body').animate(
         {
-            scrollTop: $(selector).offset().top
+            scrollTop: $(selector).offset().top - extraSpaceTop
         }, duration);
     }
 }
