@@ -22,7 +22,6 @@ export class OneCourseComponent
     routeCourseId: number;
     courseObj: any;
     reviewsAverage: number;
-    expandedItemId: any;
     reviews: any = [];
     reviewsCarouselReady: boolean = false;
     map: google.maps.Map;
@@ -45,7 +44,6 @@ export class OneCourseComponent
         {
             this.courseObj = undefined;
             this.reviewsAverage = undefined;
-            this.expandedItemId = undefined;
             this.reviews = undefined;
             this.map = undefined;
             this.similarCourses = [];
@@ -74,6 +72,9 @@ export class OneCourseComponent
                 this.separateReviews();
                 this.setMap();
                 this.getSimilarCourses();
+
+                // Expand first item
+                setTimeout(() => { this.expandItem('expandible-item-1'); });
             });
         }
     }
@@ -94,21 +95,8 @@ export class OneCourseComponent
     }
     expandItem(id: any)
     {
-        if (this.expandedItemId != id)
-        {
-            $('.expandible-item .content').slideUp(200);
-            $('.expandible-item').removeClass('expanded');
-
-            $('#' + id + ' .content').slideDown(200);
-            $('#' + id).addClass('expanded');
-        }
-        else
-        {
-            $('#' + id + ' .content').slideToggle(200);
-            $('#' + id).toggleClass('expanded');
-        }
-
-        this.expandedItemId = id;
+        $('#' + id + ' .content').slideToggle(200);
+        $('#' + id).toggleClass('expanded');
     }
     onReviewsLoopFinished(last: boolean)
     {
