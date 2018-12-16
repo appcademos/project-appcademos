@@ -96,6 +96,10 @@
             </div>
         </section>
 
+        <section id="warning-box" *ngIf="showWarningbox">
+            <b>*Importante:</b> Este curso es para mejorar tu inglés y conseguir un nivel de <b>B2</b> según el Marco Común Europeo. Este curso NO es para prepararte ningún examen certificado.
+        </section>
+
         <section id="expandible-info">
             <div class="expandible-item noselect" id="expandible-item-1" *ngIf="courseObj.course.foryouif">
                 <div class="top" (click)="expandItem('expandible-item-1')">
