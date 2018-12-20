@@ -8,6 +8,11 @@
         </div>
         <app-searchbox #searchbox (onSearch)="findCourses($event)" (onFocus)="onFocusSearchbox()"></app-searchbox>
     </div>
+    <div id="fixed-searchbox" [ngClass]="{'show': showFixedSearchbar}">
+        <div class="responsive-container">
+            <app-searchbox #fixedsearchbox [fixed]="true" [small]="true" (onSearch)="findCourses($event)" (onFocus)="onFocusSearchbox()"></app-searchbox>
+        </div>
+    </div>
 </div>
 
 <section id="top-banner">

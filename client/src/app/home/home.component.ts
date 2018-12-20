@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { CoursesService } from "../../services/courses.service";
 import { Router } from "@angular/router";
 import { UtilsService } from '../../services/utils.service';
@@ -17,8 +17,11 @@ const MOBILE_WIDTH = 870;
 export class HomeComponent
 {
     @ViewChild('searchbox') searchboxComponent: SearchboxComponent;
+    @ViewChild('fixedsearchbox') fixedSearchboxComponent: SearchboxComponent;
 
     featuredCourses: any;
+    showFixedSearchbar: boolean = false;
+    heroHeight: number = undefined;
 
     constructor(private courses: CoursesService, private router: Router, private utils: UtilsService)
     {
@@ -31,6 +34,14 @@ export class HomeComponent
         error => console.log(error));
 
         document.addEventListener('click', this.onClickAnywhere.bind(this));
+    }
+    ngAfterViewInit()
+    {
+        setTimeout(() =>
+        {
+            let hero = <HTMLElement>document.getElementById('hero');
+            this.heroHeight = hero.offsetHeight;
+        });
     }
 
     findCourses(query)
@@ -46,19 +57,44 @@ export class HomeComponent
         {
             setTimeout(() =>
             {
-                this.searchboxComponent.focus();
+                if (this.showFixedSearchbar)
+                    this.fixedSearchboxComponent.focus();
+                else
+                    this.searchboxComponent.focus();
             }, 0);
         }
     }
 
     onClickAnywhere(event)
     {
-        if (!this.searchboxComponent.searchbox.nativeElement.contains(event.target))
+        if (!this.searchboxComponent.searchbox.nativeElement.contains(event.target) &&
+            !this.fixedSearchboxComponent.searchbox.nativeElement.contains(event.target))
+        {
             this.searchboxComponent.doHideSearchPanel();
+            this.fixedSearchboxComponent.doHideSearchPanel();
+        }
     }
     onFocusSearchbox()
     {
-        if (window.innerWidth <= MOBILE_WIDTH)
+        if (!this.showFixedSearchbar && window.innerWidth <= MOBILE_WIDTH)
             this.utils.scrollToElement('#searchbox', 300, 20);
+    }
+
+    @HostListener("window:scroll", [])
+    onScroll()
+    {
+        if (this.heroHeight != null)
+        {
+            let number = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+
+            if (number >= this.heroHeight)
+            {
+                this.showFixedSearchbar = true;
+            }
+            else if (this.showFixedSearchbar)
+            {
+                this.showFixedSearchbar = false;
+            }
+        }
     }
 }

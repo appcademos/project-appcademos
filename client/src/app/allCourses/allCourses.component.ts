@@ -181,7 +181,6 @@ export class AllCoursesComponent
         if (this.searchbarOffsetTop != null)
         {
             let number = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-            console.log(number);
 
             if (number >= this.searchbarOffsetTop)
             {

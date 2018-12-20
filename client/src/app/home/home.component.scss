@@ -66,6 +66,25 @@
     }
 }
 
+#fixed-searchbox
+{
+    position: fixed;
+    z-index: 4;
+    top: -60px;
+    left: 0;
+    right: 0;
+    padding: 8px 0;
+    background: white;
+    border-bottom: 1px solid #EAEAEA;
+
+    transition: top 0.2s ease;
+
+    &.show
+    {
+        top: 0;
+    }
+}
+
 
 section
 {
