@@ -34,7 +34,7 @@ $cardsVerticalSeparation: 36px;
             background: white;
             cursor: pointer;
 
-            transition: all 0.2s ease;
+            transition: background 0.2s ease, border-radius 0.2s ease, height 0.2s ease;
 
             .title
             {
@@ -114,6 +114,62 @@ $cardsVerticalSeparation: 36px;
             {
                 display: block;
             }
+        }
+    }
+
+    &.fixed
+    {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 3;
+        background: white;
+        padding: 12px 48px;
+        border-bottom: 1px solid #EAEAEA;
+
+        .orderbox
+        {
+            .selector
+            {
+                height: 40px;
+                transition: background 0.2s ease, border-radius 0.2s ease;
+
+                .title
+                {
+                    margin-bottom: 0;
+                    font-size: 11px;
+                }
+                .text
+                {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+    &.fixed + .title-view
+    {
+        padding-top: 100px;
+    }
+}
+@media (max-width: 768px)
+{
+    .search-view.fixed
+    {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+}
+@media (max-width: 480px)
+{
+    .search-view.fixed
+    {
+        padding-left: 20px;
+        padding-right: 20px;
+
+        .orderbox.expanded .selector
+        {
+            height: 48px;
         }
     }
 }

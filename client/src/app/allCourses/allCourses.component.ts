@@ -1,4 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, ViewChild, HostListener } from "@angular/core";
 import { CoursesService } from "../../services/courses.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { SearchboxComponent } from '../searchbox/searchbox.component';
@@ -33,6 +33,8 @@ export class AllCoursesComponent
     currentOrder: any = this.orders[0];
     orderExpanded: boolean = false;
     searching: boolean = false;
+    showFixedSearchbar: boolean = false;
+    searchbarOffsetTop: number = undefined;
 
 
     constructor(private courseService: CoursesService,
@@ -65,6 +67,14 @@ export class AllCoursesComponent
                 this.searchboxComponent.setInputValue('');
                 this.findCourses(null, true);
             }
+        });
+    }
+    ngAfterViewInit()
+    {
+        setTimeout(() =>
+        {
+            let theSearchView = <HTMLElement>document.getElementsByClassName('search-view')[0];
+            this.searchbarOffsetTop = theSearchView.offsetTop + theSearchView.offsetHeight;
         });
     }
 
@@ -161,7 +171,26 @@ export class AllCoursesComponent
     }
     onFocusSearchbox()
     {
-        if (window.innerWidth <= MOBILE_WIDTH)
+        if (!this.showFixedSearchbar && window.innerWidth <= MOBILE_WIDTH)
             this.utils.scrollToElement('#searchbox', 300, 20);
+    }
+
+    @HostListener("window:scroll", [])
+    onScroll()
+    {
+        if (this.searchbarOffsetTop != null)
+        {
+            let number = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+            console.log(number);
+
+            if (number >= this.searchbarOffsetTop)
+            {
+                this.showFixedSearchbar = true;
+            }
+            else if (this.showFixedSearchbar)
+            {
+                this.showFixedSearchbar = false;
+            }
+        }
     }
 }

@@ -11,6 +11,7 @@ const TAB_LEVELS        = 2;
 export class SearchboxComponent
 {
     @Input() small: boolean;
+    @Input() fixed: boolean;
     @Output() onSearch = new EventEmitter();
     @Output() onFocus = new EventEmitter();
 

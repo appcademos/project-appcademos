@@ -17,7 +17,7 @@
         font-weight: 600;
         box-shadow: 0 12px 20px rgba(0,0,0,0.32);
 
-        transition: 0.2s all;
+        transition: box-shadow 0.2s ease, border-radius 0.2s ease, height 0.2s ease;
 
         &:focus
         {
@@ -67,7 +67,7 @@
         width: 100px;
         box-shadow: 0 2px 8px $red-color-50;
 
-        transition: all 0.2s ease;
+        transition: box-shadow 0.2s ease, height 0.2s ease, top 0.2s ease, bottom 0.2s ease, right 0.2s ease;
 
         &:hover
         {
@@ -259,6 +259,31 @@
     }
 }
 
+#searchbox.small-size.fixed
+{
+    max-height: 40px;
+
+    input
+    {
+        height: 40px;
+        transition: box-shadow 0.2s ease, border-radius 0.2s ease;
+    }
+    button
+    {
+        right: 4px;
+        top: 4px;
+        bottom: 4px;
+        transition: box-shadow 0.2s ease;
+
+        i
+        {
+            width: 16px;
+            height: 16px;
+        }
+    }
+}
+
+
 @media (max-width: 870px)
 {
     #searchbox .search-panel .top .icon
@@ -304,6 +329,19 @@
             input
             {
                 height: 56px;
+            }
+        }
+    }
+    #searchbox.small-size.fixed
+    {
+        &.searchPanelOpened
+        {
+            height: 48px;
+            max-height: 48px;
+
+            input
+            {
+                height: 48px;
             }
         }
     }

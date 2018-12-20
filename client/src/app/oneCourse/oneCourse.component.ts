@@ -206,7 +206,7 @@ export class OneCourseComponent
     }
     setShowWarningbox()
     {
-        const coursesToShowWarningbox = ['5b98fc7383a7d478967eead0', '5b98fde083a7d478967eead3', '5b99045483a7d478967eead7', '5b990b7183a7d478967eeadd'];
+        const coursesToShowWarningbox = ['5b98fc7383a7d478967eead0', '5b98fde083a7d478967eead3', '5b99045483a7d478967eead7', '5b99059283a7d478967eeada', '5b990b7183a7d478967eeadd'];
 
         if (coursesToShowWarningbox.includes(this.courseObj.course._id))
             this.showWarningbox = true;

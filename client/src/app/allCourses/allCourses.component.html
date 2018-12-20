@@ -11,8 +11,8 @@
 </div>
 
 <div class="responsive-container">
-    <div class="search-view">
-        <app-searchbox #searchbox class="searchbox" [small]="true" (onSearch)="findCourses($event)" (onFocus)="onFocusSearchbox()"></app-searchbox>
+    <div class="search-view" [ngClass]="{'fixed': showFixedSearchbar}">
+        <app-searchbox #searchbox class="searchbox" [small]="true" [fixed]="showFixedSearchbar" (onSearch)="findCourses($event)" (onFocus)="onFocusSearchbox()"></app-searchbox>
         <div #orderbox class="orderbox noselect" [ngClass]="{'expanded': orderExpanded}">
             <div class="selector card-banner" (click)="orderExpanded = !orderExpanded">
                 <div class="left">

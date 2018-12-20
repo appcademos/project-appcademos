@@ -27,7 +27,6 @@ export class HomeComponent
         .subscribe(data =>
         {
             this.featuredCourses = this.courses.foundCourses.slice(0,6);
-            console.log(this.featuredCourses);
         },
         error => console.log(error));
 
