@@ -20,7 +20,9 @@ const MOBILE_WIDTH = 870;
 export class AllCoursesComponent
 {
     @ViewChild('searchbox') searchboxComponent: SearchboxComponent;
+    @ViewChild('fixedsearchbox') fixedSearchboxComponent: SearchboxComponent;
     @ViewChild('orderbox') orderbox;
+    @ViewChild('fixedorderbox') fixedorderbox;
 
     allCourses = [];
     courses = [];
@@ -58,6 +60,7 @@ export class AllCoursesComponent
                     if (params.course.length !== 0)
                     {
                         this.searchboxComponent.setInputValue(params.course);
+                        this.fixedSearchboxComponent.setInputValue(params.course);
                         this.findCourses(params.course);
                     }
                 });
@@ -65,6 +68,7 @@ export class AllCoursesComponent
             else
             {
                 this.searchboxComponent.setInputValue('');
+                this.fixedSearchboxComponent.setInputValue('');
                 this.findCourses(null, true);
             }
         });
@@ -160,13 +164,16 @@ export class AllCoursesComponent
     }
     onClickAnywhere(event)
     {
-        if (!this.orderbox.nativeElement.contains(event.target) && this.orderExpanded)
+        if (!this.orderbox.nativeElement.contains(event.target) && !this.fixedorderbox.nativeElement.contains(event.target) && this.orderExpanded)
             this.orderExpanded = false;
 
-        if (!this.searchboxComponent.searchbox.nativeElement.contains(event.target))
+        if (!this.searchboxComponent.searchbox.nativeElement.contains(event.target) &&
+            !this.fixedSearchboxComponent.searchbox.nativeElement.contains(event.target))
         {
             this.searchboxComponent.blur();
+            this.fixedSearchboxComponent.blur();
             this.searchboxComponent.doHideSearchPanel();
+            this.fixedSearchboxComponent.doHideSearchPanel();
         }
     }
     onFocusSearchbox()
@@ -185,10 +192,14 @@ export class AllCoursesComponent
             if (number >= this.searchbarOffsetTop)
             {
                 this.showFixedSearchbar = true;
+                this.searchboxComponent.blur();
+                this.searchboxComponent.doHideSearchPanel();
             }
             else if (this.showFixedSearchbar)
             {
                 this.showFixedSearchbar = false;
+                this.fixedSearchboxComponent.blur();
+                this.fixedSearchboxComponent.doHideSearchPanel();
             }
         }
     }

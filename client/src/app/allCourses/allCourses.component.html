@@ -11,7 +11,7 @@
 </div>
 
 <div class="responsive-container">
-    <div class="search-view" [ngClass]="{'fixed': showFixedSearchbar}">
+    <div class="search-view">
         <app-searchbox #searchbox class="searchbox" [small]="true" [fixed]="showFixedSearchbar" (onSearch)="findCourses($event)" (onFocus)="onFocusSearchbox()"></app-searchbox>
         <div #orderbox class="orderbox noselect" [ngClass]="{'expanded': orderExpanded}">
             <div class="selector card-banner" (click)="orderExpanded = !orderExpanded">
@@ -25,6 +25,25 @@
             <div class="selector-list">
                 <div class="title">Ordenar por</div>
                 <div class="item" [ngClass]="{'selected': order == currentOrder}" *ngFor="let order of orders" (click)="orderBy(order)">{{ order.name }}</div>
+            </div>
+        </div>
+    </div>
+    <div id="fixed-searchbox" [ngClass]="{'show': showFixedSearchbar}">
+        <div class="responsive-container">
+            <app-searchbox #fixedsearchbox class="searchbox" [fixed]="true" [small]="true" (onSearch)="findCourses($event)" (onFocus)="onFocusSearchbox()"></app-searchbox>
+            <div #fixedorderbox class="orderbox noselect" [ngClass]="{'expanded': orderExpanded}">
+                <div class="selector card-banner" (click)="orderExpanded = !orderExpanded">
+                    <div class="left">
+                        <div class="title">Ordenar por</div>
+                        <div class="text">{{ currentOrder.name }}</div>
+                    </div>
+                    <div class="icon size-20 icon-filter"></div>
+                    <div class="icon size-14 icon-arrow-down"></div>
+                </div>
+                <div class="selector-list">
+                    <div class="title">Ordenar por</div>
+                    <div class="item" [ngClass]="{'selected': order == currentOrder}" *ngFor="let order of orders" (click)="orderBy(order)">{{ order.name }}</div>
+                </div>
             </div>
         </div>
     </div>

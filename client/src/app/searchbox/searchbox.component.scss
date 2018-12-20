@@ -266,14 +266,12 @@
     input
     {
         height: 40px;
-        transition: box-shadow 0.2s ease, border-radius 0.2s ease;
     }
     button
     {
         right: 4px;
         top: 4px;
         bottom: 4px;
-        transition: box-shadow 0.2s ease;
 
         i
         {
@@ -351,6 +349,10 @@
             {
                 height: 48px;
             }
+        }
+        .search-panel
+        {
+            width: 120%;
         }
     }
 }

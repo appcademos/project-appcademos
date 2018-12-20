@@ -15,158 +15,162 @@ $cardsVerticalSeparation: 36px;
     {
         width: 400px;
     }
-    .orderbox
-    {
-        position: relative;
-        min-width: 220px;
-        margin-left: 32px;
+}
+.orderbox
+{
+    position: relative;
+    min-width: 220px;
+    margin-left: 32px;
 
-        .selector
+    .selector
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 12px;
+        color: $black-80;
+        height: 48px;
+        border-radius: 8px;
+        background: white;
+        cursor: pointer;
+
+        transition: background 0.2s ease, border-radius 0.2s ease, height 0.2s ease;
+
+        .title
         {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            padding: 6px 12px;
-            color: $black-80;
-            height: 48px;
-            border-radius: 8px;
-            background: white;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .icon-arrow-down
+        {
+            margin-left: 20px;
+            opacity: 0.32;
+
+            transition: all 0.2s ease;
+        }
+        .icon-filter
+        {
+            display: none;
+            opacity: 0.8;
+        }
+
+        &:active
+        {
+            background: rgba(0,0,0,0.04);
+        }
+    }
+    .selector-list
+    {
+        display: none;
+        position: absolute;
+        margin-top: -1px;
+        top: 100%;
+        left: 0;
+        right: 0;
+        border-radius: 0 0 8px 8px;
+        background: white;
+        border: 1px solid #EAEAEA;
+        box-shadow: 0 12px 16px rgba(0,0,0,0.16);
+        padding: 8px 0;
+
+        .title
+        {
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 12px 4px;
+            display: none;
+        }
+        .item
+        {
+            padding: 12px;
             cursor: pointer;
 
-            transition: background 0.2s ease, border-radius 0.2s ease, height 0.2s ease;
-
-            .title
+            &.selected
             {
-                font-size: 12px;
-                font-weight: 600;
-                margin-bottom: 2px;
+                color: $red-color;
+                font-weight: 500;
             }
-            .icon-arrow-down
+            &:hover
             {
-                margin-left: 20px;
-                opacity: 0.32;
-
-                transition: all 0.2s ease;
+                background: rgba(0,0,0,0.05);
             }
-            .icon-filter
-            {
-                display: none;
-                opacity: 0.8;
-            }
+        }
+    }
 
-            &:active
+    &.expanded
+    {
+        .selector
+        {
+            border-radius: 8px 8px 0 0;
+
+            .icon
             {
-                background: rgba(0,0,0,0.04);
+                transform: rotate(180deg);
+                transform-origin: center;
             }
         }
         .selector-list
         {
-            display: none;
-            position: absolute;
-            margin-top: -1px;
-            top: 100%;
-            left: 0;
-            right: 0;
-            border-radius: 0 0 8px 8px;
-            background: white;
-            border: 1px solid #EAEAEA;
-            box-shadow: 0 12px 16px rgba(0,0,0,0.16);
-            padding: 8px 0;
+            display: block;
+        }
+    }
+}
+#fixed-searchbox
+{
+    opacity: 0;
+    visibility: hidden;
+    position: fixed;
+    z-index: 4;
+    top: -66px;
+    left: 0;
+    right: 0;
+    padding: 12px 0;
+    background: white;
+    border-bottom: 1px solid #EAEAEA;
+
+    transition: top 0.2s ease;
+
+    &.show
+    {
+        top: 0;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .responsive-container
+    {
+        display: flex;
+        flex-direction: row;
+    }
+    .searchbox
+    {
+        width: 400px;
+    }
+    .orderbox
+    {
+        .selector
+        {
+            height: 40px;
 
             .title
             {
-                font-size: 13px;
-                font-weight: 600;
-                padding: 8px 12px 4px;
-                display: none;
+                margin-bottom: 0;
+                font-size: 11px;
             }
-            .item
+            .text
             {
-                padding: 12px;
-                cursor: pointer;
-
-                &.selected
-                {
-                    color: $red-color;
-                    font-weight: 500;
-                }
-                &:hover
-                {
-                    background: rgba(0,0,0,0.05);
-                }
+                font-size: 14px;
             }
         }
-
-        &.expanded
-        {
-            .selector
-            {
-                border-radius: 8px 8px 0 0;
-
-                .icon
-                {
-                    transform: rotate(180deg);
-                    transform-origin: center;
-                }
-            }
-            .selector-list
-            {
-                display: block;
-            }
-        }
-    }
-
-    &.fixed
-    {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 3;
-        background: white;
-        padding: 12px 48px;
-        border-bottom: 1px solid #EAEAEA;
-
-        .orderbox
-        {
-            .selector
-            {
-                height: 40px;
-                transition: background 0.2s ease, border-radius 0.2s ease;
-
-                .title
-                {
-                    margin-bottom: 0;
-                    font-size: 11px;
-                }
-                .text
-                {
-                    font-size: 14px;
-                }
-            }
-        }
-    }
-    &.fixed + .title-view
-    {
-        padding-top: 100px;
     }
 }
-@media (max-width: 768px)
-{
-    .search-view.fixed
-    {
-        padding-left: 24px;
-        padding-right: 24px;
-    }
-}
+
 @media (max-width: 480px)
 {
-    .search-view.fixed
+    #fixed-searchbox
     {
-        padding-left: 20px;
-        padding-right: 20px;
-
         .orderbox.expanded .selector
         {
             height: 48px;
@@ -327,39 +331,43 @@ $cardsVerticalSeparation: 36px;
         {
             flex: 1;
         }
-        .orderbox
+    }
+    #fixed-searchbox .searchbox
+    {
+        flex: 1;
+    }
+    .orderbox
+    {
+        margin-left: 20px;
+        min-width: 0;
+
+        .selector
         {
-            margin-left: 20px;
-            min-width: 0;
-
-            .selector
+            .left
             {
-                .left
-                {
-                    display: none;
-                }
-                .icon-filter
-                {
-                    display: block;
-                }
+                display: none;
             }
-            .selector-list
+            .icon-filter
             {
-                left: auto;
-                right: 0;
-                min-width: 240px;
-                border-radius: 8px 0 8px 8px;
-
-                .title
-                {
-                    display: block;
-                }
+                display: block;
             }
+        }
+        .selector-list
+        {
+            left: auto;
+            right: 0;
+            min-width: 240px;
+            border-radius: 8px 0 8px 8px;
 
-            &.expanded .selector
+            .title
             {
-                height: 56px;
+                display: block;
             }
+        }
+
+        &.expanded .selector
+        {
+            height: 56px;
         }
     }
 }
@@ -392,16 +400,13 @@ $cardsVerticalSeparation: 36px;
             margin-left: 0;
         }
     }
-    .search-view
+    .orderbox
     {
-        .orderbox
+        margin-left: 12px;
+
+        .selector .icon-arrow-down
         {
             margin-left: 12px;
-
-            .selector .icon-arrow-down
-            {
-                margin-left: 12px;
-            }
         }
     }
     .title-view
