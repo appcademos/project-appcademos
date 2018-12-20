@@ -94,6 +94,7 @@ export class HomeComponent
             else if (this.showFixedSearchbar)
             {
                 this.showFixedSearchbar = false;
+                this.fixedSearchboxComponent.doHideSearchPanel();
             }
         }
     }

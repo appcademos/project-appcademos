@@ -12,6 +12,7 @@ export class SearchboxComponent
 {
     @Input() small: boolean;
     @Input() fixed: boolean;
+    @Input() isHome: boolean;
     @Output() onSearch = new EventEmitter();
     @Output() onFocus = new EventEmitter();
 

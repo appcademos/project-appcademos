@@ -321,7 +321,7 @@
             }
         }
 
-        &.searchPanelOpened
+        &.searchPanelOpened:not(.isHome)
         {
             height: 56px;
             max-height: 56px;
@@ -332,9 +332,17 @@
             }
         }
     }
+    #searchbox.small-size.isHome
+    {
+        .search-panel
+        {
+            width: 100%;
+            border-radius: 0 0 12px 12px;
+        }
+    }
     #searchbox.small-size.fixed
     {
-        &.searchPanelOpened
+        &.searchPanelOpened:not(.isHome)
         {
             height: 48px;
             max-height: 48px;
