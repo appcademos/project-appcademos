@@ -330,14 +330,6 @@
             }
         }
     }
-    #searchbox.small-size.isHome
-    {
-        .search-panel
-        {
-            width: 100%;
-            border-radius: 0 0 12px 12px;
-        }
-    }
     #searchbox.small-size.fixed
     {
         &.searchPanelOpened:not(.isHome)
@@ -350,9 +342,14 @@
                 height: 48px;
             }
         }
+        
+    }
+    #searchbox.small-size.isHome
+    {
         .search-panel
         {
-            width: 120%;
+            width: 100%;
+            border-radius: 0 0 12px 12px;
         }
     }
 }
