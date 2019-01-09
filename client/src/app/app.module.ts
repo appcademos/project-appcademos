@@ -20,9 +20,7 @@ import { UserSessionService } from "../services/userSession.service";
 
 // COMPONENTS
 import { AcademyComponent } from "./academy/academy.component";
-import { AcademyLoginFormComponent } from "./academyLoginForm/academyLoginForm.component";
 import { AcademyMapMarkerComponent } from "./academy-map-marker/academy-map-marker.component";
-import { AcademySignupFormComponent } from "./academySignupForm/academySignupForm.component";
 import { AllCoursesComponent } from "./allCourses/allCourses.component";
 import { AppComponent } from "./app.component";
 import { CheckoutComponent } from "./checkout/checkout.component";
@@ -48,8 +46,6 @@ import { SearchboxComponent } from './searchbox/searchbox.component';
    declarations: [
       AcademyComponent,
       AcademyMapMarkerComponent,
-      AcademyLoginFormComponent,
-      AcademySignupFormComponent,
       AllCoursesComponent,
       AppComponent,
       CheckoutComponent,
@@ -69,7 +65,7 @@ import { SearchboxComponent } from './searchbox/searchbox.component';
       AcademyprofileComponent,
       CourseCardComponent,
       CoursesCarouselComponent,
-      SearchboxComponent
+      SearchboxComponent,
    ],
 
 imports: [

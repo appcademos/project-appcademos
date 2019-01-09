@@ -165,30 +165,42 @@ const create = (req, res, next) => {
   }
 };
 
-const update = (req, res, next) => {
-  const updates = _.pick(req.body, fields);
+const update = (req, res, next) =>
+{
+    const updates = _.pick(req.body, fields);
 
-  Course.findById(req.params.id)
-    .then(course => {
-      if (course.academy === req.academy.id) {
-        Course.update(req.params.id, updates)
-          .then(() => {
-            res.status(200).json({
-              message: "Course updated."
+    console.log(updates);
+
+    Course.findById(req.params.id)
+    .then(course =>
+    {
+        if (course.academy == req.academy.id)
+        {
+            Course.update({ _id: req.params.id }, { $set: { ...updates } })
+            .then(() =>
+            {
+                res.status(200).json(
+                {
+                    message: "¡Curso actualizado!"
+                });
+            })
+            .catch(err =>
+            {
+                debug(err);
+                res.status(500).json(
+                {
+                    message: "Error al actualizar el curso"
+                });
             });
-          })
-          .catch(err => {
-            debug(err);
-            res.status(400).json({
-              message: "Error updating course"
+        }
+        else
+        {
+            res.status(401).json(
+            {
+                message: "Solo puedes editar tus propios cursos"
             });
-          });
-      } else {
-        res.status(400).json({
-          message: "You can only edit your own courses"
-        });
-      }
-    })
+        }
+    });
 };
 
 const erase = (req, res, next) => {

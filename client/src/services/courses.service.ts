@@ -76,11 +76,20 @@ export class CoursesService {
       });
     }
   }
-  createCourse(course){
+
+  createCourse(course)
+  {
     return this.http
       .post(`${environment.BASEURL}/api/course/create`, course, this.options)
       .map(res => res.json())
       .catch(error => Observable.throw(error.json().message));
+  }
 
+  updateCourse(courseId, course)
+  {
+      return this.http
+        .put(`${environment.BASEURL}/api/course/${courseId}`, course, this.options)
+        .map(res => res.json())
+        .catch(error => Observable.throw(error));
   }
 }

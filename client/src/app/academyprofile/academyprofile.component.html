@@ -1,4 +1,24 @@
-<p>
-  academyprofile works!
-</p>
-<app-createCourseForm></app-createCourseForm>
+<div class="responsive-container">
+    <div class="top" *ngIf="editingCourse == null">
+        <h2>Hola, {{ academy.name }}</h2>
+        <div class="color-red fs-13 fw-600 cursor-pointer noselect" (click)="logout()">CERRAR SESIÓN</div>
+    </div>
+
+    <div id="courses" *ngIf="editingCourse == null">
+        <div class="title fw-600">Mis cursos</div>
+
+        <div class="course card-banner" *ngFor="let course of academy.courses" (click)="goToEditCourse(course)">
+            <div class="title fw-500">{{ course.title }}</div>
+            <div class="price color-red fw-600">{{ course.price }}€</div>
+        </div>
+    </div>
+
+    <div *ngIf="editingCourse != null">
+        <div id="back-button" class="button small white" (click)="goBackToCourses()"><i class="icon size-10 icon-arrow-left"></i>Cursos</div>
+
+        <div class="fs-13 fw-500">{{ academy.name }}</div>
+        <h3>{{ editingCourse.title }}</h3>
+
+        <app-createCourseForm [course]="editingCourse"></app-createCourseForm>
+    </div>
+</div>

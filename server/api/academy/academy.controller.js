@@ -141,8 +141,8 @@ const getAll = (req, res, next) => {
         message: "Error requesting academies"
       });
     });
- 
-  
+
+
 };
 
 
@@ -161,28 +161,45 @@ const getOne = (req, res, next) => {
       });
     });
 
-   
+
 };
 
 const getThis = (req, res, next) => {
-  if (req.academy) {
-    Academy.findById(req.academy.id)
-      .select("-password")
-      .then(user => {
-        res.status(200).json({
-          user
+
+    if (req.academy)
+    {
+        Academy.findById(req.academy.id)
+        .select("-password")
+        .then(academy =>
+        {
+            Course.find({ academy: req.academy.id }).then(courses =>
+            {
+                let academyReturn = {...academy.toJSON(), courses: [...courses]}
+                res.status(200).json(academyReturn);
+            })
+            .catch(error =>
+            {
+                res.status(404).json(
+                {
+                    message: "No se encontraron los cursos para esta academia"
+                });
+            });
+        })
+        .catch(err =>
+        {
+            res.status(404).json(
+            {
+                message: "Error retrieving academy"
+            });
         });
-      })
-      .catch(err => {
-        res.status(400).json({
-          message: "Error retrieving academy"
+    }
+    else
+    {
+        res.status(401).json(
+        {
+            message: "You should login as an Academy"
         });
-      });
-  } else {
-    res.status(400).json({
-      message: "You should login as an Academy"
-    });
-  }
+    }
 };
 
 const update = (req, res, next) => {

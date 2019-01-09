@@ -1,31 +1,22 @@
-<p>
-  createCourseForm works!
-</p>
-<div class="container">
-    
-    <h1>Crear Curso</h1>
-  
-  
+<div class="form full-width">
     <form>
       <div class="form-group">
         <label for="exampleInputtitle">Nombre del curso</label>
-        <input type="text" class="form-control" [(ngModel)]="title" name="title" id="exampleInputtitle" aria-describedby="titleHelp"
-          placeholder="Nombre del curso">
+        <input type="text" class="form-control" [(ngModel)]="title" name="title" id="exampleInputtitle" aria-describedby="titleHelp">
       </div>
       <div class="form-group">
           <label for="exampleInputhours">Numero de horas</label>
-          <input type="number" class="form-control" [(ngModel)]="hours" name="hours" id="exampleInputhours" aria-describedby="hoursHelp"
-            placeholder="Nº de horas">
+          <input type="number" class="form-control" [(ngModel)]="hours" name="hours" id="exampleInputhours" aria-describedby="hoursHelp">
         </div>
       <div class="form-group">
         <label for="exampleInputName">Precio</label>
-        <input type="number" class="form-control" [(ngModel)]="price" name="price" id="exampleInputPrice" placeholder="Precio">€
+        <input type="number" class="form-control" [(ngModel)]="price" name="price" id="exampleInputPrice">
       </div>
       <div class="form-group">
         <label for="exampleInputStartdate">Fecha de inicio</label>
-        <input type="date" class="form-control" [(ngModel)]="startDate" name="startdate" id="exampleInputStartdate" placeholder="Fecha de inicio">
+        <input type="date" class="form-control" [(ngModel)]="startDate" name="startdate" id="exampleInputStartdate" placeholder="dd/mm/aaaa">
       </div>
-      <div class="form-group">
+      <!--<div class="form-group">
         <label for="exampleInputDescription">Descripción del curso</label>
         <input type="text" class="form-control" [(ngModel)]="description" name="description" id="exampleInputPhone" placeholder="Descripción del curso">
       </div>
@@ -41,10 +32,8 @@
           <option>Inglés nivel C1</option>
           <option>TOEFL</option>
           <option>IELTS</option>
-      </select>
-     
-   
-      
-      <button type="submit" class="btn btn-primary" (click)="createCourse()">Crear curso</button>
+      </select>-->
+
+      <div class="button full-width" (click)="updateCourse()">Guardar curso</div>
     </form>
-  
+</div>
