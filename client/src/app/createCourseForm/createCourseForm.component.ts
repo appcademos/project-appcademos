@@ -13,6 +13,7 @@ export class CreateCourseFormComponent implements OnInit
     @Input() course: any;
 
     price: Number;
+    oldPrice: Number;
     title: String;
     hours: Number;
     startDate: String;
@@ -26,10 +27,11 @@ export class CreateCourseFormComponent implements OnInit
     {
         if (this.course)
         {
-            this.title = this.course.title;
-            this.hours = this.course.hours;
-            this.price = this.course.price;
-            this.startDate = moment(this.course.startDate).format('DD/MM/YYYY');
+            this.title      = this.course.title;
+            this.hours      = this.course.hours;
+            this.price      = this.course.price;
+            this.oldPrice   = this.course.oldPrice;
+            this.startDate  = moment(this.course.startDate).format('DD/MM/YYYY');
         }
     }
 
@@ -84,6 +86,7 @@ export class CreateCourseFormComponent implements OnInit
                 title: this.title,
                 hours: this.hours,
                 price: this.price,
+                oldPrice: this.oldPrice,
                 startDate: moment(this.startDate + '', 'DD/MM/YYYY').toISOString(),
                 academy: this.course.academy
             }
