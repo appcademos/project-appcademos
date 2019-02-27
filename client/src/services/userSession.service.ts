@@ -4,14 +4,17 @@ import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
 import { Observable } from "rxjs/Rx";
 import { environment } from "../environments/environment";
+import { MessageService } from './message.service';
 
 @Injectable()
-export class UserSessionService {
+export class UserSessionService
+{
   user: any;
   options: any = { withCredentials: true };
 
-  constructor(private http: Http) {
-    //this.isLoggedIn().subscribe();
+  constructor(private http: Http, private messageService: MessageService)
+  {
+      this.isLoggedIn().subscribe();
   }
 
   handleUser(user?: object) {
@@ -23,15 +26,23 @@ export class UserSessionService {
     return this.http
       .get(`${environment.BASEURL}/api/user/session`, this.options)
       .map(res => res.json())
-      .map(user => this.handleUser(user))
-      .catch(error => Observable.throw(error.json().message));
+      .map(user =>
+      {
+          this.messageService.sendMessage({ user: user });
+          return this.handleUser(user);
+      })
+      .catch(error => Observable.throw(error));
   }
 
   signup(user) {
     return this.http
       .post(`${environment.BASEURL}/api/user/signup`, user, this.options)
       .map(res => res.json())
-      .map(user => this.handleUser(user))
+      .map(user =>
+      {
+          this.messageService.sendMessage({ user: user });
+          return this.handleUser(user);
+      })
       .catch(error => Observable.throw(error.json().message));
   }
 
@@ -39,7 +50,11 @@ export class UserSessionService {
     return this.http
       .post(`${environment.BASEURL}/api/user/login`, user, this.options)
       .map(res => res.json())
-      .map(user => this.handleUser(user))
+      .map(user =>
+      {
+          this.messageService.sendMessage({ user: user });
+          return this.handleUser(user);
+      })
       .catch(error => Observable.throw(error.json().message));
   }
 
@@ -47,7 +62,11 @@ export class UserSessionService {
     return this.http
       .get(`${environment.BASEURL}/api/user/logout`, this.options)
       .map(res => res.json())
-      .map(() => this.handleUser())
+      .map(user =>
+      {
+          this.messageService.sendMessage({ user: null });
+          return this.handleUser();
+      })
       .catch(error => Observable.throw(error.json().message));
   }
 }

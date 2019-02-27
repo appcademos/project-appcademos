@@ -155,6 +155,11 @@ input[type="text"]
     height: 44px;
     width: 44px;
 }
+.icon.size-48
+{
+    height: 48px;
+    width: 48px;
+}
 .icon.size-92
 {
     height: 92px;
@@ -305,6 +310,10 @@ input[type="text"]
 {
     background-image: url('../assets/public/images/icons/close.svg');
 }
+.icon-close-circle-white
+{
+    background-image: url('../assets/public/images/icons/close_circle_white.svg');
+}
 
 
 
@@ -318,7 +327,10 @@ input[type="text"]
     background-size: contain;
     background-position: center;
 }
-
+.spinner.green
+{
+    background-image: url('../assets/public/images/spinner_green.svg');
+}
 
 
 .fw-300 { font-weight: 300; }
@@ -345,6 +357,10 @@ input[type="text"]
 .fs-28 { font-size: 28px; }
 .fs-32 { font-size: 32px; }
 
+.color-white
+{
+    color: white;
+}
 .color-red
 {
     color: $red-color !important;
@@ -451,11 +467,19 @@ input[type="text"]
 {
     width: 100%;
 }
+.button.medium
+{
+    padding: 10px 12px;
+}
 .button.small
 {
     padding: 8px;
     font-size: 14px;
     font-weight: 500;
+}
+.button.noshadow
+{
+    box-shadow: none;
 }
 
 

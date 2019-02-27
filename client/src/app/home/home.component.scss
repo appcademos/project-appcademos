@@ -342,8 +342,6 @@ section#happy-users
 }
 section#partners
 {
-    margin-bottom: 52px;
-
     .partners-container
     {
         display: flex;
@@ -356,7 +354,7 @@ section#partners
         {
             height: 80px;
             width: auto;
-            margin: 0 48px;
+            margin: 0 48px 48px;
         }
     }
 }

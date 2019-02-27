@@ -39,10 +39,17 @@
                         <i class="icon size-16 icon-whatsapp"></i>
                         <p>689 438 538</p>
                     </a>
-                    <!--<div class="icon-text cursor-pointer">
+                    <div class="icon-text cursor-pointer noselect" (click)="showLogin = true" *ngIf="user == null">
                         <i class="icon size-16 icon-user"></i>
                         <p>Iniciar sesión</p>
-                    </div>-->
+                    </div>
+
+                    <div class="icon-text noselect" *ngIf="user != null">
+                        <i class="icon size-16 icon-user"></i>
+                        <p>{{ user.name }}</p>
+                        <span class="logout-separator color-black">·</span>
+                        <div class="cursor-pointer color-red fw-500 fs-15" (click)="logout()">Salir</div>
+                    </div>
                 </div>
             </nav>
 
@@ -51,10 +58,17 @@
                     <i class="icon size-16" [ngClass]="{'icon-whatsapp': !isHome, 'icon-whatsapp-white': isHome}"></i>
                     <p>677 827 178</p>
                 </a>
-                <!--<div class="icon-text cursor-pointer">
+                <div class="icon-text cursor-pointer noselect" (click)="showLogin = true" *ngIf="user == null">
                     <i class="icon size-16" [ngClass]="{'icon-user': !isHome, 'icon-user-white': isHome}"></i>
                     <p>Iniciar sesión</p>
-                </div>-->
+                </div>
+
+                <div class="icon-text noselect" *ngIf="user != null">
+                    <i class="icon size-16" [ngClass]="{'icon-user': !isHome, 'icon-user-white': isHome}"></i>
+                    <p>{{ user.name }}</p>
+                    <span class="logout-separator">·</span>
+                    <div class="cursor-pointer color-red fw-500 fs-15" (click)="logout()">Salir</div>
+                </div>
             </div>
         </nav>
 
@@ -70,4 +84,6 @@
             <a class="nav-link" routerLinkActive="active" [routerLink]="['search']" [queryParams]="{ course: 'proficiency' }" (click)="isMobileNavVisible = false">Proficiency</a>
         </nav>
     </div>
+
+    <app-login [visible]="showLogin" (onClose)="showLogin = false"></app-login>
 </header>
