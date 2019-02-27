@@ -1,7 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { AcademySessionService } from "../../services/academySession.service";
 import { UserSessionService } from "../../services/userSession.service";
 import { Router, Event, NavigationEnd } from "@angular/router";
+import { MessageService } from '../../services/message.service';
+import { Subscription } from 'rxjs';
 
 const MOBILE_WIDTH = 870;
 
@@ -11,22 +13,29 @@ const MOBILE_WIDTH = 870;
   styleUrls: ["./header.component.scss"],
   host: {
     '(window:resize)': 'onResizeWindow($event)'
-  }
+}
 })
-export class HeaderComponent implements OnInit
+export class HeaderComponent implements OnInit, OnDestroy
 {
     isHome: boolean = false;
     isMobileNavVisible: boolean = false;
+    showLogin: boolean = false;
+    user: any;
+
+    messageServiceSubscription: Subscription;
 
     constructor(private router: Router,
                 private academyService: AcademySessionService,
-                private userService: UserSessionService)
+                private userService: UserSessionService,
+                private messageService: MessageService)
     {
 
     }
 
     ngOnInit()
     {
+        this.user = this.userService.user;
+
         if (this.router.url === '/')
             this.isHome = true;
 
@@ -40,6 +49,24 @@ export class HeaderComponent implements OnInit
                     this.isHome = false;
             }
         });
+
+        this.messageServiceSubscription = this.messageService.getMessage()
+        .subscribe((message) =>
+        {
+            if (message.showLogin != null)
+            {
+                this.showLogin = message.showLogin;
+            }
+            else if (typeof message.user != 'undefined')
+            {
+                this.user = (message.user == null) ? null : {...message.user}
+            }
+        });
+    }
+    ngOnDestroy()
+    {
+        console.log('ngOnDestroy');
+        this.messageServiceSubscription.unsubscribe();
     }
     ngDoCheck()
     {

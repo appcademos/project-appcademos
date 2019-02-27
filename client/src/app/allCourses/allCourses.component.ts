@@ -14,8 +14,7 @@ const MOBILE_WIDTH = 870;
 @Component({
   selector: "app-allCourses",
   templateUrl: "./allCourses.component.html",
-  styleUrls: ["./allCourses.component.scss"],
-  providers: [UtilsService]
+  styleUrls: ["./allCourses.component.scss"]
 })
 export class AllCoursesComponent
 {

@@ -41,7 +41,7 @@ const create = (req, res, next) => {
         .status(400)
         .json({ message: "Something went wrong when trying to create review" });
     } else {
-      res.status(201).json({ message: "Review saved" });
+      res.status(201).json(newReview);
     }
   });
 };
