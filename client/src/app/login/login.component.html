@@ -7,11 +7,23 @@
             <div>
                 <div class="input-container">
                     <div class="title">Email</div>
-                    <input type="text" name="email" placeholder="Escribe tu dirección de email" [(ngModel)]="login.email">
+                    <input
+                        type="text"
+                        name="email"
+                        placeholder="Escribe tu dirección de email"
+                        [(ngModel)]="login.email"
+                        (keyup.enter)="sendLogin()"
+                    >
                 </div>
                 <div class="input-container">
                     <div class="title">Contraseña</div>
-                    <input type="password" name="password" placeholder="Escribe tu contraseña" [(ngModel)]="login.password">
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Escribe tu contraseña"
+                        [(ngModel)]="login.password"
+                        (keyup.enter)="sendLogin()"
+                    >
                 </div>
             </div>
             <!--<div class="forgot-pass noselect">¿Olvidaste tu contraseña?</div>-->
@@ -38,23 +50,53 @@
             <div>
                 <div class="input-container">
                     <div class="title">Nombre</div>
-                    <input type="text" name="name" placeholder="Escribe tu nombre" [(ngModel)]="signup.name">
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Escribe tu nombre"
+                        [(ngModel)]="signup.name"
+                        (keyup.enter)="sendSignup()"
+                    >
                 </div>
                 <div class="input-container">
                     <div class="title">Apellidos</div>
-                    <input type="text" name="last-name" placeholder="Escribe tus apellidos" [(ngModel)]="signup.lastName">
+                    <input
+                        type="text"
+                        name="last-name"
+                        placeholder="Escribe tus apellidos"
+                        [(ngModel)]="signup.lastName"
+                        (keyup.enter)="sendSignup()"
+                    >
                 </div>
                 <div class="input-container">
                     <div class="title">Email</div>
-                    <input type="text" name="email" placeholder="Escribe tu dirección de email" [(ngModel)]="signup.email">
+                    <input
+                        type="text"
+                        name="email"
+                        placeholder="Escribe tu dirección de email"
+                        [(ngModel)]="signup.email"
+                        (keyup.enter)="sendSignup()"
+                    >
                 </div>
                 <div class="input-container">
                     <div class="title">Contraseña</div>
-                    <input type="password" name="password" placeholder="Escribe tu contraseña" [(ngModel)]="signup.password">
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Escribe tu contraseña"
+                        [(ngModel)]="signup.password"
+                        (keyup.enter)="sendSignup()"
+                    >
                 </div>
                 <div class="input-container">
                     <div class="title">Repite la contraseña</div>
-                    <input type="password" name="repeat-password" placeholder="Escribe tu contraseña" [(ngModel)]="signup.repeatPassword">
+                    <input
+                        type="password"
+                        name="repeat-password"
+                        placeholder="Escribe tu contraseña"
+                        [(ngModel)]="signup.repeatPassword"
+                        (keyup.enter)="sendSignup()"
+                    >
                 </div>
             </div>
 

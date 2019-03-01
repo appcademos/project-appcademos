@@ -32,7 +32,7 @@ export class OneCourseComponent
     currentGalleryImage: any;
     activatedRouteSubscription: any;
     showWarningbox: boolean = false;
-    comment: string = 'Hey\nTesting';
+    comment: string = '';
     commentGrade: number = 0;
     goToLastComment: boolean = false;
     publishingComment: boolean = false;

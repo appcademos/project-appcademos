@@ -293,7 +293,13 @@
                     <div class="title fs-15 fw-500 color-black-80">Tu puntuación:</div>
                     <ngb-rating [(rate)]="commentGrade" [starTemplate]="starTemplate" [readonly]="false" max="5"></ngb-rating>
                 </div>
-                <textarea name="comment" rows="4" maxlength="300" [(ngModel)]="comment" placeholder="Rellena tu puntuación y escribe aquí tu opinión..."></textarea>
+                <textarea
+                    name="comment"
+                    rows="4"
+                    maxlength="300"
+                    [(ngModel)]="comment"
+                    placeholder="Rellena tu puntuación y escribe aquí tu opinión...">
+                </textarea>
                 <div class="button green medium light-shadow" (click)="publishComment()">Publicar</div>
 
                 <div class="overlay" [hidden]="!publishingComment">
