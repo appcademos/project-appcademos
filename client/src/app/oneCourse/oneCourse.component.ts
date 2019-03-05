@@ -3,17 +3,19 @@ import { CoursesService } from "../../services/courses.service";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { UtilsService } from '../../services/utils.service';
+import { UserSessionService } from '../../services/userSession.service';
 import { Router, Event, NavigationEnd } from '@angular/router';
 import { } from '@types/googlemaps';
 declare var $: any;
+import { MessageService } from '../../services/message.service';
+import { AcademySessionService } from '../../services/academySession.service';
 
 const MOBILE_WIDTH = 870;
 
 @Component({
   selector: "app-oneCourse",
   templateUrl: "./oneCourse.component.html",
-  styleUrls: ["./oneCourse.component.scss"],
-  providers: [UtilsService]
+  styleUrls: ["./oneCourse.component.scss"]
 })
 export class OneCourseComponent
 {
@@ -30,12 +32,21 @@ export class OneCourseComponent
     currentGalleryImage: any;
     activatedRouteSubscription: any;
     showWarningbox: boolean = false;
+    comment: string = '';
+    commentGrade: number = 0;
+    goToLastComment: boolean = false;
+    publishingComment: boolean = false;
+    commentPublished: boolean = false;
+    updateReviews: boolean = false;
 
     constructor(private courseService: CoursesService,
+                private academyService: AcademySessionService,
                 private activatedRoute: ActivatedRoute,
                 private location: Location,
                 private utils: UtilsService,
-                private router: Router)
+                private usersService: UserSessionService,
+                private router: Router,
+                private messageService: MessageService)
     {
 
     }
@@ -69,12 +80,19 @@ export class OneCourseComponent
             this.courseService.getCourse(this.routeCourseId).subscribe(() =>
             {
                 this.courseObj = this.courseService.viewCourse;
-                this.setCourseImages();
+
+                if (!this.updateReviews)
+                {
+                    this.setCourseImages();
+                    this.setMap();
+                    this.getSimilarCourses();
+                    this.setShowWarningbox();
+                }
+
+                this.updateReviews = false;
+
                 this.calcReviewGrade(this.courseObj.course.academy.reviews);
                 this.separateReviews();
-                this.setMap();
-                this.getSimilarCourses();
-                this.setShowWarningbox();
 
                 // Expand first item
                 setTimeout(() => { this.expandItem('expandible-item-1'); });
@@ -113,6 +131,13 @@ export class OneCourseComponent
                 {
                     this.reviewsCarouselReady = true;
                     $('#reviews .carousel .slick-list').css('overflow', 'visible');
+
+                    if (this.goToLastComment)
+                    {
+                        setTimeout(() => { coursesCarousel.slick('slickGoTo', this.reviews.length); });
+
+                        this.goToLastComment = false;
+                    }
                 });
                 coursesCarousel.on('breakpoint', () =>
                 {
@@ -135,13 +160,17 @@ export class OneCourseComponent
     {
         let allAcademies = this.courseObj.course.academy.reviews;
         let reviews = [];
-        const NUMBER_OF_ROWS = (allAcademies.length > 4) ? 3 : 2;
+        //const NUMBER_OF_ROWS = (allAcademies.length > 4) ? 3 : 2;
+        const NUMBER_OF_ROWS = 2;
 
         for (let i = 0; i < allAcademies.length; i=i+NUMBER_OF_ROWS)
         {
             let divisionArr = allAcademies.slice(i,i+NUMBER_OF_ROWS);
             reviews.push(divisionArr);
         }
+
+        let coursesCarousel = $('#reviews .carousel');
+        coursesCarousel.slick('unslick');
 
         this.reviews = reviews;
     }
@@ -210,6 +239,73 @@ export class OneCourseComponent
 
         if (coursesToShowWarningbox.includes(this.courseObj.course._id))
             this.showWarningbox = true;
+    }
+
+    validateComment()
+    {
+        var allOk = true;
+        var message = 'Rellena tu puntuación y escribe tu opinión.';
+
+        if (this.comment == null || this.comment.trim().length == 0)
+        {
+            allOk = false;
+        }
+
+        if (this.commentGrade == null || this.commentGrade == 0)
+        {
+            allOk = false;
+        }
+
+        if (!allOk)
+            alert(message);
+
+        return allOk;
+    }
+    publishComment()
+    {
+        if (this.usersService.user != null)
+        {
+            if (this.validateComment())
+            {
+                var data =
+                {
+                    author: this.usersService.user._id,
+                    description: this.comment.trim(),
+                    grade: this.commentGrade
+                }
+
+                this.publishingComment = true;
+
+                this.courseService.createReview(data).subscribe((review) =>
+                {
+                    let academyData = {...this.courseObj.course.academy}
+                    academyData.reviews.push(review._id);
+
+                    this.academyService.updateAcademy(academyData._id, academyData).subscribe(() =>
+                    {
+                        this.publishingComment = false;
+                        this.commentPublished = true;
+                        this.goToLastComment = true;
+                        this.updateReviews = true;
+                        this.getCourse();
+                    },
+                    (error) =>
+                    {
+                        this.publishingComment = false;
+                        alert((error.json != null) ? error.json().message : error);
+                    });
+                },
+                (error) =>
+                {
+                    this.publishingComment = false;
+                    alert((error.json != null) ? error.json().message : error);
+                });
+            }
+        }
+        else
+        {
+            this.messageService.sendMessage({ showLogin: true });
+        }
     }
 
     @HostListener('window:scroll')

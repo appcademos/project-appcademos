@@ -13,7 +13,7 @@ export class AcademySessionService
 
     constructor(private http: Http)
     {
-        this.getAcademy().subscribe();
+
     }
 
     handleAcademy(academy?: object)
@@ -53,6 +53,14 @@ export class AcademySessionService
             .map(res => res.json())
             .map(academy => this.handleAcademy(academy))
             .catch(error => Observable.throw(error));
+    }
+
+    updateAcademy(academyId, academy)
+    {
+        return this.http
+          .put(`${environment.BASEURL}/api/academy/update/${academyId}`, academy, this.options)
+          .map(res => res.json())
+          .catch(error => Observable.throw(error));
     }
 
     logout()

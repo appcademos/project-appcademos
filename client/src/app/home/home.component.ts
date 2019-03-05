@@ -10,8 +10,7 @@ const MOBILE_WIDTH = 870;
 {
     selector: 'app-home',
     templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss'],
-    providers: [UtilsService]
+    styleUrls: ['./home.component.scss']
 })
 
 export class HomeComponent

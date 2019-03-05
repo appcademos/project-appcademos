@@ -32,11 +32,19 @@ export class CoursesService {
     .map(res => res.json())
     .map(courses =>
     {
+        console.log(courses);
+
         this.searching = false;
         this.foundCourses = courses;
-        this.setCoursesMarkers(courses);
+        //this.setCoursesMarkers(courses);
     })
-    .catch(error => Observable.throw(error.json().message));
+    .catch(error =>
+    {
+        console.log(error);
+
+        if (error != null && error.json() != null && error.json().message != null)
+            return Observable.throw(error.json().message);
+    });
   }
 
   setCoursesMarkers(courses) {
@@ -91,5 +99,14 @@ export class CoursesService {
         .put(`${environment.BASEURL}/api/course/${courseId}`, course, this.options)
         .map(res => res.json())
         .catch(error => Observable.throw(error));
+  }
+
+
+  createReview(review)
+  {
+    return this.http
+      .post(`${environment.BASEURL}/api/review/create`, review, this.options)
+      .map(res => res.json())
+      .catch(error => Observable.throw(error));
   }
 }

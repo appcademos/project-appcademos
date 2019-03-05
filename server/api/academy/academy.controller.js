@@ -237,7 +237,7 @@ const update = (req, res, next) => {
       });
   } else {
     updates = _.omit(updates, ["password"]);
-    Academy.findByIdAndUpdate(req.academy.id, updates)
+    Academy.findByIdAndUpdate(req.params.id, updates)
       .then(academy => {
         res
           .status(200)

@@ -17,6 +17,8 @@ import { CoursesService } from "../services/courses.service";
 import { GeolocationService } from "../services/geolocation.service";
 import { MapMarkersService } from "../services/map-markers.service";
 import { UserSessionService } from "../services/userSession.service";
+import { UtilsService } from "../services/utils.service";
+import { MessageService } from "../services/message.service";
 
 // COMPONENTS
 import { AcademyComponent } from "./academy/academy.component";
@@ -41,6 +43,8 @@ import { AcademyprofileComponent } from './academyprofile/academyprofile.compone
 import { CourseCardComponent } from './course-card/course-card.component';
 import { CoursesCarouselComponent } from './courses-carousel/courses-carousel.component';
 import { SearchboxComponent } from './searchbox/searchbox.component';
+import { LoginComponent } from './login/login.component';
+import { ButtonSpinnerComponent } from './uiComponents/button-spinner/button-spinner.component';
 
 @NgModule({
    declarations: [
@@ -66,6 +70,8 @@ import { SearchboxComponent } from './searchbox/searchbox.component';
       CourseCardComponent,
       CoursesCarouselComponent,
       SearchboxComponent,
+      LoginComponent,
+      ButtonSpinnerComponent,
    ],
 
 imports: [
@@ -85,7 +91,9 @@ providers: [
   CoursesService,
   GeolocationService,
   MapMarkersService,
-  UserSessionService
+  UserSessionService,
+  MessageService,
+  UtilsService
 ],
 bootstrap: [AppComponent]
 })
