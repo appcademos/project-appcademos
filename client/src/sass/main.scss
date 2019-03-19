@@ -310,6 +310,10 @@ input[type="text"]
 {
     background-image: url('../assets/public/images/icons/close.svg');
 }
+.icon-close-thin
+{
+    background-image: url('../assets/public/images/icons/close_thin.svg');
+}
 .icon-close-circle-white
 {
     background-image: url('../assets/public/images/icons/close_circle_white.svg');
@@ -550,5 +554,59 @@ input[type="text"]
     {
         margin-top: 20px;
         margin-right: 12px;
+    }
+}
+
+
+.text-page
+{
+    padding-top: 32px;
+    padding-bottom: 80px;
+
+    h1
+    {
+        font-size: 38px;
+        font-weight: 600;
+        margin-bottom: 28px;
+    }
+    h2
+    {
+        font-weight: 600 !important;
+        margin-bottom: 12px !important;
+        margin-top: 28px !important;
+    }
+    h3
+    {
+        font-weight: 500 !important;
+        margin-bottom: 12px !important;
+        margin-top: 28px !important;
+    }
+    h4
+    {
+        font-size: 18px;
+        font-weight: 700 !important;
+        margin-bottom: 12px !important;
+        margin-top: 28px !important;
+    }
+
+    b
+    {
+        font-weight: 600 !important;
+    }
+
+    p
+    {
+        margin-bottom: 12px;
+        line-height: 1.4;
+    }
+
+    a
+    {
+        color: $red-color;
+    }
+
+    li
+    {
+        margin-bottom: 12px;
     }
 }

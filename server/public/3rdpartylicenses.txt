@@ -107,7 +107,7 @@ MIT License
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE
 
-moment@2.23.0
+moment@2.24.0
 MIT
 Copyright (c) JS Foundation and other contributors
 
@@ -157,6 +157,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 @angular/forms@5.2.10
+MIT
+MIT
+
+ngx-cookie-service@2.1.0
 MIT
 MIT
 

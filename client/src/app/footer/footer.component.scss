@@ -75,6 +75,19 @@ footer
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+
+            .policies
+            {
+                font-size: 14px;
+                font-weight: 500;
+                margin-bottom: 16px;
+
+                .separator
+                {
+                    display: inline-block;
+                    margin: 0 12px;
+                }
+            }
         }
         .right
         {

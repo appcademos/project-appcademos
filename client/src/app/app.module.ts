@@ -19,6 +19,7 @@ import { MapMarkersService } from "../services/map-markers.service";
 import { UserSessionService } from "../services/userSession.service";
 import { UtilsService } from "../services/utils.service";
 import { MessageService } from "../services/message.service";
+import { CookieService } from 'ngx-cookie-service';
 
 // COMPONENTS
 import { AcademyComponent } from "./academy/academy.component";
@@ -45,6 +46,9 @@ import { CoursesCarouselComponent } from './courses-carousel/courses-carousel.co
 import { SearchboxComponent } from './searchbox/searchbox.component';
 import { LoginComponent } from './login/login.component';
 import { ButtonSpinnerComponent } from './uiComponents/button-spinner/button-spinner.component';
+import { CookiesBoxComponent } from './cookies-box/cookies-box.component';
+import { CookiesComponent } from './cookies/cookies.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 @NgModule({
    declarations: [
@@ -72,6 +76,9 @@ import { ButtonSpinnerComponent } from './uiComponents/button-spinner/button-spi
       SearchboxComponent,
       LoginComponent,
       ButtonSpinnerComponent,
+      CookiesBoxComponent,
+      CookiesComponent,
+      PrivacyPolicyComponent,
    ],
 
 imports: [
@@ -93,7 +100,8 @@ providers: [
   MapMarkersService,
   UserSessionService,
   MessageService,
-  UtilsService
+  UtilsService,
+  CookieService
 ],
 bootstrap: [AppComponent]
 })
