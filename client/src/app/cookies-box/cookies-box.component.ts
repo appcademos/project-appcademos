@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-cookies-box',
@@ -10,7 +11,8 @@ export class CookiesBoxComponent implements OnInit
 {
     show: boolean = false;
 
-    constructor(private cookieService: CookieService)
+    constructor(private cookieService: CookieService,
+                private router: Router)
     {
 
     }
@@ -23,9 +25,13 @@ export class CookiesBoxComponent implements OnInit
             this.show = true;
     }
 
-    onClickClose()
+    onClickAccept()
     {
         this.cookieService.set('cookies', 'true');
         this.show = false;
+    }
+    onClickCancel()
+    {
+        this.router.navigate(['/cookie-policy']);
     }
 }

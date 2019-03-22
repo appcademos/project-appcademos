@@ -466,6 +466,11 @@ input[type="text"]
     color: $black;
     border: 1px solid #EAEAEA;
     box-shadow: 0 1px 4px $black-08;
+
+    &:active
+    {
+        background-color: #EFEFEF;
+    }
 }
 .button.full-width
 {
@@ -480,6 +485,7 @@ input[type="text"]
     padding: 8px;
     font-size: 14px;
     font-weight: 500;
+    border-radius: 4px;
 }
 .button.noshadow
 {

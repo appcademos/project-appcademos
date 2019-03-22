@@ -1,6 +1,10 @@
 <div id="cookies-box" *ngIf="show">
     <p>Esta página web utiliza cookies propias y de terceros para ofrecerte una buena experiencia como usuario. Si necesitas obtener más información sobre las cookies y cómo gestionarlas, consulta nuestra <a class="color-green" [routerLink]="['cookie-policy']">Política de cookies</a>.</p>
-    <div class="icon-container" (click)="onClickClose()">
+    <!--<div class="icon-container" (click)="onClickClose()">
         <div class="icon icon-close-thin"></div>
+    </div>-->
+    <div class="buttons-container">
+        <div class="button small white" (click)="onClickCancel()">Rechazar</div>
+        <div class="button small green noshadow" (click)="onClickAccept()">Aceptar</div>
     </div>
 </div>
