@@ -160,10 +160,6 @@ THE SOFTWARE.
 MIT
 MIT
 
-ngx-cookie-service@2.1.0
-MIT
-MIT
-
 @angular/platform-browser@5.2.10
 MIT
 MIT
