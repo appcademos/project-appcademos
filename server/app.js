@@ -32,8 +32,8 @@ mongoose
 
 const app = express();
 
-if (process.env.DEBUG == undefined)
-    app.use(redirectToHTTPS(undefined, [/\/app/], 301));
+/*if (process.env.DEBUG == undefined)
+    app.use(redirectToHTTPS(undefined, [/\/app/], 301));*/
 
 var whitelist = [
   `${process.env.CORS_ALLOW}`,
@@ -124,8 +124,8 @@ app.post('/git-pull', function(req, res)
 });
 
 require("./routes/routes")(app);
-app.use(function (req, res) {
+/*app.use(function (req, res) {
   res.sendFile(__dirname + '/public/index.html');
-});
+});*/
 
 module.exports = app;
