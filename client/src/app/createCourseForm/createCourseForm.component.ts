@@ -13,6 +13,7 @@ export class CreateCourseFormComponent implements OnInit
     @Input() course: any;
 
     price: Number;
+    duration: String;
     oldPrice: Number;
     title: String;
     hours: Number;
