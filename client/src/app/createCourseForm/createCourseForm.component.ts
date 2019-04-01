@@ -28,6 +28,7 @@ export class CreateCourseFormComponent implements OnInit
         if (this.course)
         {
             this.title      = this.course.title;
+            this.duration   = this.course.duration;
             this.hours      = this.course.hours;
             this.price      = this.course.price;
             this.oldPrice   = this.course.oldPrice;
@@ -35,27 +36,15 @@ export class CreateCourseFormComponent implements OnInit
         }
     }
 
-    createCourse()
-    {
-        const course =
-        {
-            price: this.price,
-            title: this.title,
-            hours: this.hours,
-            startDate: this.startDate,
-            sizeClass: this.sizeClass,
-            description: this.description,
-            tags: this.tags
-        };
-
-        //this.courseService.createCourse(course);
-    }
-
     validateCourse()
     {
         var allOk = true;
 
         if (this.title == null || this.title.length == 0)
+        {
+            allOk = false;
+        }
+        if (this.duration == null || this.duration.length == 0)
         {
             allOk = false;
         }
@@ -84,6 +73,7 @@ export class CreateCourseFormComponent implements OnInit
             var courseToUpdate =
             {
                 title: this.title,
+                duration: this.duration,
                 hours: this.hours,
                 price: this.price,
                 oldPrice: this.oldPrice,
@@ -101,9 +91,6 @@ export class CreateCourseFormComponent implements OnInit
                 alert(error.json().message);
 
                 console.log(error);
-
-                /*if (error.status == 401)
-                    this.router.navigate(["/academy"]);*/
             });
         }
     }

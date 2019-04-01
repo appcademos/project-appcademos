@@ -2,11 +2,15 @@
     <form>
       <div class="form-group">
         <label for="exampleInputtitle">Nombre del curso</label>
-        <input type="text" class="form-control" [(ngModel)]="title" name="title" id="exampleInputtitle" aria-describedby="titleHelp">
+        <input type="text" class="form-control" [(ngModel)]="title" name="title" id="exampleInputtitle">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputtitle">Duración</label>
+        <input type="text" class="form-control" [(ngModel)]="duration" name="duration">
       </div>
       <div class="form-group">
           <label for="exampleInputhours">Numero de horas</label>
-          <input type="number" class="form-control" [(ngModel)]="hours" name="hours" id="exampleInputhours" aria-describedby="hoursHelp">
+          <input type="number" class="form-control" [(ngModel)]="hours" name="hours" id="exampleInputhours">
         </div>
       <div class="form-group">
         <label for="exampleInputPrice">Precio</label>

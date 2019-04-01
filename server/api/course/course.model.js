@@ -12,6 +12,7 @@ const courseSchema = new Schema(
     level: String,
     group: [String],
     hours: Number,
+    duration: String,
     about: [String],
     requirements: [String],
     weekclasses: Number,

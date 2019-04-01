@@ -52,7 +52,7 @@ export class OneCourseComponent
     }
     ngOnInit()
     {
-        this.activatedRouteSubscription = this.activatedRoute.queryParams.subscribe(params =>
+        this.activatedRouteSubscription = this.activatedRoute.params.subscribe(params =>
         {
             this.courseObj = undefined;
             this.reviewsAverage = undefined;

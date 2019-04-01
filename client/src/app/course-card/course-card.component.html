@@ -1,4 +1,4 @@
-<a class="course-link" [routerLink]="['/course/view']" [queryParams]="{id: course._id}">
+<a class="course-link" [routerLink]="['/course', course._id]" [queryParams]="{duration: course.duration}">
    <div class="course-item">
      <div class="course-item-image" [ngStyle]="{ 'background-image': 'url(' + course.images[0].imagePath + ')' }" alt="course.images[0].imageName"></div>
 
