@@ -32,16 +32,12 @@ export class CoursesService {
     .map(res => res.json())
     .map(courses =>
     {
-        console.log(courses);
-
         this.searching = false;
         this.foundCourses = courses;
         //this.setCoursesMarkers(courses);
     })
     .catch(error =>
     {
-        console.log(error);
-
         if (error != null && error.json() != null && error.json().message != null)
             return Observable.throw(error.json().message);
     });
