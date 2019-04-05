@@ -7,7 +7,7 @@ import { UserSessionService } from "../../services/userSession.service";
   styleUrls: ["./userLoginForm.component.scss"]
 })
 export class UserLoginFormComponent implements OnInit {
-  
+
   email: String;
   password: String;
 
@@ -22,4 +22,6 @@ export class UserLoginFormComponent implements OnInit {
     };
     this.userService.login(user);
   }
+
+  signup() {}
 }
