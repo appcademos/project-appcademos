@@ -18,11 +18,13 @@ export class HomeComponent
     @ViewChild('searchbox') searchboxComponent: SearchboxComponent;
     @ViewChild('fixedsearchbox') fixedSearchboxComponent: SearchboxComponent;
 
+    utils: UtilsService;
+
     featuredCourses: any;
     showFixedSearchbar: boolean = false;
     heroHeight: number = undefined;
 
-    constructor(private courses: CoursesService, private router: Router, private utils: UtilsService)
+    constructor(private courses: CoursesService, private router: Router, utils: UtilsService)
     {
         this.courses.searching = true; // Prevent server delay from showing previous results on courses page
         this.courses.getAll()

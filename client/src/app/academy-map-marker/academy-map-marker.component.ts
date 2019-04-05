@@ -6,9 +6,11 @@ import { MapMarkersService } from '../../services/map-markers.service';
   templateUrl: './academy-map-marker.component.html',
   styleUrls: ['./academy-map-marker.component.scss']
 })
-export class AcademyMapMarkerComponent implements OnInit {
+export class AcademyMapMarkerComponent implements OnInit
+{
+    markerService: MapMarkersService;
 
-  constructor(private markerService: MapMarkersService) { }
+  constructor(markerService: MapMarkersService) { }
 
   ngOnInit() {
   }

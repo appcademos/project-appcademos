@@ -18,7 +18,10 @@ import { CoursesService } from "../../services/courses.service";
   templateUrl: "./map.component.html",
   styleUrls: ["./map.component.scss"]
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit
+{
+    markerService: MapMarkersService;
+
   currentPos = {
     lat: 40.3994275,
     lng: -3.7030302
@@ -30,7 +33,7 @@ export class MapComponent implements OnInit {
   constructor(
     private http: Http,
     private geoquest: GeolocationService,
-    private markerService: MapMarkersService,
+    markerService: MapMarkersService,
     private courseService: CoursesService
   ) {}
 
