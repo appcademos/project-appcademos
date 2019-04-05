@@ -14,7 +14,10 @@ export class UserSessionService
 
   constructor(private http: Http, private messageService: MessageService)
   {
-      this.isLoggedIn().subscribe();
+      this.isLoggedIn().subscribe(
+          res => {},
+          err => {}
+      );
   }
 
   handleUser(user?: object) {
