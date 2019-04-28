@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="23px" viewBox="0 0 14 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Home" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-974.000000, -920.000000)">
+        <g id="Featured" transform="translate(48.000000, 703.000000)" fill="#484848" fill-rule="nonzero">
+            <g id="Button-right" transform="translate(908.000000, 204.000000)">
+                <path d="M27.2208055,24.5957574 L18.484582,15.974693 C17.8384727,15.3365984 17.8384727,14.304786 18.484582,13.6734797 C19.1306914,13.0421734 20.175464,13.0421734 20.8215734,13.6734797 L30.719419,23.4417566 C31.3449079,24.0594864 31.3586549,25.0505694 30.7675335,25.6886639 L20.8284469,35.5248232 C20.5053922,35.8438705 20.0792349,36 19.6599512,36 C19.2406675,36 18.8145102,35.8438705 18.4914555,35.5248232 C17.8453462,34.8867287 17.8453462,33.8549163 18.4914555,33.22361 L27.2208055,24.5957574 Z" id="Shape" transform="translate(24.600000, 24.600000) scale(-1, 1) translate(-24.600000, -24.600000) "></path>
+            </g>
+        </g>
+    </g>
+</svg>
