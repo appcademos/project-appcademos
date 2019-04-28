@@ -28,10 +28,10 @@
             <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'objetivo b1' }" [hidden]="selectedTab == 1">Inglés General B1</a>
             <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'objetivo b2' }" [hidden]="selectedTab == 1">Inglés General B2</a>
             <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'objetivo c1' }" [hidden]="selectedTab == 1">Inglés General C1</a>
-            <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'toefl' }" [hidden]="selectedTab == 2">TOEFL</a>
+            <!-- <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'toefl' }" [hidden]="selectedTab == 2">TOEFL</a>
             <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'ielts' }" [hidden]="selectedTab == 2">IELTS</a>
             <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'toeic' }" [hidden]="selectedTab == 2">TOEIC</a>
-            <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'proficiency' }" [hidden]="selectedTab == 2">Proficiency</a>
+            <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'proficiency' }" [hidden]="selectedTab == 2">Proficiency</a> -->
         </div>
         <div class="content" *ngIf="small">
             <a class="search-panel-item noselect" (click)="query = 'first'; doOnSearch();" [hidden]="selectedTab == 2">First certificate</a>
@@ -39,10 +39,10 @@
             <a class="search-panel-item noselect" (click)="query = 'objetivo b1'; doOnSearch();" [hidden]="selectedTab == 1">Inglés General B1</a>
             <a class="search-panel-item noselect" (click)="query = 'objetivo b2'; doOnSearch();" [hidden]="selectedTab == 1">Inglés General B2</a>
             <a class="search-panel-item noselect" (click)="query = 'objetivo c1'; doOnSearch();" [hidden]="selectedTab == 1">Inglés General C1</a>
-            <a class="search-panel-item noselect" (click)="query = 'toefl'; doOnSearch();" [hidden]="selectedTab == 2">TOEFL</a>
+            <!-- <a class="search-panel-item noselect" (click)="query = 'toefl'; doOnSearch();" [hidden]="selectedTab == 2">TOEFL</a>
             <a class="search-panel-item noselect" (click)="query = 'ielts'; doOnSearch();" [hidden]="selectedTab == 2">IELTS</a>
             <a class="search-panel-item noselect" (click)="query = 'toeic'; doOnSearch();" [hidden]="selectedTab == 2">TOEIC</a>
-            <a class="search-panel-item noselect" (click)="query = 'proficiency'; doOnSearch();" [hidden]="selectedTab == 2">Proficiency</a>
+            <a class="search-panel-item noselect" (click)="query = 'proficiency'; doOnSearch();" [hidden]="selectedTab == 2">Proficiency</a> -->
         </div>
     </div>
 </div>
