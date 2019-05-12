@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="8px" viewBox="0 0 14 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Course" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-48.000000, -1141.000000)">
+        <g id="Accordions" transform="translate(48.000000, 912.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="Info-general" transform="translate(0.000000, 221.000000)">
+                <path d="M7.00260514,13.588367 L12.2962412,8.29368608 C12.6880536,7.90210464 13.3216226,7.90210464 13.7092668,8.29368608 C14.0969111,8.68526751 14.0969111,9.31846303 13.7092668,9.71004446 L7.71120208,15.7087388 C7.33189431,16.0878229 6.72333457,16.0961545 6.33152214,15.7378991 L0.291775214,9.71421022 C0.0958689989,9.5184195 0,9.26014239 0,9.00603103 C0,8.75191967 0.0958689989,8.49364255 0.291775214,8.29785184 C0.683587644,7.9062704 1.31715668,7.9062704 1.70480089,8.29785184 L7.00260514,13.588367 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>
