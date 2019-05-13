@@ -41,7 +41,7 @@ export class CourseCardComponent implements OnInit
             params[0] = '/course';
             params[1] = this.course.tags[0];
             params[2] = this.course.duration.replace(/ /g, '');
-            params[3] = this.course.academy.district + '-' + this.course.academy.city;
+            params[3] = this.course.academy.district.toLowerCase() + '-' + this.course.academy.city.toLowerCase();
             params[4] = 'academia-' + this.course.academy.name.replace(/ /g, '-').toLowerCase();
             params[5] = this.course._id;
         }
