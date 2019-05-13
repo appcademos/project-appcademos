@@ -22,6 +22,7 @@ export const routes: Routes = [
     { path: "confirmation", component : ConfirmationComponent},
     { path: "enter", component: UserSignupFormComponent },
     { path: "course/:id", component: OneCourseComponent },
+    { path: "course/:tag/:duration/:location/:academy/:id", component: OneCourseComponent },
     { path: "academyprofile", component: AcademyprofileComponent},
 
     { path: "cookie-policy", component: CookiesComponent },
