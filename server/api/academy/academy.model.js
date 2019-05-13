@@ -34,7 +34,13 @@ const academySchema = new Schema(
     location: {
       type: { type: String },
       coordinates: [Number]
-    }
+    },
+    district: {
+      type: String
+    },
+    city: {
+      type: String
+    },
   },
   {
     timestamps: {

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="18px" viewBox="0 0 30 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>free</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Course-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-90.000000, -1584.000000)">
+        <g id="Accordions" transform="translate(48.000000, 1001.000000)">
+            <g id="Prueba" transform="translate(0.000000, 581.000000)">
+                <g id="free" transform="translate(42.000000, 2.000000)">
+                    <rect id="Rectangle-8" stroke="#48A9A6" stroke-width="2" x="1" y="1" width="28" height="16" rx="2"></rect>
+                    <text id="FREE" font-family="Montserrat-ExtraBold, Montserrat" font-size="8" font-weight="600" fill="#48A9A6">
+                        <tspan x="4.096" y="12">FREE</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
