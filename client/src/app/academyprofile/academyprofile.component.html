@@ -7,12 +7,12 @@
     <div id="courses">
         <div class="title fw-600">Mis cursos</div>
 
-        <div class="course card-banner noselect" [ngClass]="{'expanded': editingCourse != null && editingCourse._id === course._id }" *ngFor="let course of academy.courses">
+        <div class="course card-banner noselect" [ngClass]="{'expanded': editingCourse != null && editingCourse._id === course._id }" *ngFor="let course of academy.courses; let i = index" [attr.data-index]="i">
             <div class="header" (click)="onClickCourse(course)">
                 <div class="titleContainer">
                     <div class="dot" [ngClass]="{'green': getCourseWasUpdated(course), 'red': getCourseUpdatedError(course)}"></div>
                     <div>
-                        <div class="title fw-500">{{ course.title }}</div>
+                        <div class="title fw-500">{{ i+1 }} - {{ course.title }}</div>
                         <div class="subtitle">Actualizado {{ formatDate(course.updated_at) }}</div>
                     </div>
                 </div>
