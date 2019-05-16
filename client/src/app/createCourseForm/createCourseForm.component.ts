@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CoursesService } from '../../services/courses.service';
 import { Router } from "@angular/router";
 import * as moment from 'moment';
@@ -11,6 +11,8 @@ import * as moment from 'moment';
 export class CreateCourseFormComponent implements OnInit
 {
     @Input() course: any;
+    @Output() onCourseUpdated: EventEmitter<any> = new EventEmitter();
+    @Output() onCourseError: EventEmitter<any> = new EventEmitter();
 
     price: Number;
     duration: String;
@@ -85,10 +87,12 @@ export class CreateCourseFormComponent implements OnInit
             this.courseService.updateCourse(this.course._id, courseToUpdate)
             .subscribe(res =>
             {
+                this.onCourseUpdated.emit({ course: { _id: this.course._id, ...courseToUpdate } });
                 alert(res.message);
             },
             error =>
             {
+                this.onCourseError.emit({ course: { _id: this.course._id, ...courseToUpdate } });
                 alert(error.json().message);
 
                 console.log(error);
