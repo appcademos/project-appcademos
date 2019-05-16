@@ -36,14 +36,16 @@ export class HeaderComponent implements OnInit, OnDestroy
     {
         this.user = this.userService.user;
 
-        if (this.router.url === '/')
+        console.log(window.location.pathname);
+
+        if (this.router.url.split('?')[0] === '/')
             this.isHome = true;
 
         this.router.events.subscribe( (event: Event) =>
         {
             if (event instanceof NavigationEnd)
             {
-                if (this.router.url === '/')
+                if (this.router.url.split('?')[0] === '/')
                     this.isHome = true;
                 else
                     this.isHome = false;
