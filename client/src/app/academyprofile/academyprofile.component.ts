@@ -10,7 +10,7 @@ import * as moment from 'moment';
 })
 export class AcademyprofileComponent implements OnInit
 {
-    academy = {}
+    academy
     editingCourse = null;
     updatedCourses = []
     errorCourses = []

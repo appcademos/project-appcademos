@@ -1,11 +1,11 @@
 <div class="responsive-container">
     <div class="top">
-        <h2>Hola, {{ academy.name }}</h2>
+        <h2 *ngIf="academy.name">Hola, {{ academy.name }}</h2>
         <div class="color-red fs-13 fw-600 cursor-pointer noselect" (click)="logout()">CERRAR SESIÓN</div>
     </div>
 
     <div id="courses">
-        <div class="title fw-600">Mis cursos <span class="color-black-50" *ngIf="academy.courses != null">· {{ academy.courses.length }} {{ (academy.courses.length == 1) ? 'curso' : 'cursos' }}</span></div>
+        <div class="title fw-600">Mis cursos <span class="color-black-50" *ngIf="academy.courses">· {{ academy.courses.length }} {{ (academy.courses.length == 1) ? 'curso' : 'cursos' }}</span></div>
 
         <div class="course card-banner noselect" [ngClass]="{'expanded': editingCourse != null && editingCourse._id === course._id }" *ngFor="let course of academy.courses; let i = index" [attr.data-index]="i">
             <div class="header" (click)="onClickCourse(course)">
