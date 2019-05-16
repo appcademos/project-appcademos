@@ -1,24 +1,29 @@
 <div class="responsive-container">
-    <div class="top" *ngIf="editingCourse == null">
+    <div class="top">
         <h2>Hola, {{ academy.name }}</h2>
         <div class="color-red fs-13 fw-600 cursor-pointer noselect" (click)="logout()">CERRAR SESIÓN</div>
     </div>
 
-    <div id="courses" *ngIf="editingCourse == null">
+    <div id="courses">
         <div class="title fw-600">Mis cursos</div>
 
-        <div class="course card-banner" *ngFor="let course of academy.courses" (click)="goToEditCourse(course)">
-            <div class="title fw-500">{{ course.title }}</div>
-            <div class="price color-red fw-600">{{ course.price }}€</div>
+        <div class="course card-banner noselect" [ngClass]="{'expanded': editingCourse != null && editingCourse._id === course._id }" *ngFor="let course of academy.courses">
+            <div class="header" (click)="onClickCourse(course)">
+                <div class="titleContainer">
+                    <div class="dot" [ngClass]="{'green': getCourseWasUpdated(course), 'red': getCourseUpdatedError(course)}"></div>
+                    <div class="title fw-500">{{ course.title }}</div>
+                </div>
+                <div class="price color-red fw-600">{{ course.price }}€</div>
+            </div>
+
+            <div class="line-separator" *ngIf="editingCourse != null && editingCourse._id === course._id"></div>
+
+            <app-createCourseForm
+                [course]="course"
+                class="formContainer"
+                (onCourseUpdated)="onCourseUpdated($event)"
+                (onCourseError)="onCourseError($event)"
+            ></app-createCourseForm>
         </div>
-    </div>
-
-    <div *ngIf="editingCourse != null">
-        <div id="back-button" class="button small white" (click)="goBackToCourses()"><i class="icon size-10 icon-arrow-left"></i>Cursos</div>
-
-        <div class="fs-13 fw-500">{{ academy.name }}</div>
-        <h3>{{ editingCourse.title }}</h3>
-
-        <app-createCourseForm [course]="editingCourse"></app-createCourseForm>
     </div>
 </div>

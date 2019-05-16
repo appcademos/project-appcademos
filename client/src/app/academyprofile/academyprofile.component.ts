@@ -11,6 +11,8 @@ export class AcademyprofileComponent implements OnInit
 {
     academy = {}
     editingCourse = null;
+    updatedCourses = []
+    errorCourses = []
 
     constructor(private router: Router, public academyService: AcademySessionService)
     {
@@ -37,16 +39,42 @@ export class AcademyprofileComponent implements OnInit
                 this.router.navigate(["/academy"]);
         });
     }
-    goToEditCourse(course)
+    onClickCourse(course)
     {
-        this.editingCourse = course;
-        window.scrollTo(0,0);
+        this.editingCourse = (this.editingCourse != null && this.editingCourse._id === course._id) ? null : course;
     }
-    goBackToCourses()
+    onCourseUpdated({ course })
     {
-        this.editingCourse = null;
-        window.scrollTo(0,0);
+        this.updatedCourses.push(course._id);
         this.getAcademy();
+    }
+    onCourseError({ course })
+    {
+        this.errorCourses.push(course._id);
+    }
+    getCourseWasUpdated(course)
+    {
+        let courseWasUpdated = false;
+
+        for (let i = 0; i < this.updatedCourses.length && !courseWasUpdated; i++)
+        {
+            if (this.updatedCourses[i] === course._id)
+                courseWasUpdated = true;
+        }
+
+        return courseWasUpdated;
+    }
+    getCourseUpdatedError(course)
+    {
+        let courseError = false;
+
+        for (let i = 0; i < this.updatedCourses.length && !courseError; i++)
+        {
+            if (this.errorCourses[i] === course._id)
+                courseError = true;
+        }
+
+        return courseError;
     }
     logout()
     {

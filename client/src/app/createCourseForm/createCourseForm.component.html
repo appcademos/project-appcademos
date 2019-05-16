@@ -4,21 +4,25 @@
         <label for="exampleInputtitle">Nombre del curso</label>
         <input type="text" class="form-control" [(ngModel)]="title" name="title" id="exampleInputtitle">
       </div>
-      <div class="form-group">
-        <label for="exampleInputtitle">Duración</label>
-        <input type="text" class="form-control" [(ngModel)]="duration" name="duration">
+      <div class="form-group-container">
+          <div class="form-group">
+            <label for="exampleInputtitle">Duración</label>
+            <input type="text" class="form-control" [(ngModel)]="duration" name="duration">
+          </div>
+          <div class="form-group">
+              <label for="exampleInputhours">Numero de horas</label>
+              <input type="number" class="form-control" [(ngModel)]="hours" name="hours" id="exampleInputhours">
+          </div>
       </div>
-      <div class="form-group">
-          <label for="exampleInputhours">Numero de horas</label>
-          <input type="number" class="form-control" [(ngModel)]="hours" name="hours" id="exampleInputhours">
-        </div>
-      <div class="form-group">
-        <label for="exampleInputPrice">Precio</label>
-        <input type="number" class="form-control" [(ngModel)]="price" name="price" id="exampleInputPrice">
-      </div>
-      <div class="form-group">
-        <label for="exampleInputOldPrice">Precio tachado</label>
-        <input type="number" class="form-control" [(ngModel)]="oldPrice" name="oldprice" id="exampleInputOldPrice">
+      <div class="form-group-container">
+          <div class="form-group">
+            <label for="exampleInputPrice">Precio</label>
+            <input type="number" class="form-control" [(ngModel)]="price" name="price" id="exampleInputPrice">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputOldPrice">Precio tachado</label>
+            <input type="number" class="form-control" [(ngModel)]="oldPrice" name="oldprice" id="exampleInputOldPrice">
+          </div>
       </div>
       <div class="form-group">
         <label for="exampleInputStartdate">Fecha de inicio</label>
@@ -42,6 +46,6 @@
           <option>IELTS</option>
       </select>-->
 
-      <div class="button full-width" (click)="updateCourse()">Guardar curso</div>
+      <div class="button full-width noshadow" (click)="updateCourse()">Guardar curso</div>
     </form>
 </div>

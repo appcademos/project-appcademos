@@ -83,6 +83,12 @@ input[type="text"]
     appearance: none !important;
 }
 
+.form-control:focus
+{
+    box-shadow: none;
+    border-color: $red-color;
+}
+
 .icon
 {
     display: inline-block;
@@ -526,6 +532,12 @@ input[type="text"]
     border-radius: 8px;
     border: 1px solid #EAEAEA;
     box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.line-separator
+{
+    height: 1px;
+    background: #EAEAEA;
 }
 
 /*#top-banner
