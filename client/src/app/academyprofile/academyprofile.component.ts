@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AcademySessionService } from '../../services/academySession.service';
 import { Router } from "@angular/router";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-academyprofile',
@@ -75,6 +76,14 @@ export class AcademyprofileComponent implements OnInit
         }
 
         return courseError;
+    }
+    formatDate(date)
+    {
+        let now = moment();
+        let m = moment(date);
+        let isToday = now.diff(m, 'days') === 0;
+
+        return (isToday) ? 'hoy ' + m.format('HH:mm') : m.format('DD-MM-YYYY HH:mm');
     }
     logout()
     {
