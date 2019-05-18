@@ -1,19 +1,31 @@
-<div class="responsive-container">
+<div class="responsive-container" *ngIf="academy">
     <div class="top">
-        <h2 *ngIf="academy.name">Hola, {{ academy.name }}</h2>
-        <div class="color-red fs-13 fw-600 cursor-pointer noselect" (click)="logout()">CERRAR SESIÓN</div>
+        <h2>Hola, {{ academy.name }}</h2>
+        <div class="color-black-50 fs-13 fw-600 cursor-pointer noselect" (click)="logout()">CERRAR SESIÓN</div>
     </div>
 
+    <div class="line-separator"></div>
+
     <div id="courses">
-        <div class="title fw-600">Mis cursos <span class="color-black-50" *ngIf="academy.courses">· {{ academy.courses.length }} {{ (academy.courses.length == 1) ? 'curso' : 'cursos' }}</span></div>
+        <div class="titleContainer flex space-between align-items-baseline">
+            <div class="title fw-600">Mis cursos <span class="color-black-50">· {{ academy.courses.length }} {{ (academy.courses.length == 1) ? 'curso' : 'cursos' }}</span></div>
+            <div class="flex buttons" *ngIf="selectedCourses.length > 1">
+                <div class="color-green fs-13 fw-600 cursor-pointer noselect" (click)="showMultipleEditor = true">EDITAR SELECCIÓN</div>
+                <div class="color-black-50 fs-13 fw-600 cursor-pointer noselect" (click)="clearSelection()">CANCELAR</div>
+            </div>
+        </div>
 
         <div class="course card-banner noselect" [ngClass]="{'expanded': editingCourse != null && editingCourse._id === course._id }" *ngFor="let course of academy.courses; let i = index" [attr.data-index]="i">
             <div class="header" (click)="onClickCourse(course)">
                 <div class="titleContainer">
-                    <div class="dot" [ngClass]="{'green': getCourseWasUpdated(course), 'red': getCourseUpdatedError(course)}"></div>
+                    <app-checkbox (onChange)="selectCourse(course, $event)"></app-checkbox>
                     <div>
                         <div class="title fw-500">{{ i+1 }} - {{ course.title }}</div>
-                        <div class="subtitle">Actualizado {{ formatDate(course.updated_at) }}</div>
+                        <div class="subtitleContainer flex-inline align-items-center">
+                            <div *ngIf="getCourseWasUpdated(course)" class="label-tag green">Actualizado</div>
+                            <div *ngIf="getCourseUpdatedError(course)" class="label-tag red">Error</div>
+                            <div class="subtitle">Actualizado {{ formatDate(course.updated_at) }}</div>
+                        </div>
                     </div>
                 </div>
                 <div class="price color-red fw-600">{{ course.price }}€</div>
@@ -27,6 +39,32 @@
                 (onCourseUpdated)="onCourseUpdated($event)"
                 (onCourseError)="onCourseError($event)"
             ></app-createCourseForm>
+        </div>
+    </div>
+
+    <div id="multipleEditorModal" [ngClass]="{'show': showMultipleEditor}">
+        <div class="overlay" (click)="closeMultipleEditor()"></div>
+
+        <div class="icon size-48 icon-close-circle-white cursor-pointer" (click)="closeMultipleEditor()"></div>
+
+        <div class="responsive-container">
+            <div class="cardContainer">
+                <div class="header">
+                    <div class="color-black-80 fs-13 fw-600">EDICIÓN MÚLTIPLE <span class="color-black-50">· {{ selectedCourses.length }} cursos</span></div>
+                    <div class="titles">
+                        <span class="fw-600 fs-20" *ngFor="let selectedCourse of selectedCourses; let last = last;">
+                            {{ selectedCourse.title }} ({{selectedCourse.price}}€){{ (last) ? null : ', ' }}
+                        </span>
+                    </div>
+                </div>
+                <div class="line-separator"></div>
+                <app-createCourseForm
+                    [courses]="selectedCourses"
+                    (onCoursesUpdated)="closeMultipleEditor()"
+                    (onCourseUpdated)="onCourseUpdated($event)"
+                    (onCourseError)="onCourseError($event)"
+                ></app-createCourseForm>
+            </div>
         </div>
     </div>
 </div>

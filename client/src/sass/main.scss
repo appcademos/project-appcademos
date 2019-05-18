@@ -391,6 +391,10 @@ input[type="text"]
 {
     color: $black-50 !important;
 }
+.color-black-60
+{
+    color: $black-60 !important;
+}
 .color-black-80
 {
     color: $black-80 !important;
@@ -500,6 +504,49 @@ input[type="text"]
 .button.noshadow
 {
     box-shadow: none;
+}
+
+.label-tag
+{
+    font-size: 11px;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    padding: 2px 6px;
+    font-weight: 500;
+
+    &.green
+    {
+        border-color: $whatsapp-color;
+        color: $whatsapp-color;
+    }
+    &.red
+    {
+        border-color: $error-color;
+        color: $error-color;
+    }
+}
+
+
+.flex
+{
+    display: flex;
+}
+.space-between
+{
+    justify-content: space-between;
+}
+.flex-inline
+{
+    display: inline-flex;
+    font-weight: 400;
+}
+.align-items-center
+{
+    align-items: center;
+}
+.align-items-baseline
+{
+    align-items: baseline;
 }
 
 

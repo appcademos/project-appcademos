@@ -48,6 +48,7 @@ import { ButtonSpinnerComponent } from './uiComponents/button-spinner/button-spi
 import { CookiesBoxComponent } from './cookies-box/cookies-box.component';
 import { CookiesComponent } from './cookies/cookies.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { CheckboxComponent } from './checkbox/checkbox.component';
 
 @NgModule({
    declarations: [
@@ -78,6 +79,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
       CookiesBoxComponent,
       CookiesComponent,
       PrivacyPolicyComponent,
+      CheckboxComponent,
    ],
 
 imports: [
