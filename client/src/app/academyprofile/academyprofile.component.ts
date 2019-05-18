@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AcademySessionService } from '../../services/academySession.service';
 import { Router } from "@angular/router";
 import * as moment from 'moment';
+declare var $: any;
 
 @Component({
   selector: 'app-academyprofile',
@@ -14,6 +15,8 @@ export class AcademyprofileComponent implements OnInit
     editingCourse = null;
     updatedCourses = []
     errorCourses = []
+    selectedCourses = []
+    showMultipleEditor = false;
 
     constructor(private router: Router, public academyService: AcademySessionService)
     {
@@ -31,6 +34,7 @@ export class AcademyprofileComponent implements OnInit
         .subscribe(() =>
         {
             this.academy = {...this.academyService.academy};
+            console.log(this.academy);
         },
         error =>
         {
@@ -69,7 +73,7 @@ export class AcademyprofileComponent implements OnInit
     {
         let courseError = false;
 
-        for (let i = 0; i < this.updatedCourses.length && !courseError; i++)
+        for (let i = 0; i < this.errorCourses.length && !courseError; i++)
         {
             if (this.errorCourses[i] === course._id)
                 courseError = true;
@@ -98,5 +102,22 @@ export class AcademyprofileComponent implements OnInit
                 alert(error);
             }
         );
+    }
+
+    selectCourse(course, checked)
+    {
+        if (checked)
+            this.selectedCourses.push({...course});
+        else
+            this.selectedCourses = this.selectedCourses.filter(c => c._id != course._id);
+    }
+    clearSelection()
+    {
+        this.selectedCourses = []
+        $('.course input[type="checkbox"]').prop('checked', false);
+    }
+    closeMultipleEditor()
+    {
+        this.showMultipleEditor = false;
     }
 }

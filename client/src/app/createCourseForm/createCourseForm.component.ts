@@ -11,8 +11,10 @@ import * as moment from 'moment';
 export class CreateCourseFormComponent implements OnInit
 {
     @Input() course: any;
+    @Input() courses: any;
     @Output() onCourseUpdated: EventEmitter<any> = new EventEmitter();
     @Output() onCourseError: EventEmitter<any> = new EventEmitter();
+    @Output() onCoursesUpdated: EventEmitter<any> = new EventEmitter();
 
     price: Number;
     duration: String;
@@ -23,6 +25,8 @@ export class CreateCourseFormComponent implements OnInit
     sizeClass: Number;
     description: String;
     tags: [String];
+
+    numCoursesUpdated = 0;
 
     constructor(public router: Router, private courseService: CoursesService) { }
 
@@ -69,34 +73,110 @@ export class CreateCourseFormComponent implements OnInit
 
         return allOk;
     }
+    validateCourses()
+    {
+        var allOk = true;
+
+        if ((this.title == null || this.title.length == 0) &&
+            (this.duration == null || this.duration.length == 0) &&
+            (this.hours == null || (this.hours + '').length == 0) &&
+            (this.price == null || (this.price + '').length == 0) &&
+            (this.startDate == null || this.startDate.length == 0 || !(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/).test('' + this.startDate))
+        )
+        {
+            allOk = false;
+        }
+
+        if (!allOk)
+            alert('Rellena algún dato');
+
+        return allOk;
+    }
     updateCourse()
     {
-        if (this.validateCourse())
+        if (this.courses != null && this.courses.length > 1)
         {
-            var courseToUpdate =
+            if (this.validateCourses())
             {
-                title: this.title,
-                duration: this.duration,
-                hours: this.hours,
-                price: this.price,
-                oldPrice: this.oldPrice,
-                startDate: moment(this.startDate + '', 'DD/MM/YYYY').toISOString(),
-                academy: this.course.academy
+                var courseDataToUpdate: any = {}
+
+                if (this.title != null && this.title.trim().length > 0)
+                    courseDataToUpdate.title = this.title.trim();
+
+                if (this.duration != null && this.duration.trim().length > 0)
+                    courseDataToUpdate.duration = this.duration.trim();
+
+                if (this.hours != null && (this.hours + '').length > 0)
+                    courseDataToUpdate.hours = this.hours;
+
+                if (this.price != null && (this.price + '').length > 0)
+                    courseDataToUpdate.price = this.price;
+
+                if (this.oldPrice != null && (this.oldPrice + '').length > 0)
+                    courseDataToUpdate.oldPrice = this.oldPrice;
+
+                if (this.startDate != null && this.startDate.trim().length > 0)
+                    courseDataToUpdate.startDate = moment(this.startDate + '', 'DD/MM/YYYY').toISOString();
+
+                for (let i = 0; i < this.courses.length; i++)
+                {
+                    let course = this.courses[i];
+
+                    this.courseService.updateCourse(course._id, courseDataToUpdate)
+                    .subscribe(res =>
+                    {
+                        this.onCourseUpdated.emit({ course: { _id: course._id, ...courseToUpdate } });
+                        this.numCoursesUpdated++;
+                        if (this.numCoursesUpdated === this.courses.length)
+                        {
+                            this.numCoursesUpdated = 0;
+                            this.onCoursesUpdated.emit();
+                        }
+                    },
+                    error =>
+                    {
+                        this.onCourseError.emit({ course: { _id: course._id, ...courseToUpdate } });
+                        this.numCoursesUpdated++;
+                        if (this.numCoursesUpdated === this.courses.length)
+                        {
+                            this.numCoursesUpdated = 0;
+                            this.onCoursesUpdated.emit();
+                        }
+
+                        console.log(error);
+                    });
+                }
             }
-
-            this.courseService.updateCourse(this.course._id, courseToUpdate)
-            .subscribe(res =>
+        }
+        else
+        {
+            if (this.validateCourse())
             {
-                this.onCourseUpdated.emit({ course: { _id: this.course._id, ...courseToUpdate } });
-                alert(res.message);
-            },
-            error =>
-            {
-                this.onCourseError.emit({ course: { _id: this.course._id, ...courseToUpdate } });
-                alert(error.json().message);
+                var courseToUpdate =
+                {
+                    title: this.title,
+                    duration: this.duration,
+                    hours: this.hours,
+                    price: this.price,
+                    oldPrice: this.oldPrice,
+                    startDate: moment(this.startDate + '', 'DD/MM/YYYY').toISOString(),
+                    academy: this.course.academy
+                }
 
-                console.log(error);
-            });
+                this.courseService.updateCourse(this.course._id, courseToUpdate)
+                .subscribe(res =>
+                {
+                    this.onCourseUpdated.emit({ course: { _id: this.course._id, ...courseToUpdate } });
+                    alert(res.message);
+                },
+                error =>
+                {
+                    this.onCourseError.emit({ course: { _id: this.course._id, ...courseToUpdate } });
+                    alert(error.json().message);
+
+                    console.log(error);
+                });
+            }
         }
     }
 }

@@ -46,6 +46,6 @@
           <option>IELTS</option>
       </select>-->
 
-      <div class="button full-width noshadow" (click)="updateCourse()">Guardar curso</div>
+      <div class="button full-width noshadow" (click)="updateCourse()">{{ (courses != null && courses.length > 1) ? 'Actualizar cursos' : 'Guardar curso' }}</div>
     </form>
 </div>

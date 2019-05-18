@@ -11,14 +11,21 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
 }
 
 #courses
 {
-    & > .title
+    margin-top: 32px;
+
+    & > .titleContainer
     {
         margin-bottom: 12px;
+
+        .buttons > div
+        {
+            margin-left: 12px;
+        }
     }
     .course
     {
@@ -47,35 +54,24 @@
                 flex-direction: row;
                 align-items: center;
             }
-            .dot
+            app-checkbox
             {
-                display: none;
-                height: 12px;
-                width: 12px;
-                border-radius: 50%;
-                margin-right: 12px;
-
-                &.green,
-                &.red
-                {
-                    display: block;
-                }
-                &.green
-                {
-                    background: $whatsapp-color;
-                }
-                &.red
-                {
-                    background: $red-color;
-                }
+                margin-right: 16px;
             }
+            .label-tag
+            {
+                margin-right: 12px;
+            }
+        }
+        .subtitleContainer
+        {
+            margin-top: 4px;
         }
         .subtitle
         {
             font-size: 12px;
             font-weight: 400;
             color: $black-80;
-            margin-top: 4px;
         }
 
         &.expanded
@@ -98,5 +94,80 @@
         overflow: hidden;
 
         transition: all 0.16s ease;
+    }
+}
+
+#multipleEditorModal
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 6;
+
+    display: none;
+
+    &.show
+    {
+        display: block;
+    }
+
+    .overlay
+    {
+        background: $black-80;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+    }
+    .icon-close-circle-white
+    {
+        position: absolute;
+        top: 40px;
+        right: 40px;
+        z-index: 3;
+    }
+    .cardContainer
+    {
+        position: relative;
+        z-index: 2;
+        background: #fff;
+        padding: 20px 16px 16px;
+        border-radius: 8px;
+        margin: 100px 0;
+    }
+    .header
+    {
+        .titles
+        {
+            overflow: auto;
+            white-space: nowrap;
+            padding: 4px 0 12px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+
+            &::-webkit-scrollbar
+            {
+                display: none;
+            }
+        }
+    }
+    .line-separator
+    {
+        margin-bottom: 20px;
+    }
+}
+
+
+@media screen and (max-width: 520px)
+{
+    #multipleEditorModal .icon-close-circle-white
+    {
+        position: absolute;
+        top: 24px;
+        right: 20px;
     }
 }
