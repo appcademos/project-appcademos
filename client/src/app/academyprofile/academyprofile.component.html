@@ -60,7 +60,7 @@
                 <div class="line-separator"></div>
                 <app-createCourseForm
                     [courses]="selectedCourses"
-                    (onCoursesUpdated)="closeMultipleEditor()"
+                    (onCoursesUpdated)="onCoursesUpdated()"
                     (onCourseUpdated)="onCourseUpdated($event)"
                     (onCourseError)="onCourseError($event)"
                 ></app-createCourseForm>

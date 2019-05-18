@@ -116,6 +116,11 @@ export class AcademyprofileComponent implements OnInit
         this.selectedCourses = []
         $('.course input[type="checkbox"]').prop('checked', false);
     }
+    onCoursesUpdated()
+    {
+        this.closeMultipleEditor();
+        this.clearSelection();
+    }
     closeMultipleEditor()
     {
         this.showMultipleEditor = false;
