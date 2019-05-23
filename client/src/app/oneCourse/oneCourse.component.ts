@@ -54,26 +54,40 @@ export class OneCourseComponent
 
     }
     ngOnInit()
-    {
-        this.activatedRouteSubscription = this.activatedRoute.params.subscribe(params =>
+    {        
+        this.activatedRoute.queryParams.subscribe(queryParams =>
         {
-            this.courseObj = undefined;
-            this.reviewsAverage = undefined;
-            this.reviews = undefined;
-            this.map = undefined;
-            this.similarCourses = [];
-            this.courseImages = [];
-            this.currentGalleryImage = undefined;
-            this.showWarningbox = false;
-
-            this.routeCourseId = params.id;
-            this.getCourse();
+            if (queryParams.id)
+            {
+                this.init(queryParams.id)
+            }
+            else
+            {
+                this.activatedRouteSubscription = this.activatedRoute.params.subscribe(params =>
+                {
+                    this.init(params.id)
+                });
+            }
         });
     }
     ngOnDestroy()
     {
         if (this.activatedRouteSubscription != null)
             this.activatedRouteSubscription.unsubscribe();
+    }
+    init(courseId)
+    {
+        this.courseObj = undefined;
+        this.reviewsAverage = undefined;
+        this.reviews = undefined;
+        this.map = undefined;
+        this.similarCourses = [];
+        this.courseImages = [];
+        this.currentGalleryImage = undefined;
+        this.showWarningbox = false;
+
+        this.routeCourseId = courseId;
+        this.getCourse();
     }
 
     getCourse()
