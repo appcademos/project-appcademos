@@ -38,6 +38,9 @@ export class OneCourseComponent
     publishingComment: boolean = false;
     commentPublished: boolean = false;
     updateReviews: boolean = false;
+    
+    reviewsFilterGrade: number;
+    filteringReviews: boolean = false;
 
     constructor(private courseService: CoursesService,
                 private academyService: AcademySessionService,
@@ -127,14 +130,20 @@ export class OneCourseComponent
 
             if (!coursesCarousel.hasClass('slick-initialized'))
             {
+                coursesCarousel.off('init', '**');
+                coursesCarousel.off('breakpoint', '**');
+                
                 coursesCarousel.on('init', () =>
                 {
+                    console.log('slick init');
+                    
                     this.reviewsCarouselReady = true;
                     $('#reviews .carousel .slick-list').css('overflow', 'visible');
 
                     if (this.goToLastComment)
                     {
-                        setTimeout(() => { coursesCarousel.slick('slickGoTo', this.reviews.length); });
+                        this.utils.scrollToElement('#reviews');
+                        setTimeout(() => { coursesCarousel.slick('slickGoTo', this.reviews.length); }, 600);
 
                         this.goToLastComment = false;
                     }
@@ -153,26 +162,10 @@ export class OneCourseComponent
                     prevArrow: $('#reviews .carousel-container .prev-button'),
                     nextArrow: $('#reviews .carousel-container .next-button')
                 });
+                
+                console.log('onReviewsLoopFinished');
             }
         }
-    }
-    separateReviews()
-    {
-        let allAcademies = this.courseObj.course.academy.reviews;
-        let reviews = [];
-        //const NUMBER_OF_ROWS = (allAcademies.length > 4) ? 3 : 2;
-        const NUMBER_OF_ROWS = 2;
-
-        for (let i = 0; i < allAcademies.length; i=i+NUMBER_OF_ROWS)
-        {
-            let divisionArr = allAcademies.slice(i,i+NUMBER_OF_ROWS);
-            reviews.push(divisionArr);
-        }
-
-        let coursesCarousel = $('#reviews .carousel');
-        coursesCarousel.slick('unslick');
-
-        this.reviews = reviews;
     }
     setMap()
     {
@@ -241,6 +234,44 @@ export class OneCourseComponent
             this.showWarningbox = true;
     }
 
+    separateReviews(filterGrade?)
+    {
+        let allReviews = this.courseObj.course.academy.reviews;
+        if (filterGrade != null)
+        {
+            allReviews = this.courseObj.course.academy.reviews
+                        .filter((review) =>
+                        {
+                            return review.grade == filterGrade;
+                        });
+        }
+        else
+        {
+            this.reviewsFilterGrade = null;
+        }
+        
+        let reviews = []
+        //const NUMBER_OF_ROWS = (allReviews.length > 4) ? 3 : 2;
+        const NUMBER_OF_ROWS = 2;
+
+        for (let i = 0; i < allReviews.length; i=i+NUMBER_OF_ROWS)
+        {
+            let divisionArr = allReviews.slice(i,i+NUMBER_OF_ROWS);
+            reviews.push(divisionArr);
+        }
+
+        let coursesCarousel = $('#reviews .carousel');
+        coursesCarousel.slick('unslick');
+        
+        setTimeout(() =>
+        {
+            this.reviews = reviews;
+            setTimeout(() =>
+            {
+                this.onReviewsLoopFinished(true);
+            }, 10);
+        }, 10);
+    }
     validateComment()
     {
         var allOk = true;
@@ -306,6 +337,45 @@ export class OneCourseComponent
         {
             this.messageService.sendMessage({ showLogin: true });
         }
+    }
+    onClickReviewFilter(grade, event)
+    {
+        this.reviewsFilterGrade = (this.reviewsFilterGrade != grade) ? grade : null;
+        event.preventDefault();
+        
+        this.filteringReviews = true;
+        
+        setTimeout(() =>
+        {
+            if (this.reviewsFilterGrade == null)
+            {
+                this.separateReviews();
+            }
+            else
+            {
+                this.separateReviews(this.reviewsFilterGrade);
+            }
+            
+            this.filteringReviews = false;
+            
+        }, 600);
+    }
+    getTotalReviews(grade)
+    {
+        let total = 0;
+        
+        if (grade != null)
+        {
+            let filteredReviews = this.courseObj.course.academy.reviews
+                                    .filter((review) =>
+                                    {
+                                        return review.grade == grade;
+                                    });
+                                    
+            total = filteredReviews.length;
+        }
+        
+        return total;
     }
 
     @HostListener('window:scroll')

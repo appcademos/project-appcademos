@@ -19,7 +19,9 @@
         cursor: pointer;
     }
     .prev-button.slick-disabled,
-    .next-button.slick-disabled
+    .next-button.slick-disabled,
+    .prev-button.slick-hidden,
+    .next-button.slick-hidden
     {
         display: none !important;
     }
