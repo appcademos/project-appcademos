@@ -324,6 +324,16 @@ h2
             padding-bottom: 15px;
             min-width: 170px;
         }
+        .bookingInfo
+        {
+            display: none;
+            
+            &.fixed
+            {
+                display: block;
+                text-align: center;
+            }
+        }
         .fixed-button
         {
             display: none;
@@ -332,8 +342,8 @@ h2
             bottom: 0;
             left: 0;
             right: 0;
-            background: -webkit-linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1) 60%);
-            background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1) 60%);
+            background: -webkit-linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1) 70%);
+            background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1) 70%);
             padding: 12px 20px 20px;
         }
         .old-price
@@ -342,6 +352,13 @@ h2
             text-decoration: line-through;
             color: $black-50;
         }
+    }
+    .bookingInfo
+    {
+        margin-top: 6px;
+        font-size: 13px;
+        color: $black-60;
+        font-weight: 500;
     }
 }
 
