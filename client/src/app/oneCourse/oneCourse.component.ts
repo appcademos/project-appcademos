@@ -51,10 +51,12 @@ export class OneCourseComponent
                 private router: Router,
                 private messageService: MessageService)
     {
-
+        console.log('Contructor');
     }
     ngOnInit()
     {        
+        console.log('ngOnInit');
+        
         this.activatedRoute.queryParams.subscribe(queryParams =>
         {
             if (queryParams.id)
@@ -148,9 +150,7 @@ export class OneCourseComponent
                 coursesCarousel.off('breakpoint', '**');
                 
                 coursesCarousel.on('init', () =>
-                {
-                    console.log('slick init');
-                    
+                {                    
                     this.reviewsCarouselReady = true;
                     $('#reviews .carousel .slick-list').css('overflow', 'visible');
 
@@ -176,8 +176,6 @@ export class OneCourseComponent
                     prevArrow: $('#reviews .carousel-container .prev-button'),
                     nextArrow: $('#reviews .carousel-container .next-button')
                 });
-                
-                console.log('onReviewsLoopFinished');
             }
         }
     }

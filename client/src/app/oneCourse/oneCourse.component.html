@@ -253,7 +253,7 @@
             </div>
         </section>
 
-        <section id="reviews">
+        <section id="reviews" *ngIf="reviews != null">
             <h2>Opiniones verificadas de alumnos</h2>
             <div class="rating">
                 <ngb-rating [(rate)]="reviewsAverage" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
