@@ -324,6 +324,16 @@ h2
             padding-bottom: 15px;
             min-width: 170px;
         }
+        .bookingInfo
+        {
+            display: none;
+            
+            &.fixed
+            {
+                display: block;
+                text-align: center;
+            }
+        }
         .fixed-button
         {
             display: none;
@@ -332,8 +342,8 @@ h2
             bottom: 0;
             left: 0;
             right: 0;
-            background: -webkit-linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1) 60%);
-            background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1) 60%);
+            background: -webkit-linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1) 70%);
+            background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1) 70%);
             padding: 12px 20px 20px;
         }
         .old-price
@@ -343,9 +353,16 @@ h2
             color: $black-50;
         }
     }
+    .bookingInfo
+    {
+        margin-top: 6px;
+        font-size: 13px;
+        color: $black-60;
+        font-weight: 500;
+    }
 }
 
-#warning-box
+.warning-box
 {
     background: rgba(236,201,0,0.12);
     border: 1px solid rgba(236,201,0,0.32);
@@ -475,7 +492,7 @@ h2
     padding-bottom: 48px;
     border-bottom: 1px solid $black-16;
 
-    > .rating
+    & > .rating
     {
         margin-top: 12px;
         display: flex;
@@ -515,7 +532,8 @@ h2
         position: relative;
         overflow: hidden;
 
-        .overlay
+
+        & > .overlay
         {
             pointer-events: none;
             position: absolute;
@@ -530,19 +548,24 @@ h2
         .prev-button,
         .next-button
         {
+            display: none;
             position: absolute;
             z-index: 2;
             height: 48px;
             width: 48px;
             top: 50%;
             transform: translate(0,-50%);
-            display: flex !important;
             justify-content: center;
             align-items: center;
             background: white;
             border-radius: 50%;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.32);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.24);
             cursor: pointer;
+            
+            &.slick-arrow
+            {
+                display: flex !important;
+            }
         }
         .prev-button.slick-disabled,
         .next-button.slick-disabled,
@@ -553,7 +576,7 @@ h2
         }
         .prev-button
         {
-            left: 12px;
+            left: 8px;
 
             i
             {
@@ -562,7 +585,7 @@ h2
         }
         .next-button
         {
-            right: 12px;
+            right: 8px;
 
             i
             {
@@ -574,6 +597,12 @@ h2
             z-index: 1;
             position: relative;
             width: 70%;
+            opacity: 0;
+            
+            &.slick-initialized
+            {
+                opacity: 1;
+            }
         }
         .review-group
         {
@@ -644,6 +673,43 @@ h2
                     overflow: hidden;
                     color: $yellow-star-color;
                 }
+            }
+        }
+    
+        .warning-box
+        {
+            position: relative;
+            margin-top: 0;
+            margin-bottom: 0;
+            z-index: 3;
+        }
+    
+        .loading
+        {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            .overlay
+            {
+                background: rgba(255,255,255,0.8);
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 1;
+            }
+            .spinner
+            {
+                position: relative;
+                z-index: 2;
             }
         }
     }
@@ -730,6 +796,62 @@ h2
                 overflow: hidden;
                 color: $yellow-star-color;
             }
+        }
+    }
+    
+    .reviews-filter
+    {
+        display: inline-block;
+        padding: 12px 40px 12px 16px;
+        margin-top: 20px;
+        border: 1px solid $border-color;
+        border-radius: 4px;
+        
+        .title
+        {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: $black-80;
+        }
+        
+        .filter
+        {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4px;
+            
+            app-radio
+            {
+                margin-right: 12px;
+            }
+            
+            .totalReviews
+            {
+                margin-left: 12px;
+                font-size: 13px;
+                color: $black-80;
+            }
+        }
+        
+        .star
+        {
+            position: relative;
+            display: inline-block;
+            color: rgba(72,72,72,0.16);
+            font-size: 18px;
+            margin-right: 4px;
+        }
+        .full
+        {
+            color: $yellow-star-color;
+        }
+        .half
+        {
+            position: absolute;
+            display: inline-block;
+            overflow: hidden;
+            color: $yellow-star-color;
         }
     }
 }

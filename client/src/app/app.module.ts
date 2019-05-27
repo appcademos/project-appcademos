@@ -49,6 +49,7 @@ import { CookiesBoxComponent } from './cookies-box/cookies-box.component';
 import { CookiesComponent } from './cookies/cookies.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
+import { RadioComponent } from './radio/radio.component';
 
 @NgModule({
    declarations: [
@@ -80,6 +81,7 @@ import { CheckboxComponent } from './checkbox/checkbox.component';
       CookiesComponent,
       PrivacyPolicyComponent,
       CheckboxComponent,
+      RadioComponent,
    ],
 
 imports: [

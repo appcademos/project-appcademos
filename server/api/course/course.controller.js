@@ -55,7 +55,7 @@ const getAll = (req, res) => {
 const getSearched = (req, res, next) => {
 
   let courseReviews = [];
-  let query = req.query.course.replace(/'+'/g, '[\s]');
+  let query = req.query.course.replace(/'+'/g, '[\s]').normalize('NFD').replace(/[\u0300-\u036f]/g, "");
 
   Course.find({
       $or: [{

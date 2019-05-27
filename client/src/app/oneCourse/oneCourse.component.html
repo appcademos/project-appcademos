@@ -89,15 +89,17 @@
                         </div>
                     </div>
                     <div class="button light-shadow" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">Reservar clase de prueba</div>
+                    <div class="bookingInfo">*Sin tarjeta de crédito</div>
                     <div class="fixed-button">
                         <div class="button light-shadow" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">Reservar clase de prueba</div>
+                        <div class="bookingInfo fixed">*Sin tarjeta de crédito</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="warning-box" *ngIf="showWarningbox">
-            <b>*Importante: Este curso es para mejorar tu inglés y conseguir un nivel de B2</b> según el Marco Común Europeo. Este curso NO es para prepararte ningún examen certificado.
+        <section class="warning-box" *ngIf="showWarningbox">
+            <b>*Importante: Este curso es para mejorar tu inglés y conseguir un nivel de {{ courseObj.course.tags[0].toUpperCase() }}</b> según el Marco Común Europeo. Este curso NO es para prepararte ningún examen certificado.
         </section>
 
         <section id="expandible-info">
@@ -251,18 +253,48 @@
             </div>
         </section>
 
-        <section id="reviews">
+        <section id="reviews" *ngIf="reviews != null">
             <h2>Opiniones verificadas de alumnos</h2>
             <div class="rating">
                 <ngb-rating [(rate)]="reviewsAverage" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
                 <p> ·&nbsp;&nbsp;&nbsp;{{ courseObj.course.academy.reviews.length }} Opiniones</p>
             </div>
+            
+            <div class="reviews-filter noselect">
+                <div class="title">Puntuación de alumnos</div>
+                <form>
+                    <div class="filter" (click)="onClickReviewFilter(5, $event)">
+                        <app-radio name="reviewsfilter" [checked]="reviewsFilterGrade === 5"></app-radio>
+                        <ngb-rating rate="5" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
+                        <div class="totalReviews">{{ getTotalReviews(5) }}</div>
+                    </div>
+                    <div class="filter" (click)="onClickReviewFilter(4, $event)">
+                        <app-radio name="reviewsfilter" [checked]="reviewsFilterGrade === 4"></app-radio>
+                        <ngb-rating rate="4" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
+                        <div class="totalReviews">{{ getTotalReviews(4) }}</div>
+                    </div>
+                    <div class="filter" (click)="onClickReviewFilter(3, $event)">
+                        <app-radio name="reviewsfilter" [checked]="reviewsFilterGrade === 3"></app-radio>
+                        <ngb-rating rate="3" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
+                        <div class="totalReviews">{{ getTotalReviews(3) }}</div>
+                    </div>
+                    <div class="filter" (click)="onClickReviewFilter(2, $event)">
+                        <app-radio name="reviewsfilter" [checked]="reviewsFilterGrade === 2"></app-radio>
+                        <ngb-rating rate="2" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
+                        <div class="totalReviews">{{ getTotalReviews(2) }}</div>
+                    </div>
+                    <div class="filter" (click)="onClickReviewFilter(1, $event)">
+                        <app-radio name="reviewsfilter" [checked]="reviewsFilterGrade === 1"></app-radio>
+                        <ngb-rating rate="1" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
+                        <div class="totalReviews">{{ getTotalReviews(1) }}</div>
+                    </div>
+                </form>
+            </div>
 
+            
             <div class="carousel-container" [style.opacity]="reviewsCarouselReady ? 1 : 0">
                 <div class="carousel">
                     <div class="review-group" *ngFor="let reviewGroup of reviews; let last = last">
-                        {{ onReviewsLoopFinished(last) }}
-
                         <div class="review" *ngFor="let review of reviewGroup">
                             <div class="icon size-44 icon-avatar-green"></div>
                             <div>
@@ -284,6 +316,16 @@
                 </div>
                 <div class="next-button">
                     <i class="icon size-22 icon-arrow-right"></i>
+                </div>
+                
+                <div class="warning-box" *ngIf="reviews.length === 0">
+                    No se han encontrado opiniones.<br/>
+                    Prueba a cambiar el <span class="fw-600">filtro de puntuación</span>.
+                </div>
+                
+                <div class="loading" [hidden]="!filteringReviews">
+                    <div class="spinner green"></div>
+                    <div class="overlay"></div>
                 </div>
             </div>
 

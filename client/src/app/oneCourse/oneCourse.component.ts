@@ -38,6 +38,9 @@ export class OneCourseComponent
     publishingComment: boolean = false;
     commentPublished: boolean = false;
     updateReviews: boolean = false;
+    
+    reviewsFilterGrade: number;
+    filteringReviews: boolean = false;
 
     constructor(private courseService: CoursesService,
                 private academyService: AcademySessionService,
@@ -48,29 +51,45 @@ export class OneCourseComponent
                 private router: Router,
                 private messageService: MessageService)
     {
-
+        console.log('Contructor');
     }
     ngOnInit()
-    {
-        this.activatedRouteSubscription = this.activatedRoute.params.subscribe(params =>
+    {        
+        console.log('ngOnInit');
+        
+        this.activatedRoute.queryParams.subscribe(queryParams =>
         {
-            this.courseObj = undefined;
-            this.reviewsAverage = undefined;
-            this.reviews = undefined;
-            this.map = undefined;
-            this.similarCourses = [];
-            this.courseImages = [];
-            this.currentGalleryImage = undefined;
-            this.showWarningbox = false;
-
-            this.routeCourseId = params.id;
-            this.getCourse();
+            if (queryParams.id)
+            {
+                this.init(queryParams.id)
+            }
+            else
+            {
+                this.activatedRouteSubscription = this.activatedRoute.params.subscribe(params =>
+                {
+                    this.init(params.id)
+                });
+            }
         });
     }
     ngOnDestroy()
     {
         if (this.activatedRouteSubscription != null)
             this.activatedRouteSubscription.unsubscribe();
+    }
+    init(courseId)
+    {
+        this.courseObj = undefined;
+        this.reviewsAverage = undefined;
+        this.reviews = undefined;
+        this.map = undefined;
+        this.similarCourses = [];
+        this.courseImages = [];
+        this.currentGalleryImage = undefined;
+        this.showWarningbox = false;
+
+        this.routeCourseId = courseId;
+        this.getCourse();
     }
 
     getCourse()
@@ -127,14 +146,18 @@ export class OneCourseComponent
 
             if (!coursesCarousel.hasClass('slick-initialized'))
             {
+                coursesCarousel.off('init', '**');
+                coursesCarousel.off('breakpoint', '**');
+                
                 coursesCarousel.on('init', () =>
-                {
+                {                    
                     this.reviewsCarouselReady = true;
                     $('#reviews .carousel .slick-list').css('overflow', 'visible');
 
                     if (this.goToLastComment)
                     {
-                        setTimeout(() => { coursesCarousel.slick('slickGoTo', this.reviews.length); });
+                        this.utils.scrollToElement('#reviews');
+                        setTimeout(() => { coursesCarousel.slick('slickGoTo', this.reviews.length); }, 600);
 
                         this.goToLastComment = false;
                     }
@@ -155,24 +178,6 @@ export class OneCourseComponent
                 });
             }
         }
-    }
-    separateReviews()
-    {
-        let allAcademies = this.courseObj.course.academy.reviews;
-        let reviews = [];
-        //const NUMBER_OF_ROWS = (allAcademies.length > 4) ? 3 : 2;
-        const NUMBER_OF_ROWS = 2;
-
-        for (let i = 0; i < allAcademies.length; i=i+NUMBER_OF_ROWS)
-        {
-            let divisionArr = allAcademies.slice(i,i+NUMBER_OF_ROWS);
-            reviews.push(divisionArr);
-        }
-
-        let coursesCarousel = $('#reviews .carousel');
-        coursesCarousel.slick('unslick');
-
-        this.reviews = reviews;
     }
     setMap()
     {
@@ -235,12 +240,50 @@ export class OneCourseComponent
     }
     setShowWarningbox()
     {
-        const coursesToShowWarningbox = ['5b98fc7383a7d478967eead0', '5b98fde083a7d478967eead3', '5b99045483a7d478967eead7', '5b99059283a7d478967eeada', '5b990b7183a7d478967eeadd'];
-
-        if (coursesToShowWarningbox.includes(this.courseObj.course._id))
+        const warningTags = ['b1', 'b2', 'c1']
+        
+        if (warningTags.includes(this.courseObj.course.tags[0]))
             this.showWarningbox = true;
     }
 
+    separateReviews(filterGrade?)
+    {
+        let allReviews = this.courseObj.course.academy.reviews;
+        if (filterGrade != null)
+        {
+            allReviews = this.courseObj.course.academy.reviews
+                        .filter((review) =>
+                        {
+                            return review.grade == filterGrade;
+                        });
+        }
+        else
+        {
+            this.reviewsFilterGrade = null;
+        }
+        
+        let reviews = []
+        //const NUMBER_OF_ROWS = (allReviews.length > 4) ? 3 : 2;
+        const NUMBER_OF_ROWS = 2;
+
+        for (let i = 0; i < allReviews.length; i=i+NUMBER_OF_ROWS)
+        {
+            let divisionArr = allReviews.slice(i,i+NUMBER_OF_ROWS);
+            reviews.push(divisionArr);
+        }
+
+        let coursesCarousel = $('#reviews .carousel');
+        coursesCarousel.slick('unslick');
+        
+        setTimeout(() =>
+        {
+            this.reviews = reviews;
+            setTimeout(() =>
+            {
+                this.onReviewsLoopFinished(true);
+            }, 10);
+        }, 10);
+    }
     validateComment()
     {
         var allOk = true;
@@ -306,6 +349,45 @@ export class OneCourseComponent
         {
             this.messageService.sendMessage({ showLogin: true });
         }
+    }
+    onClickReviewFilter(grade, event)
+    {
+        this.reviewsFilterGrade = (this.reviewsFilterGrade != grade) ? grade : null;
+        event.preventDefault();
+        
+        this.filteringReviews = true;
+        
+        setTimeout(() =>
+        {
+            if (this.reviewsFilterGrade == null)
+            {
+                this.separateReviews();
+            }
+            else
+            {
+                this.separateReviews(this.reviewsFilterGrade);
+            }
+            
+            this.filteringReviews = false;
+            
+        }, 600);
+    }
+    getTotalReviews(grade)
+    {
+        let total = 0;
+        
+        if (grade != null)
+        {
+            let filteredReviews = this.courseObj.course.academy.reviews
+                                    .filter((review) =>
+                                    {
+                                        return review.grade == grade;
+                                    });
+                                    
+            total = filteredReviews.length;
+        }
+        
+        return total;
     }
 
     @HostListener('window:scroll')
