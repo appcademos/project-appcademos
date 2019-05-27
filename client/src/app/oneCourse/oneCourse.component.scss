@@ -325,9 +325,7 @@ h2
             min-width: 170px;
         }
         .bookingInfo
-        {
-            display: none;
-            
+        {            
             &.fixed
             {
                 display: block;
@@ -905,6 +903,10 @@ h2
         .col-section.price
         {
             & > .button
+            {
+                display: none;
+            }
+            .bookingInfo
             {
                 display: none;
             }
