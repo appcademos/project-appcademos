@@ -36,7 +36,8 @@ export class CourseCardComponent implements OnInit
         let params = []
 
         if (this.course.academy.district != null && this.course.academy.district.length > 0 &&
-            this.course.academy.city     != null && this.course.academy.city.length > 0)
+            this.course.academy.city     != null && this.course.academy.city.length > 0 &&
+            this.course.duration         != null)
         {
             params[0] = '/course';
             params[1] = this.course.tags[0];

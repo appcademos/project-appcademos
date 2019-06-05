@@ -1,4 +1,4 @@
-import { Component, ViewChild, HostListener } from "@angular/core";
+import { Component, ViewChild, HostListener, OnInit, OnDestroy } from "@angular/core";
 import { CoursesService } from "../../services/courses.service";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
@@ -9,6 +9,7 @@ import { } from '@types/googlemaps';
 declare var $: any;
 import { MessageService } from '../../services/message.service';
 import { AcademySessionService } from '../../services/academySession.service';
+import { MetaService } from '@ngx-meta/core';
 
 const MOBILE_WIDTH = 870;
 
@@ -17,7 +18,7 @@ const MOBILE_WIDTH = 870;
   templateUrl: "./oneCourse.component.html",
   styleUrls: ["./oneCourse.component.scss"]
 })
-export class OneCourseComponent
+export class OneCourseComponent implements OnInit, OnDestroy
 {
     @ViewChild('map') mapDiv: any;
 
@@ -49,14 +50,14 @@ export class OneCourseComponent
                 private utils: UtilsService,
                 private usersService: UserSessionService,
                 private router: Router,
-                private messageService: MessageService)
+                private messageService: MessageService,
+                private readonly meta: MetaService)
     {
-        console.log('Contructor');
+        
     }
     ngOnInit()
-    {        
-        console.log('ngOnInit');
-        
+    {
+        this.setMetaData();
         this.activatedRoute.queryParams.subscribe(queryParams =>
         {
             if (queryParams.id)
@@ -74,6 +75,8 @@ export class OneCourseComponent
     }
     ngOnDestroy()
     {
+        console.log('ngOnDestroy');
+        this.removeMetaData();
         if (this.activatedRouteSubscription != null)
             this.activatedRouteSubscription.unsubscribe();
     }
@@ -99,6 +102,7 @@ export class OneCourseComponent
             this.courseService.getCourse(this.routeCourseId).subscribe(() =>
             {
                 this.courseObj = this.courseService.viewCourse;
+                this.setMetaData();
 
                 if (!this.updateReviews)
                 {
@@ -388,6 +392,22 @@ export class OneCourseComponent
         }
         
         return total;
+    }
+    
+    setMetaData()
+    {
+        if (this.courseObj != null && this.courseObj.course != null)
+        {
+            this.meta.setTitle(`${this.courseObj.course.title} | Academia en Madrid | Appcademos`);
+        }
+        
+        this.meta.setTag('description', `Reserva de plaza gratuita. Precios, Horarios, Material, Temario... Toda la información actualizada a diario y opiniones de otros alumnos.`);
+    }
+    removeMetaData()
+    {
+        this.meta.setTitle(null);
+        this.meta.removeTag('name="description"');
+        this.meta.removeTag('property="og:description"');
     }
 
     @HostListener('window:scroll')

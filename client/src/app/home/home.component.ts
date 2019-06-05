@@ -3,6 +3,7 @@ import { CoursesService } from "../../services/courses.service";
 import { Router } from "@angular/router";
 import { UtilsService } from '../../services/utils.service';
 import { SearchboxComponent } from '../searchbox/searchbox.component';
+import { MetaService } from '@ngx-meta/core';
 
 const MOBILE_WIDTH = 870;
 
@@ -24,7 +25,10 @@ export class HomeComponent
     showFixedSearchbar: boolean = false;
     heroHeight: number = undefined;
 
-    constructor(private courses: CoursesService, private router: Router, utils: UtilsService)
+    constructor(private courses: CoursesService,
+                private router: Router,
+                utils: UtilsService,
+                private readonly meta: MetaService)
     {
         this.courses.searching = true; // Prevent server delay from showing previous results on courses page
         this.courses.getAll()
@@ -36,6 +40,10 @@ export class HomeComponent
 
         document.addEventListener('click', this.onClickAnywhere.bind(this));
     }
+    ngOnInit()
+    {
+        this.setMetaData();
+    }
     ngAfterViewInit()
     {
         setTimeout(() =>
@@ -43,6 +51,10 @@ export class HomeComponent
             let hero = <HTMLElement>document.getElementById('hero');
             this.heroHeight = hero.offsetHeight;
         });
+    }
+    ngOnDestroy()
+    {
+        this.removeMetaData();
     }
 
     findCourses(query)
@@ -79,6 +91,16 @@ export class HomeComponent
     {
         if (!this.showFixedSearchbar && window.innerWidth <= MOBILE_WIDTH)
             this.utils.scrollToElement('#searchbox', 300, 20);
+    }
+
+    setMetaData()
+    {
+        this.meta.setTag('description', `Compara las opiniones de otros alumnos que han ido al curso antes que tú y reserva tu plaza gratuitamente desde la web.`);
+    }
+    removeMetaData()
+    {
+        this.meta.removeTag('name="description"');
+        this.meta.removeTag('property="og:description"');
     }
 
     @HostListener("window:scroll", [])
