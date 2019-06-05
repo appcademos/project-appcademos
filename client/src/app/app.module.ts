@@ -10,6 +10,7 @@ import { environment } from "../environments/environment.prod";
 // LIBRARIES
 import { AgmCoreModule } from "@agm/core";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
 
 // SERVICES
 import { AcademySessionService } from "../services/academySession.service";
@@ -50,6 +51,18 @@ import { CookiesComponent } from './cookies/cookies.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { RadioComponent } from './radio/radio.component';
+
+export function metaFactory(): MetaLoader
+{
+    return new MetaStaticLoader(
+    {
+        pageTitlePositioning: PageTitlePositioning.PrependPageTitle,
+        defaults:
+        {
+            title: 'Compara las Mejores Academias de Inglés en Madrid | Appcademos'
+        }
+    });
+}
 
 @NgModule({
    declarations: [
@@ -94,7 +107,11 @@ imports: [
   HttpModule,
   NgbModule.forRoot(),
   ReactiveFormsModule,
-  RouterModule.forRoot(routes)
+  RouterModule.forRoot(routes),
+  MetaModule.forRoot({
+    provide: MetaLoader,
+    useFactory: (metaFactory)
+  })
 ],
 providers: [
   AcademySessionService,

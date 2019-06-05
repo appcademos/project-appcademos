@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { SearchboxComponent } from '../searchbox/searchbox.component';
 import { Location } from '@angular/common';
 import { UtilsService } from '../../services/utils.service';
+import { MetaService } from '@ngx-meta/core';
 
 const ORDER_RELEVANCE = 1;
 const ORDER_PRICE_DESCENDING = 2;
@@ -42,7 +43,8 @@ export class AllCoursesComponent
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
                 private location: Location,
-                private utils: UtilsService)
+                private utils: UtilsService,
+                private readonly meta: MetaService)
     {
         this.courseService.searching = true;
 
@@ -56,6 +58,8 @@ export class AllCoursesComponent
             {
                 this.activatedRoute.queryParams.subscribe(params =>
                 {
+                    this.setMetaData(false, params.course);
+                    
                     if (params.course.length !== 0)
                     {
                         this.searchboxComponent.setInputValue(params.course);
@@ -66,6 +70,7 @@ export class AllCoursesComponent
             }
             else
             {
+                this.setMetaData(true);
                 this.searchboxComponent.setInputValue('');
                 this.fixedSearchboxComponent.setInputValue('');
                 this.findCourses(null, true);
@@ -79,6 +84,10 @@ export class AllCoursesComponent
             let theSearchView = <HTMLElement>document.getElementsByClassName('search-view')[0];
             this.searchbarOffsetTop = theSearchView.offsetTop + theSearchView.offsetHeight;
         });
+    }
+    ngOnDestroy()
+    {
+        this.removeMetaData();
     }
 
     findCourses(query, all = false)
@@ -179,6 +188,27 @@ export class AllCoursesComponent
     {
         if (!this.showFixedSearchbar && window.innerWidth <= MOBILE_WIDTH)
             this.utils.scrollToElement('#searchbox', 300, 20);
+    }
+    
+    setMetaData(isSearchingAllCourses: boolean, searchText?: string)
+    {
+        if (!isSearchingAllCourses && searchText != null)
+        {
+            this.meta.setTitle(`Comparador Cursos ${searchText} en Madrid | Appcademos`);
+            this.meta.setTag('description', `Compara los cursos de ${searchText} de las mejores academias en Madrid.`);
+        }
+        else
+        {
+            this.meta.setTitle(`Comparador Cursos de Inglés en Madrid | Appcademos`);
+            this.meta.setTag('description', `Compara los cursos de las mejores academias de Inglés en Madrid.`);
+        }
+    }
+    removeMetaData()
+    {
+        this.meta.setTitle(null);
+        this.meta.removeTag('name="description"');
+        this.meta.removeTag('property="og:title"');
+        this.meta.removeTag('property="og:description"');
     }
 
     @HostListener("window:scroll", [])
