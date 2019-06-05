@@ -10,7 +10,7 @@ import { environment } from "../environments/environment.prod";
 // LIBRARIES
 import { AgmCoreModule } from "@agm/core";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { MetaModule, MetaLoader, MetaStaticLoader } from '@ngx-meta/core';
+import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
 
 // SERVICES
 import { AcademySessionService } from "../services/academySession.service";
@@ -56,6 +56,7 @@ export function metaFactory(): MetaLoader
 {
     return new MetaStaticLoader(
     {
+        pageTitlePositioning: PageTitlePositioning.PrependPageTitle,
         defaults:
         {
             title: 'Compara las Mejores Academias de Inglés en Madrid | Appcademos'

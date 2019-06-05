@@ -58,7 +58,7 @@ export class AllCoursesComponent
             {
                 this.activatedRoute.queryParams.subscribe(params =>
                 {
-                    this.setMetaData({ isSearchingAllCourses: false, searchText: params.course });
+                    this.setMetaData(false, params.course);
                     
                     if (params.course.length !== 0)
                     {
@@ -70,7 +70,7 @@ export class AllCoursesComponent
             }
             else
             {
-                this.setMetaData({ isSearchingAllCourses: true });
+                this.setMetaData(true);
                 this.searchboxComponent.setInputValue('');
                 this.fixedSearchboxComponent.setInputValue('');
                 this.findCourses(null, true);
@@ -190,7 +190,7 @@ export class AllCoursesComponent
             this.utils.scrollToElement('#searchbox', 300, 20);
     }
     
-    setMetaData({ isSearchingAllCourses, searchText })
+    setMetaData(isSearchingAllCourses: boolean, searchText?: string)
     {
         if (!isSearchingAllCourses && searchText != null)
         {
