@@ -407,6 +407,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
     {
         this.meta.setTitle(null);
         this.meta.removeTag('name="description"');
+        this.meta.removeTag('property="og:title"');
         this.meta.removeTag('property="og:description"');
     }
 
