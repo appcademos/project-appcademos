@@ -8,9 +8,12 @@ export class UtilsService
 
     scrollToElement(selector: string, duration: number = 600, extraSpaceTop: number = 0)
     {
-        $('html, body').animate(
+        if (selector != null && $(selector) != null && $(selector).length > 0)
         {
-            scrollTop: $(selector).offset().top - extraSpaceTop
-        }, duration);
+            $('html, body').animate(
+            {
+                scrollTop: $(selector).offset().top - extraSpaceTop
+            }, duration);
+        }
     }
 }
