@@ -18,15 +18,8 @@
 <section id="top-banner">
     <div class="responsive-container">
         <div class="card-banner fw-600 text-center color-black-80">
-            ¿No sabes tu nivel de inglés o qué certificado sacarte? <span (click)="utils.scrollToElement('footer')" class="color-red underlined cursor-pointer">Contacta con nosotros</span>
+            ¿No sabes tu nivel de inglés o qué certificado sacarte? <span (click)="onClickScrollToContact()" class="color-red underlined cursor-pointer">Contacta con nosotros</span>
         </div>
-    </div>
-</section>
-
-<section id="featured">
-    <div class="responsive-container">
-        <h2>Cursos más buscados</h2>
-        <app-courses-carousel [courses]="featuredCourses"></app-courses-carousel>
     </div>
 </section>
 

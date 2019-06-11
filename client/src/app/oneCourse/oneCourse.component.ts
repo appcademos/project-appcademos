@@ -75,7 +75,6 @@ export class OneCourseComponent implements OnInit, OnDestroy
     }
     ngOnDestroy()
     {
-        console.log('ngOnDestroy');
         this.removeMetaData();
         if (this.activatedRouteSubscription != null)
             this.activatedRouteSubscription.unsubscribe();

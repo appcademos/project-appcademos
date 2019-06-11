@@ -19,25 +19,14 @@ export class HomeComponent
     @ViewChild('searchbox') searchboxComponent: SearchboxComponent;
     @ViewChild('fixedsearchbox') fixedSearchboxComponent: SearchboxComponent;
 
-    utils: UtilsService;
-
-    featuredCourses: any;
     showFixedSearchbar: boolean = false;
     heroHeight: number = undefined;
 
     constructor(private courses: CoursesService,
                 private router: Router,
-                utils: UtilsService,
+                private utils: UtilsService,
                 private readonly meta: MetaService)
     {
-        this.courses.searching = true; // Prevent server delay from showing previous results on courses page
-        this.courses.getAll()
-        .subscribe(data =>
-        {
-            this.featuredCourses = this.courses.foundCourses.slice(0,6);
-        },
-        error => console.log(error));
-
         document.addEventListener('click', this.onClickAnywhere.bind(this));
     }
     ngOnInit()
@@ -91,6 +80,10 @@ export class HomeComponent
     {
         if (!this.showFixedSearchbar && window.innerWidth <= MOBILE_WIDTH)
             this.utils.scrollToElement('#searchbox', 300, 20);
+    }
+    onClickScrollToContact()
+    {
+        this.utils.scrollToElement('footer');
     }
 
     setMetaData()
