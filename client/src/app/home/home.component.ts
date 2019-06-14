@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { UtilsService } from '../../services/utils.service';
 import { SearchboxComponent } from '../searchbox/searchbox.component';
 import { MetaService } from '@ngx-meta/core';
+import { SeoService } from '../../services/seo.service';
 
 const MOBILE_WIDTH = 870;
 
@@ -25,7 +26,8 @@ export class HomeComponent
     constructor(private courses: CoursesService,
                 private router: Router,
                 private utils: UtilsService,
-                private readonly meta: MetaService)
+                private readonly meta: MetaService,
+                private seoService: SeoService)
     {
         document.addEventListener('click', this.onClickAnywhere.bind(this));
     }
@@ -89,11 +91,13 @@ export class HomeComponent
     setMetaData()
     {
         this.meta.setTag('description', `Compara las opiniones de otros alumnos que han ido al curso antes que tú y reserva tu plaza gratuitamente desde la web.`);
+        this.seoService.setCanonical('https://www.appcademos.com');
     }
     removeMetaData()
     {
         this.meta.removeTag('name="description"');
         this.meta.removeTag('property="og:description"');
+        this.seoService.removeCanonical();
     }
 
     @HostListener("window:scroll", [])

@@ -20,6 +20,7 @@ import { MapMarkersService } from "../services/map-markers.service";
 import { UserSessionService } from "../services/userSession.service";
 import { UtilsService } from "../services/utils.service";
 import { MessageService } from "../services/message.service";
+import { SeoService } from "../services/seo.service";
 
 // COMPONENTS
 import { AcademyComponent } from "./academy/academy.component";
@@ -120,7 +121,8 @@ providers: [
   MapMarkersService,
   UserSessionService,
   MessageService,
-  UtilsService
+  UtilsService,
+  SeoService
 ],
 bootstrap: [AppComponent]
 })
