@@ -1,4 +1,4 @@
-<label class="checkboxContainer">
-    <input type="checkbox" (change)="onChange.emit($event.target.checked)">
+<label [ngClass]="{ 'checkboxContainer': true, 'red': red }">
+    <input type="checkbox" [(ngModel)]="isChecked" [ngModelOptions]="{standalone: true}" (change)="onCheck()">
     <span class="checkmark"></span>
 </label>

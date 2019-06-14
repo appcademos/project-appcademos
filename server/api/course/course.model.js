@@ -41,6 +41,10 @@ const courseSchema = new Schema(
     academy: {
       type: Schema.Types.ObjectId,
       ref: "Academy"
+    },
+    isBooked: {
+        type: Boolean,
+        default: false
     }
   },
   {
