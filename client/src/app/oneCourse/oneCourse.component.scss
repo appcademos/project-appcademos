@@ -316,7 +316,8 @@ h2
         {
             margin-bottom: 4px;
         }
-        .button
+        .button,
+        .booked
         {
             display: block;
             margin-top: 20px;
@@ -343,6 +344,11 @@ h2
             background: -webkit-linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1) 70%);
             background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1) 70%);
             padding: 12px 20px 20px;
+            
+            .booked
+            {
+                background: #fff;
+            }
         }
         .old-price
         {
@@ -902,7 +908,8 @@ h2
         }
         .col-section.price
         {
-            & > .button
+            & > .button,
+            & > .booked
             {
                 display: none;
             }
