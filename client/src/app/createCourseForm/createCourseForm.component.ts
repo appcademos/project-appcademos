@@ -43,11 +43,14 @@ export class CreateCourseFormComponent implements OnInit
             this.startDate  = moment(this.course.startDate).format('DD/MM/YYYY');
             this.isBooked   = this.course.isBooked ? this.course.isBooked : false;
         }
+        else
+        {
+            this.isBooked = false;
+        }
     }
     
     onChangeIsBooked(checked)
     {
-        console.log('onChangeIsBooked', checked);
         this.isBooked = checked;
     }
 
@@ -104,9 +107,7 @@ export class CreateCourseFormComponent implements OnInit
 
             if (this.startDate != null && this.startDate.trim().length > 0)
                 courseDataToUpdate.startDate = moment(this.startDate + '', 'DD/MM/YYYY').toISOString();
-            
-            console.log(this.isBooked);
-            
+        
             if (this.isBooked != null)
                 courseDataToUpdate.isBooked = this.isBooked;
 
@@ -123,6 +124,8 @@ export class CreateCourseFormComponent implements OnInit
                     {
                         this.numCoursesUpdated = 0;
                         this.onCoursesUpdated.emit();
+                        
+                        this.resetCourseData();
                     }
                 },
                 error =>
@@ -170,5 +173,15 @@ export class CreateCourseFormComponent implements OnInit
                 });
             }
         }
+    }
+    resetCourseData()
+    {
+        this.title      = undefined;
+        this.duration   = undefined;
+        this.hours      = undefined;
+        this.price      = undefined;
+        this.oldPrice   = undefined;
+        this.startDate  = undefined;
+        this.isBooked   = false;
     }
 }

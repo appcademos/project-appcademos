@@ -1,6 +1,8 @@
 <a class="course-link" [routerLink]="params">
    <div class="course-item">
-     <div class="course-item-image" [ngStyle]="{ 'background-image': 'url(' + course.images[0].imagePath + ')' }" alt="course.images[0].imageName"></div>
+     <div class="course-item-image" [ngStyle]="{ 'background-image': 'url(' + course.images[0].imagePath + ')' }" alt="course.images[0].imageName">
+         <div class="course-tag" *ngIf="course.isBooked">COMPLETO</div>
+     </div>
 
      <div class="course-body">
         <div class="course-academy-container">

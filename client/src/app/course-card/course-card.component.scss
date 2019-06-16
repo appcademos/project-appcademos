@@ -20,6 +20,8 @@
 
 .course-item-image
 {
+    position: relative;
+    z-index: -1;
     height: 180px;
     background-repeat: no-repeat;
     background-size: cover;
@@ -127,4 +129,21 @@
         color: $black-50;
         margin-right: 12px;
     }
+}
+.course-tag
+{
+    position: absolute;
+    top: 12px;
+    left: auto;
+    right: 0;
+    transform: translate(8px,0);
+    height: 22px;
+    line-height: 22px;
+    border-radius: 3px;
+    background: $red-color;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 0 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
