@@ -88,11 +88,17 @@
                             <span class="price fs-24 fw-600 color-red">{{ courseObj.course.price }}€</span>
                         </div>
                     </div>
-                    <div class="button light-shadow" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">Reservar clase de prueba</div>
-                    <div class="bookingInfo">*Sin tarjeta de crédito</div>
+                    
+                    <div class="button light-shadow" *ngIf="!courseObj.course.isBooked" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">Reservar clase de prueba</div>
+                    <div class="bookingInfo" *ngIf="!courseObj.course.isBooked">*Sin tarjeta de crédito</div>
+                    
+                    <div class="booked label-tag red large" *ngIf="courseObj.course.isBooked">COMPLETO</div>
+                    
                     <div class="fixed-button">
-                        <div class="button light-shadow" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">Reservar clase de prueba</div>
-                        <div class="bookingInfo fixed">*Sin tarjeta de crédito</div>
+                        <div class="button light-shadow" *ngIf="!courseObj.course.isBooked" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">Reservar clase de prueba</div>
+                        <div class="bookingInfo fixed" *ngIf="!courseObj.course.isBooked">*Sin tarjeta de crédito</div>
+                        
+                        <div class="booked label-tag red large" *ngIf="courseObj.course.isBooked">COMPLETO</div>
                     </div>
                 </div>
             </div>

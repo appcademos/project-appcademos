@@ -4,6 +4,9 @@ import { Router } from "@angular/router";
 import { UtilsService } from '../../services/utils.service';
 import { SearchboxComponent } from '../searchbox/searchbox.component';
 import { MetaService } from '@ngx-meta/core';
+import { SeoService } from '../../services/seo.service';
+import { Http } from "@angular/http";
+import { Observable } from "rxjs/Rx";
 
 const MOBILE_WIDTH = 870;
 
@@ -21,17 +24,23 @@ export class HomeComponent
 
     showFixedSearchbar: boolean = false;
     heroHeight: number = undefined;
+    igPosts = []
+    
+    IG_POSTS_IDS = ['BynuXCSC3Ay', 'Byf0E3NCmSw', 'ByP8Jb8lUEw']
 
     constructor(private courses: CoursesService,
                 private router: Router,
                 private utils: UtilsService,
-                private readonly meta: MetaService)
+                private readonly meta: MetaService,
+                private seoService: SeoService,
+                private http: Http)
     {
         document.addEventListener('click', this.onClickAnywhere.bind(this));
     }
     ngOnInit()
     {
         this.setMetaData();
+        this.getIgPosts();
     }
     ngAfterViewInit()
     {
@@ -89,11 +98,60 @@ export class HomeComponent
     setMetaData()
     {
         this.meta.setTag('description', `Compara las opiniones de otros alumnos que han ido al curso antes que tú y reserva tu plaza gratuitamente desde la web.`);
+        this.seoService.setCanonical('https://www.appcademos.com');
     }
     removeMetaData()
     {
         this.meta.removeTag('name="description"');
         this.meta.removeTag('property="og:description"');
+        this.seoService.removeCanonical();
+    }
+    
+    getIgPosts()
+    {
+        this.IG_POSTS_IDS.forEach((igPostId) =>
+        {
+            this.getIgPostInfo(igPostId)
+            .then(postData =>
+            {
+                if (postData != null)
+                {
+                    postData['id'] = igPostId;
+                    postData['flipped'] = false;
+                    this.igPosts.push(postData);
+                    this.igPosts.sort((a, b) =>
+                    {
+                        if (a.id == this.IG_POSTS_IDS[0])
+                            return -1;
+                        else if (b.id == this.IG_POSTS_IDS[0])
+                            return 1;
+                        else if (a.id == this.IG_POSTS_IDS[2])
+                            return 1;
+                        else if (b.id == this.IG_POSTS_IDS[2])
+                            return -1;
+                    });
+                }
+            });
+        });
+    }
+    getIgPostInfo(igPostId)
+    {
+        return new Promise((resolve, reject) =>
+        {
+            this.http
+            .get(`https://api.instagram.com/oembed?url=http://instagr.am/p/${igPostId}/`)
+            .map(res => res.json())
+            .subscribe(
+                data => resolve(data),
+                err => resolve(null)
+            );
+        });
+    }
+    onClickFlipIgPost(igPost, event)
+    {
+        event.stopPropagation();
+        this.igPosts.forEach(post => post.flipped = false);
+        igPost.flipped = true;
     }
 
     @HostListener("window:scroll", [])

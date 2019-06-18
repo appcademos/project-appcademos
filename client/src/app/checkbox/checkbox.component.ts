@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-checkbox',
@@ -7,7 +7,24 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class CheckboxComponent
 {
+    @Input() red: boolean;
+    @Input() checked: boolean;
     @Output() onChange: EventEmitter<any> = new EventEmitter();
+    
+    isChecked: boolean;
 
     constructor() { }
+    
+    onCheck()
+    {
+        this.onChange.emit(this.isChecked);
+    }
+    
+    ngOnChanges(changes)
+    {    
+        if (changes.checked && changes.checked.currentValue != this.isChecked)
+        {
+            this.isChecked = changes.checked.currentValue;
+        }
+    }
 }

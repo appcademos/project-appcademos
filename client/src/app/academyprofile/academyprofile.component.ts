@@ -34,7 +34,6 @@ export class AcademyprofileComponent implements OnInit
         .subscribe(() =>
         {
             this.academy = {...this.academyService.academy};
-            console.log(this.academy);
         },
         error =>
         {

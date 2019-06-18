@@ -85,16 +85,36 @@
 <section id="happy-users">
     <div class="background"></div>
     <div class="responsive-container">
-        <h2>Usuarios <span class="color-red">felices</span> con sus cursos</h2>
-        <div class="cards-container">
-            <div class="card-banner">
-                <div class="quote">“El trato es súper personalizado y profesional, te resuelven las dudas y te dan buen consejo.”</div>
-                <div class="author">Rita</div>
+        <h2>Ellos consiguieron su objetivo. <span class="color-red">¿Te unes?</span></h2>
+        <div class="posts-wrapper">
+            <a class="profile" href="https://www.instagram.com/appcademos/" target="_blank">
+                <div class="profile-image">
+                    <div class="profile-overlay">
+                        <i class="icon size-24 icon-instagram-white"></i>
+                    </div>
+                </div>
+                <div class="profile-title">appcademos</div>
+            </a>
+            <div class="posts-container">
+                <div [ngClass]="{'ig-post': true, 'flipped': igPost.flipped}" *ngFor="let igPost of igPosts">
+                    <div class="ig-post-inner">
+                        <div class="ig-post-front">
+                            <div class="image" [style.backgroundImage]="'url(' + igPost.thumbnail_url + ')'">
+                                <a href="{{'https://instagram.com/p/' + igPost.id}}" target="_blank"></a>
+                                <div class="button-mobile" (click)="onClickFlipIgPost(igPost, $event)">Click para conocer su historia</div>
+                            </div>
+                        </div>
+                        <div class="ig-post-back">
+                            <a href="{{'https://instagram.com/p/' + igPost.id}}" target="_blank"></a>
+                            <div class="description">{{ igPost.title }}</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="card-banner">
-                <div class="quote">“Fue muy fácil y rápido encontrar mi curso con esta web. Lo mejor, la asistencia telefónica. Me dieron los pros y contras de cada opción.”</div>
-                <div class="author">Ivis</div>
-            </div>
+            <a href="https://www.instagram.com/appcademos/" target="_blank" class="button medium dark">
+                <i class="icon size-20 icon-instagram-white"></i>
+                Descubre más
+            </a>
         </div>
     </div>
 </section>

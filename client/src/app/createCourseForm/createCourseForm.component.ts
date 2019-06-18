@@ -22,6 +22,7 @@ export class CreateCourseFormComponent implements OnInit
     title: String;
     hours: Number;
     startDate: String;
+    isBooked: boolean;
     sizeClass: Number;
     description: String;
     tags: [String];
@@ -33,14 +34,24 @@ export class CreateCourseFormComponent implements OnInit
     ngOnInit()
     {
         if (this.course)
-        {
+        {    
             this.title      = this.course.title;
             this.duration   = this.course.duration;
             this.hours      = this.course.hours;
             this.price      = this.course.price;
             this.oldPrice   = this.course.oldPrice;
             this.startDate  = moment(this.course.startDate).format('DD/MM/YYYY');
+            this.isBooked   = this.course.isBooked ? this.course.isBooked : false;
         }
+        else
+        {
+            this.isBooked = false;
+        }
+    }
+    
+    onChangeIsBooked(checked)
+    {
+        this.isBooked = checked;
     }
 
     validateCourse()
@@ -73,79 +84,62 @@ export class CreateCourseFormComponent implements OnInit
 
         return allOk;
     }
-    validateCourses()
-    {
-        var allOk = true;
-
-        if ((this.title == null || this.title.length == 0) &&
-            (this.duration == null || this.duration.length == 0) &&
-            (this.hours == null || (this.hours + '').length == 0) &&
-            (this.price == null || (this.price + '').length == 0) &&
-            (this.startDate == null || this.startDate.length == 0 || !(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/).test('' + this.startDate))
-        )
-        {
-            allOk = false;
-        }
-
-        if (!allOk)
-            alert('Rellena algún dato');
-
-        return allOk;
-    }
     updateCourse()
     {
         if (this.courses != null && this.courses.length > 1)
         {
-            if (this.validateCourses())
+            var courseDataToUpdate: any = {}
+
+            if (this.title != null && this.title.trim().length > 0)
+                courseDataToUpdate.title = this.title.trim();
+
+            if (this.duration != null && this.duration.trim().length > 0)
+                courseDataToUpdate.duration = this.duration.trim();
+
+            if (this.hours != null && (this.hours + '').length > 0)
+                courseDataToUpdate.hours = this.hours;
+
+            if (this.price != null && (this.price + '').length > 0)
+                courseDataToUpdate.price = this.price;
+
+            if (this.oldPrice != null && (this.oldPrice + '').length > 0)
+                courseDataToUpdate.oldPrice = this.oldPrice;
+
+            if (this.startDate != null && this.startDate.trim().length > 0)
+                courseDataToUpdate.startDate = moment(this.startDate + '', 'DD/MM/YYYY').toISOString();
+        
+            if (this.isBooked != null)
+                courseDataToUpdate.isBooked = this.isBooked;
+
+            for (let i = 0; i < this.courses.length; i++)
             {
-                var courseDataToUpdate: any = {}
+                let course = this.courses[i];
 
-                if (this.title != null && this.title.trim().length > 0)
-                    courseDataToUpdate.title = this.title.trim();
-
-                if (this.duration != null && this.duration.trim().length > 0)
-                    courseDataToUpdate.duration = this.duration.trim();
-
-                if (this.hours != null && (this.hours + '').length > 0)
-                    courseDataToUpdate.hours = this.hours;
-
-                if (this.price != null && (this.price + '').length > 0)
-                    courseDataToUpdate.price = this.price;
-
-                if (this.oldPrice != null && (this.oldPrice + '').length > 0)
-                    courseDataToUpdate.oldPrice = this.oldPrice;
-
-                if (this.startDate != null && this.startDate.trim().length > 0)
-                    courseDataToUpdate.startDate = moment(this.startDate + '', 'DD/MM/YYYY').toISOString();
-
-                for (let i = 0; i < this.courses.length; i++)
+                this.courseService.updateCourse(course._id, courseDataToUpdate)
+                .subscribe(res =>
                 {
-                    let course = this.courses[i];
-
-                    this.courseService.updateCourse(course._id, courseDataToUpdate)
-                    .subscribe(res =>
+                    this.onCourseUpdated.emit({ course: { _id: course._id, ...courseToUpdate } });
+                    this.numCoursesUpdated++;
+                    if (this.numCoursesUpdated === this.courses.length)
                     {
-                        this.onCourseUpdated.emit({ course: { _id: course._id, ...courseToUpdate } });
-                        this.numCoursesUpdated++;
-                        if (this.numCoursesUpdated === this.courses.length)
-                        {
-                            this.numCoursesUpdated = 0;
-                            this.onCoursesUpdated.emit();
-                        }
-                    },
-                    error =>
+                        this.numCoursesUpdated = 0;
+                        this.onCoursesUpdated.emit();
+                        
+                        this.resetCourseData();
+                    }
+                },
+                error =>
+                {
+                    this.onCourseError.emit({ course: { _id: course._id, ...courseToUpdate } });
+                    this.numCoursesUpdated++;
+                    if (this.numCoursesUpdated === this.courses.length)
                     {
-                        this.onCourseError.emit({ course: { _id: course._id, ...courseToUpdate } });
-                        this.numCoursesUpdated++;
-                        if (this.numCoursesUpdated === this.courses.length)
-                        {
-                            this.numCoursesUpdated = 0;
-                            this.onCoursesUpdated.emit();
-                        }
+                        this.numCoursesUpdated = 0;
+                        this.onCoursesUpdated.emit();
+                    }
 
-                        console.log(error);
-                    });
-                }
+                    console.log(error);
+                });
             }
         }
         else
@@ -160,7 +154,8 @@ export class CreateCourseFormComponent implements OnInit
                     price: this.price,
                     oldPrice: this.oldPrice,
                     startDate: moment(this.startDate + '', 'DD/MM/YYYY').toISOString(),
-                    academy: this.course.academy
+                    academy: this.course.academy,
+                    isBooked: this.isBooked
                 }
 
                 this.courseService.updateCourse(this.course._id, courseToUpdate)
@@ -178,5 +173,15 @@ export class CreateCourseFormComponent implements OnInit
                 });
             }
         }
+    }
+    resetCourseData()
+    {
+        this.title      = undefined;
+        this.duration   = undefined;
+        this.hours      = undefined;
+        this.price      = undefined;
+        this.oldPrice   = undefined;
+        this.startDate  = undefined;
+        this.isBooked   = false;
     }
 }
