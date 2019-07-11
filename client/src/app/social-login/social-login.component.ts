@@ -1,6 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "angularx-social-login";
+import { AuthService, AuthServiceConfig } from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
+
+let config = new AuthServiceConfig([
+  {
+    id: "appcademos",
+    provider: new GoogleLoginProvider("AIzaSyARBExbvgz2Zl8KWGCp1ku_HwCA47-2PY8")
+  },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider("Facebook-App-Id")
+  }
+]);
+ 
+export function provideConfig() {
+  return config;
+}
 
 @Component({
   selector: 'app-social-login',
@@ -15,7 +30,8 @@ export class SocialLoginComponent implements OnInit {
   }
 
   signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    console.log("signInWithGoogle")
+    this.authService.signIn("AIzaSyARBExbvgz2Zl8KWGCp1ku_HwCA47-2PY8");
   }
  
   signInWithFB(): void {

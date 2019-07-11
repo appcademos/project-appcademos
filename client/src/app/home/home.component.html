@@ -11,7 +11,7 @@
     <div id="fixed-searchbox" [ngClass]="{'show': showFixedSearchbar}">
         <div class="responsive-container">
             <app-searchbox #fixedsearchbox [fixed]="true" [small]="true" [isHome]="true" (onSearch)="findCourses($event)" (onFocus)="onFocusSearchbox()"></app-searchbox>
-            <app-social-login></app-social-login>
+
         </div>
     </div>
 </div>
