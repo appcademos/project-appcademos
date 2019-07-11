@@ -1,21 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, AuthServiceConfig } from "angularx-social-login";
+import { AuthService, SocialUser } from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
-
-let config = new AuthServiceConfig([
-  {
-    id: "appcademos",
-    provider: new GoogleLoginProvider("AIzaSyARBExbvgz2Zl8KWGCp1ku_HwCA47-2PY8")
-  },
-  {
-    id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider("Facebook-App-Id")
-  }
-]);
- 
-export function provideConfig() {
-  return config;
-}
 
 @Component({
   selector: 'app-social-login',
@@ -26,12 +11,23 @@ export class SocialLoginComponent implements OnInit {
 
   constructor(private authService: AuthService) { }
 
+  private user: SocialUser;
+  private loggedIn: boolean;
+ 
+ 
   ngOnInit() {
+    console.log("ngOnInit" + this.authService.authState)
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      console.log(user)
+      this.loggedIn = (user != null);
+    });
+
   }
 
   signInWithGoogle(): void {
-    console.log("signInWithGoogle")
-    this.authService.signIn("AIzaSyARBExbvgz2Zl8KWGCp1ku_HwCA47-2PY8");
+    console.log("signInWithGoogle " + GoogleLoginProvider.PROVIDER_ID)
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
  
   signInWithFB(): void {
