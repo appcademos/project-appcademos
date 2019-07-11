@@ -52,6 +52,9 @@ import { CookiesComponent } from './cookies/cookies.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { RadioComponent } from './radio/radio.component';
+import { SocialLoginComponent } from './social-login/social-login.component';
+import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
+import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
 
 export function metaFactory(): MetaLoader
 {
@@ -63,6 +66,20 @@ export function metaFactory(): MetaLoader
             title: 'Compara las Mejores Academias de Inglés en Madrid | Appcademos'
         }
     });
+}
+
+let config = new AuthServiceConfig([
+  {
+    id: "appcademos",
+    provider: new GoogleLoginProvider("AIzaSyARBExbvgz2Zl8KWGCp1ku_HwCA47-2PY8")
+  },{
+    id: "23423",
+    provider: new FacebookLoginProvider("Facebook-App-Id")
+  }
+]);
+
+export function provideConfig() {
+  return config;
 }
 
 @NgModule({
@@ -96,6 +113,7 @@ export function metaFactory(): MetaLoader
       PrivacyPolicyComponent,
       CheckboxComponent,
       RadioComponent,
+      SocialLoginComponent
    ],
 
 imports: [
@@ -106,6 +124,7 @@ imports: [
   BrowserModule,
   FormsModule,
   HttpModule,
+  SocialLoginModule,
   NgbModule.forRoot(),
   ReactiveFormsModule,
   RouterModule.forRoot(routes),
@@ -122,7 +141,11 @@ providers: [
   UserSessionService,
   MessageService,
   UtilsService,
-  SeoService
+  SeoService,
+  {
+    provide: AuthServiceConfig,
+    useFactory: provideConfig
+  }
 ],
 bootstrap: [AppComponent]
 })
