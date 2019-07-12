@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService, SocialUser } from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs';
+import { from } from 'rxjs/observable/from';
 
 @Component({
   selector: 'app-social-login',
@@ -18,6 +21,7 @@ export class SocialLoginComponent implements OnInit {
   ngOnInit() {
     console.log("ngOnInit" + this.authService.authState)
     this.authService.authState.subscribe((user) => {
+      console.log("authState")
       this.user = user;
       console.log(user)
       this.loggedIn = (user != null);
@@ -27,7 +31,13 @@ export class SocialLoginComponent implements OnInit {
 
   signInWithGoogle(): void {
     console.log("signInWithGoogle " + GoogleLoginProvider.PROVIDER_ID)
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(
+      (user) => {
+        this.user = user;
+        console.log(user)
+        this.loggedIn = (user != null);
+      }
+    )
   }
  
   signInWithFB(): void {

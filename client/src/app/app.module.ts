@@ -69,7 +69,7 @@ export function metaFactory(): MetaLoader
 }
 
 const fbLoginOptions: LoginOpt = {
-  scope: 'pages_messaging,pages_messaging_subscriptions,email,pages_show_list,manage_pages',
+  scope: 'email',
   return_scopes: true,
   enable_profile_selector: true
 }; // https://developers.facebook.com/docs/reference/javascript/FB.login/v2.11
@@ -81,7 +81,8 @@ const googleLoginOptions: LoginOpt = {
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider("AIzaSyARBExbvgz2Zl8KWGCp1ku_HwCA47-2PY8",googleLoginOptions)
+    provider: new GoogleLoginProvider("AIzaSyARBExbvgz2Zl8KWGCp1ku_HwCA47-2PY8")
+
   },{
     id: FacebookLoginProvider.PROVIDER_ID,
     provider: new FacebookLoginProvider("Facebook-App-Id",fbLoginOptions)
@@ -134,7 +135,7 @@ export function provideConfig() {
     BrowserModule,
     FormsModule,
     HttpModule,
-    SocialLoginModule,
+    SocialLoginModule.initialize(config),
     NgbModule.forRoot(),
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
