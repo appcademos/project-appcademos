@@ -5,6 +5,7 @@
     </span>
 </ng-template>
 
+
 <div *ngIf="courseObj">
     <div class="responsive-container">
         <div id="backButton" class="noselect" (click)="backClicked()">
@@ -259,8 +260,9 @@
             </div>
         </section>
 
-        <section id="reviews" *ngIf="reviews != null">
+        <section [routerLink]="['/']" fragment="reviews" id="reviews" *ngIf="reviews != null">
             <h2>Opiniones verificadas de alumnos</h2>
+            <div class="fs-14 fw-700 color-black-80">Solo pueden comentar los estudiantes que se hayan apuntado a esta academia.</div>
             <div class="rating">
                 <ngb-rating [(rate)]="reviewsAverage" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
                 <p> ·&nbsp;&nbsp;&nbsp;{{ courseObj.course.academy.reviews.length }} Opiniones</p>

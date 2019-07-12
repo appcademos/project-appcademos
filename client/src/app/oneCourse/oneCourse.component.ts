@@ -42,6 +42,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
     
     reviewsFilterGrade: number;
     filteringReviews: boolean = false;
+    private fragment: string;
 
     constructor(private courseService: CoursesService,
                 private academyService: AcademySessionService,
@@ -51,12 +52,16 @@ export class OneCourseComponent implements OnInit, OnDestroy
                 private usersService: UserSessionService,
                 private router: Router,
                 private messageService: MessageService,
-                private readonly meta: MetaService)
+                private readonly meta: MetaService,
+                private route: ActivatedRoute)
     {
         
     }
     ngOnInit()
     {
+        
+        this.route.fragment.subscribe(fragment => { this.fragment = fragment; });
+
         this.setMetaData();
         this.activatedRoute.queryParams.subscribe(queryParams =>
         {
@@ -92,6 +97,20 @@ export class OneCourseComponent implements OnInit, OnDestroy
 
         this.routeCourseId = courseId;
         this.getCourse();
+    }
+
+    ngAfterViewInit(): void {
+        this.scrollToHash()
+    }
+
+    scrollToHash() {
+        let interval = setInterval(()=> {
+            let elem = document.getElementById(this.fragment);
+            if(elem) {
+                elem.scrollIntoView();
+                clearInterval(interval);
+            }
+        }, 1000);
     }
 
     getCourse()

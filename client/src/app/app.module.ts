@@ -135,7 +135,7 @@ export function provideConfig() {
     BrowserModule,
     FormsModule,
     HttpModule,
-    SocialLoginModule.initialize(config),
+    SocialLoginModule,
     NgbModule.forRoot(),
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
