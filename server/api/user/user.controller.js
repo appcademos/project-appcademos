@@ -54,7 +54,7 @@ const logout = (req, res) => {
 
 const signup = (req, res, next) => {
   let userData = _.pick(req.body, fields);
-
+  console.log("signup")
   if (userData.email === "" || userData.password === "") {
     res.status(401).json({
       message: "Indicate email and password"

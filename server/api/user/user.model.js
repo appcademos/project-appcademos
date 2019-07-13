@@ -11,6 +11,9 @@ const userSchema = new Schema(
     birthdate: Date,
     imageName: String,
     imagePath: String,
+    authToken: String,
+    facebookID: String,
+
     payment: {
       type: Boolean,
       default: false

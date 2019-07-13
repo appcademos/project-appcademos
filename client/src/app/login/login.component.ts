@@ -83,6 +83,7 @@ export class LoginComponent
     }
     validateSignup()
     {
+        console.log("validateSignup")
         var allOk = true;
         var message = 'Rellena correctamente todos los campos.';
 

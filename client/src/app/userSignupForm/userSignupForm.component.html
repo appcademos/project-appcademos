@@ -5,8 +5,10 @@
   <div class="row w-75 mt-5">
     <form class="w-100">
       <div class="row w-100 m-0">
+        
         <div class="form-group col-md-4 m-0 p-2">
         <form *ngIf="isLogin">
+
             <div class="form-group">
                 <label for="exampleInputEmail1">Correo electrónico</label>
                 <input type="email" class="form-control" [(ngModel)]="email" name="email" id="exampleInputEmail1" aria-describedby="emailHelp"
@@ -41,10 +43,12 @@
         </div>
         <button type="submit" class="btn btn-danger form-btn col-md-4 mt-2" (click)="signup()">REGISTRARME</button>
         <button *ngIf="isLogin" type="submit" class="btn btn-signup form-btn col-md-4 mt-2" (click)="login()">Login</button>
+
       </form>
       </div>
 
   </div>
+
   <div>
     <p *ngIf="!isLogin" class="signin-link mt-2">{{"¿Ya tienes una cuenta?" | uppercase}}
       <a (click)="isLogin = true">{{"Inicia Sesión" | uppercase}}</a>
@@ -53,5 +57,6 @@
       <a (click)="isLogin = false">{{"Regístrate" | uppercase}}</a>
     </p>
   </div>
+
            <app-isAcademyButton></app-isAcademyButton>
     
