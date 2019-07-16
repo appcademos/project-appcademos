@@ -3,8 +3,11 @@
 
     <div class="card-container" *ngIf="!showSignUp">
         <div class="title fs-32 fw-700 color-white">Inicia sesión</div>
+
         <div class="card">
             <div>
+                <div class="button" (click)="signInWithGoogle()">Login with Google</div>
+                <div class="button" (click)="signInWithFB()">Login with Facebook</div>
                 <div class="input-container">
                     <div class="title">Email</div>
                     <input
@@ -46,6 +49,8 @@
     <div class="card-container" *ngIf="showSignUp">
         <div class="title fs-32 fw-700 color-white">Regístrate</div>
         <div class="card">
+                <app-social-login (onClose)="close()">
+                    </app-social-login>
             <div>
                 <div class="input-container">
                     <div class="title">Nombre</div>
@@ -98,16 +103,15 @@
                     >
                 </div>
             </div>
-
+            <!-- <div class="app-login"> -->
             <label class="checkbox-container">
                 Acepto la <a href="/privacy-policy" target="_blank" class="color-green fw-500">política de privacidad</a>
                 <input type="checkbox" [(ngModel)]="signup.conditionsAccepted">
                 <span class="checkmark"></span>
             </label>
-
+            <!-- </div> -->
             <div class="button" (click)="sendSignup()">Crear cuenta</div>
-            <app-social-login>
-            </app-social-login>
+
             <div class="bottom">
                 <div class="item">Ya tienes cuenta? <span class="noselect" (click)="showSignUp = false">Inicia sesión</span></div>
             </div>

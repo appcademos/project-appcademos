@@ -1,5 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { UserSessionService } from '../../services/userSession.service';
+import { Directive, HostBinding } from '@angular/core';
+import { AuthService, SocialUser } from "angularx-social-login";
+import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 
 @Component(
 {
@@ -15,6 +18,9 @@ export class LoginComponent
     loginComplete: boolean = false;
     signupComplete: boolean = false;
 
+    private user: SocialUser;
+    private loggedIn: boolean;
+
     login =
     {
         email: null,
@@ -27,17 +33,56 @@ export class LoginComponent
         email: null,
         password: null,
         repeatPassword: null,
-        conditionsAccepted: false
+        conditionsAccepted: false,
+        imagePath: null,
+        authtoken: null,
+        facebookID: null
+
     }
 
     emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    @Input() visible: boolean;
+    @Input() visible: boolean = false;
     @Output() onClose = new EventEmitter();
+    //@HostBinding('class.overflow') private _addOverflow = false;
 
-    constructor(private userService: UserSessionService)
+    constructor(private userService: UserSessionService,
+                private authService: AuthService)
     {
 
+    }
+
+    ngOnInit() {
+        this.authService.authState.subscribe((user) => {
+        alert("AUTH STATE CHANGED Login component");
+
+          this.user = user;
+          this.loggedIn = (user != null);
+          if (this.loggedIn == false) {
+            alert("No user returned");
+          } else {
+              console.log("user: "+user)
+            var data =
+            {
+                username: user.email,
+                password: 1234 //this.user.authToken
+            }
+            this.userService.login(data).subscribe(() =>
+            {
+                this.sendingSignup = false;
+                this.signupComplete = true;
+
+                setTimeout(() => this.close(), 3000);
+            },
+            error =>
+            {
+                this.sendingSignup = false;
+                alert((error.json != null) ? error.json().message : error);
+            });
+          }
+    
+        });
+    
     }
 
     ngOnChanges(changes)
@@ -192,6 +237,16 @@ export class LoginComponent
             });
         }
     }
+
+    signInWithGoogle(): void {
+        console.log("signInWithGoogle " + GoogleLoginProvider.PROVIDER_ID)
+        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    }
+     
+    signInWithFB(): void {
+        console.log("signInWithGoogle " + FacebookLoginProvider.PROVIDER_ID)
+        this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    } 
 
     close()
     {

@@ -41,16 +41,15 @@ export class SocialLoginComponent implements OnInit {
       imagePath: null,
       authtoken: null,
       facebookID: null
-
   }
   emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  @Input() visible: boolean;
   @Output() onClose = new EventEmitter();
 
   ngOnInit() {
-    console.log("ngOnInit" + this.authService.authState)
     this.authService.authState.subscribe((user) => {
+      alert("AUTH STATE CHANGED");
+
       this.user = user;
       this.loggedIn = (user != null);
       if (this.loggedIn == false) {
@@ -62,13 +61,16 @@ export class SocialLoginComponent implements OnInit {
         this.signup.authtoken = this.user.authToken
         this.signup.imagePath = this.user.photoUrl
         this.signup.facebookID = this.user.id
-        // console.log("this.signup.  "+this.signup)
-
         this.sendSignup()
       }
 
     });
 
+  }
+  ngOnDestroy()
+  {
+    console.log("ngOnDestroy")
+    this.authService.authState.subscribe = null
   }
   ngOnChanges(changes)
   {
@@ -86,12 +88,12 @@ export class SocialLoginComponent implements OnInit {
       }
   }
   signInWithGoogle(): void {
-    console.log("signInWithGoogle " + GoogleLoginProvider.PROVIDER_ID)
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    console.log("register With Google " + GoogleLoginProvider.PROVIDER_ID)
+    this.authService. signIn(GoogleLoginProvider.PROVIDER_ID);
   }
  
   signInWithFB(): void {
-    console.log("signInWithGoogle " + FacebookLoginProvider.PROVIDER_ID)
+    console.log("register With Google " + FacebookLoginProvider.PROVIDER_ID)
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
   } 
  
@@ -128,22 +130,54 @@ export class SocialLoginComponent implements OnInit {
           },
           error =>
           {
+            console.log(error)
+            if (error = "User already exists") {
+              // alert("A user is already signed up with these credentials");
+              this.sendingSignup = false;
+              this.signupComplete = true;
+
+              setTimeout(() => this.close(), 3000);
+              // setTimeout(() => this.close(), 3000);
+            } else {
               this.sendingSignup = false;
               alert((error.json != null) ? error.json().message : error);
+              setTimeout(() => this.close(), 3000);
+            }
+
+
           });
       }
+  }
+
+  sendLogin()
+  {
+      this.sendingLogin = true;
+
+      var data =
+      {
+          username: this.login.email,
+          password: this.login.password
+      }
+      console.log(data);
+
+      this.userService.login(data).subscribe(() =>
+      {
+          this.sendingLogin = false;
+          this.loginComplete = true;
+
+          setTimeout(() => this.close(), 2000);
+      },
+      error =>
+      {
+          this.sendingLogin = false;
+          alert((error.json != null) ? error.json().message : error);
+      });
   }
 
   validateSignup()
   {
       var allOk = true;
       var message = 'Rellena correctamente todos los campos.';
-
-      if (!this.signup.conditionsAccepted)
-      {
-          allOk = false;
-          message = 'Acepta las condiciones.';
-      }
 
       if (this.signup.email == null || this.signup.email.trim().length == 0)
       {
@@ -174,7 +208,7 @@ export class SocialLoginComponent implements OnInit {
 
   close()
   {
-      this.visible = false;
+      console.log("close emiitter")
       this.onClose.emit();
   }
 }

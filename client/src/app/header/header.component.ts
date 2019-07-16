@@ -4,6 +4,7 @@ import { UserSessionService } from "../../services/userSession.service";
 import { Router, Event, NavigationEnd } from "@angular/router";
 import { MessageService } from '../../services/message.service';
 import { Subscription } from 'rxjs';
+import { AuthService } from "angularx-social-login";
 
 const MOBILE_WIDTH = 870;
 
@@ -27,7 +28,8 @@ export class HeaderComponent implements OnInit, OnDestroy
     constructor(private router: Router,
                 private academyService: AcademySessionService,
                 private userService: UserSessionService,
-                private messageService: MessageService)
+                private messageService: MessageService,
+                private authService: AuthService)
     {
 
     }
@@ -101,5 +103,7 @@ export class HeaderComponent implements OnInit, OnDestroy
         {
             this.userService.logout().subscribe();
         }
+        this.authService.signOut();
+
     }
 }
