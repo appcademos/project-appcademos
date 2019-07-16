@@ -61,6 +61,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
     ngOnInit()
     {
         console.log(this.activatedRoute);
+        this.scrollToHash()
 
         this.setMetaData();
         this.activatedRoute.queryParams.subscribe(queryParams =>
@@ -100,12 +101,12 @@ export class OneCourseComponent implements OnInit, OnDestroy
     }
 
     ngAfterViewInit(): void {
-        this.scrollToHash()
+
     }
 
     scrollToHash() {
 
-        let interval = setInterval(()=> {
+        let interval = setTimeout(()=> {
             if (this.router.url.indexOf('#reviews') > -1)
             {
                this.utils.scrollToElement('#reviews');
