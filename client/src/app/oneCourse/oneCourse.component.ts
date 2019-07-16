@@ -52,15 +52,15 @@ export class OneCourseComponent implements OnInit, OnDestroy
                 private usersService: UserSessionService,
                 private router: Router,
                 private messageService: MessageService,
-                private readonly meta: MetaService,
-                private route: ActivatedRoute)
+                private readonly meta: MetaService)
     {
-        
+        router.events.subscribe(() =>{
+            console.log(router.events.subscribe)
+        })
     }
     ngOnInit()
     {
-        
-        this.route.fragment.subscribe(fragment => { this.fragment = fragment; });
+        console.log(this.activatedRoute);
 
         this.setMetaData();
         this.activatedRoute.queryParams.subscribe(queryParams =>
@@ -104,11 +104,11 @@ export class OneCourseComponent implements OnInit, OnDestroy
     }
 
     scrollToHash() {
+
         let interval = setInterval(()=> {
-            let elem = document.getElementById(this.fragment);
-            if(elem) {
-                elem.scrollIntoView();
-                clearInterval(interval);
+            if (this.router.url.indexOf('#reviews') > -1)
+            {
+               this.utils.scrollToElement('#reviews');
             }
         }, 1000);
     }
