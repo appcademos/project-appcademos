@@ -101,7 +101,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
     }
 
     ngAfterViewInit(): void {
-
+        this.scrollToHash()
     }
 
     scrollToHash() {
