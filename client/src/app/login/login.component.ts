@@ -84,7 +84,11 @@ export class LoginComponent
         });
     
     }
-
+    ngOnDestroy()
+    {
+      console.log("ngOnDestroy")
+      this.authService.authState.subscribe = null
+    }
     ngOnChanges(changes)
     {
         if (changes.visible != null)

@@ -65,13 +65,14 @@ export class SocialLoginComponent implements OnInit {
       }
 
     });
-
   }
+
   ngOnDestroy()
   {
     console.log("ngOnDestroy")
     this.authService.authState.subscribe = null
   }
+
   ngOnChanges(changes)
   {
       if (changes.visible != null)
@@ -87,6 +88,7 @@ export class SocialLoginComponent implements OnInit {
           }
       }
   }
+  
   signInWithGoogle(): void {
     console.log("register With Google " + GoogleLoginProvider.PROVIDER_ID)
     this.authService. signIn(GoogleLoginProvider.PROVIDER_ID);
