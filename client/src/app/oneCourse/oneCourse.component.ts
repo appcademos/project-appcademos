@@ -109,7 +109,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
         let interval = setTimeout(()=> {
             if (this.router.url.indexOf('#reviews') > -1)
             {
-               this.utils.scrollToElement('#reviews');
+               this.utils.scrollToElement('#reviews', undefined, 32);
             }
         }, 1000);
     }
