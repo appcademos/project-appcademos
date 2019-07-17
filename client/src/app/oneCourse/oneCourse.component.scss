@@ -496,9 +496,13 @@ h2
     padding-bottom: 48px;
     border-bottom: 1px solid $black-16;
 
+    h2
+    {
+        margin-bottom: 4px !important;
+    }
     & > .rating
     {
-        margin-top: 12px;
+        margin-top: 18px;
         display: flex;
         flex-direction: row;
         align-items: center;

@@ -30,12 +30,20 @@
             <input class="form-control" [(ngModel)]="startDate" name="startdate" placeholder="dd/mm/aaaa">
           </div>
           <div class="form-group">
+            <label>URL Video</label>
+            <input class="form-control" [(ngModel)]="videoUrl" name="videourl">
+          </div>
+      </div>
+      <div class="form-group-container">
+          <div class="form-group">
             <label>Completo</label>
             <div class="checkboxContainer">
                 <app-checkbox [red]="true" [checked]="isBooked" (onChange)="onChangeIsBooked($event)"></app-checkbox>
             </div>
           </div>
+          <div class="form-group"></div>
       </div>
+        
       <!--<div class="form-group">
         <label for="exampleInputDescription">Descripción del curso</label>
         <input type="text" class="form-control" [(ngModel)]="description" name="description" id="exampleInputPhone" placeholder="Descripción del curso">

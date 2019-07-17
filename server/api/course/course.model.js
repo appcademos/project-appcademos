@@ -26,6 +26,7 @@ const courseSchema = new Schema(
       imagePath: String},
       {imageName: String
     }],
+    videoUrl: String,
     approvedRate: Number,
     sizeClass: Number,
     description: String,
