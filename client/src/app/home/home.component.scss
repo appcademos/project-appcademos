@@ -117,8 +117,7 @@ h2
 
 section#top-banner
 {
-    margin-top: 32px;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
     padding: 0;
 
     .card-banner
@@ -181,10 +180,12 @@ section#triptic
         }
     }
 }
-
 section#course-types
 {
     position: relative;
+    margin-bottom: 0;
+    padding-bottom: 28px;
+    
     .course-container
     {
         display: flex;
@@ -238,7 +239,6 @@ section#course-types
         }
     }
 }
-
 section#verified-academies
 {
     background: $green-color-08;
