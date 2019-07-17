@@ -23,6 +23,7 @@ export class CreateCourseFormComponent implements OnInit
     hours: Number;
     startDate: String;
     isBooked: boolean;
+    videoUrl: String;
     sizeClass: Number;
     description: String;
     tags: [String];
@@ -42,6 +43,7 @@ export class CreateCourseFormComponent implements OnInit
             this.oldPrice   = this.course.oldPrice;
             this.startDate  = moment(this.course.startDate).format('DD/MM/YYYY');
             this.isBooked   = this.course.isBooked ? this.course.isBooked : false;
+            this.videoUrl   = this.course.videoUrl;
         }
         else
         {
@@ -110,6 +112,10 @@ export class CreateCourseFormComponent implements OnInit
         
             if (this.isBooked != null)
                 courseDataToUpdate.isBooked = this.isBooked;
+                
+            if (this.videoUrl != null && this.videoUrl.trim().length > 0)
+                courseDataToUpdate.videoUrl = this.videoUrl.trim();
+            
 
             for (let i = 0; i < this.courses.length; i++)
             {
@@ -155,7 +161,8 @@ export class CreateCourseFormComponent implements OnInit
                     oldPrice: this.oldPrice,
                     startDate: moment(this.startDate + '', 'DD/MM/YYYY').toISOString(),
                     academy: this.course.academy,
-                    isBooked: this.isBooked
+                    isBooked: this.isBooked,
+                    videoUrl: (this.videoUrl != null && this.videoUrl.trim().length > 0) ? this.videoUrl : null
                 }
 
                 this.courseService.updateCourse(this.course._id, courseToUpdate)
@@ -183,5 +190,6 @@ export class CreateCourseFormComponent implements OnInit
         this.oldPrice   = undefined;
         this.startDate  = undefined;
         this.isBooked   = false;
+        this.videoUrl   = undefined;
     }
 }
