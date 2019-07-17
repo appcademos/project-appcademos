@@ -181,6 +181,64 @@ section#triptic
         }
     }
 }
+
+section#course-types
+{
+    position: relative;
+    .course-container
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 0px;
+
+        .pictures
+        {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 0px;
+        }
+        .picture
+        {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 196px;
+
+            .image
+            {
+                width: 120px;
+                height: 120px;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: contain;
+                margin-bottom: 20px;
+            }
+            &:nth-child(1) .image
+            {
+                background-image: url('../../assets/public/course-logos/preparar-first-certificate.png');
+            }
+            &:nth-child(2) .image
+            {
+                background-image: url('../../assets/public/course-logos/preparar-advanced-certificate.png');
+            }
+            &:nth-child(3) .image
+            {
+                background-image: url('../../assets/public/course-logos/TOEFL_Logo.svg.png');
+            }
+            &:nth-child(4) .image
+            {
+                background-image: url('../../assets/public/course-logos/New-Cambridge-Logo.png');
+            }
+            &:nth-child(5) .image
+            {
+                background-image: url('../../assets/public/course-logos/IELTS_logo.svg.png');
+            }
+        }
+    }
+}
+
 section#verified-academies
 {
     background: $green-color-08;

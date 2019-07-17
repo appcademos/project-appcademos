@@ -52,6 +52,9 @@ import { CookiesComponent } from './cookies/cookies.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { RadioComponent } from './radio/radio.component';
+import { SocialLoginComponent } from './social-login/social-login.component';
+import { SocialLoginModule, AuthServiceConfig, LoginOpt } from "angularx-social-login";
+import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
 
 export function metaFactory(): MetaLoader
 {
@@ -63,6 +66,31 @@ export function metaFactory(): MetaLoader
             title: 'Compara las Mejores Academias de Inglés en Madrid | Appcademos'
         }
     });
+}
+
+const fbLoginOptions: LoginOpt = {
+  scope: 'email',
+  return_scopes: true,
+  enable_profile_selector: true
+}; // https://developers.facebook.com/docs/reference/javascript/FB.login/v2.11
+ 
+const googleLoginOptions: LoginOpt = {
+  scope: 'profile email'
+}; // https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiauth2clientconfig
+ 
+let config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("AIzaSyARBExbvgz2Zl8KWGCp1ku_HwCA47-2PY8")
+
+  },{
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider("Facebook-App-Id",fbLoginOptions)
+  }
+]);
+
+export function provideConfig() {
+  return config;
 }
 
 @NgModule({
@@ -96,34 +124,40 @@ export function metaFactory(): MetaLoader
       PrivacyPolicyComponent,
       CheckboxComponent,
       RadioComponent,
+      SocialLoginComponent
    ],
 
-imports: [
-  AgmCoreModule.forRoot({
-    apiKey: "AIzaSyCYxJxUvlC9d_-w181lx5OxjJvtCwfDJ6w",
-    libraries: ["places"]
-  }),
-  BrowserModule,
-  FormsModule,
-  HttpModule,
-  NgbModule.forRoot(),
-  ReactiveFormsModule,
-  RouterModule.forRoot(routes),
-  MetaModule.forRoot({
-    provide: MetaLoader,
-    useFactory: (metaFactory)
-  })
-],
-providers: [
-  AcademySessionService,
-  CoursesService,
-  GeolocationService,
-  MapMarkersService,
-  UserSessionService,
-  MessageService,
-  UtilsService,
-  SeoService
-],
-bootstrap: [AppComponent]
+  imports: [
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyCYxJxUvlC9d_-w181lx5OxjJvtCwfDJ6w",
+      libraries: ["places"]
+    }),
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    SocialLoginModule,
+    NgbModule.forRoot(),
+    ReactiveFormsModule,
+    RouterModule.forRoot(routes),
+    MetaModule.forRoot({
+      provide: MetaLoader,
+      useFactory: (metaFactory)
+    })
+  ],
+  providers: [
+    AcademySessionService,
+    CoursesService,
+    GeolocationService,
+    MapMarkersService,
+    UserSessionService,
+    MessageService,
+    UtilsService,
+    SeoService,
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

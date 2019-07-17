@@ -42,6 +42,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
     
     reviewsFilterGrade: number;
     filteringReviews: boolean = false;
+    private fragment: string;
 
     constructor(private courseService: CoursesService,
                 private academyService: AcademySessionService,
@@ -53,10 +54,15 @@ export class OneCourseComponent implements OnInit, OnDestroy
                 private messageService: MessageService,
                 private readonly meta: MetaService)
     {
-        
+        router.events.subscribe(() =>{
+            console.log(router.events.subscribe)
+        })
     }
     ngOnInit()
     {
+        console.log(this.activatedRoute);
+        this.scrollToHash()
+
         this.setMetaData();
         this.activatedRoute.queryParams.subscribe(queryParams =>
         {
@@ -92,6 +98,20 @@ export class OneCourseComponent implements OnInit, OnDestroy
 
         this.routeCourseId = courseId;
         this.getCourse();
+    }
+
+    ngAfterViewInit(): void {
+        this.scrollToHash()
+    }
+
+    scrollToHash() {
+
+        let interval = setTimeout(()=> {
+            if (this.router.url.indexOf('#reviews') > -1)
+            {
+               this.utils.scrollToElement('#reviews');
+            }
+        }, 1000);
     }
 
     getCourse()
