@@ -53,35 +53,10 @@ export class LoginComponent
     }
 
     ngOnInit() {
-        this.authService.authState.subscribe((user) => {
-        alert("AUTH STATE CHANGED Login component");
+        // this.authService.authState.subscribe((user) => {
 
-          this.user = user;
-          this.loggedIn = (user != null);
-          if (this.loggedIn == false) {
-            alert("No user returned");
-          } else {
-              console.log("user: "+user)
-            var data =
-            {
-                username: user.email,
-                password: 1234 //this.user.authToken
-            }
-            this.userService.login(data).subscribe(() =>
-            {
-                this.sendingSignup = false;
-                this.signupComplete = true;
-
-                setTimeout(() => this.close(), 3000);
-            },
-            error =>
-            {
-                this.sendingSignup = false;
-                alert((error.json != null) ? error.json().message : error);
-            });
-          }
     
-        });
+        // });
     
     }
     ngOnDestroy()
@@ -242,6 +217,46 @@ export class LoginComponent
         }
     }
 
+    registerWithFacebook() {
+        console.log("callFacebookLogin")
+        this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((user) => {
+            console.log(user)
+            this.user = user;
+            this.loggedIn = (user != null);
+            if (this.loggedIn == false) {
+              alert("No user returned");
+            } else {
+              console.log("user: "+user)
+              let data =
+              {
+                  name: user.name + ' ' + user.lastName,
+                  email: user.email,
+                  authToken: user.authToken,
+                  imagePath: user.photoUrl,
+                  facebookID: user.id,
+                  password: "1234"
+  
+              }
+              this.userService.signup(data).subscribe(() =>
+              {
+                  this.sendingSignup = false;
+                  this.signupComplete = true;
+                  console.log("logged in " + data)
+                  setTimeout(() => this.close(), 3000);
+              },
+              error =>
+              {
+                  this.sendingSignup = false;
+                  console.log("sign up FAILED"  +error)
+                  alert((error.json != null) ? error.json().message : error);
+              });
+            }
+        });
+        // this.authService.authState.subscribe((user) => {
+
+        // });
+
+    }
     signInWithGoogle(): void {
         console.log("signInWithGoogle " + GoogleLoginProvider.PROVIDER_ID)
         this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
@@ -249,7 +264,39 @@ export class LoginComponent
      
     signInWithFB(): void {
         console.log("signInWithGoogle " + FacebookLoginProvider.PROVIDER_ID)
-        this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+        this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((user) => {
+
+            this.user = user;
+            this.loggedIn = (user != null);
+            if (this.loggedIn == false) {
+              alert("No user returned");
+            } else {
+                console.log("user: "+user.email)
+                console.log("user: "+user.authToken)
+
+              var data =
+              {
+                  username: user.email,
+                  password: "1234"
+              }
+              console.log("data: "+data)
+              //this.userService.isLoggedIn().subscribe
+              this.userService.login(data).subscribe(() =>
+              {
+                  this.sendingSignup = false;
+                  this.signupComplete = true;
+                  console.log("logged in "  + data)
+                  setTimeout(() => this.close(), 3000);
+              },
+              error =>
+              {
+                  this.sendingSignup = false;
+                  console.log("logged in FAILED " + error)
+  
+                  alert((error.json != null) ? error.json().message : error);
+              });
+            }
+        });
     } 
 
     close()

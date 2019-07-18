@@ -13,6 +13,7 @@ import { UserSessionService } from '../../services/userSession.service';
 })
 export class SocialLoginComponent implements OnInit {
 
+
   constructor(private authService: AuthService,
               private userService: UserSessionService) { }
 
@@ -45,26 +46,28 @@ export class SocialLoginComponent implements OnInit {
   emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   @Output() onClose = new EventEmitter();
+  @Output() registerWithFacebook = new EventEmitter();
+  @Output() registerWithGoogle  = new EventEmitter();
 
   ngOnInit() {
-    this.authService.authState.subscribe((user) => {
-      alert("AUTH STATE CHANGED");
+    // this.authService.authState.subscribe((user) => {
+    //   alert("AUTH STATE CHANGED");
 
-      this.user = user;
-      this.loggedIn = (user != null);
-      if (this.loggedIn == false) {
-        alert("No user returned");
-      } else {
-        this.signup.name = this.user.firstName
-        this.signup.lastName = this.user.lastName
-        this.signup.email = this.user.email
-        this.signup.authtoken = this.user.authToken
-        this.signup.imagePath = this.user.photoUrl
-        this.signup.facebookID = this.user.id
-        this.sendSignup()
-      }
+    //   this.user = user;
+    //   this.loggedIn = (user != null);
+    //   if (this.loggedIn == false) {
+    //     alert("No user returned");
+    //   } else {
+    //     this.signup.name = this.user.firstName
+    //     this.signup.lastName = this.user.lastName
+    //     this.signup.email = this.user.email
+    //     this.signup.authtoken = this.user.authToken
+    //     this.signup.imagePath = this.user.photoUrl
+    //     this.signup.facebookID = this.user.id
+    //     this.sendSignup()
+    //   }
 
-    });
+    // });
   }
 
   ngOnDestroy()
@@ -91,12 +94,13 @@ export class SocialLoginComponent implements OnInit {
   
   signInWithGoogle(): void {
     console.log("register With Google " + GoogleLoginProvider.PROVIDER_ID)
-    this.authService. signIn(GoogleLoginProvider.PROVIDER_ID);
+    // this.authService. signIn(GoogleLoginProvider.PROVIDER_ID);
   }
  
   signInWithFB(): void {
-    console.log("register With Google " + FacebookLoginProvider.PROVIDER_ID)
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    // console.log("register With facebook " + FacebookLoginProvider.PROVIDER_ID)
+    // this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.registerWithFacebook.emit()
   } 
  
   signOut(): void {

@@ -49,7 +49,7 @@
     <div class="card-container" *ngIf="showSignUp">
         <div class="title fs-32 fw-700 color-white">Regístrate</div>
         <div class="card">
-                <app-social-login (onClose)="close()">
+                <app-social-login (onClose)="close()" (registerWithFacebook)="registerWithFacebook()">
                     </app-social-login>
             <div>
                 <div class="input-container">
