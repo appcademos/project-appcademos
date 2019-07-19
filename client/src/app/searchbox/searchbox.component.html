@@ -8,6 +8,7 @@
         (keyup.enter)="doOnSearch()"
         (focus)="doShowSearchPanel(); this.onFocus.emit();"
         (keyup.esc)="onInputPressEsc()"
+        data-hj-whitelist
     >
     <button type="button" (click)="doOnSearch()">
         <i class="icon icon-search" [ngClass]="{'size-24': !small, 'size-20': small}"></i>
