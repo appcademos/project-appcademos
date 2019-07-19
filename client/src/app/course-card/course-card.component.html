@@ -27,7 +27,9 @@
 
         <div class="course-rating">
             <ngb-rating [(rate)]="average" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
-            <p>{{ course.academy.reviews.length }}</p>
+            <p>
+                <span class="average">{{ average | number:'1.0-1' }}</span> ({{ course.academy.reviews.length }})
+            </p>
         </div>
 
         <div class="course-price fw-600 fs-22 color-red">
