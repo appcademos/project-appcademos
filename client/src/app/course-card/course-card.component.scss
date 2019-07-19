@@ -91,9 +91,17 @@
     p
     {
         font-size: 11px;
-        font-weight: 600;
-        margin-left: 4px;
+        font-weight: 500;
         color: rgba(72,72,72,0.6);
+        margin-left: 4px;
+        
+        span.average
+        {
+            margin-right: 6px;
+            color: $yellow-star-color;
+            font-weight: 600;
+            font-size: 12px;
+        }
     }
 
     .star
