@@ -90,8 +90,18 @@ footer
             }
             .address
             {
-                margin-bottom: 8px;
+                margin-bottom: 16px;
                 font-size: 14px;
+            }
+            .address + p
+            {
+                font-size: 15px;
+            }
+            .icon-heart-filled
+            {
+                transform: translate(0,3px);
+                margin: 0 3px;
+                line-height: 1.4;
             }
         }
         .right
