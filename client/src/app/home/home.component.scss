@@ -214,7 +214,7 @@ section#course-types
                 background-repeat: no-repeat;
                 background-position: center;
                 background-size: contain;
-                margin-bottom: 20px;
+                margin-bottom: 12px;
             }
             &:nth-child(1) .image
             {
@@ -449,6 +449,10 @@ section#happy-users
             align-self: center;
             margin-bottom: 32px;
         }
+        @media (max-width: 832px)
+        {
+            margin-left: 0;
+        }
     }
     .posts-container
     {
@@ -619,7 +623,7 @@ section#partners
 
 @media (max-width: 848px)
 {
-    section#verified-academies .help-container
+    section#help-container
     {
         .picture:nth-child(2)
         {
@@ -629,7 +633,7 @@ section#partners
 }
 @media (max-width: 800px)
 {
-    section#verified-academies .help-container .picture
+    section#help-container .picture
     {
         width: 130px;
     }
@@ -665,7 +669,7 @@ section#partners
         }
     }
 
-    section#verified-academies .help-container
+    section#help-container
     {
         .picture:nth-child(2)
         {
@@ -693,21 +697,13 @@ section#partners
 }
 @media (max-width: 540px)
 {
-    section#verified-academies
+    section#help-container
     {
-        .background
+        .picture,
+        .picture:nth-child(2)
         {
-            bottom: 280px;
-        }
-
-        .help-container
-        {
-            .picture,
-            .picture:nth-child(2)
-            {
-                flex: 0.5;
-                margin: 0 24px 32px;
-            }
+            flex: 0.5;
+            margin: 0 24px 32px;
         }
     }
 }
@@ -750,10 +746,15 @@ section#partners
                 max-width: 320px;
             }
         }
-        .help-container
+        .video-container iframe
         {
-            margin-top: 32px;
+            width: 100%;
         }
+    }
+    
+    section#help-container
+    {
+        margin-top: 32px;
     }
 }
 @media (max-width: 375px)
@@ -763,6 +764,16 @@ section#partners
         .background
         {
             bottom: 320px;
+        }
+    }
+    
+    section#happy-users
+    {
+        .posts-container .ig-post
+        {
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
         }
     }
 }
