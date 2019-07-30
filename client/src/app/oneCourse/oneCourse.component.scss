@@ -631,10 +631,16 @@ h2
             flex-direction: row;
 
             .icon
-            {
+            {                
                 margin-right: 24px;
                 min-width: 44px;
                 flex-shrink: 0;
+                line-height: 44px;
+                border-radius: 50%;
+                background: #43A9A7;
+                color: #fff;
+                font-weight: 600;
+                text-align: center;
             }
             .top
             {
