@@ -16,4 +16,22 @@ export class UtilsService
             }, duration);
         }
     }
+    
+    getNameInitials(name)
+    {
+        let initials = "";
+        let words = name.split(" ");
+        
+        words.forEach((word) =>
+        {
+            console.log(word);
+            
+            if (word != null && word.length > 2 && initials.length < 2)
+            {
+                initials += word.charAt(0).toUpperCase();
+            }
+        });
+        
+        return initials;
+    }
 }

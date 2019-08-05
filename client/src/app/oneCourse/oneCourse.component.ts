@@ -54,13 +54,10 @@ export class OneCourseComponent implements OnInit, OnDestroy
                 private messageService: MessageService,
                 private readonly meta: MetaService)
     {
-        router.events.subscribe(() =>{
-            console.log(router.events.subscribe)
-        })
+        
     }
     ngOnInit()
     {
-        console.log(this.activatedRoute);
         this.scrollToHash()
 
         this.setMetaData();
@@ -428,6 +425,11 @@ export class OneCourseComponent implements OnInit, OnDestroy
         this.meta.removeTag('name="description"');
         this.meta.removeTag('property="og:title"');
         this.meta.removeTag('property="og:description"');
+    }
+    
+    getNameInitials(name)
+    {
+        return this.utils.getNameInitials(name);
     }
 
     @HostListener('window:scroll')
