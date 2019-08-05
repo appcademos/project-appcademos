@@ -304,7 +304,7 @@
                 <div class="carousel">
                     <div class="review-group" *ngFor="let reviewGroup of reviews; let last = last">
                         <div class="review" *ngFor="let review of reviewGroup">
-                            <div class="icon size-44 icon-avatar-green"></div>
+                            <div class="initials icon size-44">{{ getNameInitials(review.author.name) }}</div>
                             <div>
                                 <div class="top">
                                     <div class="title" *ngIf="review.title">{{ review.title }}</div>
