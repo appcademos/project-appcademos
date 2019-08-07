@@ -4,7 +4,7 @@ import { CoursesService } from '../../services/courses.service';
 import { BookingsService } from '../../services/bookings.service';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
-import { NzNotificationService } from 'ng-zorro-antd';
+import { NzNotificationService, NzModalService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-checkout',
@@ -32,7 +32,8 @@ export class CheckoutComponent implements OnInit
                 private activatedRoute: ActivatedRoute,
                 private userService: UserSessionService,
                 private bookingsService: BookingsService,
-                private notifications: NzNotificationService)
+                private notifications: NzNotificationService,
+                private modalService: NzModalService)
     {
         
     }
@@ -140,10 +141,20 @@ export class CheckoutComponent implements OnInit
         this.bookingsService.createBooking(data)
         .subscribe(res =>
         {
-            console.log(res);
+            this.modalService.success(
+            {
+                nzTitle: 'Reserva confirmada',
+                nzContent: 'Tu reserva ha sido creada correctamente.'
+            });
         },
         err =>
         {
+            this.modalService.error(
+            {
+                nzTitle: 'Error',
+                nzContent: 'Tu reserva no ha podido ser creada. Inténtalo de nuevo o contacta con nosotros.'
+            });
+            
             console.log(err);
         });
     }

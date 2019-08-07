@@ -32,7 +32,7 @@
             ],
             "styles": [
               "src/sass/main.scss",
-              "node_modules/ng-zorro-antd/ng-zorro-antd.min.css"
+              "src/antd_theme.less"
             ],
             "scripts": []
           },
