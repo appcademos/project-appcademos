@@ -5,6 +5,8 @@ import { BookingsService } from '../../services/bookings.service';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { NzNotificationService, NzModalService } from 'ng-zorro-antd';
+import { MessageService } from '../../services/message.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-checkout',
@@ -23,17 +25,29 @@ export class CheckoutComponent implements OnInit
     group: string;
     termsAccepted: boolean = false;
     
+    sendingBooking: boolean = false;
+    courseBooked: boolean = false;
+    sendingSignup: boolean = false;
+    signupCompleted: boolean = false;
+    
     user: any;
     startDateFormatted: String;
     
     emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    loginSubscription: Subscription;
+    showRegistrationModal: boolean = false;
+    
+    password: String;
+    repeatPassword: String;
 
     constructor(private courseservice: CoursesService,
                 private activatedRoute: ActivatedRoute,
                 private userService: UserSessionService,
                 private bookingsService: BookingsService,
                 private notifications: NzNotificationService,
-                private modalService: NzModalService)
+                private modalService: NzModalService,
+                private messageService: MessageService)
     {
         
     }
@@ -78,18 +92,46 @@ export class CheckoutComponent implements OnInit
                 });
             }
         });
+        
+        this.listenToLoginEvents();
+    }
+    ngOnDestroy()
+    {
+        if (this.loginSubscription != null)
+            this.loginSubscription.unsubscribe();
+    }
+    
+    listenToLoginEvents()
+    {
+        this.loginSubscription = this.messageService.getMessage()
+        .subscribe((message) =>
+        {
+            if (typeof message.user != 'undefined')
+            {
+                this.user = (message.user == null) ? null : {...message.user}
+            }
+        });
     }
     
     onChangeTermsAccepted(checked)
     {
         this.termsAccepted = checked;
     }
-    
     onPressBook()
     {
         if (this.validateFields())
-            this.sendBooking();
+        {
+            if (this.user != null)
+            {
+                this.sendBooking();
+            }
+            else
+            {
+                this.showRegistrationModal = true;
+            }
+        }
     }
+    
     validateFields()
     {
         let allOk = true;
@@ -137,18 +179,25 @@ export class CheckoutComponent implements OnInit
         
         if (this.user != null)
             data.user = this.user._id;
-            
+        
+        this.sendingBooking = true;
+        
         this.bookingsService.createBooking(data)
         .subscribe(res =>
         {
+            this.sendingBooking = false;
+            this.courseBooked = true;
+            
             this.modalService.success(
             {
                 nzTitle: 'Reserva confirmada',
-                nzContent: 'Tu reserva ha sido creada correctamente.'
+                nzContent: (this.signupCompleted) ? 'Tu cuenta ha sido creada correctamente.\nTu reserva ha sido creada correctamente.' : 'Tu reserva ha sido creada correctamente.'
             });
         },
         err =>
         {
+            this.sendingBooking = false;
+            
             this.modalService.error(
             {
                 nzTitle: 'Error',
@@ -156,6 +205,86 @@ export class CheckoutComponent implements OnInit
             });
             
             console.log(err);
+        });
+    }
+    
+    onRegistrationModalOk()
+    {
+        if (this.validateRegistrationModal())
+        {
+            this.sendSignup()
+            .then(() =>
+            {
+                setTimeout(() => { this.sendBooking(); }, 200);
+            })
+            .catch(() => {});
+        }
+    }
+    onRegistrationModalCancel()
+    {
+        this.showRegistrationModal = false;
+        this.sendBooking();
+    }
+    
+    validateRegistrationModal()
+    {
+        let allOk = true;
+        let message = 'Por favor, rellena todos los campos correctamente.';
+        
+        if (this.password == null || this.password.length === 0)
+            allOk = false;
+        if (this.repeatPassword == null || this.repeatPassword.length === 0)
+            allOk = false;
+        
+        if (allOk && this.password != this.repeatPassword)
+        {
+            message = 'Las contraseñas no coinciden.';
+            allOk = false;
+        }
+        
+        if (!allOk)
+        {
+            this.notifications.create(
+              'error',
+              'Error',
+              message
+            );
+        }
+        
+        return allOk;
+    }
+    sendSignup()
+    {
+        this.sendingSignup = true;
+
+        let data =
+        {
+            name: this.name.trim(),
+            email: this.email.trim(),
+            password: this.password
+        }
+
+        return new Promise((resolve, reject) =>
+        {
+            this.userService.signup(data).subscribe(() =>
+            {
+                this.sendingSignup = false;
+                this.showRegistrationModal = false;
+                this.signupCompleted = true;
+                resolve();
+            },
+            error =>
+            {
+                this.sendingSignup = false;
+                this.notifications.create(
+                  'error',
+                  'Error',
+                  'No se ha podido crear tu cuenta. Inténtalo de nuevo o ponte en contacto con nosotros.'
+                );
+                
+                console.log(error);
+                reject();
+            });
         });
     }
 }

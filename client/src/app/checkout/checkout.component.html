@@ -33,35 +33,59 @@
                 <form>
                   <div class="form-group">
                     <label>Nombre y apellidos</label>
-                    <input type="text" class="form-control" [(ngModel)]="name" name="name">
+                    <input type="text" class="form-control" [(ngModel)]="name" name="name" [disabled]="courseBooked">
                   </div>
                   <div class="form-group">
                     <label>Teléfono (La academia es posible que te llame)</label>
-                    <input type="text" class="form-control" [(ngModel)]="phone" name="phone">
+                    <input type="text" class="form-control" [(ngModel)]="phone" name="phone" [disabled]="courseBooked">
                   </div>
                   <div class="form-group">
                       <label>Email</label>
-                      <input type="text" class="form-control" [(ngModel)]="email" name="email">
+                      <input type="text" class="form-control" [(ngModel)]="email" name="email" [disabled]="courseBooked">
                   </div>
                   <div class="form-group">
                     <label>Día y hora de inicio</label>
-                    <select class="form-control" [(ngModel)]="group" name="group">
+                    <select class="form-control" [(ngModel)]="group" name="group" [disabled]="courseBooked">
                         <option *ngFor="let group of course.group" value="{{ startDateFormatted }} - {{group}}">{{ startDateFormatted }} - {{ group }}</option>
                     </select>
                   </div>
                  
                   <div class="form-group">
                     <div class="checkboxContainer flex flex-row align-items-center">
-                        <app-checkbox [red]="true" [checked]="termsAccepted" (onChange)="onChangeTermsAccepted($event)"></app-checkbox>
+                        <app-checkbox [red]="true" [checked]="termsAccepted" (onChange)="onChangeTermsAccepted($event)" [disabled]="courseBooked"></app-checkbox>
                         <div>
                             Acepto la <a href="/privacy-policy" target="_blank" class="color-green fw-500">política de privacidad</a>
                         </div>
                     </div>
                   </div>
 
-                  <div class="button full-width noshadow" (click)="onPressBook()">Reservar curso</div>
+                  <button
+                    [disabled]="courseBooked"
+                    nz-button
+                    nzType="primary"
+                    nzSize="large"
+                    nzBlock
+                    [nzLoading]="sendingBooking"
+                    (click)="onPressBook()"
+                    >
+                        {{ courseBooked ? '¡Curso reservado!' : 'Reservar curso' }}
+                    </button>
                 </form>
             </div>
+        </div>
+    </div>
+    
+    <div class="additionalInfo">
+        <div class="card-banner-title fw-600 fs-14 color-black-60">INFORMACIÓN ADICIONAL</div>
+        <div class="card-banner">
+            <div class="title fs-16 fw-600">Antes de ir debes saber</div>
+            <p>Te harán una prueba de nivel previa a la clase, por lo que debes llegar 30 minutos antes del horario seleccionado. No necesitas llevar ningún material a esta clase gratis.</p>
+            <br/>
+            <div class="title fs-16 fw-600">Sobre el pago</div>
+            <p>Si decides no continuar, no hace falta que se lo comuniques al centro. Si decides continuar, puedes pagar en el centro.</p>
+            <br/>
+            <div class="title fs-16 fw-600">Ayuda</div>
+            <p>Puedes llamarnos al 677827178 😉</p>
         </div>
     </div>
 </div>
@@ -81,3 +105,44 @@
         </div>
     </div>
 </div>
+
+<nz-modal
+    class="registrationModal"
+    [(nzVisible)]="showRegistrationModal"
+    nzTitle="Crea una cuenta"
+    nzOkText="Crear cuenta y reservar curso"
+    nzCancelText="Continuar sin cuenta"
+    (nzOnCancel)="onRegistrationModalCancel()"
+    (nzOnOk)="onRegistrationModalOk()"
+    [nzClosable]="false"
+    [nzMaskClosable]="false"
+    [nzOkLoading]="sendingSignup"
+>
+    <p class="fw-500 fs-16">Aprovecha y crea tu cuenta para poder gestionar tus reservas.</p>
+    
+    <div class="form full-width">
+        <form>
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input
+                    class="form-control"
+                    type="password"
+                    name="password"
+                    placeholder="Escribe tu contraseña"
+                    [(ngModel)]="password"
+                >
+            </div>
+            <div class="form-group">
+                <label>Repite la contraseña</label>
+                <input
+                    class="form-control"
+                    type="password"
+                    name="repeat-password"
+                    placeholder="Escribe tu contraseña"
+                    [(ngModel)]="repeatPassword"
+                    (keyup.enter)="onRegistrationModalOk()"
+                >
+            </div>
+        </form>
+    </div>
+</nz-modal>

@@ -11,7 +11,7 @@ import { environment } from "../environments/environment.prod";
 // LIBRARIES
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
-import { NzNotificationModule, NzModalModule, NZ_I18N, es_ES } from 'ng-zorro-antd';
+import { NzNotificationModule, NzModalModule, NzButtonModule, NZ_I18N, es_ES } from 'ng-zorro-antd';
 
 // SERVICES
 import { AcademySessionService } from "../services/academySession.service";
@@ -133,7 +133,8 @@ export function provideConfig() {
     }),
     BrowserAnimationsModule,
     NzNotificationModule,
-    NzModalModule
+    NzModalModule,
+    NzButtonModule
   ],
   providers: [
     AcademySessionService,

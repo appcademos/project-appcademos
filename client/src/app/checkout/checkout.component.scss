@@ -28,7 +28,7 @@
     h1
     {
         font-size: 24px;
-        margin-bottom: 20px;
+        margin-bottom: 28px;
     }
 }
 
@@ -40,7 +40,7 @@
 
 .courseBanner
 {
-    margin-bottom: 28px;
+    margin-bottom: 32px;
     
     .card-banner
     {
@@ -95,7 +95,7 @@
 
 .bookingForm
 {
-    margin-top: 28px;
+    margin-top: 32px;
     
     .checkboxContainer div
     {
@@ -104,5 +104,41 @@
     .form
     {
         padding: 20px 20px 16px;
+    }
+    .checkboxContainer
+    {
+        margin-top: 24px;
+    }
+    button
+    {
+        margin-top: 16px;
+    }
+}
+
+.additionalInfo
+{
+    margin-top: 32px;
+    margin-bottom: 80px;
+    
+    .card-banner
+    {
+        padding: 20px;
+    }
+    .title
+    {
+        margin-bottom: 4px;
+    }
+    p
+    {
+        font-weight: 500;
+        color: $black-80;
+    }
+}
+
+.registrationModal
+{
+    p
+    {
+        margin-bottom: 12px;
     }
 }

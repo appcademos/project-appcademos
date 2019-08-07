@@ -31,8 +31,8 @@
               }
             ],
             "styles": [
-              "src/sass/main.scss",
-              "src/antd_theme.less"
+                "src/antd_theme.less",
+              "src/sass/main.scss"
             ],
             "scripts": []
           },

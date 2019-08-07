@@ -5,10 +5,6 @@
 @import 'base/reset.scss';
 @import 'base/typography.scss';
 
-@import "~ng-zorro-antd/style/index.min.css"; /* Import basic styles */
-@import "~ng-zorro-antd/notification/style/index.min.css"; /* Import styles of the component */
-@import "~ng-zorro-antd/modal/style/index.min.css"; /* Import styles of the component */
-
 
 *
 {
@@ -754,13 +750,15 @@ input[type="text"]
 
 /***** Antd *****/
 .ant-notification-notice-message,
-.ant-modal-confirm-title
+.ant-modal-confirm-title,
+.ant-modal-title
 {
     font-weight: 600 !important;
 }
 .ant-notification-notice-description,
 .ant-modal-confirm-content,
-.ant-modal-confirm-btns button
+.ant-modal-confirm-btns button,
+.ant-btn
 {
     font-weight: 500 !important;
 }
