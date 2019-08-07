@@ -16,10 +16,10 @@ export class CheckoutComponent implements OnInit
     courseNotFound: boolean = false;
     
     course: any;
-    name: String;
-    phone: String;
-    email: String;
-    group: String;
+    name: string;
+    phone: string;
+    email: string;
+    group: string;
     termsAccepted: boolean = false;
     
     user: any;

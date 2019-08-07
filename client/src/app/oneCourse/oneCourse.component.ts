@@ -1,3 +1,4 @@
+/// <reference types="@types/googlemaps" />
 import { Component, ViewChild, HostListener, OnInit, OnDestroy } from "@angular/core";
 import { CoursesService } from "../../services/courses.service";
 import { ActivatedRoute } from "@angular/router";
@@ -5,7 +6,6 @@ import { Location } from "@angular/common";
 import { UtilsService } from '../../services/utils.service';
 import { UserSessionService } from '../../services/userSession.service';
 import { Router, Event, NavigationEnd } from '@angular/router';
-import { } from '@types/googlemaps';
 declare var $: any;
 import { MessageService } from '../../services/message.service';
 import { AcademySessionService } from '../../services/academySession.service';
