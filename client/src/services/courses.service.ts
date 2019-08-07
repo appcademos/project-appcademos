@@ -58,7 +58,7 @@ export class CoursesService {
       .get(`${environment.BASEURL}/api/course/${id}`, this.options)
       .map(res => res.json())
       .map(course => (this.viewCourse = course))
-      .catch(error => Observable.throw(error.json().message));
+      .catch(error => Observable.throw(error));
   }
 
   getAll() {

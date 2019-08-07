@@ -42,7 +42,8 @@ export class OneCourseComponent implements OnInit, OnDestroy
     
     reviewsFilterGrade: number;
     filteringReviews: boolean = false;
-    private fragment: string;
+    
+    selectedGroup: String;
 
     constructor(private courseService: CoursesService,
                 private academyService: AcademySessionService,

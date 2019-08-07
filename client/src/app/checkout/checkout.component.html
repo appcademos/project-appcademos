@@ -1,76 +1,83 @@
-<div class="container pt-5">
-  <div class="row">
-<!-- Typeform -->
-<!--<script> (function() { var qs,js,q,s,d=document, gi=d.getElementById, ce=d.createElement, gt=d.getElementsByTagName, id="typef_orm", b="https://embed.typeform.com/"; if(!gi.call(d,id)) { js=ce.call(d,"script"); js.id=id; js.src=b+"embed.js"; q=gt.call(d,"script")[0]; q.parentNode.insertBefore(js,q) } })() </script>
-
-<div class="typeform-widget" data-url="https://appcademos.typeform.com/to/OFGQDl" style="width: 100%; height: 500px;">
-</div>
-<div style="font-family: Sans-Serif;font-size: 12px;color: #999;opacity: 0.5; padding-top: 5px;"> powered by <a href="https://admin.typeform.com/signup?utm_campaign=OFGQDl&utm_source=typeform.com-12438924-Pro&utm_medium=typeform&utm_content=typeform-embedded-poweredbytypeform&utm_term=ES" style="color: #999" target="_blank">Typeform</a>
-</div>-->
-<iframe src="https://appcademos.typeform.com/to/OFGQDl" style="border: 0; width: 100%; height: 500px;"></iframe>
-
- <!-- Registro + Detalles -->
-  <!-- <div *ngIf="!userservice.user" class="col-md-6 text-center">
-    <h3 *ngIf="!isLogin">Necesitas registrarte o iniciar sesión para poder continuar</h3>
-    <h4 *ngIf="!isLogin">Regístrate</h4>
-    <h4 *ngIf="isLogin">Inicia Sesión</h4>
-    <form>
-      <div class="col-md-12">
-          <div class="form-group col-md-12 p-0">
-          <input type="email" class="form-control" [(ngModel)]="name" name="name" id="exampleInputName" aria-describedby="nameHelp"
-            placeholder="Nombre">
+<div class="bookingContainer responsive-container" *ngIf="course != null">
+    <h1>Reserva de curso</h1>
+    
+    <div class="courseBanner">
+        <div class="card-banner-title fw-600 fs-14 color-black-60">CURSO ELEGIDO</div>
+        <div class="card-banner flex-inline flex-row align-items-center">
+            <div class="info flex flex-row">
+                <div
+                    class="image"
+                    *ngIf="course.images[0] != null && course.images[0].imagePath != null"
+                    [ngStyle]="{'background-image': 'url(' + course.images[0].imagePath + ')'}"
+                ></div>
+                <div>
+                    <div class="flex flex-row align-items-center">
+                        <div class="fs-10 fw-600 color-black-60">ACADEMIA {{ course.academy.name.toUpperCase() }}</div>
+                        <div class="verified" *ngIf="course.academy.isVerified"><i class="icon size-7 icon-green-check"></i>VERIFICADA</div>
+                    </div>
+                    <div class="title fs-17 fw-600">{{ course.title }}</div>
+                </div>
+            </div>
+            <div class="price color-red fw-600 fs-24">{{ course.price }}€</div>
         </div>
-        <div class="form-group col-md-12 p-0">
-          <input type="email" class="form-control" [(ngModel)]="email" name="email" id="exampleInputEmail1" aria-describedby="emailHelp"
-            placeholder="Correo electrónico">
-        </div>
-        <div class="form-group col-md-12 p-0">
-          <input type="password" class="form-control" [(ngModel)]="password" name="password" id="exampleInputPassword1" placeholder="Contraseña">
-        </div>
-        <div class="form-group col-md-12 p-0" *ngIf="!isLogin">
-          <label for="phone">Tu teléfono sólo será utilizado por la academia</label>
-          <input type="phone" class="form-control" [(ngModel)]="phone" name="password" id="exampleInputPhone" placeholder="Teléfono">
-        </div>
-
-        <button *ngIf="!isLogin" type="submit" class="btn btn-signup form-btn col-md-12 mt-2" (click)="signup()">Registrarme</button>
-        <button *ngIf="isLogin" type="submit" class="btn btn-signup form-btn col-md-12 mt-2" (click)="login()">Iniciar Sesión</button>
-
-      </div>
-      <div>
-
-        <div class="form-check">
-          <input *ngIf="!isLogin" type="checkbox" class="form-check-input mt-2" id="termsAndConditions">
-
-          <label *ngIf="!isLogin" class="form-check-label mt-2" for="termsAndConditions">Acepto los
-            <a [routerLink]="['']">términos y condiciones</a> de Appcademos.com</label>
-        </div>
-      </div>
-    </form>
-
-    <div>
-      <p *ngIf="!isLogin" class="signin-link mt-2">{{"¿Ya tienes una cuenta en Appcademos?" | uppercase}}
-        <a (click)="isLogin = true">{{"Inicia sesión" | uppercase}}</a>
-      </p>
-      <p *ngIf="isLogin" class="signin-link mt-2">{{"¿No tienes una cuenta en Appcademos?" | uppercase}}
-        <a (click)="isLogin = false">{{"Regístrate" | uppercase}}</a>
-      </p>
     </div>
-  </div>
-  <div class="col-md-6 text-center">
-    <h3>Detalles del curso</h3>
-    <div *ngIf="viewCourse" class="text-left">
-      <h5>Nombre: {{viewCourse.title}}</h5>
-      <h5>Precio: {{viewCourse.price | currency: "EUR"}}</h5>
-      <h5>Inicio de clases: {{viewCourse.startDate | date: "dd/MM/yyyy"}}</h5>
-
+    
+    <div class="warning-box">
+        <b>Importante:</b> Al cumplimentar este formulario, vas a <span class="fw-600">reservar al instante tu plaza en una clase gratis</span> en la academia <span class="fw-600">{{ course.academy.name }}</span>. Al cumplimentarlo <span class="fw-600">te comprometes a asistir</span>. La academia tiene plazas limitadas y será notificada automáticamente recibiendo tus datos.
     </div>
-    <div *ngIf="isLogin" class="col-md-4 pt-3 pb-3">
-        <button class="btn btn-primary d-none d-lg-block" [routerLink]="['/confirmation']">
-          <h5 class="m-0">Reservar mi plaza</h5>
-        </button>
-        <button class="btn btn-primary d-lg-none w-100 fixed-bottom" [routerLink]="['/confirmation']">
-          <h5 class="m-0">Reservar mi plaza</h5>
-        </button>
-  </div>
+    
+    <div class="bookingForm">
+        <div class="card-banner-title fw-600 fs-14 color-black-60">RELLENA TUS DATOS</div>
+        <div class="card-banner">
+            <div class="form full-width">
+                <form>
+                  <div class="form-group">
+                    <label>Nombre y apellidos</label>
+                    <input type="text" class="form-control" [(ngModel)]="name" name="name">
+                  </div>
+                  <div class="form-group">
+                    <label>Teléfono (La academia es posible que te llame)</label>
+                    <input type="text" class="form-control" [(ngModel)]="phone" name="phone">
+                  </div>
+                  <div class="form-group">
+                      <label>Email</label>
+                      <input type="text" class="form-control" [(ngModel)]="email" name="email">
+                  </div>
+                  <div class="form-group">
+                    <label>Día y hora de inicio</label>
+                    <select class="form-control" [(ngModel)]="group" name="group">
+                        <option *ngFor="let group of course.group" value="{{ startDateFormatted }} - {{group}}">{{ startDateFormatted }} - {{ group }}</option>
+                    </select>
+                  </div>
+                 
+                  <div class="form-group">
+                    <div class="checkboxContainer flex flex-row align-items-center">
+                        <app-checkbox [red]="true" [checked]="termsAccepted" (onChange)="onChangeTermsAccepted($event)"></app-checkbox>
+                        <div>
+                            Acepto la <a href="/privacy-policy" target="_blank" class="color-green fw-500">política de privacidad</a>
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="button full-width noshadow" (click)="onPressBook()">Reservar curso</div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-</div> -->
+    
+<div class="responsive-container">
+    <div class="spinner" [hidden]="!isLoading"></div>
+    
+    <div class="notFoundContainer" *ngIf="courseNotFound">
+        <div class="notFound card-banner">
+            Lo sentimos, el curso no se ha encontrado
+        </div>
+    </div>
+    
+    <div class="notFoundContainer" *ngIf="course != null && course.isBooked">
+        <div class="notFound card-banner">
+            Lo sentimos, el curso está completo
+        </div>
+    </div>
+</div>
