@@ -91,6 +91,32 @@
             }
         }
     }
+
+    @media (max-width: 480px)
+    {
+        .card-banner
+        {
+            flex-wrap: wrap;
+        }
+        .info
+        {
+            flex-direction: column !important;
+            padding-right: 0;
+            border: 0;
+            margin-right: 0;
+            
+            .image
+            {
+                width: 140px;
+                height: 72px;
+                margin-bottom: 8px;
+            }
+        }
+        .price
+        {
+            margin-top: 12px;
+        }
+    }
 }
 
 .bookingForm
