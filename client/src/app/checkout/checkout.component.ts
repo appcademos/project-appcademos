@@ -4,6 +4,7 @@ import { CoursesService } from '../../services/courses.service';
 import { BookingsService } from '../../services/bookings.service';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
+import { NzNotificationService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-checkout',
@@ -30,7 +31,8 @@ export class CheckoutComponent implements OnInit
     constructor(private courseservice: CoursesService,
                 private activatedRoute: ActivatedRoute,
                 private userService: UserSessionService,
-                private bookingsService: BookingsService)
+                private bookingsService: BookingsService,
+                private notifications: NzNotificationService)
     {
         
     }
@@ -112,7 +114,11 @@ export class CheckoutComponent implements OnInit
         
         if (!allOk)
         {
-            alert(message);    
+            this.notifications.create(
+              'error',
+              'Error',
+              message
+            );
         }
         
         return allOk;

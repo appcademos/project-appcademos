@@ -4,12 +4,14 @@ import { HttpModule } from "@angular/http";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { routes } from "./routes.routing";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { environment } from "../environments/environment.prod";
 
 // LIBRARIES
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
+import { NzNotificationModule } from 'ng-zorro-antd';
 
 // SERVICES
 import { AcademySessionService } from "../services/academySession.service";
@@ -128,7 +130,9 @@ export function provideConfig() {
     MetaModule.forRoot({
       provide: MetaLoader,
       useFactory: (metaFactory)
-    })
+    }),
+    BrowserAnimationsModule,
+    NzNotificationModule
   ],
   providers: [
     AcademySessionService,

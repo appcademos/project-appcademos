@@ -5,6 +5,9 @@
 @import 'base/reset.scss';
 @import 'base/typography.scss';
 
+@import "~ng-zorro-antd/style/index.min.css"; /* Import basic styles */
+@import "~ng-zorro-antd/notification/style/index.min.css"; /* Import styles of the component */
+
 
 *
 {
@@ -745,4 +748,15 @@ input[type="text"]
     {
         margin-bottom: 12px;
     }
+}
+
+
+/***** Antd *****/
+.ant-notification-notice-message
+{
+    font-weight: 600;
+}
+.ant-notification-notice-description
+{
+    font-weight: 500;
 }
