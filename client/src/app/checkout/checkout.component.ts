@@ -191,7 +191,7 @@ export class CheckoutComponent implements OnInit
             this.modalService.success(
             {
                 nzTitle: 'Reserva confirmada',
-                nzContent: (this.signupCompleted) ? 'Tu cuenta ha sido creada correctamente.\nTu reserva ha sido creada correctamente.' : 'Tu reserva ha sido creada correctamente.'
+                nzContent: (this.signupCompleted) ? 'Tu cuenta se ha creado correctamente.\nTu plaza ha sido reservada.' : 'Tu plaza ha sido reservada.'
             });
         },
         err =>
@@ -201,7 +201,7 @@ export class CheckoutComponent implements OnInit
             this.modalService.error(
             {
                 nzTitle: 'Error',
-                nzContent: 'Tu reserva no ha podido ser creada. Inténtalo de nuevo o contacta con nosotros.'
+                nzContent: 'Tu plaza no se ha podido reservar. Inténtalo de nuevo o contacta con nosotros.'
             });
             
             console.log(err);
