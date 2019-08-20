@@ -96,6 +96,11 @@ input[type="text"]
     background-position: center;
     background-size: contain;
 }
+.icon.size-7
+{
+    height: 7px;
+    width: 7px;
+}
 .icon.size-9
 {
     height: 9px;
@@ -570,6 +575,10 @@ input[type="text"]
 {
     display: flex;
 }
+.flex-row
+{
+    flex-direction: row;
+}
 .space-between
 {
     justify-content: space-between;
@@ -620,9 +629,28 @@ input[type="text"]
     box-shadow: 0 1px 4px rgba(0,0,0,0.08);
 }
 
+.warning-box
+{
+    background: rgba(236,201,0,0.12);
+    border: 1px solid rgba(236,201,0,0.32);
+    padding: 12px 32px;
+    line-height: 1.4;
+    text-align: center;
+    border-radius: 8px;
+    color: rgba(72,72,72,0.88);
+}
+
 .line-separator
 {
     height: 1px;
+    background: #EAEAEA;
+}
+
+.vertical-separator
+{
+    flex: 1;
+    width: 1px;
+    height: 100%;
     background: #EAEAEA;
 }
 
@@ -717,4 +745,20 @@ input[type="text"]
     {
         margin-bottom: 12px;
     }
+}
+
+
+/***** Antd *****/
+.ant-notification-notice-message,
+.ant-modal-confirm-title,
+.ant-modal-title
+{
+    font-weight: 600 !important;
+}
+.ant-notification-notice-description,
+.ant-modal-confirm-content,
+.ant-modal-confirm-btns button,
+.ant-btn
+{
+    font-weight: 500 !important;
 }

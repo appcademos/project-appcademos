@@ -1,4 +1,4 @@
 <label [ngClass]="{ 'checkboxContainer': true, 'red': red }">
-    <input type="checkbox" [(ngModel)]="isChecked" [ngModelOptions]="{standalone: true}" (change)="onCheck()">
+    <input type="checkbox" [(ngModel)]="isChecked" [ngModelOptions]="{standalone: true}" (change)="onCheck()" [disabled]="disabled">
     <span class="checkmark"></span>
 </label>

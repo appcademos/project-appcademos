@@ -9,6 +9,7 @@ export class CheckboxComponent
 {
     @Input() red: boolean;
     @Input() checked: boolean;
+    @Input() disabled: boolean;
     @Output() onChange: EventEmitter<any> = new EventEmitter();
     
     isChecked: boolean;
