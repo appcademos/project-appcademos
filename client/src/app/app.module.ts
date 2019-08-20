@@ -4,38 +4,34 @@ import { HttpModule } from "@angular/http";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { routes } from "./routes.routing";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { environment } from "../environments/environment.prod";
 
 // LIBRARIES
-import { AgmCoreModule } from "@agm/core";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
+import { NzNotificationModule, NzModalModule, NzButtonModule, NZ_I18N, es_ES } from 'ng-zorro-antd';
 
 // SERVICES
 import { AcademySessionService } from "../services/academySession.service";
 import { CoursesService } from "../services/courses.service";
-import { GeolocationService } from "../services/geolocation.service";
-import { MapMarkersService } from "../services/map-markers.service";
 import { UserSessionService } from "../services/userSession.service";
 import { UtilsService } from "../services/utils.service";
 import { MessageService } from "../services/message.service";
 import { SeoService } from "../services/seo.service";
+import { BookingsService } from "../services/bookings.service";
 
 // COMPONENTS
 import { AcademyComponent } from "./academy/academy.component";
-import { AcademyMapMarkerComponent } from "./academy-map-marker/academy-map-marker.component";
 import { AllCoursesComponent } from "./allCourses/allCourses.component";
 import { AppComponent } from "./app.component";
 import { CheckoutComponent } from "./checkout/checkout.component";
-import { CoursesMapMarkersComponent } from "./courses-map-markers/courses-map-markers.component";
 import { CreateCourseFormComponent } from "./createCourseForm/createCourseForm.component";
 import { FooterComponent } from "./footer/footer.component";
 import { HeaderComponent } from "./header/header.component";
 import { HomeComponent } from "./home/home.component";
 import { IsAcademyButtonComponent } from "./isAcademyButton/isAcademyButton.component";
-import { MapComponent } from "./map/map.component";
-import { MapSearchboxComponent } from "./map-searchbox/map-searchbox.component";
 import { OneCourseComponent } from "./oneCourse/oneCourse.component";
 import { UserComponent } from "./user/user.component";
 import { UserLoginFormComponent } from "./userLoginForm/userLoginForm.component";
@@ -96,18 +92,14 @@ export function provideConfig() {
 @NgModule({
    declarations: [
       AcademyComponent,
-      AcademyMapMarkerComponent,
       AllCoursesComponent,
       AppComponent,
       CheckoutComponent,
-      CoursesMapMarkersComponent,
       CreateCourseFormComponent,
       FooterComponent,
       HeaderComponent,
       HomeComponent,
       IsAcademyButtonComponent,
-      MapComponent,
-      MapSearchboxComponent,
       OneCourseComponent,
       UserComponent,
       UserLoginFormComponent,
@@ -128,10 +120,6 @@ export function provideConfig() {
    ],
 
   imports: [
-    AgmCoreModule.forRoot({
-      apiKey: "AIzaSyCYxJxUvlC9d_-w181lx5OxjJvtCwfDJ6w",
-      libraries: ["places"]
-    }),
     BrowserModule,
     FormsModule,
     HttpModule,
@@ -142,13 +130,15 @@ export function provideConfig() {
     MetaModule.forRoot({
       provide: MetaLoader,
       useFactory: (metaFactory)
-    })
+    }),
+    BrowserAnimationsModule,
+    NzNotificationModule,
+    NzModalModule,
+    NzButtonModule
   ],
   providers: [
     AcademySessionService,
     CoursesService,
-    GeolocationService,
-    MapMarkersService,
     UserSessionService,
     MessageService,
     UtilsService,
@@ -156,7 +146,9 @@ export function provideConfig() {
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig
-    }
+    },
+    BookingsService,
+    { provide: NZ_I18N, useValue: es_ES }
   ],
   bootstrap: [AppComponent]
 })
