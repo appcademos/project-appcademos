@@ -24,7 +24,12 @@
                         <div class="subtitleContainer flex-inline align-items-center">
                             <div *ngIf="getCourseWasUpdated(course)" class="label-tag green">Actualizado</div>
                             <div *ngIf="getCourseUpdatedError(course)" class="label-tag red">Error</div>
-                            <div class="subtitle">Actualizado {{ formatDate(course.updated_at) }}</div>
+                            <div class="subtitle">
+                                Actualizado {{ formatDate(course.updated_at) }}&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;
+                                <span class="impressions">
+                                    <span class="icon size-12 icon-eye"></span>&nbsp;{{ course.impressions }}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
