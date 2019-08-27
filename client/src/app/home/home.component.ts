@@ -26,7 +26,7 @@ export class HomeComponent
     heroHeight: number = undefined;
     igPosts = []
     
-    IG_POSTS_IDS = ['BynuXCSC3Ay', 'B0EAJn4CcZi', 'Byf0E3NCmSw']
+    IG_POSTS_IDS = ['BynuXCSC3Ay', 'B0EAJn4CcZi', 'B1ohkcPCc6G']
 
     constructor(private courses: CoursesService,
                 private router: Router,
