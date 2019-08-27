@@ -26,58 +26,6 @@ mongoose
   .then(() =>
   {
     debug(`Connected to Mongo at ${dbURL}`);
-    
-    // Quitar en cuanto se haya subido 1 vez a PROD
-    Academy.find({})
-    .populate(
-    {
-        path: 'reviews',
-        model: 'Review'
-    })
-    .then(academies =>
-    {       
-        academies.forEach(academy =>
-        {
-            // Update the averageRating
-            if (academy.reviews != null)
-            {
-                let averageRating = 0;
-                
-                academy.reviews.forEach((review) =>
-                {
-                    averageRating += review.grade;
-                });
-                
-                if (averageRating > 0)
-                    averageRating = averageRating / academy.reviews.length;
-                    
-                Academy.findByIdAndUpdate(academy._id, { averageRating: averageRating })
-                .then(acad =>
-                {
-                    console.log('averageRating updated: ' + acad._id);
-                })
-                .catch((error) =>
-                {
-                    console.log('ERROR: Could not update averageRating', error);
-                });
-            }
-        });         
-    })
-    .catch(err =>
-    {
-        console.log('ERROR: Could not find all academies');
-    });
-    
-    // Quitar en cuanto se haya subido 1 vez a PROD
-    Course.updateMany({}, { impressions: 0 })
-    .then(courses =>
-    {
-        console.log('Courses impressions set to 0.');
-    })
-    .catch(error =>
-    {
-        console.log('ERROR: Could not find all courses.');
-    });
   })
   .catch(err => {
     debug("Error connecting to mongo", err);
