@@ -17,23 +17,73 @@ const cors = require("cors");
 var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
 
 const DataSeed = require('./bin/data_seed');
+const Academy = require("./api/academy/academy.model");
+const Course = require("./api/course/course.model");
 
 mongoose.Promise = Promise;
 mongoose
   .connect(dbURL)
-  .then(() => {
+  .then(() =>
+  {
     debug(`Connected to Mongo at ${dbURL}`);
-
-    //DataSeed.seed();
+    
+    // Quitar en cuanto se haya subido 1 vez a PROD
+    Academy.find({})
+    .populate(
+    {
+        path: 'reviews',
+        model: 'Review'
+    })
+    .then(academies =>
+    {       
+        academies.forEach(academy =>
+        {
+            // Update the averageRating
+            if (academy.reviews != null)
+            {
+                let averageRating = 0;
+                
+                academy.reviews.forEach((review) =>
+                {
+                    averageRating += review.grade;
+                });
+                
+                if (averageRating > 0)
+                    averageRating = averageRating / academy.reviews.length;
+                    
+                Academy.findByIdAndUpdate(academy._id, { averageRating: averageRating })
+                .then(acad =>
+                {
+                    console.log('averageRating updated: ' + acad._id);
+                })
+                .catch((error) =>
+                {
+                    console.log('ERROR: Could not update averageRating', error);
+                });
+            }
+        });         
+    })
+    .catch(err =>
+    {
+        console.log('ERROR: Could not find all academies');
+    });
+    
+    // Quitar en cuanto se haya subido 1 vez a PROD
+    Course.updateMany({}, { impressions: 0 })
+    .then(courses =>
+    {
+        console.log('Courses impressions set to 0.');
+    })
+    .catch(error =>
+    {
+        console.log('ERROR: Could not find all courses.');
+    });
   })
   .catch(err => {
     debug("Error connecting to mongo", err);
   });
 
 const app = express();
-
-/*if (process.env.DEBUG == undefined)
-    app.use(redirectToHTTPS(undefined, [/\/app/], 301));*/
 
 var whitelist = [
   `${process.env.CORS_ALLOW}`,
@@ -65,19 +115,6 @@ app.use(
   })
 );
 require("./config/passport")(app);
-
-// Express View engine setup
-/*app.use(
-  require("node-sass-middleware")({
-    src: path.join(__dirname, "public"),
-    dest: path.join(__dirname, "public"),
-    sourceMap: true
-  })
-);
-
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "hbs");
-app.use(express.static(path.join(__dirname, "public")));*/
 
 app.locals.title = "Appcademos";
 
@@ -124,8 +161,5 @@ app.post('/git-pull', function(req, res)
 });
 
 require("./routes/routes")(app);
-/*app.use(function (req, res) {
-  res.sendFile(__dirname + '/public/index.html');
-});*/
 
 module.exports = app;

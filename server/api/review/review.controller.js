@@ -30,20 +30,23 @@ const getOne = (req, res, next) => {
     });
 };
 
-const create = (req, res, next) => {
-  const properties = _.pick(req.body, fields);
-  const newReview = new Review(properties);
+const create = (req, res, next) =>
+{
+    const properties = _.pick(req.body, fields);
+    const newReview = new Review(properties);
 
-  newReview.save(err => {
-    if (err) {
-      debug(err);
-      res
-        .status(400)
-        .json({ message: "Something went wrong when trying to create review" });
-    } else {
-      res.status(201).json(newReview);
-    }
-  });
+    newReview.save(err =>
+    {
+        if (err)
+        {
+            debug(err);
+            res.status(400).json({ message: "Something went wrong when trying to create review" });
+        }
+        else
+        {            
+            res.status(201).json(newReview);
+        }
+    });
 };
 
 const update = (req, res, next) => {
