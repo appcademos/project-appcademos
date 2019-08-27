@@ -28,7 +28,7 @@ export class AllCoursesComponent
     courses = [];
     orders =
     [
-        { id: ORDER_RELEVANCE, name: 'Relevancia' },
+        { id: ORDER_RELEVANCE, name: 'Mejor valorados' },
         { id: ORDER_PRICE_DESCENDING, name: 'Precio (más alto arriba)' },
         { id: ORDER_PRICE_ASCENDING, name: 'Precio (más bajo arriba)' }
     ]
