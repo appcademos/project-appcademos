@@ -69,9 +69,23 @@
         }
         .subtitle
         {
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 400;
             color: $black-80;
+            
+            .impressions
+            {
+                transform: translate(0,2px);
+                display: inline-flex;
+                flex-direction: row;
+                align-items: center;
+                font-size: 14px;
+                
+                .icon
+                {
+                    opacity: 0.8;
+                }
+            }
         }
 
         &.expanded

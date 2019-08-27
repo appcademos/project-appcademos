@@ -124,6 +124,16 @@ const getOne = (req, res, next) => {
     .exec()
     .then(course => {
         res.status(200).json({ course });
+        
+        Course.updateOne({ _id: req.params.id }, { impressions: course.impressions+1 })
+        .then(res =>
+        {
+            console.log('Course impressions +1', res);
+        })
+        .catch(error =>
+        {
+            console.log(error);
+        });
     })
     .catch(err => {
       debug(err);
