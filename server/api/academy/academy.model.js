@@ -41,6 +41,10 @@ const academySchema = new Schema(
     city: {
       type: String
     },
+    averageRating: {
+        type: Number,
+        default: 0
+    }
   },
   {
     timestamps: {

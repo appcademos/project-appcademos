@@ -202,55 +202,94 @@ const getThis = (req, res, next) => {
     }
 };
 
-const update = (req, res, next) => {
-  let updates = _.pick(req.body, fields);
+const update = (req, res, next) =>
+{
+    let updates = _.pick(req.body, fields);
 
-  if (req.body.newPassword) {
-    Academy.findById(req.academy.id)
-      .then(academy => {
-        if (bcrypt.compareSync(req.body.password, academy.password)) {
-          const hashPass = bcrypt.hashSync(req.body.newPassword, salt);
-          updates.password = hashPass;
+    if (req.body.newPassword)
+    {
+        Academy.findById(req.academy.id)
+        .then(academy =>
+        {
+            if (bcrypt.compareSync(req.body.password, academy.password))
+            {
+                const hashPass = bcrypt.hashSync(req.body.newPassword, salt);
+                updates.password = hashPass;
 
-          Academy.update(updates)
-            .then(academy => {
-              res.status(200).json({
-                message: "Academy updated. Password updated."
-              });
+                Academy.update(updates)
+                .then(academy =>
+                {
+                    res.status(200).json({message: "Academy updated. Password updated."});
+                })
+                .catch(err =>
+                {
+                    res.status(400).json({message: "Error updating academy"});
+                });
+            }
+            else
+            {
+                res.status(400).json({message: "Incorrect password"});
+                return;
+            }
+        })
+        .catch(err =>
+        {
+            res.status(400).json({message: "Error updating academy"});
+        });
+    }
+    else
+    {
+        updates = _.omit(updates, ["password"]);
+        
+        Academy.findByIdAndUpdate(req.params.id, updates)
+        .then(academy =>
+        {
+            Academy.findById(req.params.id)
+            .populate(
+            {
+                path: 'reviews',
+                model: 'Review'
             })
-            .catch(err => {
-              res.status(400).json({
-                message: "Error updating academy"
-              });
+            .then(academy =>
+            {                
+                // Update the averageRating
+                if (academy.reviews != null)
+                {
+                    let averageRating = 0;
+                    
+                    academy.reviews.forEach((review) =>
+                    {
+                        averageRating += review.grade;
+                    });
+                    
+                    if (averageRating > 0)
+                        averageRating = averageRating / academy.reviews.length;
+                        
+                    Academy.findByIdAndUpdate(req.params.id, { averageRating: averageRating })
+                    .then(acad =>
+                    {
+                        res.status(200).json({message: "Academy updated. No password updated."});
+                    })
+                    .catch((error) =>
+                    {
+                        console.log('ERROR: Could not update averageRating');
+                        
+                        res.status(200).json({message: "Academy updated. No password updated."});
+                    });
+                }
+            })
+            .catch(err =>
+            {
+                console.log('ERROR: Could not update averageRating');
+                
+                res.status(200).json({message: "Academy updated. No password updated."});
             });
-        } else {
-          res.status(400).json({
-            message: "Incorrect password"
-          });
-          return;
-        }
-      })
-      .catch(err => {
-        res.status(400).json({
-          message: "Error updating academy"
+        })
+        .catch(err =>
+        {
+            res.status(400).json({message: "Error updating academy"});
         });
-      });
-  } else {
-    updates = _.omit(updates, ["password"]);
-    Academy.findByIdAndUpdate(req.params.id, updates)
-      .then(academy => {
-        res
-          .status(200)
-          .json({
-            message: "Academy updated. No password updated."
-          });
-      })
-      .catch(err => {
-        res.status(400).json({
-          message: "Error updating academy"
-        });
-      });
-  }
+    }
 };
 
 const erase = (req, res, next) => {

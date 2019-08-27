@@ -143,7 +143,31 @@ export class AllCoursesComponent
 
         switch (this.currentOrder.id)
         {
-            case ORDER_RELEVANCE: this.courses = [...this.allCourses]; break;
+            case ORDER_RELEVANCE:
+            this.courses = this.courses.sort((courseA, courseB) =>
+            {
+                if (courseA.academy.averageRating > courseB.academy.averageRating)
+                    return -1;
+                else if (courseA.academy.averageRating < courseB.academy.averageRating)
+                    return 1;
+                else
+                {
+                    if (courseA.academy.reviews.length > courseB.academy.reviews.length)
+                        return -1;
+                    else if (courseA.academy.reviews.length < courseB.academy.reviews.length)
+                        return 1;
+                    else
+                    {
+                        if (courseA.impressions > courseB.impressions)
+                            return -1;
+                        else if (courseA.impressions < courseB.impressions)
+                            return 1;
+                        else
+                            return 0;
+                    }
+                }
+            });
+            break;
 
             case ORDER_PRICE_DESCENDING:
             this.courses = this.courses.sort((courseA, courseB) =>

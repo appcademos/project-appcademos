@@ -46,7 +46,11 @@ const courseSchema = new Schema(
     isBooked: {
         type: Boolean,
         default: false
-    }
+    },
+    impressions: {
+        type: Number,
+        default: 0
+    },
   },
   {
     timestamps: {
