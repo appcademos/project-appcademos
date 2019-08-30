@@ -125,7 +125,8 @@ const getOne = (req, res, next) => {
     .then(course => {
         res.status(200).json({ course });
         
-        Course.updateOne({ _id: req.params.id }, { impressions: course.impressions+1 })
+        // We keep the updated_at field so that mongoose doesn't overwrite it
+        Course.updateOne({ _id: req.params.id }, { impressions: course.impressions+1, updated_at: course.updated_at })
         .then(res =>
         {
             console.log('Course impressions +1', res);

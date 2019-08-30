@@ -53,6 +53,10 @@
 
     <div class="responsive-container">
         <section id="info-box" class="card-banner">
+            <div class="update-info">
+                <span class="circle"></span>Información actualizada por la academia a las {{ getUpdatedDate(courseObj.course.updated_at) }}
+            </div>
+            
             <div class="content-container">
                 <div class="col-section">
                     <div class="group">
@@ -80,7 +84,24 @@
                         <div class="color-green fs-13 fw-500 cursor-pointer noselect" (click)="utils.scrollToElement('#location')">Ver mapa</div>
                     </div>
                 </div>
+                
                 <div class="separator"></div>
+                
+                <div class="col-section important">
+                    <div class="group">
+                        <div class="title">Importante</div>
+                        <div class="text">
+                            <ul>
+                                <li>Mismo precio que en la academia</li>
+                                <li>Tendrás una clase gratis sin compromiso al reservar</li>
+                                <li>La reserva se realizará al instante notificándole al correo</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="separator"></div>
+                
                 <div class="col-section price">
                     <div class="group">
                         <div class="title">Precio</div>
