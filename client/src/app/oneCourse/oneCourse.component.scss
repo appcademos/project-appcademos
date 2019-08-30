@@ -230,8 +230,9 @@ h2
 
 #info-box
 {
+    position: relative;
     margin-top: 8px;
-    padding: 20px 24px;
+    padding: 28px 24px 20px;
 
     .content-container
     {
@@ -363,6 +364,56 @@ h2
         font-size: 13px;
         color: $black-60;
         font-weight: 500;
+    }
+
+    .update-info
+    {
+        position: absolute;
+        top: -11px;
+        left: 24px;
+        background: #fff;
+        border-radius: 3px;
+        padding: 2px 8px;
+        font-size: 14px;
+        font-weight: 500;
+        color: $black-60;
+        line-height: 1.4;
+        margin-right: 20px;
+        
+        .circle
+        {
+            width: 10px;
+            height: 10px;
+            display: inline-block;
+            border-radius: 50%;
+            background: $whatsapp-color;
+            margin-right: 8px;
+        }
+    }
+
+    @media screen and (max-width: 576px)
+    {
+        padding-top: 44px;
+    }
+    @media (max-width: 375px)
+    {
+        margin-top: 0;
+        padding: 16px;
+        padding-top: 44px;
+        
+        .update-info
+        {
+            left: 16px;
+        }
+    }
+    @media (max-width: 330px)
+    {
+        padding-top: 60px;
+        
+        .update-info
+        {
+            left: 10px;
+        }
     }
 }
 
@@ -1063,13 +1114,5 @@ h2
                 }
             }
         }
-    }
-}
-@media (max-width: 375px)
-{
-    #info-box
-    {
-        margin-top: 0;
-        padding: 16px;
     }
 }
