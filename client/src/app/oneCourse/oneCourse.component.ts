@@ -10,6 +10,7 @@ declare var $: any;
 import { MessageService } from '../../services/message.service';
 import { AcademySessionService } from '../../services/academySession.service';
 import { MetaService } from '@ngx-meta/core';
+import * as moment from 'moment';
 
 const MOBILE_WIDTH = 870;
 
@@ -431,6 +432,17 @@ export class OneCourseComponent implements OnInit, OnDestroy
     getNameInitials(name)
     {
         return this.utils.getNameInitials(name);
+    }
+    getUpdatedDate(date)
+    {
+        let formattedDate = '';
+        
+        if (date != null)
+        {
+            formattedDate = moment(date).locale("es").format("HH:mm DD/MM/YYYY")
+        }
+        
+        return formattedDate;
     }
 
     @HostListener('window:scroll')
