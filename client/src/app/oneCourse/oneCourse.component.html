@@ -114,13 +114,13 @@
                         </div>
                     </div>
                     
-                    <div class="button light-shadow" *ngIf="!courseObj.course.isBooked" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">Reservar clase de prueba</div>
+                    <div class="button light-shadow" *ngIf="!courseObj.course.isBooked" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">Reservar clase de prueba gratis</div>
                     <div class="bookingInfo" *ngIf="!courseObj.course.isBooked">*Sin tarjeta de crédito</div>
                     
                     <div class="booked label-tag red large" *ngIf="courseObj.course.isBooked">COMPLETO</div>
                     
                     <div class="fixed-button">
-                        <div class="button light-shadow" *ngIf="!courseObj.course.isBooked" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">Reservar clase de prueba</div>
+                        <div class="button light-shadow" *ngIf="!courseObj.course.isBooked" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">Reservar clase de prueba gratis</div>
                         <div class="bookingInfo fixed" *ngIf="!courseObj.course.isBooked">*Sin tarjeta de crédito</div>
                         
                         <div class="booked label-tag red large" *ngIf="courseObj.course.isBooked">COMPLETO</div>
