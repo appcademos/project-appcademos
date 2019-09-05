@@ -67,6 +67,10 @@
                         <div class="title">Nº de horas</div>
                         <div class="text fs-20">{{ courseObj.course.hours }}</div>
                     </div>
+                    <div class="group">
+                        <div class="title">Nº máximo de alumnos por clase</div>
+                        <div class="text fs-20">{{ courseObj.course.sizeClass }}</div>
+                    </div>
                 </div>
                 <div class="col-section">
                     <div class="group">
@@ -154,7 +158,6 @@
                     <div class="content-container">
                         <ul>
                           <li><span class="fw-600">Dirección:</span> {{courseObj.course.academy.address}}</li>
-                          <li><span class="fw-600">Nº máximo de alumnos en clase:</span> {{courseObj.course.sizeClass}}</li>
                           <li><span class="fw-600">Porcentaje de aprobados:</span> {{courseObj.course.approvedRate | percent}}</li>
                         </ul>
                     </div>
