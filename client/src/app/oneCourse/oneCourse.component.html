@@ -330,13 +330,13 @@
                             <div class="initials icon size-44">{{ getNameInitials(review.author.name) }}</div>
                             <div>
                                 <div class="top">
-                                    <div class="title" *ngIf="review.title">{{ review.title }}</div>
                                     <div class="author-container">
                                         <div class="author">{{ review.author.name || "Anónimo" }}</div>
                                         <ngb-rating class="rating" [(rate)]="review.grade" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
                                     </div>
+                                    <div class="date">{{ getReviewDate(review.created_at) }}</div>
                                 </div>
-                                <div>{{ review.description }}</div>
+                                <div class="text">{{ review.description }}</div>
                             </div>
                         </div>
                     </div>

@@ -726,13 +726,8 @@ h2
             .top
             {
                 display: flex;
-                flex-direction: row;
-                margin-bottom: 8px;
-            }
-            .title
-            {
-                font-weight: 600;
-                margin-right: 24px;
+                flex-direction: column;
+                margin-bottom: 10px;
             }
             .author-container
             {
@@ -741,8 +736,15 @@ h2
             }
             .author
             {
-                color: $black-50;
+                color: $black;
                 font-weight: 600;
+            }
+            .date
+            {
+                color: $black;
+                font-size: 14px;
+                line-height: 1.28;
+                margin-top: 1px;
             }
             .rating
             {
@@ -768,6 +770,13 @@ h2
                     overflow: hidden;
                     color: $yellow-star-color;
                 }
+            }
+            .text
+            {
+                font-size: 15px;
+                font-weight: 500;
+                line-height: 22px;
+                color: $black-80;
             }
         }
     

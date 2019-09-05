@@ -43,8 +43,6 @@ export class OneCourseComponent implements OnInit, OnDestroy
     
     reviewsFilterGrade: number;
     filteringReviews: boolean = false;
-    
-    selectedGroup: String;
 
     constructor(private courseService: CoursesService,
                 private academyService: AcademySessionService,
@@ -134,6 +132,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
 
                 this.calcReviewGrade(this.courseObj.course.academy.reviews);
                 this.separateReviews();
+                console.log(this.courseObj);
 
                 // Expand first item
                 setTimeout(() => { this.expandItem('expandible-item-1'); });
@@ -440,6 +439,17 @@ export class OneCourseComponent implements OnInit, OnDestroy
         if (date != null)
         {
             formattedDate = moment(date).locale("es").format("HH:mm DD/MM/YYYY")
+        }
+        
+        return formattedDate;
+    }
+    getReviewDate(date)
+    {
+        let formattedDate = '';
+        
+        if (date != null)
+        {
+            formattedDate = moment(date).locale("es").format("MMMM [de] YYYY")
         }
         
         return formattedDate;
