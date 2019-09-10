@@ -112,6 +112,7 @@ const getOne = (req, res, next) => {
           {
               path: 'reviews',
               model: 'Review',
+              options: { sort: { "created_at": "descending" } },
               populate:
               {
                   path: 'author',

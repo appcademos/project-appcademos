@@ -36,7 +36,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
     showWarningbox: boolean = false;
     comment: string = '';
     commentGrade: number = 0;
-    goToLastComment: boolean = false;
+    goToLastPublishedComment: boolean = false;
     publishingComment: boolean = false;
     commentPublished: boolean = false;
     updateReviews: boolean = false;
@@ -175,12 +175,12 @@ export class OneCourseComponent implements OnInit, OnDestroy
                     this.reviewsCarouselReady = true;
                     $('#reviews .carousel .slick-list').css('overflow', 'visible');
 
-                    if (this.goToLastComment)
+                    if (this.goToLastPublishedComment)
                     {
                         this.utils.scrollToElement('#reviews');
-                        setTimeout(() => { coursesCarousel.slick('slickGoTo', this.reviews.length); }, 600);
+                        setTimeout(() => { coursesCarousel.slick('slickGoTo', 0); }, 600);
 
-                        this.goToLastComment = false;
+                        this.goToLastPublishedComment = false;
                     }
                 });
                 coursesCarousel.on('breakpoint', () =>
@@ -349,7 +349,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
                     {
                         this.publishingComment = false;
                         this.commentPublished = true;
-                        this.goToLastComment = true;
+                        this.goToLastPublishedComment = true;
                         this.updateReviews = true;
                         this.getCourse();
                     },
