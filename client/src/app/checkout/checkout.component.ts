@@ -64,12 +64,6 @@ export class CheckoutComponent implements OnInit
                     this.course = res.course;
                     this.startDateFormatted = moment(this.course.startDate).locale("es").format("dddd D MMMM");
                     
-                    // Set the group from the route query param
-                    if (params.group)
-                    {
-                        this.group = this.startDateFormatted + ' - ' + this.course.group[parseInt(params.group)];
-                    }
-                    
                     this.userService.isLoggedIn().subscribe(user =>
                     {
                         this.isLoading = false;

@@ -67,13 +67,16 @@
                         <div class="title">Nº de horas</div>
                         <div class="text fs-20">{{ courseObj.course.hours }}</div>
                     </div>
+                    <div class="group">
+                        <div class="title">Nº máximo de alumnos por clase</div>
+                        <div class="text fs-20">{{ courseObj.course.sizeClass }}</div>
+                    </div>
                 </div>
                 <div class="col-section">
                     <div class="group">
                         <div class="title">Horarios</div>
                         <div class="radio-container" *ngFor="let group of courseObj.course.group; let i = index">
-                            <input type="radio" id="group-{{i}}" name="group" [(ngModel)]="selectedGroup" value="{{i}}" />
-                            <label for="group-{{i}}">{{ group }}</label>
+                            <label>{{ group }}</label>
                         </div>
                     </div>
                 </div>
@@ -94,7 +97,7 @@
                             <ul>
                                 <li>Mismo precio que en la academia</li>
                                 <li>Tendrás una clase gratis sin compromiso al reservar</li>
-                                <li>La reserva se realizará al instante notificándole al correo</li>
+                                <li>La reserva se realizará al instante notificándote al correo</li>
                             </ul>
                         </div>
                     </div>
@@ -111,13 +114,13 @@
                         </div>
                     </div>
                     
-                    <div class="button light-shadow" *ngIf="!courseObj.course.isBooked" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id, group: selectedGroup}">Reservar clase de prueba</div>
+                    <div class="button light-shadow" *ngIf="!courseObj.course.isBooked" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">Reservar clase de prueba gratis</div>
                     <div class="bookingInfo" *ngIf="!courseObj.course.isBooked">*Sin tarjeta de crédito</div>
                     
                     <div class="booked label-tag red large" *ngIf="courseObj.course.isBooked">COMPLETO</div>
                     
                     <div class="fixed-button">
-                        <div class="button light-shadow" *ngIf="!courseObj.course.isBooked" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id, group: selectedGroup}">Reservar clase de prueba</div>
+                        <div class="button light-shadow" *ngIf="!courseObj.course.isBooked" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">Reservar clase de prueba gratis</div>
                         <div class="bookingInfo fixed" *ngIf="!courseObj.course.isBooked">*Sin tarjeta de crédito</div>
                         
                         <div class="booked label-tag red large" *ngIf="courseObj.course.isBooked">COMPLETO</div>
@@ -155,7 +158,6 @@
                     <div class="content-container">
                         <ul>
                           <li><span class="fw-600">Dirección:</span> {{courseObj.course.academy.address}}</li>
-                          <li><span class="fw-600">Nº máximo de alumnos en clase:</span> {{courseObj.course.sizeClass}}</li>
                           <li><span class="fw-600">Porcentaje de aprobados:</span> {{courseObj.course.approvedRate | percent}}</li>
                         </ul>
                     </div>
@@ -328,13 +330,13 @@
                             <div class="initials icon size-44">{{ getNameInitials(review.author.name) }}</div>
                             <div>
                                 <div class="top">
-                                    <div class="title" *ngIf="review.title">{{ review.title }}</div>
                                     <div class="author-container">
                                         <div class="author">{{ review.author.name || "Anónimo" }}</div>
                                         <ngb-rating class="rating" [(rate)]="review.grade" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
                                     </div>
+                                    <div class="date">{{ getReviewDate(review.created_at) }}</div>
                                 </div>
-                                <div>{{ review.description }}</div>
+                                <div class="text">{{ review.description }}</div>
                             </div>
                         </div>
                     </div>
