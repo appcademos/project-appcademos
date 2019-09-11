@@ -36,15 +36,13 @@ export class OneCourseComponent implements OnInit, OnDestroy
     showWarningbox: boolean = false;
     comment: string = '';
     commentGrade: number = 0;
-    goToLastComment: boolean = false;
+    goToLastPublishedComment: boolean = false;
     publishingComment: boolean = false;
     commentPublished: boolean = false;
     updateReviews: boolean = false;
     
     reviewsFilterGrade: number;
     filteringReviews: boolean = false;
-    
-    selectedGroup: String;
 
     constructor(private courseService: CoursesService,
                 private academyService: AcademySessionService,
@@ -134,6 +132,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
 
                 this.calcReviewGrade(this.courseObj.course.academy.reviews);
                 this.separateReviews();
+                console.log(this.courseObj);
 
                 // Expand first item
                 setTimeout(() => { this.expandItem('expandible-item-1'); });
@@ -176,12 +175,12 @@ export class OneCourseComponent implements OnInit, OnDestroy
                     this.reviewsCarouselReady = true;
                     $('#reviews .carousel .slick-list').css('overflow', 'visible');
 
-                    if (this.goToLastComment)
+                    if (this.goToLastPublishedComment)
                     {
                         this.utils.scrollToElement('#reviews');
-                        setTimeout(() => { coursesCarousel.slick('slickGoTo', this.reviews.length); }, 600);
+                        setTimeout(() => { coursesCarousel.slick('slickGoTo', 0); }, 600);
 
-                        this.goToLastComment = false;
+                        this.goToLastPublishedComment = false;
                     }
                 });
                 coursesCarousel.on('breakpoint', () =>
@@ -350,7 +349,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
                     {
                         this.publishingComment = false;
                         this.commentPublished = true;
-                        this.goToLastComment = true;
+                        this.goToLastPublishedComment = true;
                         this.updateReviews = true;
                         this.getCourse();
                     },
@@ -440,6 +439,17 @@ export class OneCourseComponent implements OnInit, OnDestroy
         if (date != null)
         {
             formattedDate = moment(date).locale("es").format("HH:mm DD/MM/YYYY")
+        }
+        
+        return formattedDate;
+    }
+    getReviewDate(date)
+    {
+        let formattedDate = '';
+        
+        if (date != null)
+        {
+            formattedDate = moment(date).locale("es").format("MMMM [de] YYYY")
         }
         
         return formattedDate;
