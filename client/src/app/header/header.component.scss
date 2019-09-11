@@ -39,8 +39,8 @@ header.absolute
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 32px;
+    align-items: center;
+    margin-bottom: 24px;
 
     .logo-mobile
     {
@@ -314,6 +314,6 @@ header.absolute #navbarBottom
 {
     #navbarTop .logo-mobile img
     {
-        height: 24px;
+        height: 40px;
     }
 }

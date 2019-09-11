@@ -2,13 +2,13 @@
     <div class="responsive-container-header">
         <nav id="navbarTop">
             <a class="logo" [routerLink]="['']">
-                <img [hidden]="!isHome" src="../../assets/public/images/logo_white.png" alt="logo" height="28" />
-                <img [hidden]="isHome" src="../../assets/public/images/logo_red.png" alt="logo" height="28" />
+                <img [hidden]="!isHome" src="../../assets/public/images/logo_white.png" alt="logo" height="48" />
+                <img [hidden]="isHome" src="../../assets/public/images/logo_red.png" alt="logo" height="48" />
             </a>
 
             <div class="logo-mobile" (click)="isMobileNavVisible = !isMobileNavVisible">
-                <img [hidden]="!isHome || isMobileNavVisible" src="../../assets/public/images/logo_white.png" alt="logo" height="28" />
-                <img [hidden]="isHome && !isMobileNavVisible" src="../../assets/public/images/logo_red.png" alt="logo" height="28" />
+                <img [hidden]="!isHome || isMobileNavVisible" src="../../assets/public/images/logo_white.png" alt="logo" height="48" />
+                <img [hidden]="isHome && !isMobileNavVisible" src="../../assets/public/images/logo_red.png" alt="logo" height="48" />
 
                 <div class="mobile-nav-button noselect" [ngClass]="{'isHome': isHome && !isMobileNavVisible}">
                     <i class="icon size-12" [ngClass]="{'icon-arrow-down': !isMobileNavVisible, 'icon-arrow-down-red': isMobileNavVisible, 'icon-arrow-down-white': isHome && !isMobileNavVisible }"></i>

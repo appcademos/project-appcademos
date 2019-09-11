@@ -121,7 +121,7 @@ const create = (req, res, next) =>
                                     var teamEmailOptions =
                                     {
                                         from: '"Appcademos" <hello@appcademos.com>',
-                                        to: ['hello@appcademos.com'],
+                                        to: ['alvaroromanbengoechea@gmail.com'],
                                         subject: '¡CLINC, CLINC, CLINC! 😎',
                                         html: dataTeam
                                     }
