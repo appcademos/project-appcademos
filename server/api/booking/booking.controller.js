@@ -151,7 +151,7 @@ const create = (req, res, next) =>
                             `*Precio*: ${course.price}€`;
                             
                             
-                            axios.post('https://hooks.slack.com/services/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',
+                            axios.post(process.env.SLACK_WEBHOOK_URL,
                             {
                                 text: `*¡CLINC, CLINC, CLINC!* 😎\nNueva reserva de plaza:\n\n${slackDataStr}`
                             },
