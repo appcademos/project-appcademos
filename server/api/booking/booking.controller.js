@@ -8,6 +8,7 @@ const { transporter } = require("../../config/nodemailer/transporter");
 var ejs = require("ejs");
 var path = require("path");
 var moment = require('moment');
+const axios = require('axios');
 
 const create = (req, res, next) =>
 {
@@ -137,6 +138,33 @@ const create = (req, res, next) =>
                                         }
                                     });
                                 }
+                            });
+                            
+                            // Send booking to Slack
+                            let slackDataStr =
+                            `*Nombre*: ${newBooking.name}\n` +
+                            `*Teléfono*: ${newBooking.phone}\n` +
+                            `*Email*: ${newBooking.email}\n` +
+                            `*Grupo*: ${newBooking.group}\n` +
+                            `*Curso*: ${course.title} [${course._id}]\n` +
+                            `*Academia*: ${course.academy.name} - ${course.academy.address}\n` +
+                            `*Precio*: ${course.price}€`;
+                            
+                            
+                            axios.post('https://hooks.slack.com/services/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',
+                            {
+                                text: `*¡CLINC, CLINC, CLINC!* 😎\nNueva reserva de plaza:\n\n${slackDataStr}`
+                            },
+                            {
+                                headers: {'Content-type': 'application/json'}
+                            })
+                            .then((response) =>
+                            {
+                                console.log(response);
+                            })
+                            .catch((error) =>
+                            {
+                                console.log(error);
                             });
                         }
                     });
