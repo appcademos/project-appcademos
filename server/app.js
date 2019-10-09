@@ -32,7 +32,7 @@ mongoose
 
 const app = express();
 
-if (process.env.DEBUG == undefined)
+if (process.env.ENV != 'development')
     app.use(redirectToHTTPS(undefined, [/\/app/], 301));
 
 var whitelist = [
