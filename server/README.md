@@ -3,15 +3,21 @@ APPCADEMOS Server
 
 **To start the server [PROD]:**
 ```
-forever start -c "npm start" ./
+pm2 start npm --name "appcademos" -- start
 ```
 
 **To stop the server [PROD]:**
 Try
 
 ```
-forever stop ./
+pm2 stop appcademos
 ```
+
+If it doesn't work, you can try to list all the pm2 processes:
+```
+pm2 list
+```
+
 If it doesn't work, try killing the Node process:
 
 First, search for the process id (pid - 2nd column)
