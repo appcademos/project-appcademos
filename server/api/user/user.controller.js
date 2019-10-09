@@ -52,60 +52,56 @@ const logout = (req, res) => {
   }
 };
 
-const signup = (req, res, next) => {
-  let userData = _.pick(req.body, fields);
+const signup = (req, res, next) =>
+{
+    let userData = _.pick(req.body, fields);
 
-  if (userData.email === "" || userData.password === "") {
-    res.status(401).json({
-      message: "Indicate email and password"
-    });
-    return;
-  }
-
-  User.findOne({
-      email: userData.email
-    })
-    .then(user => {
-      if (user !== null) {
-        res.status(409).json({
-          message: "User already exists"
-        });
+    if (userData.email === "" || userData.password === "")
+    {
+        res.status(401).json({ message: "Indicate email and password" });
         return;
-      } else {
-        Academy.findOne({
-            email: userData.email
-          })
-          .then(user => {
-            if (user !== null) {
-              res.status(409).json({
-                message: "Email already registered"
-              });
-              return;
-            } else {
+    }
 
-              const salt = bcrypt.genSaltSync(bcryptSalt);
-              userData.password = bcrypt.hashSync(userData.password, salt);
+    User.findOne({ email: userData.email })
+    .then(user =>
+    {
+        if (user !== null)
+        {
+            res.status(409).json({ message: "User already exists" });
+            return;
+        }
+        else
+        {
+            Academy.findOne({ email: userData.email })
+            .then(user =>
+            {
+                if (user !== null)
+                {
+                    res.status(409).json({ message: "Email already registered" });
+                    return;
+                }
+                else
+                {
+                    const salt = bcrypt.genSaltSync(bcryptSalt);
+                    userData.password = bcrypt.hashSync(userData.password, salt);
 
-              const newUser = new User(userData);
+                    const newUser = new User(userData);
 
-              return newUser
-                .save()
-                .then(user => {
-
-                  logInPromise(user, req)
-                    .then(user => res.status(200).json(user));
-                })
-            }
-          })
-      }
+                    return newUser
+                    .save()
+                    .then(user =>
+                    {    
+                        logInPromise(user, req)
+                        .then(user => res.status(200).json(user));
+                    })
+                }
+            })
+        }
     })
     .catch(e =>
-      res
-      .status(400)
-      .json({
-        message: "Something went wrong when trying to find user"
-      })
-    );
+    {
+        res.status(400).json({ message: "Something went wrong when trying to find user" })
+    });
 };
 
 const login = (req, res, next) => {
