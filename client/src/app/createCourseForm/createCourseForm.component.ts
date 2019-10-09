@@ -27,6 +27,10 @@ export class CreateCourseFormComponent implements OnInit
     sizeClass: Number;
     description: String;
     tags: [String];
+    theme: [String];
+    material: [String];
+    howareclasses: [String];
+    foryouif: [String];
 
     numCoursesUpdated = 0;
 
@@ -36,14 +40,18 @@ export class CreateCourseFormComponent implements OnInit
     {
         if (this.course)
         {    
-            this.title      = this.course.title;
-            this.duration   = this.course.duration;
-            this.hours      = this.course.hours;
-            this.price      = this.course.price;
-            this.oldPrice   = this.course.oldPrice;
-            this.startDate  = moment(this.course.startDate).format('DD/MM/YYYY');
-            this.isBooked   = this.course.isBooked ? this.course.isBooked : false;
-            this.videoUrl   = this.course.videoUrl;
+            this.title         = this.course.title;
+            this.duration      = this.course.duration;
+            this.hours         = this.course.hours;
+            this.price         = this.course.price;
+            this.oldPrice      = this.course.oldPrice;
+            this.material      = this.course.material;
+            this.theme         = this.course.theme;
+            this.howareclasses = this.howareclasses;
+            this.foryouif      = this.foryouif;
+            this.startDate     = moment(this.course.startDate).format('DD/MM/YYYY');
+            this.isBooked      = this.course.isBooked ? this.course.isBooked : false;
+            this.videoUrl      = this.course.videoUrl;
         }
         else
         {
@@ -76,6 +84,21 @@ export class CreateCourseFormComponent implements OnInit
         {
             allOk = false;
         }
+        if(this.material == null || (this.material + '').length == 0){
+            allOk = false;
+        }
+        if(this.theme == null || (this.theme + '').length == 0){
+            allOk = false;
+        }
+        if(this.howareclasses == null || (this.howareclasses + '').length == 0){
+            allOk = false;
+        }
+        if(this.foryouif == null || (this.foryouif + '').length == 0){
+            allOk = false;
+        }
+
+
+
         if (this.startDate == null || this.startDate.length == 0 || !(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/).test('' + this.startDate))
         {
             allOk = false;
@@ -106,6 +129,19 @@ export class CreateCourseFormComponent implements OnInit
 
             if (this.oldPrice != null && (this.oldPrice + '').length > 0)
                 courseDataToUpdate.oldPrice = this.oldPrice;
+
+            if(this.material != null && (this.material + '').length >0)
+                courseDataToUpdate.material = this.material;
+
+            if(this.theme != null && (this.theme + '').length >0)    
+                courseDataToUpdate.theme = this.theme;
+
+            if(this.howareclasses != null && (this.howareclasses + '').length >0)    
+            courseDataToUpdate.howareclasses = this.howareclasses;
+
+            if(this.foryouif != null && (this.foryouif + '').length >0)    
+            courseDataToUpdate.foryouif = this.foryouif;
+
 
             if (this.startDate != null && this.startDate.trim().length > 0)
                 courseDataToUpdate.startDate = moment(this.startDate + '', 'DD/MM/YYYY').toISOString();
@@ -159,6 +195,10 @@ export class CreateCourseFormComponent implements OnInit
                     hours: this.hours,
                     price: this.price,
                     oldPrice: this.oldPrice,
+                    material: this.material,
+                    theme: this.theme,
+                    howareclasses: this.howareclasses,
+                    foryouif: this.foryouif,
                     startDate: moment(this.startDate + '', 'DD/MM/YYYY').toISOString(),
                     academy: this.course.academy,
                     isBooked: this.isBooked,
@@ -183,13 +223,17 @@ export class CreateCourseFormComponent implements OnInit
     }
     resetCourseData()
     {
-        this.title      = undefined;
-        this.duration   = undefined;
-        this.hours      = undefined;
-        this.price      = undefined;
-        this.oldPrice   = undefined;
-        this.startDate  = undefined;
-        this.isBooked   = false;
-        this.videoUrl   = undefined;
+        this.title         = undefined;
+        this.duration      = undefined;
+        this.hours         = undefined;
+        this.price         = undefined;
+        this.oldPrice      = undefined;
+        this.material      = undefined;
+        this.theme         = undefined;
+        this.howareclasses = undefined;
+        this.foryouif      = undefined;  
+        this.startDate     = undefined;
+        this.isBooked      = false;
+        this.videoUrl      = undefined;
     }
 }
