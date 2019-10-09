@@ -1,6 +1,6 @@
 cd /var/www/appcademos.com/project-appcademos
 git pull origin master
 cd server
-forever stop ./
+pm2 stop appcademos
 npm install
-forever start -c "npm start" ./
+pm2 start npm --name "appcademos" -- start
