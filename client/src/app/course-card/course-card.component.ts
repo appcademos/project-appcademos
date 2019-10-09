@@ -34,22 +34,28 @@ export class CourseCardComponent implements OnInit
     getUrlLinkParams()
     {
         let params = []
+        let i = 0;
 
         if (this.course.academy.district != null && this.course.academy.district.length > 0 &&
             this.course.academy.city     != null && this.course.academy.city.length > 0 &&
             this.course.duration         != null)
         {
-            params[0] = '/course';
-            params[1] = this.course.tags[0];
-            params[2] = this.course.duration.replace(/ /g, '');
-            params[3] = this.course.academy.district.toLowerCase() + '-' + this.course.academy.city.toLowerCase();
-            params[4] = 'academia-' + this.course.academy.name.replace(/ /g, '-').toLowerCase();
-            params[5] = 'material-' + this.course.academy.material.replace(/ /g, '-').toLowerCase();
-            params[6] = 'theme-' + this.course.academy.theme.replace(/ /g, '-').toLowerCase();
-            params[7] = 'howareclasses' + this.course.academy.howareclasses.replace(/ /g, '-').toLowerCase();
-            params[8] = 'foryouif' + this.course.academy.foryouif.replace(/ /g, '-').toLowerCase();
-            params[9] = this.course._id;
+            params[i++] = '/course';
+            params[i++] = this.course.tags[0];
+            params[i++] = this.course.duration.replace(/ /g, '');
+            params[i++] = this.course.academy.district.toLowerCase() + '-' + this.course.academy.city.toLowerCase();
+            params[i++] = 'academia-' + this.course.academy.name.replace(/ /g, '-').toLowerCase();
             
+            if (this.course.academy.material != null)
+                params[i++] = 'material-' + this.course.academy.material.replace(/ /g, '-').toLowerCase();
+            if (this.course.academy.theme != null)
+                params[i++] = 'theme-' + this.course.academy.theme.replace(/ /g, '-').toLowerCase();
+            if (this.course.academy.howareclasses != null)
+                params[i++] = 'howareclasses' + this.course.academy.howareclasses.replace(/ /g, '-').toLowerCase();
+            if (this.course.academy.foryouif != null)
+                params[i++] = 'foryouif' + this.course.academy.foryouif.replace(/ /g, '-').toLowerCase();
+            
+            params[i++] = this.course._id;
         }
         else
         {
