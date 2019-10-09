@@ -17,21 +17,23 @@ const cors = require("cors");
 var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
 
 const DataSeed = require('./bin/data_seed');
-const Academy = require("./api/academy/academy.model");
-const Course = require("./api/course/course.model");
 
 mongoose.Promise = Promise;
 mongoose
   .connect(dbURL)
-  .then(() =>
-  {
+  .then(() => {
     debug(`Connected to Mongo at ${dbURL}`);
+
+    //DataSeed.seed();
   })
   .catch(err => {
     debug("Error connecting to mongo", err);
   });
 
 const app = express();
+
+if (process.env.DEBUG == undefined)
+    app.use(redirectToHTTPS(undefined, [/\/app/], 301));
 
 var whitelist = [
   `${process.env.CORS_ALLOW}`,
@@ -64,15 +66,30 @@ app.use(
 );
 require("./config/passport")(app);
 
+// Express View engine setup
+app.use(
+  require("node-sass-middleware")({
+    src: path.join(__dirname, "public"),
+    dest: path.join(__dirname, "public"),
+    sourceMap: true
+  })
+);
+
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "hbs");
+app.use(express.static(path.join(__dirname, "public")));
+
 app.locals.title = "Appcademos";
 
 
 // Pull master branch from github
 app.post('/git-pull', function(req, res)
 {
+    console.log(req);
+
     // Verify checksum first
     const secret = process.env.GIT_PULL_SECRET;
-    const headerChecksumKey = 'x-hub-signature';
+    const headerChecksumKey = 'X-Hub-Signature';
 
     const payload = JSON.stringify(req.body);
     if (!payload)
@@ -80,7 +97,6 @@ app.post('/git-pull', function(req, res)
         res.status(400).send('Payload is empty.');
     }
 
-    var crypto = require('crypto');
     const hmac = crypto.createHmac('sha1', secret);
     const digest = 'sha1=' + hmac.update(payload).digest('hex');
     const checksum = req.headers[headerChecksumKey];
@@ -89,25 +105,24 @@ app.post('/git-pull', function(req, res)
         res.status(401).send('Checksum verification failed.');
     }
     else // Checksum verified correctly
-    {
-        // Check that the push to Github was on the master branch
-        if (req.body.ref != null && req.body.ref == 'refs/heads/master')
+    {        
+        const exec = require('child_process').exec;
+        var yourscript = exec('sh git-pull.sh',
+        (error, stdout, stderr) =>
         {
-            const exec = require('child_process').exec;
-            var yourscript = exec('sh git-pull.sh',
-            (error, stdout, stderr) =>
-            {
-                console.log(`${stdout}`);
-                console.log(`${stderr}`);
-                if (error !== null)
-                    console.log(`exec error: ${error}`);
-            });
-        }
+            console.log(`${stdout}`);
+            console.log(`${stderr}`);
+            if (error !== null)
+                console.log(`exec error: ${error}`);
+        });
 
         res.status(200).end();
     }
 });
 
 require("./routes/routes")(app);
+app.use(function (req, res) {
+  res.sendFile(__dirname + '/public/index.html');
+});
 
 module.exports = app;
