@@ -143,8 +143,13 @@
                 <div class="content">
                     <div class="content-container">
                         <ul>
-                            <li *ngFor="let foryouif of courseObj.course.foryouif">{{ foryouif }}</li>
-                        </ul>
+                            <div class="sub-section">
+                                <div class="title">Tu nivel de inglés:</div>
+                                <li *ngFor="let level of courseObj.course.level">{{ level }}</li>
+                                <div class="title">Tu objetivo:</div>
+                                <li *ngFor="let objetive of courseObj.course.objetive">{{ objetive }}</li>
+                            </div>
+                         </ul>
                     </div>
                 </div>
             </div>
@@ -152,13 +157,14 @@
                 <div class="top" (click)="expandItem('expandible-item-2')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-20 icon-info-green"></i>
-                    <div class="title">Información general</div>
+                    <div class="title">De que va este curso</div>
                 </div>
                 <div class="content">
                     <div class="content-container">
                         <ul>
-                          <li><span class="fw-600">Dirección:</span> {{courseObj.course.academy.address}}</li>
-                          <li><span class="fw-600">Porcentaje de aprobados:</span> {{courseObj.course.approvedRate | percent}}</li>
+                          <li><span class="fw-600">Información sobre el curso:</span> {{courseObj.course.info_course}}</li>
+                          <li><span class="fw-600">El examen:</span>{{ courseObj.course.exam}}</li> 
+                          <li><span class="fw-600">Resultados del examen:</span>{{courseObj.course.exam_results}}</li>
                         </ul>
                     </div>
                 </div>
@@ -236,18 +242,18 @@
                 </div>
                 <div class="content">
                     <div class="content-container">
-                        En Appcademos queremos que estés 100% segur@ de que este curso es el ideal para ti. Por ello, tienes una clase de prueba gratis en todos los cursos.
+                        <li><span class="fw-600">En Appcademos queremos que estés 100% segur@ de que este curso es el ideal para ti.</span> Por ello, tienes una clase de prueba gratis.</li>
                         <br><br>
                         <div class="fw-700">¿Cómo conseguirla?</div>
                         <br>
                         <ul>
-                          <li><span class="fw-600">Reservas tu plaza sin pagar nada.</span> Te comprometes a asistir, la academia tiene plazas limitadas.</li>
-                          <li><span class="fw-600">Recibes tu pase de Appcademos</span> con el que podrás entrar a tu clase de prueba gratis.</li>
-                          <li><span class="fw-600">La academia recibe tu reserva automáticamente,</span> ¡ya cuentan contigo para que pruebes!</li>
-                          <li>En esta clase de prueba, tendrás la misma experiencia que si estuvieras apuntad@. <span class="fw-600">Conocerás a tu profesor@, verás la metodología, el nivel de tus compañeros...</span></li>
-                        </ul>
-                        <br>
-                        <div class="fs-14">* Si no te gusta la clase, no hay problema, puedes irte sin dar explicaciones. Te ayudaremos a encontrar tu curso ideal en otro centro.</div>
+                          <li><span class="fw-600">Reservas tu plaza en nuestra web..</span></li>
+                          <li><span class="fw-600">Enseñas el correo de confirmación de tu plaza</span> de Appcademos que te llegará tras realizar la reserva.</li>
+                          <li><span class="fw-600">Vas el día y hora que elegiste</span> que te aparece en el correo.</li>
+                          <div class="fs-14">* Si tras probar no te ha gustado, no pasa nada, puedes irte tranquilamente. Te ayudaremos a encontrar tu curso ideal en otro centro.</div>
+                          <br>
+                          <li>En esta clase de prueba, tendrás la misma experiencia que si estuvieras apuntad@.<span class="fw-600">Conocerás a tu profesor@, verás la metodología, el nivel de tus compañeros...</span></li>
+                        </ul>          
                     </div>
                 </div>
             </div>
@@ -274,10 +280,68 @@
                 <div class="content">
                     <div class="content-container">
                         <ul>
-                            <li>Reserva tu clase de prueba <span class="fw-600">sin compromiso en 1 click</span>.</li>
-                            <li><span class="fw-600">Objetivos y transparentes.</span> Te contamos todo, lo bueno y lo malo de cada academia. Hemos verificado todas éstas personalmente. Háblanos por Whatsapp.</li>
-                            <li><span class="fw-600">Garantía de protección de Appcademos frente a la academia.</span> Nos encargamos de que todo te vaya bien en el centro: No te cobren de más, solucionar cualquier malentendido...</li>
+                            <li><span class="fw-600">Centro de calidad verificado.</span> Puedes estar tranquil@, estás reservando en un centro que cumple con los requisitos de calidad verificados por nuestros expertos.</li>
+                            <li><span class="fw-600">Precio más bajo posible.</span> Si es tu primera vez, consigues 5€ de descuento.</li>
+                            <li><span class="fw-600">Clase de prueba gratis.</span> Tienes una clase sin compromiso reservando al instante.</li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandible-item noselect" id="expandible-item-10">
+                <div class="top" (click)="expandItem('expandible-item-10')">
+                    <i class="icon size-14 icon-arrow-down"></i>
+                    <i class="icon size-22 icon-eye"></i>
+                    <div class="title"> Preguntas frecuentes sobre este curso:</div>
+                </div>
+                <div class="content">
+                    <div class="content-container">
+                        <ul>
+                            <li><span class="fw-600">Centro de calidad verificado.</span>Puedes estar tranquil@, estás reservando en un centro que cumple con los requisitos de calidad verificados por nuestros expertos.</li>
+                            <li><span class="fw-600">Precio más bajo posible.</span>Si es tu primera vez, consigues 5€ de descuento.</li>
+                            <li><span class="fw-600">Clase de prueba gratis.</span>Tienes una clase sin compromiso reservando al instante.</li>
+                        </ul>
+
+                        <div class="content">
+                            <div class="content-container">
+                                <div class="sub-section">
+                                    <div class="title">No sé qué nivel de inglés tengo, ¿qué puedo hacer?</div>
+                                    <ul>
+                                        <li>Si no sabes qué nivel de inglés tienes no hay problema. Reserva en el curso que tú crees que necesitas y en la academia te harán un test de nivel y te podrán reubicar a la clase adecuada.</li>
+                                    </ul>
+                                </div>
+                                <div class="sub-section">
+                                    <div class="title">No sé qué curso de inglés necesito ¿qué puedo hacer?</div>
+                                    <ul>
+                                        <li>Si no tienes claro qué curso de inglés necesitas, nosotros podemos ayudarte haciéndote un estudio personalizado de tu perfil. Solo tienes que hablarnos por el chat o por WhatsApp. (la palabra WhatsApp tendría el hipervínculo con el link al WhatsApp, y la palabra aparecerá subrayada y en nuestro color verde)</li>
+                                    </ul>
+                                </div>
+                                <div class="sub-section">
+                                    <div class="title">¿Dónde pago el curso?</div>
+                                    <ul>
+                                        <li>Pagas en la academia. Recuerda enseñarles el correo de confirmación de reserva que te enviamos para que te hagan el descuento.</li>
+                                    </ul>
+                                </div>
+                                <div class="sub-section">
+                                    <div class="title">Mi objetivo es sacarme un certificado ¿Cuánto tiempo tardaré en aprobarlo?</div>
+                                    <ul>
+                                        <li>La media de tiempo para aprobar un certificado, dando por hecho que tienes el nivel de inglés adecuado, es de 3 meses yendo 2 veces a clase por semana. Este tiempo puede variar dependiendo del tiempo extra que le dediques en tu casa.</li>
+                                    </ul>
+                                </div>
+                                <div class="sub-section">
+                                    <div class="title">Mi objetivo es mejorar mi nivel de inglés ¿Cuánto tiempo tardaré en subir de nivel?</div>
+                                    <ul>
+                                        <li>Según el Marco Común Europeo, yendo 2 días a clase por semana, tardarás año/año y medio en subir un nivel completamente (subir de un B2 a un C1, por ejemplo). Este tiempo puede variar dependiendo del tiempo extra que le dediques en tu casa.</li>
+                                    </ul>
+                                </div>
+                                <div class="sub-section">
+                                    <div class="title">¿La información de esta web está actualizada?</div>
+                                    <ul>
+                                        <li>La información de cada curso es actualizada por la propia academia semanalmente. Puedes ver la última vez que actualizaron la información justo debajo de las fotos del curso.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

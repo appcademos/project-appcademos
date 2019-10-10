@@ -19,6 +19,10 @@
             <i class="icon size-15 icon-calendar"></i>
             <p>{{ course.startDate | date: "dd-MM-yyyy" }}&nbsp;&nbsp;|&nbsp;&nbsp;{{ course.weekclasses + ((course.weekclasses == 1) ? ' clase semanal' : ' clases semanales') }}</p>
         </div>
+        <div class="course-price fw-600 fs-22 color-red">
+            <div class="oldprice" *ngIf="course.oldPrice">{{ course.oldPrice }}€</div>
+            <div class="price">{{ course.price }}€</div>
+        </div>
 
         <div class="course-icon-text">
             <i class="icon size-15 icon-location"></i>
@@ -32,10 +36,7 @@
             </p>
         </div>
 
-        <div class="course-price fw-600 fs-22 color-red">
-            <div class="oldprice" *ngIf="course.oldPrice">{{ course.oldPrice }}€</div>
-            <div class="price">{{ course.price }}€</div>
-        </div>
+        
      </div>
    </div>
 </a>

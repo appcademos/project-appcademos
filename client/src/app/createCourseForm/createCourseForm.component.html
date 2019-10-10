@@ -5,38 +5,68 @@
         <input type="text" class="form-control" [(ngModel)]="title" name="title">
       </div>
       <div class="form-group-container">
-          <div class="form-group">
+          <!--div class="form-group">
             <label>Duración</label>
             <input type="text" class="form-control" [(ngModel)]="duration" name="duration">
-          </div>
+          </div-->
           <div class="form-group">
               <label>Numero de horas</label>
               <input type="number" class="form-control" [(ngModel)]="hours" name="hours">
           </div>
       </div>
-      <div class="form-group-container">
-        <div class="form-group" style="height:180px">
+      <div class="form-group-container" style="margin-left:0px">
+        <div class="form-group" style="height:100px">
           <label>Material</label>
-          <textarea type="text" style="height:180px" class="md-textarea form-control" [(ngModel)]="material" name="material" mdbInput></textarea>
+          <textarea type="text" style="height:100px" class="md-textarea form-control" [(ngModel)]="material" name="material" mdbInput></textarea>
         </div>
-        <div class="form-group" style="height:180px">
+        <div class="form-group" style="height:100px">
           <label>Temario</label>
-          <textarea type="text" style="height:180px" class="md-textarea form-control" [(ngModel)]="theme" name="theme" mdbInput></textarea>
+          <textarea type="text" style="height:100px" class="md-textarea form-control" [(ngModel)]="theme" name="theme" mdbInput></textarea>
         </div>
       </div>
-      <div class="form-group-container">
-          <div class="form-group" style="height:180px">
+      <br>
+
+      <div class="form-group-container" style="margin-left:0px">
+          <div class="form-group" style="height:100px">
             <label>Cómo serán las clases</label>
-            <textarea type="text" style="height:180px" class="md-textarea form-control" [(ngModel)]="howareclasses" name="howareclasses" mdbInput></textarea>
+            <textarea type="text" style="height:100px" class="md-textarea form-control" [(ngModel)]="howareclasses" name="howareclasses" mdbInput></textarea>
           </div>
-         
         </div>
+        <br>
         <div class="form-group-container">
-          <div class="form-group" style="height:180px">
+          <div class="form-group" style="height:120px">
               <label>Este curso es para ti si...</label>
-              <textarea type="text" style="height:180px" class="md-textarea form-control" [(ngModel)]="foryouif" name="foryouif" mdbInput></textarea>
+              <div class="form-group" style="margin-left:0px">
+                <label>Tu nivel de inglés:</label>
+                <textarea type="text"  class="md-textarea form-control" [(ngModel)]="level" name="level" mdbInput></textarea>
+              </div>
+              <div class="form-group">
+                <label>Tu objetivo:</label>
+                <textarea type="text"  class="md-textarea form-control" [(ngModel)]="objetive" name="objetive" mdbInput></textarea>
+              </div>
+              <!--textarea type="text" style="height:180px" class="md-textarea form-control" [(ngModel)]="foryouif" name="foryouif" mdbInput></textarea-->
           </div>
         </div>
+
+        <br>
+        <div class="form-group-container" style="margin-top:4em">
+          <div class="form-group" style="height:180px">
+              <label>INFO 3 - De que va este curso</label>
+              <div class="form-group">
+                <label>Información sobre el curso:</label>
+                <textarea type="text"  class="md-textarea form-control" [(ngModel)]="infocourse" name="infocourse" mdbInput></textarea>
+              </div>
+              <div class="form-group">
+                <label>El examen:</label>
+                <textarea type="text"  class="md-textarea form-control" [(ngModel)]="exam" name="exam" mdbInput></textarea>
+              </div>
+              <div class="form-group">
+                <label>Resultado del examen</label>
+                <textarea type="text"  class="md-textarea form-control" [(ngModel)]="examresults" name="examresults" mdbInput></textarea>
+              </div>
+          </div>
+        </div>
+        <br>
         <!--div class="form-group-container">
           <div class="form-group" style="height:180px">
               <label>De que va este curso</label>
@@ -61,7 +91,9 @@
                 <textarea type="text" style="height:180px" class="md-textarea form-control" [(ngModel)]="" name="" mdbInput></textarea>
             </div>
         </div-->
-      <div class="form-group-container">
+        
+        <br>
+      <div class="form-group-container" style="margin-top:5em">
           <div class="form-group">
             <label>Precio</label>
             <input type="number" class="form-control" [(ngModel)]="price" name="price">
