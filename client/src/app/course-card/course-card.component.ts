@@ -34,35 +34,39 @@ export class CourseCardComponent implements OnInit
     getUrlLinkParams()
     {
         let params = []
+        let i = 0;
 
         if (this.course.academy.district != null && this.course.academy.district.length > 0 &&
-            this.course.academy.city     != null && this.course.academy.city.length > 0 &&
-            this.course.academy.material != null && this.course.academy.material.length > 0 &&
-            this.course.academy.theme    != null && this.course.academy.theme.length > 0 &&
-            this.course.academy.objetive != null && this.course.academy.objetive.length > 0 &&
-            this.course.academy.level    != null && this.course.academy.level.length > 0 &&
-            this.course.academy.inforcourse != null && this.course.academy.infocourse.length >0 &&
-            this.course.academy.exam != null && this.course.academy.exam.length >0 &&
-            this.course.academy.examresults != null && this.course.academy.examresults >0 &&
-            this.course.academy.howareclasses != null && this.course.academy.howareclasses >0 )
-            //&& this.course.duration         != null)
+            this.course.academy.city     != null && this.course.academy.city.length > 0)
+           
         {
-            params[0]  = '/course';
-            params[1]  = this.course.tags[0];
-           // params[2]  = this.course.duration.replace(/ /g, '');
-            params[2]  = this.course.academy.district.toLowerCase() + '-' + this.course.academy.city.toLowerCase();
-            params[3]  = 'academia-' + this.course.academy.name.replace(/ /g, '-').toLowerCase();
-            params[4]  = 'material' + this.course.academy.material.replace(/ /g, '-').toLowerCase();
-            params[5]  = 'theme' + this.course.academy.theme.replace(/ /g, '-').toLowerCase();
-            params[6]  = 'level' + this.course.academy.level.replace(/ /g, '-').toLowerCase();
-            params[7]  = 'objetive' + this.course.academy.objetive.replace(/ /g, '-').toLowerCase();
-            params[8]  = 'infocourse' + this.course.academy.infocourse.replace(/ /g, '-').toLowerCase();
-            params[9] = 'exam' + this.course.academy.exam.replace(/ /g, '-').toLowerCase();
-            params[10] = 'examresults' + this.course.academy.examresults.replace(/ /g, '-').toLowerCase();
-            params[10] = 'howareclasses' + this.course.academy.howareclasses.replace(/ /g, '-').toLowerCase();
-           // params[11] = 'foryouif' + this.course.academy.foryouif.replace(/ /g, '-').toLowerCase();
-            params[12] = this.course._id;
+            params[i++] = '/course';
+            params[i++] = this.course.tags[0];
+            params[i++] = this.course.duration.replace(/ /g, '');
+            params[i++] = this.course.academy.district.toLowerCase() + '-' + this.course.academy.city.toLowerCase();
+            params[i++] = 'academia-' + this.course.academy.name.replace(/ /g, '-').toLowerCase();
+            params[i++] = this.course._id;
             
+            if (this.course.academy.material != null)
+                params[i++] = 'material-' + this.course.academy.material.replace(/ /g, '-').toLowerCase();
+            if (this.course.academy.theme != null)
+                params[i++] = 'theme-' + this.course.academy.theme.replace(/ /g, '-').toLowerCase();
+            if(this.course.academy.level != null)
+                params[i++]  = 'level' + this.course.academy.level.replace(/ /g, '-').toLowerCase();
+            if (this.course.academy.objetive != null)
+                params[i++]  = 'objetive' + this.course.academy.objetive.replace(/ /g, '-').toLowerCase();
+            if (this.course.academy.infocourse != null)
+                params[i++]  = 'infocourse' + this.course.academy.infocourse.replace(/ /g, '-').toLowerCase();
+            if (this.course.academy.exam != null)
+                params[i++] = 'exam' + this.course.academy.exam.replace(/ /g, '-').toLowerCase();
+            if (this.course.academy.examresults != null)
+                params[i++] = 'examresults' + this.course.academy.examresults.replace(/ /g, '-').toLowerCase();        
+            if (this.course.academy.howareclasses != null)
+                params[i++] = 'howareclasses' + this.course.academy.howareclasses.replace(/ /g, '-').toLowerCase();
+            
+         /*   if (this.course.academy.foryouif != null)
+                params[i++] = 'foryouif' + this.course.academy.foryouif.replace(/ /g, '-').toLowerCase();
+          */
         }
         else
         {

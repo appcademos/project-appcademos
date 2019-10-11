@@ -52,6 +52,7 @@ import { SocialLoginComponent } from './social-login/social-login.component';
 import { SocialLoginModule, AuthServiceConfig, LoginOpt } from "angularx-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
 
+
 export function metaFactory(): MetaLoader
 {
     return new MetaStaticLoader(

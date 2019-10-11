@@ -3,6 +3,7 @@ import { CoursesService } from '../../services/courses.service';
 import { Router } from "@angular/router";
 import * as moment from 'moment';
 
+
 @Component({
   selector: 'app-createCourseForm',
   templateUrl: './createCourseForm.component.html',
@@ -54,9 +55,9 @@ export class CreateCourseFormComponent implements OnInit
             this.theme         = this.course.theme;
             this.level         = this.course.level;
             this.objetive      = this.course.objetive;
-            this.infocourse   = this.course.infocourse;
+            this.infocourse    = this.course.infocourse;
             this.exam          = this.course.exam;
-            this.examresults  = this.course.examresults;
+            this.examresults   = this.course.examresults;
             this.howareclasses = this.course.howareclasses;
             //this.foryouif      = this.foryouif;
             this.startDate     = moment(this.course.startDate).format('DD/MM/YYYY');
@@ -131,10 +132,6 @@ export class CreateCourseFormComponent implements OnInit
         }
 
         if (!allOk)
-           /* console.log('material: ' + this.material + 'theme: ' + this.theme);
-            console.log('level: ' + this.level + 'objetive: ' + this.objetive);
-            console.log('info_course: ' + this.info_course + 'exam: ' + this.exam + 'exam_results: ' + this.exam_results);
-            console.log('howareclasses: ' + this.howareclasses);*/
             alert('Rellena correctamente todos los datos');
 
         return allOk;
@@ -244,7 +241,7 @@ export class CreateCourseFormComponent implements OnInit
                     theme: this.theme,
                     level: this.level,
                     objetive: this.objetive,
-                    infocoure: this.infocourse,
+                    infocourse: this.infocourse,
                     exam: this.exam,
                     examresults: this.examresults,
                     howareclasses: this.howareclasses,
@@ -282,9 +279,9 @@ export class CreateCourseFormComponent implements OnInit
         this.theme         = undefined;
         this.level         = undefined;
         this.objetive      = undefined;
-        this.infocourse   = undefined;
+        this.infocourse    = undefined;
         this.exam          = undefined;
-        this.examresults  = undefined;
+        this.examresults   = undefined;
         this.howareclasses = undefined;
       //  this.foryouif      = undefined;  
         this.startDate     = undefined;

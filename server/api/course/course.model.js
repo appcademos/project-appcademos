@@ -10,6 +10,10 @@ const courseSchema = new Schema(
       required: true
     },
     level: String,
+    objetive: String,
+    infocourse: String,
+    exam: String,
+    examresults: String,
     group: [String],
     hours: Number,
     duration: String,
