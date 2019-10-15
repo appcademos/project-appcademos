@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { CoursesService } from '../../services/courses.service';
+import { CoursesService } from '../../../services/courses.service';
 import { Router } from "@angular/router";
 import * as moment from 'moment';
 

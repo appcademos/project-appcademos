@@ -23,11 +23,11 @@ import { SeoService } from "../services/seo.service";
 import { BookingsService } from "../services/bookings.service";
 
 // COMPONENTS
-import { AcademyComponent } from "./academy/academy.component";
+import { AcademyComponent } from "./manager/academy/academy.component";
 import { AllCoursesComponent } from "./allCourses/allCourses.component";
 import { AppComponent } from "./app.component";
 import { CheckoutComponent } from "./checkout/checkout.component";
-import { CreateCourseFormComponent } from "./createCourseForm/createCourseForm.component";
+import { CreateCourseFormComponent } from "./manager/createCourseForm/createCourseForm.component";
 import { FooterComponent } from "./footer/footer.component";
 import { HeaderComponent } from "./header/header.component";
 import { HomeComponent } from "./home/home.component";
@@ -37,7 +37,7 @@ import { UserComponent } from "./user/user.component";
 import { UserLoginFormComponent } from "./userLoginForm/userLoginForm.component";
 import { UserSignupFormComponent } from "./userSignupForm/userSignupForm.component";
 import { ConfirmationComponent } from "./confirmation/confirmation.component";
-import { AcademyprofileComponent } from './academyprofile/academyprofile.component';
+import { AcademyprofileComponent } from './manager/academyprofile/academyprofile.component';
 import { CourseCardComponent } from './course-card/course-card.component';
 import { CoursesCarouselComponent } from './courses-carousel/courses-carousel.component';
 import { SearchboxComponent } from './searchbox/searchbox.component';
@@ -46,7 +46,7 @@ import { ButtonSpinnerComponent } from './uiComponents/button-spinner/button-spi
 import { CookiesBoxComponent } from './cookies-box/cookies-box.component';
 import { CookiesComponent } from './cookies/cookies.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
-import { CheckboxComponent } from './checkbox/checkbox.component';
+import { CheckboxComponent } from './uiComponents/checkbox/checkbox.component';
 import { RadioComponent } from './radio/radio.component';
 import { SocialLoginComponent } from './social-login/social-login.component';
 import { SocialLoginModule, AuthServiceConfig, LoginOpt } from "angularx-social-login";

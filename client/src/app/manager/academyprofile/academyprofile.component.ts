@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AcademySessionService } from '../../services/academySession.service';
+import { AcademySessionService } from '../../../services/academySession.service';
 import { Router } from "@angular/router";
 import * as moment from 'moment';
 declare var $: any;
