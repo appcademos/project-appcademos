@@ -47,7 +47,7 @@ import { CookiesBoxComponent } from './cookies-box/cookies-box.component';
 import { CookiesComponent } from './cookies/cookies.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { CheckboxComponent } from './uiComponents/checkbox/checkbox.component';
-import { RadioComponent } from './radio/radio.component';
+import { RadioComponent } from './uiComponents/radio/radio.component';
 import { SocialLoginComponent } from './social-login/social-login.component';
 import { SocialLoginModule, AuthServiceConfig, LoginOpt } from "angularx-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
