@@ -11,6 +11,7 @@ import { ConfirmationComponent } from "./confirmation/confirmation.component";
 import { AcademyprofileComponent } from "./manager/academyprofile/academyprofile.component";
 import { CookiesComponent } from "./cookies/cookies.component";
 import { PrivacyPolicyComponent } from "./privacy-policy/privacy-policy.component";
+import { EstudioPersonalizadoComponent } from "./estudio-personalizado/estudio-personalizado.component";
 
 export const routes: Routes = [
     { path: "", component: HomeComponent },
@@ -24,6 +25,10 @@ export const routes: Routes = [
     { path: "course/view", component: OneCourseComponent },
     { path: "course/:id", component: OneCourseComponent },
     { path: "course/:tag/:duration/:location/:academy/:id", component: OneCourseComponent },
+    
+    { path: "estudio-personalizado", component: EstudioPersonalizadoComponent},
+    
+    // Manager
     { path: "academyprofile", component: AcademyprofileComponent},
 
     { path: "cookie-policy", component: CookiesComponent },
