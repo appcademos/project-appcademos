@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { AcademySessionService } from "../../services/academySession.service";
 import { UserSessionService } from "../../services/userSession.service";
-import { Router, Event, NavigationEnd } from "@angular/router";
+import { Router, Event, NavigationEnd, ActivatedRoute } from "@angular/router";
 import { MessageService } from '../../services/message.service';
 import { Subscription } from 'rxjs';
 
@@ -21,10 +21,12 @@ export class HeaderComponent implements OnInit, OnDestroy
     isMobileNavVisible: boolean = false;
     showLogin: boolean = false;
     user: any;
+    selectedCategory: string;
 
     messageServiceSubscription: Subscription;
 
     constructor(private router: Router,
+                private activatedRoute: ActivatedRoute,
                 private academyService: AcademySessionService,
                 private userService: UserSessionService,
                 private messageService: MessageService)
@@ -36,10 +38,15 @@ export class HeaderComponent implements OnInit, OnDestroy
     {
         this.user = this.userService.user;
 
-        console.log(window.location.pathname);
-
         if (this.router.url.split('?')[0] === '/')
             this.isHome = true;
+        
+        this.activatedRoute.queryParams
+        .subscribe(params =>
+        {
+            if (window.location.pathname.indexOf("/search") > -1 && params.course)
+                this.selectedCategory = params.course;
+        });
 
         this.router.events.subscribe( (event: Event) =>
         {
@@ -49,6 +56,9 @@ export class HeaderComponent implements OnInit, OnDestroy
                     this.isHome = true;
                 else
                     this.isHome = false;
+                    
+                if (window.location.pathname.indexOf("/search") === -1)
+                    this.selectedCategory = null;
             }
         });
 
@@ -89,6 +99,11 @@ export class HeaderComponent implements OnInit, OnDestroy
 
         if (width > MOBILE_WIDTH)
             this.isMobileNavVisible = false;
+    }
+    
+    isLinkActive(category): boolean
+    {
+        return category === this.selectedCategory;
     }
 
     logout()

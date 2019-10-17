@@ -140,6 +140,7 @@ section#featured
 section#triptic
 {
     padding-top: 0;
+    padding-bottom: 0;
 
     .triptic-container
     {
@@ -178,6 +179,23 @@ section#triptic
                 line-height: 25px;
             }
         }
+    }
+}
+section#estudio
+{
+    h3
+    {
+        margin-bottom: 32px !important;
+        text-align: center;
+        max-width: 800px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        line-height: 1.4;
+    }
+    .button
+    {
+        margin: 0 auto;
+        display: table;
     }
 }
 section#course-types
