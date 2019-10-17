@@ -11,9 +11,9 @@ export class EstudioPersonalizadoComponent implements OnInit
 
     ngOnInit()
     {
-        if (hbspt != undefined)
+        if ((window as any).hbspt != undefined)
         {
-            hbspt.forms.create(
+            (window as any).hbspt.forms.create(
             {
                 portalId: "4604246",
                 formId: "c2690194-2d4e-44c3-84a4-bbd7d4601fff",
