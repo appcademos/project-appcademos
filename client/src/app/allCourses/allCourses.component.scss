@@ -204,7 +204,7 @@ $cardsVerticalSeparation: 36px;
 #whatsappBanner
 {
     border-bottom: 1px solid #EAEAEA;
-    background: $whatsapp-color-04;
+    background: $green-color-08;
     padding: 20px 0;
     margin: 0 auto;
 
@@ -214,39 +214,21 @@ $cardsVerticalSeparation: 36px;
         align-items: center;
         justify-content: space-between;
     }
+    
+    a
+    {
+        color: #fff;
+    }
+    .button
+    {
+        margin-left: 16px;
+    }
 
     .title
     {
         font-size: 18px;
         font-weight: 600;
         margin-bottom: 8px;
-    }
-    .wp-button
-    {
-        margin-left: 16px;
-        background: #01E675;
-        padding: 12px 16px;
-        color: #fff;
-        border-radius: 6px;
-        font-weight: 600;
-        text-decoration: none !important;
-        min-width: 192px;
-        transition: 0.16s all;
-
-        &:hover
-        {
-            box-shadow: 0 8px 20px -10px #01E675;
-        }
-        &:active
-        {
-            box-shadow: none;
-        }
-
-        i
-        {
-            font-size: 1.2em;
-            margin-right: 4px;
-        }
     }
 }
 
@@ -394,7 +376,7 @@ $cardsVerticalSeparation: 36px;
             flex-direction: column;
         }
 
-        .wp-button
+        .button
         {
             margin-top: 16px;
             margin-left: 0;
