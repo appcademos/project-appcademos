@@ -134,7 +134,7 @@
         </section>
 
         <section id="expandible-info">
-            <div class="expandible-item noselect" id="expandible-item-1" *ngIf="courseObj.course.foryouif">
+            <!--<div class="expandible-item noselect" id="expandible-item-1" *ngIf="courseObj.course.foryouif">
                 <div class="top" (click)="expandItem('expandible-item-1')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-20 icon-like-green"></i>
@@ -168,7 +168,7 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div class="expandible-item noselect" id="expandible-item-3" *ngIf="courseObj.course.howareclasses">
                 <div class="top" (click)="expandItem('expandible-item-3')">
                     <i class="icon size-14 icon-arrow-down"></i>
@@ -242,8 +242,8 @@
                 </div>
                 <div class="content">
                     <div class="content-container">
-                        <li><span class="fw-600">En Appcademos queremos que estés 100% segur@ de que este curso es el ideal para ti.</span> Por ello, tienes una clase de prueba gratis.</li>
-                        <br><br>
+                        <p><span class="fw-600">En Appcademos queremos que estés 100% segur@ de que este curso es el ideal para ti.</span> Por ello, tienes una clase de prueba gratis.</p>
+                        <br>
                         <div class="fw-700">¿Cómo conseguirla?</div>
                         <br>
                         <ul>
@@ -297,50 +297,35 @@
                 <div class="content">
                     <div class="content-container">
                         <ul>
-                            <li><span class="fw-600">Centro de calidad verificado.</span>Puedes estar tranquil@, estás reservando en un centro que cumple con los requisitos de calidad verificados por nuestros expertos.</li>
-                            <li><span class="fw-600">Precio más bajo posible.</span>Si es tu primera vez, consigues 5€ de descuento.</li>
-                            <li><span class="fw-600">Clase de prueba gratis.</span>Tienes una clase sin compromiso reservando al instante.</li>
+                            <li><span class="fw-600">Centro de calidad verificado.</span> Puedes estar tranquil@, estás reservando en un centro que cumple con los requisitos de calidad verificados por nuestros expertos.</li>
+                            <li><span class="fw-600">Precio más bajo posible.</span> Si es tu primera vez, consigues 5€ de descuento.</li>
+                            <li><span class="fw-600">Clase de prueba gratis.</span> Tienes una clase sin compromiso reservando al instante.</li>
                         </ul>
-
-                        <div class="content">
-                            <div class="content-container">
-                                <div class="sub-section">
-                                    <div class="title">No sé qué nivel de inglés tengo, ¿qué puedo hacer?</div>
-                                    <ul>
-                                        <li>Si no sabes qué nivel de inglés tienes no hay problema. Reserva en el curso que tú crees que necesitas y en la academia te harán un test de nivel y te podrán reubicar a la clase adecuada.</li>
-                                    </ul>
-                                </div>
-                                <div class="sub-section">
-                                    <div class="title">No sé qué curso de inglés necesito ¿qué puedo hacer?</div>
-                                    <ul>
-                                        <li>Si no tienes claro qué curso de inglés necesitas, nosotros podemos ayudarte haciéndote un estudio personalizado de tu perfil. Solo tienes que hablarnos por el chat o por WhatsApp. (la palabra WhatsApp tendría el hipervínculo con el link al WhatsApp, y la palabra aparecerá subrayada y en nuestro color verde)</li>
-                                    </ul>
-                                </div>
-                                <div class="sub-section">
-                                    <div class="title">¿Dónde pago el curso?</div>
-                                    <ul>
-                                        <li>Pagas en la academia. Recuerda enseñarles el correo de confirmación de reserva que te enviamos para que te hagan el descuento.</li>
-                                    </ul>
-                                </div>
-                                <div class="sub-section">
-                                    <div class="title">Mi objetivo es sacarme un certificado ¿Cuánto tiempo tardaré en aprobarlo?</div>
-                                    <ul>
-                                        <li>La media de tiempo para aprobar un certificado, dando por hecho que tienes el nivel de inglés adecuado, es de 3 meses yendo 2 veces a clase por semana. Este tiempo puede variar dependiendo del tiempo extra que le dediques en tu casa.</li>
-                                    </ul>
-                                </div>
-                                <div class="sub-section">
-                                    <div class="title">Mi objetivo es mejorar mi nivel de inglés ¿Cuánto tiempo tardaré en subir de nivel?</div>
-                                    <ul>
-                                        <li>Según el Marco Común Europeo, yendo 2 días a clase por semana, tardarás año/año y medio en subir un nivel completamente (subir de un B2 a un C1, por ejemplo). Este tiempo puede variar dependiendo del tiempo extra que le dediques en tu casa.</li>
-                                    </ul>
-                                </div>
-                                <div class="sub-section">
-                                    <div class="title">¿La información de esta web está actualizada?</div>
-                                    <ul>
-                                        <li>La información de cada curso es actualizada por la propia academia semanalmente. Puedes ver la última vez que actualizaron la información justo debajo de las fotos del curso.</li>
-                                    </ul>
-                                </div>
-                            </div>
+                        <br>
+                        <br>
+                        <div class="sub-section">
+                            <div class="title">No sé qué nivel de inglés tengo, ¿qué puedo hacer?</div>
+                            <p>Si no sabes qué nivel de inglés tienes no hay problema. Reserva en el curso que tú crees que necesitas y en la academia te harán un test de nivel y te podrán reubicar a la clase adecuada.
+                        </div>
+                        <div class="sub-section">
+                            <div class="title">No sé qué curso de inglés necesito ¿qué puedo hacer?</div>
+                            <p>Si no tienes claro qué curso de inglés necesitas, nosotros podemos ayudarte haciéndote un estudio personalizado de tu perfil. Solo tienes que hablarnos por el chat o por WhatsApp. (la palabra WhatsApp tendría el hipervínculo con el link al WhatsApp, y la palabra aparecerá subrayada y en nuestro color verde)</p>
+                        </div>
+                        <div class="sub-section">
+                            <div class="title">¿Dónde pago el curso?</div>
+                            <p>Pagas en la academia. Recuerda enseñarles el correo de confirmación de reserva que te enviamos para que te hagan el descuento.</p>
+                        </div>
+                        <div class="sub-section">
+                            <div class="title">Mi objetivo es sacarme un certificado ¿Cuánto tiempo tardaré en aprobarlo?</div>
+                            <p>La media de tiempo para aprobar un certificado, dando por hecho que tienes el nivel de inglés adecuado, es de 3 meses yendo 2 veces a clase por semana. Este tiempo puede variar dependiendo del tiempo extra que le dediques en tu casa.</p>
+                        </div>
+                        <div class="sub-section">
+                            <div class="title">Mi objetivo es mejorar mi nivel de inglés ¿Cuánto tiempo tardaré en subir de nivel?</div>
+                            <p>Según el Marco Común Europeo, yendo 2 días a clase por semana, tardarás año/año y medio en subir un nivel completamente (subir de un B2 a un C1, por ejemplo). Este tiempo puede variar dependiendo del tiempo extra que le dediques en tu casa.</p>
+                        </div>
+                        <div class="sub-section">
+                            <div class="title">¿La información de esta web está actualizada?</div>
+                            <p>La información de cada curso es actualizada por la propia academia semanalmente. Puedes ver la última vez que actualizaron la información justo debajo de las fotos del curso.</p>
                         </div>
                     </div>
                 </div>
