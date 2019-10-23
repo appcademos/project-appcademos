@@ -2,18 +2,17 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const academySchema = new Schema(
- {
-    phone: Number,
+{
+    user: { type: Schema.Types.ObjectId, ref: "User", default: null },
     imagePath: String,
     imageName: String,
     description: String,
-    confirmationCode: String,
     address: String,
     about: [String],
-    images: [{
-      imagePath: String},
-      {imageName: String
-    }],
+    images: [
+        {imagePath: String},
+        {imageName: String}
+    ],
     reviews: [{
       type: Schema.Types.ObjectId,
       ref: "Review"
@@ -22,36 +21,32 @@ const academySchema = new Schema(
       type: Boolean,
       default: false
     },
-    email: {
-      type: String
-    },
-    password: {
-      type: String
-    },
-    name: {
-      type: String
-    },
+    name: String,
     location: {
       type: { type: String },
       coordinates: [Number]
     },
-    district: {
-      type: String
-    },
-    city: {
-      type: String
-    },
+    district: String,
+    city: String,
     averageRating: {
         type: Number,
         default: 0
-    }
-  },
-  {
+    },
+    reasonsToChoose: { type: String, default: null },
+    categories: [
+        {
+            category: { type: Schema.Types.ObjectId, ref: "Category" },
+            howAreTheClasses: { type: String, default: null },
+            syllabus: { type: String, default: null },
+            material: { type: String, default: null }
+        }
+    ]
+},
+{
     timestamps: {
       createdAt: "created_at",
       updatedAt: "updated_at"
     }
-  }
-);
+});
 
 module.exports = mongoose.model("Academy", academySchema);

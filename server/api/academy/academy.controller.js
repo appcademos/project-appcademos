@@ -17,116 +17,6 @@ const {
   welcomeAcademy
 } = require("../../config/nodemailer/transporter");
 
-const logInPromise = (academy, req) => {
-  return new Promise((resolve, reject) => {
-    req.login(academy, err => {
-      if (err) return reject("Something went wrong at academy login after signup");
-      return resolve(academy);
-    });
-  });
-};
-
-const loggedIn = (req, res) => {
-  if (req.academy) {
-    return res.status(200).json(req.academy);
-  } else {
-    return res.status(400).json({
-      message: "You are not logged in"
-    });
-  }
-};
-
-const logout = (req, res) => {
-  if (req.academy) {
-    req.session.destroy(function (err) {
-      res.status(200).json({
-        message: "Logged out"
-      });
-    });
-  } else {
-    res.status(400).json({
-      message: "You are not logged in!"
-    });
-  }
-};
-
-const signup = (req, res, next) => {
-  const {
-    name,
-    email,
-    location,
-    password
-  } = req.body;
-
-  if (email === "" || password === "") {
-    res.status(401).json({
-      message: "Indicate email and password"
-    });
-    return;
-  }
-
-  Academy.findOne({
-      email
-    })
-    .then(academy => {
-      if (academy !== null) {
-        res.status(409).json({
-          message: "Academy already exists"
-        });
-        return;
-      } else {
-        User.findOne({
-            email
-          })
-          .then(user => {
-            if (user !== null) {
-              res.status(409).json({
-                message: "This email is registered as a student"
-              });
-              return;
-            } else {
-              const salt = bcrypt.genSaltSync(bcryptSalt);
-              const hashPass = bcrypt.hashSync(password, salt);
-
-              const newAcademy = new Academy({
-                name,
-                email,
-                location,
-                password: hashPass
-              });
-
-              newAcademy
-                .save()
-                .then(academy => {
-                  logInPromise(academy, req)
-                    .then(academy => res.status(200).json(academy));
-                })
-            }
-          })
-      }
-    })
-    .catch(e =>
-      res
-      .status(400)
-      .json({
-        message: "Something went wrong when trying to save Academy"
-      })
-    );
-};
-
-const login = (req, res, next) => {
-  passport.authenticate("academy-local", (err, academy, info) => {
-    if (err) {
-      return next(err);
-    }
-    if (!academy) {
-      return res.status(400).json(info);
-    }
-    logInPromise(academy, req)
-      .then(academy => res.status(200).json(academy));
-
-  })(req, res, next);
-}
 
 const getAll = (req, res, next) => {
   Academy.find()
@@ -145,8 +35,6 @@ const getAll = (req, res, next) => {
 
 };
 
-
-
 const getOne = (req, res, next) => {
   Academy.findById(req.params.id)
     .select("-password")
@@ -164,11 +52,30 @@ const getOne = (req, res, next) => {
 
 };
 
-const getThis = (req, res, next) => {
-
-    if (req.academy)
+const getThis = async (req, res, next) =>
+{
+    if (req.user)
     {
-        Academy.findById(req.academy.id)
+        const academy = await Academy.findOne({ user: req.user.id })
+                                    .select("-__v")
+                                    .populate('categories.category');
+        
+        if (academy != null)
+        {            
+            const courses = await Course.find({ academy: academy.id });
+            
+            if (courses != null)
+            {
+                let academyReturn = {...academy.toJSON(), courses: [...courses]}
+                res.status(200).json(academyReturn);
+            }
+            else
+                res.status(500).json({ message: "Error getting academy courses" });
+        }
+        else
+            res.status(404).json({ message: "No academy found for this user" });
+        
+        /*Academy.findById(req.academy.id)
         .select("-password")
         .then(academy =>
         {
@@ -191,13 +98,13 @@ const getThis = (req, res, next) => {
             {
                 message: "Error retrieving academy"
             });
-        });
+        });*/
     }
     else
     {
         res.status(401).json(
         {
-            message: "You should login as an Academy"
+            message: "You should login first"
         });
     }
 };
@@ -292,37 +199,10 @@ const update = (req, res, next) =>
     }
 };
 
-const erase = (req, res, next) => {
-  if (req.academy) {
-    Academy.findByIdAndRemove(req.academy.id)
-      .then(() => {
-        req.session.destroy(function (err) {
-          res.status(200).json({
-            message: "Academy removed"
-          });
-        });
-      })
-      .catch(err => {
-        res.status(400).json({
-          message: "Error erasing academy"
-        });
-      });
-  } else {
-    res.status(400).json({
-      message: "You are not logged in!"
-    });
-    return;
-  }
-};
 
 module.exports = {
-  loggedIn,
-  logout,
-  signup,
-  login,
   getAll,
   getOne,
   getThis,
-  update,
-  erase
+  update
 };

@@ -9,27 +9,18 @@ const courseSchema = new Schema(
       type: String,
       required: true
     },
-    level: String,
-    objetive: String,
-    infocourse: String,
-    exam: String,
-    examresults: String,
     group: [String],
     hours: Number,
     duration: String,
     about: [String],
     requirements: [String],
     weekclasses: Number,
-    foryouif: [String],
-    howareclasses: [String],
     homework:[String],
-    theme: [String],
-    material: [String],
     startDate: Date,
-    images: [{
-      imagePath: String},
-      {imageName: String
-    }],
+    images: [
+        {imagePath: String},
+        {imageName: String}
+    ],
     videoUrl: String,
     approvedRate: Number,
     sizeClass: Number,
