@@ -18,21 +18,12 @@ const {
 } = require("../../config/nodemailer/transporter");
 
 
-const getAll = (req, res, next) => {
-  Academy.find()
-    .select("-password")
-    .then(academies => {
-      res.status(200).json(
-        {academies}
-      );
-    })
-    .catch(err => {
-      res.status(500).json({
-        message: "Error requesting academies"
-      });
-    });
-
-
+const getAll = (req, res, next) =>
+{
+    Academy.find()
+        .select("-__v")
+        .then(academies => { res.status(200).json(academies); })
+        .catch(err => { res.status(500).json({ message: "Error requesting academies" }); });
 };
 
 const getOne = (req, res, next) => {
@@ -74,31 +65,6 @@ const getThis = async (req, res, next) =>
         }
         else
             res.status(404).json({ message: "No academy found for this user" });
-        
-        /*Academy.findById(req.academy.id)
-        .select("-password")
-        .then(academy =>
-        {
-            Course.find({ academy: req.academy.id }).then(courses =>
-            {
-                let academyReturn = {...academy.toJSON(), courses: [...courses]}
-                res.status(200).json(academyReturn);
-            })
-            .catch(error =>
-            {
-                res.status(404).json(
-                {
-                    message: "No se encontraron los cursos para esta academia"
-                });
-            });
-        })
-        .catch(err =>
-        {
-            res.status(404).json(
-            {
-                message: "Error retrieving academy"
-            });
-        });*/
     }
     else
     {

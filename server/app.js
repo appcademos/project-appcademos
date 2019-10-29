@@ -18,6 +18,7 @@ var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
 const Category = require("./api/category/category.model");
 const Academy = require("./api/academy/academy.model");
 const User = require("./api/user/user.model");
+const Course = require("./api/course/course.model");
 
 mongoose.Promise = Promise;
 mongoose
@@ -25,9 +26,6 @@ mongoose
 .then(() =>
 {
     debug(`Connected to Mongo at ${dbURL}`);
-    
-    // Clear academy categories
-    //deleteCategories();
     
     // Create Categories if none and academy categories
     createCategories();
@@ -38,6 +36,8 @@ mongoose
     removeUnnecessaryUserFields();
     
     transferAcademyUsersToRealUsers();
+    
+    assignCoursesCategories();
 })
 .catch(err =>
 {
@@ -149,15 +149,15 @@ function createCategories()
             Category
             .insertMany(
             [
-                { name: 'first' },
-                { name: 'advanced' },
-                { name: 'proficiency' },
-                { name: 'b1' },
-                { name: 'b2' },
-                { name: 'c1' },
-                { name: 'toefl' },
-                { name: 'toeic' },
-                { name: 'ielts' }
+                { name: 'First' },
+                { name: 'Advanced' },
+                { name: 'Proficiency' },
+                { name: 'B1' },
+                { name: 'B2' },
+                { name: 'C1' },
+                { name: 'TOEFL' },
+                { name: 'TOEIC' },
+                { name: 'IELTS' }
             ], function(err)
             {
                 if (err)
@@ -256,6 +256,26 @@ async function transferAcademyUsersToRealUsers()
     });
     
     await Academy.updateMany({ email: { $exists: 1 } }, { $unset: { email: 1, password: 1 } }, { strict: false });
+}
+async function assignCoursesCategories()
+{
+    const courses = await Course.find({});
+    const categories = await Category.find({});
+    
+    courses.forEach(async (course) => 
+    {        
+        if (course.tags != null && course.tags.length > 0)
+        {
+            let foundCategory = categories.find(category => category.name.toLowerCase() == course.tags[0].toLowerCase());
+            
+            if (foundCategory != null)
+            {
+                await Course.updateOne({ _id: course._id }, { category: foundCategory._id });
+            }
+        }
+    });
+    
+    await Course.updateMany({ tags: { $exists: 1 } }, { $unset: { tags: 1 } }, { strict: false });
 }
 
 

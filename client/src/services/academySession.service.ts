@@ -15,6 +15,14 @@ export class AcademySessionService
     {
 
     }
+    
+    getAcademies()
+    {
+        return this.http
+        .get(`${environment.BASEURL}/api/academy/all`, this.options)
+        .map(res => res.json())
+        .catch(error => Observable.throw(error));
+    }
 
     handleAcademy(academy?: object)
     {

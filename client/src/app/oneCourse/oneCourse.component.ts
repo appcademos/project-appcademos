@@ -132,7 +132,6 @@ export class OneCourseComponent implements OnInit, OnDestroy
 
                 this.calcReviewGrade(this.courseObj.course.academy.reviews);
                 this.separateReviews();
-                console.log(this.courseObj);
 
                 // Expand first item
                 setTimeout(() => { this.expandItem('expandible-item-1'); });
@@ -222,7 +221,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
     }
     getSimilarCourses()
     {
-        this.courseService.findCourses(this.courseObj.course.tags[0])
+        this.courseService.findCourses(this.courseObj.course.category.name)
         .subscribe(() =>
         {
             this.similarCourses = this.courseService.foundCourses.filter(course => { return course._id != this.courseObj.course._id; });
@@ -263,7 +262,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
     {
         const warningTags = ['b1', 'b2', 'c1']
         
-        if (warningTags.includes(this.courseObj.course.tags[0]))
+        if (warningTags.includes(this.courseObj.course.category.name.toLowerCase()))
             this.showWarningbox = true;
     }
 

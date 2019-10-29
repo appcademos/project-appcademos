@@ -18,7 +18,7 @@ const update = async (req, res, next) =>
     const result = await Category.updateOne({ _id: req.params.id }, req.body);
     
     if (result != null && result.nModified == 1 && result.ok == 1)
-        res.status(200).end();
+        res.status(200).json({ updated: true });
     else
         res.status(400).json({ message: "Error updating category" });
 };

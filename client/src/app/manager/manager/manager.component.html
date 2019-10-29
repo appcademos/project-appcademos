@@ -1,0 +1,90 @@
+<div id="manager">
+    <div class="responsive-container" *ngIf="user">
+        <div class="top">
+            <div>
+                <div *ngIf="user.role !== 'student'" class="superTitle">{{ user.role.toUpperCase() }}</div>
+                <h2>{{ user.name }}</h2>
+            </div>
+            <div class="logout color-black-50 fs-13 fw-600 cursor-pointer noselect" (click)="logout()">CERRAR SESIÓN</div>
+        </div>
+        
+        <section
+            id="infoType3"
+            class="card-banner"
+            [ngClass]="{ expanded: categoriesExpanded }"
+        >
+            <div
+                class="titleContainer flex space-between align-items-baseline"
+                (click)="categoriesExpanded = !categoriesExpanded"
+            >
+                <div class="title fw-600 fs-18">Info Tipo 3 <span class="color-black-50">· Categorías</span></div>
+                <div class="buttons">
+                    <i class="icon size-14 icon-arrow-down"></i>
+                </div>
+            </div>
+            
+            <div id="categories" class="content">
+                <div class="categoriesContainer">
+                    <div
+                        class="category button white small"
+                        *ngFor="let category of categories"
+                        [ngClass]="{ selected: selectedCategory.name == category.name }"
+                        (click)="selectedCategory = category"
+                    >
+                        {{ category.name }}
+                    </div>
+                </div>
+                <div class="line-separator"></div>
+                
+                <div class="quillEditorContainer">
+                    <div class="title">Este curso es para ti si..</div>
+                    <quill-editor [(ngModel)]="selectedCategory.forYouIf"></quill-editor>
+                </div>
+                
+                <div class="quillEditorContainer">
+                    <div class="title">De qué va este curso</div>
+                    <quill-editor [(ngModel)]="selectedCategory.coursesInfo"></quill-editor>
+                </div>
+                
+                <div class="buttons">
+                    <button
+                        nz-button
+                        nzType="default"
+                        nzSize="large"
+                        [nzLoading]="refreshingCategories"
+                        (click)="getCategories()"
+                    >
+                        Refrescar categorías
+                    </button>
+                    <button
+                        nz-button
+                        nzType="primary"
+                        nzSize="large"
+                        [nzLoading]="sendingCategory"
+                        (click)="sendCategory()"
+                    >
+                        Guardar categoría
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <section id="academies" class="card-banner notExpandible">
+            <div class="titleContainer flex space-between align-items-baseline">
+                <div class="title fw-600 fs-18">Academias <span class="color-black-50" *ngIf="academies.length > 0">· {{ academies.length }}</span></div>
+            </div>
+            
+            <div class="content">
+                <div class="spinner medium" *ngIf="gettingAcademies"></div>
+            
+                <div
+                    class="academy"
+                    *ngFor="let academy of academies"
+                >
+                    <div class="title">{{ academy.name }}</div>
+                    <i class="icon size-12 icon-arrow-right"></i>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

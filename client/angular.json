@@ -32,7 +32,9 @@
             ],
             "styles": [
                 "src/antd_theme.less",
-              "src/sass/main.scss"
+                "src/sass/main.scss",
+                "./node_modules/quill/dist/quill.bubble.css",
+                "./node_modules/quill/dist/quill.snow.css"
             ],
             "scripts": []
           },

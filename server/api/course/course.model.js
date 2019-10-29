@@ -26,7 +26,12 @@ const courseSchema = new Schema(
     sizeClass: Number,
     description: String,
     teacher: String,
-    tags: [String],
+    tags: [String], // TO BE DELETED
+    category: {
+        type: Schema.Types.ObjectId,
+        ref: "Category",
+        required: true
+    },
     reviews: [],
     students: [
       {

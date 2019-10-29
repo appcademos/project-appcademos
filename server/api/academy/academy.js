@@ -9,9 +9,9 @@ const {
   update
 } = require("./academy.controller");
 
-router.get("/:id", [ Utils.hasAccess('admin'), getOne ]);
-router.get("/all", [ Utils.hasAccess('admin'), getAll ]);
 router.get("/", [ Utils.hasAccess('academy'), getThis ]);
+router.get("/all", [ Utils.hasAccess('admin'), getAll ]);
+router.get("/:id", [ Utils.hasAccess('admin'), getOne ]);
 router.put("/update/:id", update);
 
 module.exports = router;

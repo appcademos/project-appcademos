@@ -361,6 +361,12 @@ input[type="text"]
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
+    
+    &.medium
+    {
+        width: 32px;
+        height: 32px;
+    }
 }
 .spinner.green
 {
@@ -370,7 +376,7 @@ input[type="text"]
 
 .fw-300 { font-weight: 300; }
 .fw-400 { font-weight: 400; }
-.fw-500 { font-weight: 500; }
+.fw-500 { font-weight: 500 !important; }
 .fw-600 { font-weight: 600; }
 .fw-700 { font-weight: 700; }
 .fw-800 { font-weight: 800; }
@@ -512,6 +518,12 @@ input[type="text"]
     {
         background-color: #EFEFEF;
     }
+    &.selected
+    {
+        background: $red-color-button;
+        color: #fff;
+        border-color: $red-color-button;
+    }
 }
 .button.dark
 {
@@ -630,7 +642,7 @@ input[type="text"]
     background: white;
     border-radius: 8px;
     border: 1px solid #EAEAEA;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 }
 
 .warning-box
@@ -765,4 +777,21 @@ input[type="text"]
 .ant-btn
 {
     font-weight: 500 !important;
+}
+
+
+/***** Quill editor *****/
+quill-editor *
+{
+    outline: none;
+}
+.ql-toolbar
+{
+    border-radius: 6px 6px 0 0;
+    border-color: #ddd !important;
+}
+.ql-container
+{
+    border-radius: 0 0 6px 6px;
+    border-color: #ddd !important;
 }

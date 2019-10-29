@@ -2,6 +2,7 @@ const _ = require("lodash");
 const Course = require("./course.model");
 const User = require("../user/user.model");
 const Review = require("../review/review.model");
+const Category = require("../category/category.model");
 const debug = require("debug")("server:course.controller");
 const fields = Object.keys(_.omit(Course.schema.paths, ["__v", "_id"]));
 const mongoose = require("mongoose");
@@ -52,60 +53,74 @@ const getAll = (req, res) => {
     });
 };
 
-const getSearched = (req, res, next) => {
-
-  let courseReviews = [];
-  let query = req.query.course.replace(/'+'/g, '[\s]').normalize('NFD').replace(/[\u0300-\u036f]/g, "");
-
-  Course.find({
-      $or: [{
-        title: {
-          $regex: query,
-          $options: "i"
+const getSearched = async (req, res, next) =>
+{
+    let courseReviews = [];
+    let query = req.query.course.replace(/'+'/g, '[\s]').normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+    let findObj = {}
+    
+    const categories = Category.find({});
+    let foundCategory = null;
+    
+    if (categories != null && categories.length > 0)
+        foundCategory = categories.find(category => category.name.toLowerCase() == query.toLowerCase());
+    
+    if (foundCategory != null)
+    {
+        findObj =
+        {
+            category: foundCategory._id
         }
-      }, {
-        tags: {
-          $regex: query,
-          $options: "i"
-        }
-      }]
-    })
-    .populate(
-      {
-          path: 'academy',
-          populate:
-          {
-              path: 'reviews',
-              model: 'Review'
-          }
-      })
-    .then(courses => {
-
-      return Promise.all(courses.map(course =>
-          Review.find({
-            course: course.id
-          }).populate("author").then(reviews => {
-            for (let i = 0; i < reviews.length; i++) {
-              if (reviews[i].course == course.id) {
-                course.reviews.push(reviews[i]);
-              }
+    }
+    else
+    {
+        findObj = 
+        {
+            title:
+            {
+                $regex: query,
+                $options: "i"
             }
-          })))
-        .then(() => {
-          res.status(200).json(courses)
-        })
+        }
+    }
+    
+    Course.find(findObj)
+    .populate(
+    {
+        path: 'academy',
+        populate:
+        {
+            path: 'reviews',
+            model: 'Review'
+        }
     })
-    .catch(err => {
+    .then(courses =>
+    {
+        return Promise.all(courses.map(course =>
+        
+            Review.find({ course: course.id })
+            .populate("author")
+            .then(reviews =>
+            {
+                for (let i = 0; i < reviews.length; i++)
+                {
+                    if (reviews[i].course == course.id)
+                        course.reviews.push(reviews[i]);
+                }
+            })
+        ))
+        .then(() => { res.status(200).json(courses) })
+    })
+    .catch(err =>
+    {
         console.log(err);
-      res.status(400).json({
-        message: "Error requesting courses"
-      });
+        res.status(400).json({ message: "Error requesting courses" });
     });
 };
 
 const getOne = (req, res, next) => {
   Course.findById(req.params.id)
-      .populate(
+    .populate(
       {
           path: 'academy',
           populate:
@@ -120,7 +135,7 @@ const getOne = (req, res, next) => {
               }
           }
       })
-    //.populate("academy")
+    .populate("category")
     .populate("students")
     .exec()
     .then(course => {

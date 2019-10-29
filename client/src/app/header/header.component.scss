@@ -199,6 +199,12 @@ header.absolute #navbarBottom
 {
   outline: none;
 }
+.userLinkContainer
+{
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+}
 
 @media (max-width: 870px)
 {

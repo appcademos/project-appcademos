@@ -12,6 +12,7 @@ import { AcademyprofileComponent } from "./manager/academyprofile/academyprofile
 import { CookiesComponent } from "./cookies/cookies.component";
 import { PrivacyPolicyComponent } from "./privacy-policy/privacy-policy.component";
 import { EstudioPersonalizadoComponent } from "./estudio-personalizado/estudio-personalizado.component";
+import { ManagerComponent } from "./manager/manager/manager.component";
 
 export const routes: Routes = [
     { path: "", component: HomeComponent },
@@ -29,6 +30,7 @@ export const routes: Routes = [
     { path: "estudio-personalizado", component: EstudioPersonalizadoComponent},
     
     // Manager
+    { path: "manager", component: ManagerComponent},
     { path: "academyprofile", component: AcademyprofileComponent},
 
     { path: "cookie-policy", component: CookiesComponent },
