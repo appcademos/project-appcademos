@@ -17,7 +17,11 @@ export class EstudioPersonalizadoComponent implements OnInit
             {
                 portalId: "4604246",
                 formId: "c2690194-2d4e-44c3-84a4-bbd7d4601fff",
-                target: "#estudioPersonalizado"
+                target: "#estudioPersonalizado",
+                onFormReady: function()
+                {
+                    document.querySelector('#estudioPersonalizado iframe').setAttribute('data-hj-allow-iframe', '');
+                }
             });
         }
     }
