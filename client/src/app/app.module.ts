@@ -52,6 +52,7 @@ import { SocialLoginComponent } from './social-login/social-login.component';
 import { SocialLoginModule, AuthServiceConfig, LoginOpt } from "angularx-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
 import { EstudioPersonalizadoComponent } from './estudio-personalizado/estudio-personalizado.component';
+import { TopBannerComponent } from './top-banner/top-banner.component';
 
 
 export function metaFactory(): MetaLoader
@@ -119,7 +120,8 @@ export function provideConfig() {
       CheckboxComponent,
       RadioComponent,
       SocialLoginComponent,
-      EstudioPersonalizadoComponent
+      EstudioPersonalizadoComponent,
+      TopBannerComponent
    ],
 
   imports: [
