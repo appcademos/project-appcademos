@@ -134,23 +134,14 @@
         </section>
 
         <section id="expandible-info">
-            <!--<div class="expandible-item noselect" id="expandible-item-1" *ngIf="courseObj.course.foryouif">
+            <div class="expandible-item noselect" id="expandible-item-1" *ngIf="courseObj.course.foryouif">
                 <div class="top" (click)="expandItem('expandible-item-1')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-20 icon-like-green"></i>
                     <div class="title">Este curso es para ti si…</div>
                 </div>
                 <div class="content">
-                    <div class="content-container">
-                        <ul>
-                            <div class="sub-section">
-                                <div class="title">Tu nivel de inglés:</div>
-                                <li *ngFor="let level of courseObj.course.level">{{ level }}</li>
-                                <div class="title">Tu objetivo:</div>
-                                <li *ngFor="let objetive of courseObj.course.objetive">{{ objetive }}</li>
-                            </div>
-                         </ul>
-                    </div>
+                    <div class="content-container" innerHTML="{{ courseObj.course.category.forYouIf }}"></div>
                 </div>
             </div>
             <div class="expandible-item noselect" id="expandible-item-2">
@@ -160,15 +151,9 @@
                     <div class="title">De que va este curso</div>
                 </div>
                 <div class="content">
-                    <div class="content-container">
-                        <ul>
-                          <li><span class="fw-600">Información sobre el curso:</span> {{courseObj.course.infocourse}}</li>
-                          <li><span class="fw-600">El examen:</span>{{ courseObj.course.exam}}</li> 
-                          <li><span class="fw-600">Resultados del examen:</span>{{courseObj.course.examresults}}</li>
-                        </ul>
-                    </div>
+                    <div class="content-container" innerHTML="{{ courseObj.course.category.coursesInfo }}"></div>
                 </div>
-            </div>-->
+            </div>
             <div class="expandible-item noselect" id="expandible-item-3" *ngIf="courseObj.course.howareclasses">
                 <div class="top" (click)="expandItem('expandible-item-3')">
                     <i class="icon size-14 icon-arrow-down"></i>
