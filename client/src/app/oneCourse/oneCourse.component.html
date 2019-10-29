@@ -134,8 +134,8 @@
         </section>
 
         <section id="expandible-info">
-            <div class="expandible-item noselect" id="expandible-item-1" *ngIf="courseObj.course.foryouif">
-                <div class="top" (click)="expandItem('expandible-item-1')">
+            <div class="expandible-item" id="expandible-item-1" *ngIf="courseObj.course.foryouif">
+                <div class="top noselect" (click)="expandItem('expandible-item-1')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-20 icon-like-green"></i>
                     <div class="title">Este curso es para ti si…</div>
@@ -144,8 +144,8 @@
                     <div class="content-container" innerHTML="{{ courseObj.course.category.forYouIf }}"></div>
                 </div>
             </div>
-            <div class="expandible-item noselect" id="expandible-item-2">
-                <div class="top" (click)="expandItem('expandible-item-2')">
+            <div class="expandible-item" id="expandible-item-2">
+                <div class="top noselect" (click)="expandItem('expandible-item-2')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-20 icon-info-green"></i>
                     <div class="title">De que va este curso</div>
@@ -154,8 +154,8 @@
                     <div class="content-container" innerHTML="{{ courseObj.course.category.coursesInfo }}"></div>
                 </div>
             </div>
-            <div class="expandible-item noselect" id="expandible-item-3" *ngIf="courseObj.course.howareclasses">
-                <div class="top" (click)="expandItem('expandible-item-3')">
+            <div class="expandible-item" id="expandible-item-3" *ngIf="courseObj.course.howareclasses">
+                <div class="top noselect" (click)="expandItem('expandible-item-3')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-20 icon-class-green"></i>
                     <div class="title">Cómo serán las clases</div>
@@ -168,8 +168,8 @@
                     </div>
                 </div>
             </div>
-            <div class="expandible-item noselect" id="expandible-item-4" *ngIf="courseObj.course.theme || courseObj.course.theme.material">
-                <div class="top" (click)="expandItem('expandible-item-4')">
+            <div class="expandible-item" id="expandible-item-4" *ngIf="courseObj.course.theme || courseObj.course.theme.material">
+                <div class="top noselect" (click)="expandItem('expandible-item-4')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-20 icon-book-green"></i>
                     <div class="title">Temario y material</div>
@@ -191,8 +191,8 @@
                     </div>
                 </div>
             </div>
-            <div class="expandible-item noselect" id="expandible-item-5" *ngIf="courseObj.course.academy.about">
-                <div class="top" (click)="expandItem('expandible-item-5')">
+            <div class="expandible-item" id="expandible-item-5" *ngIf="courseObj.course.academy.about">
+                <div class="top noselect" (click)="expandItem('expandible-item-5')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-20 icon-graduation-green"></i>
                     <div class="title">¿Por qué elegir la academia <span class="color-green">{{ courseObj.course.academy.name }}</span>?</div>
@@ -205,8 +205,8 @@
                     </div>
                 </div>
             </div>
-            <div class="expandible-item noselect" id="expandible-item-6" *ngIf="courseObj.course.about">
-                <div class="top" (click)="expandItem('expandible-item-6')">
+            <div class="expandible-item" id="expandible-item-6" *ngIf="courseObj.course.about">
+                <div class="top noselect" (click)="expandItem('expandible-item-6')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-20 icon-intelligence-green"></i>
                     <div class="title">¿Qué sabrás al finalizar este curso?</div>
@@ -219,8 +219,8 @@
                     </div>
                 </div>
             </div>
-            <div class="expandible-item noselect" id="expandible-item-7">
-                <div class="top" (click)="expandItem('expandible-item-7')">
+            <div class="expandible-item" id="expandible-item-7">
+                <div class="top noselect" (click)="expandItem('expandible-item-7')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-20 icon-free-green"></i>
                     <div class="title">Cómo conseguir tu clase de prueba</div>
@@ -242,8 +242,8 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="expandible-item noselect" id="expandible-item-8" *ngIf="courseObj.course.requirements">
-                <div class="top" (click)="expandItem('expandible-item-8')">
+            <!-- <div class="expandible-item" id="expandible-item-8" *ngIf="courseObj.course.requirements">
+                <div class="top noselect" (click)="expandItem('expandible-item-8')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-22 icon-test-green"></i>
                     <div class="title">Requisitos y Prueba de Nivel</div>
@@ -256,8 +256,8 @@
                     </div>
                 </div>
             </div> -->
-            <div class="expandible-item noselect" id="expandible-item-9">
-                <div class="top" (click)="expandItem('expandible-item-9')">
+            <div class="expandible-item" id="expandible-item-9">
+                <div class="top noselect" (click)="expandItem('expandible-item-9')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-22 icon-appcademos-a-red"></i>
                     <div class="title">Beneficios de este curso con <span class="color-red">Appcademos</span></div>
@@ -273,8 +273,8 @@
                 </div>
             </div>
 
-            <div class="expandible-item noselect" id="expandible-item-10">
-                <div class="top" (click)="expandItem('expandible-item-10')">
+            <div class="expandible-item" id="expandible-item-10">
+                <div class="top noselect" (click)="expandItem('expandible-item-10')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-22 icon-eye"></i>
                     <div class="title"> Preguntas frecuentes sobre este curso:</div>
