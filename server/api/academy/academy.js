@@ -11,7 +11,7 @@ const {
 
 router.get("/", [ Utils.hasAccess('academy'), getThis ]);
 router.get("/all", [ Utils.hasAccess('admin'), getAll ]);
-router.get("/:id", [ Utils.hasAccess('admin'), getOne ]);
+router.get("/:id", [ Utils.hasAccess('adminAndAcademy'), getOne ]);
 router.put("/update/:id", update);
 
 module.exports = router;

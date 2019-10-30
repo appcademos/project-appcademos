@@ -137,7 +137,6 @@
             
             .title
             {
-                color: $black-80;
                 font-size: 14px;
                 font-weight: 600;
                 margin-bottom: 8px;
@@ -168,6 +167,7 @@
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
+            outline: none;
             
             padding: 12px 0;
             border-bottom: 1px solid $border-color;

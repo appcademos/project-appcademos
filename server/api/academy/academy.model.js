@@ -8,7 +8,8 @@ const academySchema = new Schema(
     imageName: String,
     description: String,
     address: String,
-    about: [String],
+    about: [String], // TO BE DELETED
+    whyChooseMe: String,
     images: [
         {imagePath: String},
         {imageName: String}
@@ -32,7 +33,6 @@ const academySchema = new Schema(
         type: Number,
         default: 0
     },
-    reasonsToChoose: { type: String, default: null },
     categories: [
         {
             category: { type: Schema.Types.ObjectId, ref: "Category" },

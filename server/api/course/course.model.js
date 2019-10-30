@@ -12,10 +12,10 @@ const courseSchema = new Schema(
     group: [String],
     hours: Number,
     duration: String,
-    about: [String],
-    requirements: [String],
+    about: [String], // TO BE DELETED
+    requirements: [String], // TO BE DELETED
     weekclasses: Number,
-    homework:[String],
+    homework:[String], // TO BE DELETED
     startDate: Date,
     images: [
         {imagePath: String},
@@ -25,20 +25,20 @@ const courseSchema = new Schema(
     approvedRate: Number,
     sizeClass: Number,
     description: String,
-    teacher: String,
+    teacher: String, // TO BE DELETED
     tags: [String], // TO BE DELETED
     category: {
         type: Schema.Types.ObjectId,
         ref: "Category",
         required: true
     },
-    reviews: [],
+    reviews: [], // TO BE DELETED
     students: [
       {
         type: Schema.Types.ObjectId,
         ref: "User"
       }
-    ],
+    ], // TO BE DELETED
     academy: {
       type: Schema.Types.ObjectId,
       ref: "Academy"

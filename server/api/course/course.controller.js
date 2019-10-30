@@ -59,12 +59,12 @@ const getSearched = async (req, res, next) =>
     let query = req.query.course.replace(/'+'/g, '[\s]').normalize('NFD').replace(/[\u0300-\u036f]/g, "");
     let findObj = {}
     
-    const categories = Category.find({});
+    const categories = await Category.find({});
     let foundCategory = null;
     
     if (categories != null && categories.length > 0)
         foundCategory = categories.find(category => category.name.toLowerCase() == query.toLowerCase());
-    
+        
     if (foundCategory != null)
     {
         findObj =
@@ -201,32 +201,23 @@ const update = (req, res, next) =>
     Course.findById(req.params.id)
     .then(course =>
     {
-        if (course.academy == req.academy.id)
+        if (req.user.role == 'admin' || req.user.role == 'academy')
         {
             Course.update({ _id: req.params.id }, { $set: { ...updates } })
             .then(() =>
             {
-                res.status(200).json(
-                {
-                    message: "¡Curso actualizado!"
-                });
+                res.status(200).json({ message: "¡Curso actualizado!" });
             })
             .catch(err =>
             {
                 debug(err);
-                res.status(500).json(
-                {
-                    message: "Error al actualizar el curso"
-                });
+                res.status(500).json({ message: "Error al actualizar el curso" });
             });
         }
-        else
+        /*else
         {
-            res.status(401).json(
-            {
-                message: "Solo puedes editar tus propios cursos"
-            });
-        }
+            res.status(401).json({ message: "Solo puedes editar tus propios cursos" });
+        }*/
     });
 };
 

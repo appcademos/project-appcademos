@@ -16,7 +16,8 @@ const userSchema = new Schema(
     imagePath: String,
     email: {
       type: String,
-      required: true
+      required: true,
+      unique: true
     },
     password: {
       type: String,
@@ -41,7 +42,8 @@ userSchema.plugin(require('mongoose-role'),
     {
         student: ['student'],
         academy: ['academy'],
-        admin: ['admin']
+        admin: ['admin'],
+        adminAndAcademy: ['admin', 'academy']
     }
 });
 

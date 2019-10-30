@@ -1,9 +1,9 @@
 <div id="manager">
-    <div class="responsive-container" *ngIf="user">
+    <div class="responsive-container" *ngIf="user && user.role == 'admin'">
         <div class="top">
             <div>
                 <div *ngIf="user.role !== 'student'" class="superTitle">{{ user.role.toUpperCase() }}</div>
-                <h2>{{ user.name }}</h2>
+                <h2>{{ user.name }} {{ user.lastName }}</h2>
             </div>
             <div class="logout color-black-50 fs-13 fw-600 cursor-pointer noselect" (click)="logout()">CERRAR SESIÓN</div>
         </div>
@@ -17,7 +17,7 @@
                 class="titleContainer flex space-between align-items-baseline"
                 (click)="categoriesExpanded = !categoriesExpanded"
             >
-                <div class="title fw-600 fs-18">Info Tipo 3 <span class="color-black-50">· Categorías</span></div>
+                <div class="title fw-600 fs-18">Categorías <span class="color-black-50">· Info Tipo 3</span></div>
                 <div class="buttons">
                     <i class="icon size-14 icon-arrow-down"></i>
                 </div>
@@ -80,6 +80,7 @@
                 <div
                     class="academy"
                     *ngFor="let academy of academies"
+                    [routerLink]="['academy/' + academy._id]"
                 >
                     <div class="title">{{ academy.name }}</div>
                     <i class="icon size-12 icon-arrow-right"></i>

@@ -7,7 +7,7 @@ const {
   update
 } = require("./category.controller");
 
-router.get("/", [ Utils.hasAccess('admin'), getAll ]);
+router.get("/", [ Utils.hasAccess('adminAndAcademy'), getAll ]);
 router.post("/:id/update", [ Utils.hasAccess('admin'), update ]);
 
 module.exports = router;

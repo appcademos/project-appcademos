@@ -31,9 +31,9 @@ export class AcademyprofileComponent implements OnInit
     getAcademy()
     {
         this.academyService.getAcademy()
-        .subscribe(() =>
+        .subscribe((res) =>
         {
-            this.academy = {...this.academyService.academy};
+            this.academy = res;
         },
         error =>
         {
@@ -90,17 +90,7 @@ export class AcademyprofileComponent implements OnInit
     }
     logout()
     {
-        this.academyService.logout()
-        .subscribe(
-            () =>
-            {
-                this.router.navigate(["/academy"]);
-            },
-            error =>
-            {
-                alert(error);
-            }
-        );
+        
     }
 
     selectCourse(course, checked)

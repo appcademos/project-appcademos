@@ -156,7 +156,7 @@ export class LoginComponent
                 this.sendingLogin = false;
                 this.loginComplete = true;
 
-                if (user != null && user.role === 'admin')
+                if (user != null && (user.role === 'admin' || user.role === 'academy'))
                 {
                     setTimeout(() =>
                     {

@@ -119,6 +119,12 @@ export class OneCourseComponent implements OnInit, OnDestroy
             {
                 this.courseObj = this.courseService.viewCourse;
                 this.setMetaData();
+                
+                this.courseObj.course.academyCategory = this.courseObj.course.academy.categories
+                                                        .find(academyCategory =>
+                                                        {
+                                                            return academyCategory.category == this.courseObj.course.category._id
+                                                        });
 
                 if (!this.updateReviews)
                 {

@@ -77,7 +77,6 @@ export class HeaderComponent implements OnInit, OnDestroy
     }
     ngOnDestroy()
     {
-        console.log('ngOnDestroy');
         this.messageServiceSubscription.unsubscribe();
     }
     ngDoCheck()
@@ -108,13 +107,6 @@ export class HeaderComponent implements OnInit, OnDestroy
 
     logout()
     {
-        if (this.academyService.academy)
-        {
-            this.academyService.logout().subscribe();
-        }
-        else
-        {
-            this.userService.logout().subscribe();
-        }
+        this.userService.logout().subscribe();
     }
 }

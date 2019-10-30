@@ -30,14 +30,17 @@ mongoose
     // Create Categories if none and academy categories
     createCategories();
     
-    // Set student as users role
-    setDefaultUserRoles();
-    
-    removeUnnecessaryUserFields();
-    
-    transferAcademyUsersToRealUsers();
-    
-    assignCoursesCategories();
+    setTimeout(() =>
+    {
+        // Set student as users role
+        setDefaultUserRoles();
+        
+        removeUnnecessaryUserFields();
+        
+        transferAcademyUsersToRealUsers();
+        
+        assignCoursesCategories();
+    }, 1000);
 })
 .catch(err =>
 {
@@ -152,9 +155,9 @@ function createCategories()
                 { name: 'First' },
                 { name: 'Advanced' },
                 { name: 'Proficiency' },
-                { name: 'B1' },
-                { name: 'B2' },
-                { name: 'C1' },
+                { name: 'Nivel B1' },
+                { name: 'Nivel B2' },
+                { name: 'Nivel C1' },
                 { name: 'TOEFL' },
                 { name: 'TOEIC' },
                 { name: 'IELTS' }
@@ -231,7 +234,7 @@ async function removeUnnecessaryUserFields()
     await User.updateMany({}, { $unset: { isAdmin: 1, payment: 1, canReview: 1, instauser: 1, preferences: 1 } }, { strict: false });
 }
 async function transferAcademyUsersToRealUsers()
-{
+{    
     const academies = await Academy.find({ email: { $exists: 1 } });
     
     academies.forEach((academy) =>
@@ -255,7 +258,7 @@ async function transferAcademyUsersToRealUsers()
         });
     });
     
-    await Academy.updateMany({ email: { $exists: 1 } }, { $unset: { email: 1, password: 1 } }, { strict: false });
+    await Academy.updateMany({ email: { $exists: 1 } }, { $unset: { email: 1, password: 1, about: 1 } }, { strict: false });
 }
 async function assignCoursesCategories()
 {
@@ -266,7 +269,7 @@ async function assignCoursesCategories()
     {        
         if (course.tags != null && course.tags.length > 0)
         {
-            let foundCategory = categories.find(category => category.name.toLowerCase() == course.tags[0].toLowerCase());
+            let foundCategory = categories.find(category => category.name.toLowerCase().indexOf(course.tags[0].toLowerCase()) > -1 );
             
             if (foundCategory != null)
             {
@@ -275,7 +278,7 @@ async function assignCoursesCategories()
         }
     });
     
-    await Course.updateMany({ tags: { $exists: 1 } }, { $unset: { tags: 1 } }, { strict: false });
+    await Course.updateMany({ tags: { $exists: 1 } }, { $unset: { tags: 1, about: 1, requirements: 1, homework: 1, foryouif: 1, howareclasses: 1, theme: 1, material: 1, students: 1, teacher: 1, reviews: 1 } }, { strict: false });
 }
 
 

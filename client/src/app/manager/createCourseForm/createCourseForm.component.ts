@@ -1,7 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CoursesService } from '../../../services/courses.service';
+import { CategoriesService } from '../../../services/categories.service';
 import { Router } from "@angular/router";
 import * as moment from 'moment';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzNotificationService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-createCourseForm',
@@ -27,10 +30,16 @@ export class CreateCourseFormComponent implements OnInit
     sizeClass: Number;
     description: String;
     tags: [String];
+    categoryId: String;
 
     numCoursesUpdated = 0;
+    
+    categories = null;
 
-    constructor(public router: Router, private courseService: CoursesService) { }
+    constructor(public router: Router,
+                private courseService: CoursesService,
+                private categoriesService: CategoriesService,
+                private notifications: NzNotificationService) { }
 
     ngOnInit()
     {
@@ -44,11 +53,14 @@ export class CreateCourseFormComponent implements OnInit
             this.startDate  = moment(this.course.startDate).format('DD/MM/YYYY');
             this.isBooked   = this.course.isBooked ? this.course.isBooked : false;
             this.videoUrl   = this.course.videoUrl;
+            this.categoryId = this.course.category._id;
         }
         else
         {
             this.isBooked = false;
         }
+        
+        this.getCategories();
     }
     
     onChangeIsBooked(checked)
@@ -77,6 +89,10 @@ export class CreateCourseFormComponent implements OnInit
             allOk = false;
         }
         if (this.startDate == null || this.startDate.length == 0 || !(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/).test('' + this.startDate))
+        {
+            allOk = false;
+        }
+        if (this.categoryId == null || this.categoryId.length == 0)
         {
             allOk = false;
         }
@@ -115,6 +131,9 @@ export class CreateCourseFormComponent implements OnInit
                 
             if (this.videoUrl != null && this.videoUrl.trim().length > 0)
                 courseDataToUpdate.videoUrl = this.videoUrl.trim();
+                
+            if (this.categoryId != null && (this.categoryId + '').length > 0)
+                courseDataToUpdate.category = this.categoryId;
             
 
             for (let i = 0; i < this.courses.length; i++)
@@ -145,6 +164,7 @@ export class CreateCourseFormComponent implements OnInit
                     }
 
                     console.log(error);
+                    this.showCourseUpdatedErrorNotification(course);
                 });
             }
         }
@@ -162,20 +182,23 @@ export class CreateCourseFormComponent implements OnInit
                     startDate: moment(this.startDate + '', 'DD/MM/YYYY').toISOString(),
                     academy: this.course.academy,
                     isBooked: this.isBooked,
-                    videoUrl: (this.videoUrl != null && this.videoUrl.trim().length > 0) ? this.videoUrl : null
+                    videoUrl: (this.videoUrl != null && this.videoUrl.trim().length > 0) ? this.videoUrl : null,
+                    category: this.categoryId
                 }
 
                 this.courseService.updateCourse(this.course._id, courseToUpdate)
                 .subscribe(res =>
                 {
                     this.onCourseUpdated.emit({ course: { _id: this.course._id, ...courseToUpdate } });
-                    alert(res.message);
+                    this.showCourseUpdatedSuccessNotification();
+                    console.log(res.message);
                 },
                 error =>
                 {
                     this.onCourseError.emit({ course: { _id: this.course._id, ...courseToUpdate } });
-                    alert(error.json().message);
+                    console.log(error.json().message);
 
+                    this.showCourseUpdatedErrorNotification();
                     console.log(error);
                 });
             }
@@ -191,5 +214,45 @@ export class CreateCourseFormComponent implements OnInit
         this.startDate  = undefined;
         this.isBooked   = false;
         this.videoUrl   = undefined;
+        this.categoryId = undefined;
+    }
+    
+    getCategories()
+    {        
+        this.categoriesService.getCategories()
+        .subscribe(
+            res =>
+            {                
+                this.categories = res;
+            },
+            err =>
+            {
+                console.log(err);
+                this.notifications.create(
+                  'error',
+                  'Error',
+                  'No se han podido obtener las categorías.'
+                );
+            }
+        );
+    }
+    
+    showCourseUpdatedSuccessNotification()
+    {
+        this.notifications.create(
+          'success',
+          'Curso actualizado',
+          `El curso "${this.course.title}" ha sido actualizado`
+        );
+    }
+    showCourseUpdatedErrorNotification(course?)
+    {
+        let message = (course != null) ? `El curso "${course.title}" no ha podido actualizarse` : 'El curso no ha podido actualizarse';
+        
+        this.notifications.create(
+          'error',
+          'Error',
+          message
+        );
     }
 }
