@@ -35,10 +35,7 @@ import { HeaderComponent } from "./header/header.component";
 import { HomeComponent } from "./home/home.component";
 import { IsAcademyButtonComponent } from "./isAcademyButton/isAcademyButton.component";
 import { OneCourseComponent } from "./oneCourse/oneCourse.component";
-import { UserComponent } from "./user/user.component";
 import { UserLoginFormComponent } from "./userLoginForm/userLoginForm.component";
-import { UserSignupFormComponent } from "./userSignupForm/userSignupForm.component";
-import { ConfirmationComponent } from "./confirmation/confirmation.component";
 import { CourseCardComponent } from './course-card/course-card.component';
 import { CoursesCarouselComponent } from './courses-carousel/courses-carousel.component';
 import { SearchboxComponent } from './searchbox/searchbox.component';
@@ -105,10 +102,7 @@ export function provideConfig() {
       HomeComponent,
       IsAcademyButtonComponent,
       OneCourseComponent,
-      UserComponent,
       UserLoginFormComponent,
-      UserSignupFormComponent,
-      ConfirmationComponent,
       CourseCardComponent,
       CoursesCarouselComponent,
       SearchboxComponent,
