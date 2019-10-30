@@ -39,7 +39,6 @@ import { UserComponent } from "./user/user.component";
 import { UserLoginFormComponent } from "./userLoginForm/userLoginForm.component";
 import { UserSignupFormComponent } from "./userSignupForm/userSignupForm.component";
 import { ConfirmationComponent } from "./confirmation/confirmation.component";
-import { AcademyprofileComponent } from './manager/academyprofile/academyprofile.component';
 import { CourseCardComponent } from './course-card/course-card.component';
 import { CoursesCarouselComponent } from './courses-carousel/courses-carousel.component';
 import { SearchboxComponent } from './searchbox/searchbox.component';
@@ -110,7 +109,6 @@ export function provideConfig() {
       UserLoginFormComponent,
       UserSignupFormComponent,
       ConfirmationComponent,
-      AcademyprofileComponent,
       CourseCardComponent,
       CoursesCarouselComponent,
       SearchboxComponent,

@@ -7,7 +7,6 @@ import { AllCoursesComponent } from "./allCourses/allCourses.component";
 import { UserLoginFormComponent } from "./userLoginForm/userLoginForm.component";
 import { UserSignupFormComponent } from "./userSignupForm/userSignupForm.component";
 import { ConfirmationComponent } from "./confirmation/confirmation.component";
-import { AcademyprofileComponent } from "./manager/academyprofile/academyprofile.component";
 import { CookiesComponent } from "./cookies/cookies.component";
 import { PrivacyPolicyComponent } from "./privacy-policy/privacy-policy.component";
 import { EstudioPersonalizadoComponent } from "./estudio-personalizado/estudio-personalizado.component";
@@ -31,7 +30,6 @@ export const routes: Routes = [
     // Manager
     { path: "manager", component: ManagerComponent},
     { path: "manager/academy/:id", component: AcademyComponent},
-    { path: "academyprofile", component: AcademyprofileComponent},
 
     { path: "cookie-policy", component: CookiesComponent },
     { path: "privacy-policy", component: PrivacyPolicyComponent },
