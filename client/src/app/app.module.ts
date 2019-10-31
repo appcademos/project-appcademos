@@ -51,6 +51,7 @@ import { SocialLoginModule, AuthServiceConfig, LoginOpt } from "angularx-social-
 import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
 import { EstudioPersonalizadoComponent } from './estudio-personalizado/estudio-personalizado.component';
 import { ManagerComponent } from './manager/manager/manager.component';
+import { TopBannerComponent } from './top-banner/top-banner.component';
 
 
 export function metaFactory(): MetaLoader
@@ -116,6 +117,7 @@ export function provideConfig() {
       SocialLoginComponent,
       EstudioPersonalizadoComponent,
       ManagerComponent
+      TopBannerComponent
    ],
 
   imports: [

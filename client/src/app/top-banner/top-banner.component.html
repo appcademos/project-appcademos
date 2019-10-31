@@ -1,0 +1,10 @@
+<section id="top-banner" *ngIf="visible">
+    <div class="responsive-container">
+        <div class="content">
+            <span class="fw-700">¡Los CRAZY PRECIO$ de Halloween están a punto de acabar!</span>
+            <span class="countdown">{{ countdownText }}</span>
+        </div>
+        
+        <i class="closeButton icon size-12 icon-close-white" (click)="visible = false"></i>
+    </div>
+</section>
