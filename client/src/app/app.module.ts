@@ -116,7 +116,7 @@ export function provideConfig() {
       RadioComponent,
       SocialLoginComponent,
       EstudioPersonalizadoComponent,
-      ManagerComponent
+      ManagerComponent,
       TopBannerComponent
    ],
 
