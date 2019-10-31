@@ -182,7 +182,8 @@ export class LoginComponent
 
             let data =
             {
-                name: this.signup.name + ' ' + this.signup.lastName,
+                name: this.signup.name,
+                lastName: this.signup.lastName,
                 email: this.signup.email,
                 password: this.signup.password
             }
