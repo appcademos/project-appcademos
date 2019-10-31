@@ -15,10 +15,6 @@ const hashSecret = process.env.HASHCODE;
 const dbURL = process.env.DBURL;
 const cors = require("cors");
 var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
-const Category = require("./api/category/category.model");
-const Academy = require("./api/academy/academy.model");
-const User = require("./api/user/user.model");
-const Course = require("./api/course/course.model");
 
 mongoose.Promise = Promise;
 mongoose
@@ -26,21 +22,6 @@ mongoose
 .then(() =>
 {
     debug(`Connected to Mongo at ${dbURL}`);
-    
-    // Create Categories if none and academy categories
-    createCategories();
-    
-    setTimeout(() =>
-    {
-        // Set student as users role
-        setDefaultUserRoles();
-        
-        removeUnnecessaryUserFields();
-        
-        transferAcademyUsersToRealUsers();
-        
-        assignCoursesCategories();
-    }, 1000);
 })
 .catch(err =>
 {
@@ -141,145 +122,6 @@ require("./routes/routes")(app);
 app.use(function (req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
-
-
-function createCategories()
-{
-    Category.countDocuments({}, function (err, count)
-    {    
-        if (count === 0)
-        {
-            Category
-            .insertMany(
-            [
-                { name: 'First' },
-                { name: 'Advanced' },
-                { name: 'Proficiency' },
-                { name: 'Nivel B1' },
-                { name: 'Nivel B2' },
-                { name: 'Nivel C1' },
-                { name: 'TOEFL' },
-                { name: 'TOEIC' },
-                { name: 'IELTS' }
-            ], function(err)
-            {
-                if (err)
-                    debug(`Categories could not be created`);
-                else
-                {
-                    debug(`Categories were created`);
-                    
-                    Category.find({}, function(err2, categories)
-                    {
-                        if (!err2)
-                        {
-                            Academy.find({}, function(err3, academies)
-                            {
-                                if (!err3)
-                                {
-                                    academies.forEach(function(academy)
-                                    {
-                                        if (academy.categories == null || academy.categories.length == 0)
-                                        {
-                                            academy.categories = []
-                                            
-                                            categories.forEach(function(category)
-                                            {
-                                                academy.categories.push({ category: category._id });
-                                            });
-                                            
-                                            academy.save(function(err4)
-                                            {
-                                                if (err4)
-                                                    debug(err4);
-                                                else
-                                                    debug(`Academy categories created for ${academy.name}`);
-                                            });
-                                        }
-                                    });
-                                }
-                                else
-                                    debug(`Error finding academies`);
-                            });
-                        }
-                        else
-                            debug(`Error finding ategories`);
-                    });
-                }
-            });
-        }
-    });
-}
-function deleteCategories()
-{
-    debug('Removing categories');
-    
-    Academy.find({}, function(err, academies)
-    {
-        academies.forEach(function(academy)
-        {
-            academy.categories = null;
-            academy.save(function(err2) { if (err2) debug(err2); });
-        });
-    });
-    
-    Category.remove({}, function(err){});
-}
-async function setDefaultUserRoles()
-{
-    await User.updateMany({role: null}, { $set: { role: 'student' } });
-}
-async function removeUnnecessaryUserFields()
-{
-    await User.updateMany({}, { $unset: { isAdmin: 1, payment: 1, canReview: 1, instauser: 1, preferences: 1 } }, { strict: false });
-}
-async function transferAcademyUsersToRealUsers()
-{    
-    const academies = await Academy.find({ email: { $exists: 1 } });
-    
-    academies.forEach((academy) =>
-    {
-        const academyObject = academy.toObject();
-        
-        const newUserData =
-        {
-            email: academyObject.email,
-            password: academyObject.password,
-            name: "Academia",
-            lastName: academyObject.name,
-            role: "academy"
-        }
-        
-        const academyUser = new User(newUserData);
-        academyUser.save().then((user) =>
-        {
-            academy.user = user;
-            academy.save();
-        });
-    });
-    
-    await Academy.updateMany({ email: { $exists: 1 } }, { $unset: { email: 1, password: 1, about: 1 } }, { strict: false });
-}
-async function assignCoursesCategories()
-{
-    const courses = await Course.find({});
-    const categories = await Category.find({});
-    
-    courses.forEach(async (course) => 
-    {        
-        if (course.tags != null && course.tags.length > 0)
-        {
-            let foundCategory = categories.find(category => category.name.toLowerCase().indexOf(course.tags[0].toLowerCase()) > -1 );
-            
-            if (foundCategory != null)
-            {
-                await Course.updateOne({ _id: course._id }, { category: foundCategory._id });
-            }
-        }
-    });
-    
-    await Course.updateMany({ tags: { $exists: 1 } }, { $unset: { tags: 1, about: 1, requirements: 1, homework: 1, foryouif: 1, howareclasses: 1, theme: 1, material: 1, students: 1, teacher: 1, reviews: 1 } }, { strict: false });
-}
 
 
 module.exports = app;
