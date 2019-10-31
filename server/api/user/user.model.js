@@ -3,47 +3,48 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
 {
-    name: String,
-    lastName: String,
-    phone: Number,
-    instauser: String,
-    preferences: String,
-    birthdate: Date,
-    imageName: String,
-    imagePath: String,
-    payment: {
-      type: Boolean,
-      default: false
-    },
-    canReview: {
-      type: Boolean,
-      default: false
-    },
-    email: {
+    name: {
       type: String,
       required: true
+    },
+    lastName: {
+      type: String,
+      required: true
+    },
+    phone: Number,
+    imageName: String,
+    imagePath: String,
+    email: {
+      type: String,
+      required: true,
+      unique: true
     },
     password: {
       type: String,
       required: true
     },
-    isAdmin: {
-      type: Boolean,
-      default: false
-    },
-    favorites: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Course"
-      }
-    ]
-  },
-  {
+    role: {
+        type: String,
+        default: "student"
+    }
+},
+{
     timestamps: {
       createdAt: "created_at",
       updatedAt: "updated_at"
     }
-  }
-);
+});
+
+userSchema.plugin(require('mongoose-role'),
+{
+    roles: ['student', 'academy', 'admin'],
+    accessLevels:
+    {
+        student: ['student'],
+        academy: ['academy'],
+        admin: ['admin'],
+        adminAndAcademy: ['admin', 'academy']
+    }
+});
 
 module.exports = mongoose.model("User", userSchema);

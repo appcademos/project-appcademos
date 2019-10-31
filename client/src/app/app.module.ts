@@ -11,7 +11,8 @@ import { environment } from "../environments/environment.prod";
 // LIBRARIES
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
-import { NzNotificationModule, NzModalModule, NzButtonModule, NZ_I18N, es_ES } from 'ng-zorro-antd';
+import { NzNotificationModule, NzModalModule, NzButtonModule, NzSelectModule, NZ_I18N, es_ES } from 'ng-zorro-antd';
+import { QuillModule } from 'ngx-quill';
 
 // SERVICES
 import { AcademySessionService } from "../services/academySession.service";
@@ -21,6 +22,7 @@ import { UtilsService } from "../services/utils.service";
 import { MessageService } from "../services/message.service";
 import { SeoService } from "../services/seo.service";
 import { BookingsService } from "../services/bookings.service";
+import { CategoriesService } from "../services/categories.service";
 
 // COMPONENTS
 import { AcademyComponent } from "./manager/academy/academy.component";
@@ -33,11 +35,7 @@ import { HeaderComponent } from "./header/header.component";
 import { HomeComponent } from "./home/home.component";
 import { IsAcademyButtonComponent } from "./isAcademyButton/isAcademyButton.component";
 import { OneCourseComponent } from "./oneCourse/oneCourse.component";
-import { UserComponent } from "./user/user.component";
 import { UserLoginFormComponent } from "./userLoginForm/userLoginForm.component";
-import { UserSignupFormComponent } from "./userSignupForm/userSignupForm.component";
-import { ConfirmationComponent } from "./confirmation/confirmation.component";
-import { AcademyprofileComponent } from './manager/academyprofile/academyprofile.component';
 import { CourseCardComponent } from './course-card/course-card.component';
 import { CoursesCarouselComponent } from './courses-carousel/courses-carousel.component';
 import { SearchboxComponent } from './searchbox/searchbox.component';
@@ -52,6 +50,7 @@ import { SocialLoginComponent } from './social-login/social-login.component';
 import { SocialLoginModule, AuthServiceConfig, LoginOpt } from "angularx-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
 import { EstudioPersonalizadoComponent } from './estudio-personalizado/estudio-personalizado.component';
+import { ManagerComponent } from './manager/manager/manager.component';
 import { TopBannerComponent } from './top-banner/top-banner.component';
 
 
@@ -104,11 +103,7 @@ export function provideConfig() {
       HomeComponent,
       IsAcademyButtonComponent,
       OneCourseComponent,
-      UserComponent,
       UserLoginFormComponent,
-      UserSignupFormComponent,
-      ConfirmationComponent,
-      AcademyprofileComponent,
       CourseCardComponent,
       CoursesCarouselComponent,
       SearchboxComponent,
@@ -121,6 +116,7 @@ export function provideConfig() {
       RadioComponent,
       SocialLoginComponent,
       EstudioPersonalizadoComponent,
+      ManagerComponent,
       TopBannerComponent
    ],
 
@@ -139,7 +135,25 @@ export function provideConfig() {
     BrowserAnimationsModule,
     NzNotificationModule,
     NzModalModule,
-    NzButtonModule
+    NzButtonModule,
+    NzSelectModule,
+    QuillModule.forRoot({
+        modules: {
+            toolbar: [
+                ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+                //['blockquote'],
+
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+                [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+                [{ 'align': [] }],
+
+                ['clean'],                                         // remove formatting button
+
+                ['link']                                            // link
+            ]
+        }
+    })
   ],
   providers: [
     AcademySessionService,
@@ -153,7 +167,8 @@ export function provideConfig() {
       useFactory: provideConfig
     },
     BookingsService,
-    { provide: NZ_I18N, useValue: es_ES }
+    { provide: NZ_I18N, useValue: es_ES },
+    CategoriesService
   ],
   bootstrap: [AppComponent]
 })

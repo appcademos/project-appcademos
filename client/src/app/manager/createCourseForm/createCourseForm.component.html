@@ -1,5 +1,4 @@
 <div class="form full-width">
-    <form>
       <div class="form-group">
         <label>Nombre del curso</label>
         <input type="text" class="form-control" [(ngModel)]="title" name="title">
@@ -36,14 +35,18 @@
       </div>
       <div class="form-group-container">
           <div class="form-group">
+              <label>Categoría</label>
+              <nz-select [(ngModel)]="categoryId" nzSize="large">
+                  <nz-option *ngFor="let category of categories" [nzLabel]="category.name" [nzValue]="category._id"></nz-option>
+              </nz-select>
+          </div>
+          <div class="form-group">
             <label>Completo</label>
             <div class="checkboxContainer">
                 <app-checkbox [red]="true" [checked]="isBooked" (onChange)="onChangeIsBooked($event)"></app-checkbox>
             </div>
           </div>
-          <div class="form-group"></div>
       </div>
 
       <div class="button full-width noshadow" (click)="updateCourse()">{{ (courses != null && courses.length > 1) ? 'Actualizar cursos' : 'Guardar curso' }}</div>
-    </form>
 </div>

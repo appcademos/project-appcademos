@@ -8,50 +8,25 @@ import { environment } from "../environments/environment";
 @Injectable()
 export class AcademySessionService
 {
-    academy: any;
     options: any = { withCredentials: true };
 
-    constructor(private http: Http)
-    {
-
-    }
-
-    handleAcademy(academy?: object)
-    {
-        this.academy = academy;
-        return this.academy;
-    }
-
-    /*isLoggedIn() {
-        return this.http
-          .get(`${environment.BASEURL}/api/academy/session`, this.options)
-          .map(res => res.json())
-          .map(academy => this.handleAcademy(academy))
-          .catch(error => Observable.throw(error.json().message));
-    }*/
-
-    signup(academy)
+    constructor(private http: Http) {}
+    
+    getAcademies()
     {
         return this.http
-          .post(`${environment.BASEURL}/api/academy/signup`, academy, this.options)
-          .map(res => res.json())
-          .catch(error => Observable.throw(error.json().message));
+        .get(`${environment.BASEURL}/api/academy/all`, this.options)
+        .map(res => res.json())
+        .catch(error => Observable.throw(error));
     }
 
-    login(academy)
+    getAcademy(academyId?: string)
     {
+        let url = `${environment.BASEURL}/api/academy/${((academyId != null) ? academyId : '')}`;
+        
         return this.http
-          .post(`${environment.BASEURL}/api/academy/login`, academy, this.options)
-          .map(res => res.json())
-          .catch(error => Observable.throw(error.json().message));
-    }
-
-    getAcademy()
-    {
-        return this.http
-            .get(`${environment.BASEURL}/api/academy`, this.options)
+            .get(url, this.options)
             .map(res => res.json())
-            .map(academy => this.handleAcademy(academy))
             .catch(error => Observable.throw(error));
     }
 
@@ -62,14 +37,4 @@ export class AcademySessionService
           .map(res => res.json())
           .catch(error => Observable.throw(error));
     }
-
-    logout()
-    {
-        return this.http
-            .get(`${environment.BASEURL}/api/academy/logout`, this.options)
-            .map(res => res.json())
-            .map(() => this.handleAcademy())
-            .catch(error => Observable.throw(error.json().message));
-    }
-
 }

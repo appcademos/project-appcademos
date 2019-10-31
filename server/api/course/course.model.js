@@ -9,40 +9,36 @@ const courseSchema = new Schema(
       type: String,
       required: true
     },
-    level: String,
-    objetive: String,
-    infocourse: String,
-    exam: String,
-    examresults: String,
     group: [String],
     hours: Number,
     duration: String,
-    about: [String],
-    requirements: [String],
+    about: [String], // TO BE DELETED
+    requirements: [String], // TO BE DELETED
     weekclasses: Number,
-    foryouif: [String],
-    howareclasses: [String],
-    homework:[String],
-    theme: [String],
-    material: [String],
+    homework:[String], // TO BE DELETED
     startDate: Date,
-    images: [{
-      imagePath: String},
-      {imageName: String
-    }],
+    images: [
+        {imagePath: String},
+        {imageName: String}
+    ],
     videoUrl: String,
     approvedRate: Number,
     sizeClass: Number,
     description: String,
-    teacher: String,
-    tags: [String],
-    reviews: [],
+    teacher: String, // TO BE DELETED
+    tags: [String], // TO BE DELETED
+    category: {
+        type: Schema.Types.ObjectId,
+        ref: "Category",
+        required: true
+    },
+    reviews: [], // TO BE DELETED
     students: [
       {
         type: Schema.Types.ObjectId,
         ref: "User"
       }
-    ],
+    ], // TO BE DELETED
     academy: {
       type: Schema.Types.ObjectId,
       ref: "Academy"

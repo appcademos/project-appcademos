@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { UserSessionService } from '../../services/userSession.service';
+import { Router } from "@angular/router";
 
 @Component(
 {
@@ -35,7 +36,8 @@ export class LoginComponent
     @Input() visible: boolean;
     @Output() onClose = new EventEmitter();
 
-    constructor(private userService: UserSessionService)
+    constructor(private userService: UserSessionService,
+                private router: Router)
     {
 
     }
@@ -148,14 +150,22 @@ export class LoginComponent
                 username: this.login.email,
                 password: this.login.password
             }
-            console.log(data);
 
-            this.userService.login(data).subscribe(() =>
-            {
+            this.userService.login(data).subscribe((user) =>
+            {                
                 this.sendingLogin = false;
                 this.loginComplete = true;
 
-                setTimeout(() => this.close(), 2000);
+                if (user != null && (user.role === 'admin' || user.role === 'academy'))
+                {
+                    setTimeout(() =>
+                    {
+                        this.close();
+                        this.router.navigate(["/manager"]);
+                    }, 1000);
+                }
+                else
+                    setTimeout(() => this.close(), 2000);
             },
             error =>
             {
