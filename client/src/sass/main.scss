@@ -365,6 +365,12 @@ input[type="text"]
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
+    
+    &.medium
+    {
+        width: 32px;
+        height: 32px;
+    }
 }
 .spinner.green
 {
@@ -374,7 +380,7 @@ input[type="text"]
 
 .fw-300 { font-weight: 300; }
 .fw-400 { font-weight: 400; }
-.fw-500 { font-weight: 500; }
+.fw-500 { font-weight: 500 !important; }
 .fw-600 { font-weight: 600; }
 .fw-700 { font-weight: 700; }
 .fw-800 { font-weight: 800; }
@@ -516,6 +522,12 @@ input[type="text"]
     {
         background-color: #EFEFEF;
     }
+    &.selected
+    {
+        background: $red-color-button;
+        color: #fff;
+        border-color: $red-color-button;
+    }
 }
 .button.dark
 {
@@ -634,7 +646,7 @@ input[type="text"]
     background: white;
     border-radius: 8px;
     border: 1px solid #EAEAEA;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 }
 
 .warning-box
@@ -747,6 +759,142 @@ input[type="text"]
 }
 
 
+/***** Course detail expandible info *****/
+#expandible-info
+{
+    margin-top: 48px;
+
+    .expandible-item
+    {
+        border-top: 1px solid $black-16;
+
+        &:last-child
+        {
+            border-bottom: 1px solid $black-16;
+        }
+
+        .top
+        {
+            padding: 24px 0;
+            cursor: pointer;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            .icon
+            {
+                flex-shrink: 0;
+            }
+            .icon-arrow-down
+            {
+                opacity: 0.32;
+                margin-right: 28px;
+
+                transition: all 0.2s ease;
+            }
+            .title
+            {
+                font-size: 18px;
+                font-weight: 700;
+                margin-left: 20px;
+            }
+            .icon-class-green
+            {
+                width: 28px;
+            }
+            .icon-book-green,
+            .icon-graduation-green
+            {
+                width: 26px;
+            }
+            .icon-intelligence-green
+            {
+                height: 24px;
+                width: 22px;
+            }
+            .icon-free-green
+            {
+                width: 30px;
+            }
+        }
+        .content
+        {
+            display: none;
+            overflow: hidden;
+
+            .content-container
+            {
+                padding: 0 20px 28px 82px;
+            }
+            ul, ol
+            {
+                padding: 0;
+                margin: 0;
+                
+                li
+                {
+                    margin-bottom: 12px;
+                }
+            }
+            p, li
+            {
+                margin-bottom: 12px;
+                line-height: 1.3;
+
+                &:last-child
+                {
+                    margin-bottom: 0;
+                }
+            }
+            .sub-section
+            {
+                margin-bottom: 28px;
+
+                &:last-child
+                {
+                    margin-bottom: 0;
+                }
+            }
+            .sub-section .title
+            {
+                margin-bottom: 12px;
+            }
+            .sub-section .title,
+            strong
+            {
+                font-weight: 600;
+            }
+            a
+            {
+                text-decoration: underline;
+                color: $red-color;
+                font-weight: 500;
+            }
+            
+            .ql-indent-1
+            {
+                margin-left: 20px;
+            }
+            .ql-indent-2
+            {
+                margin-left: 40px;
+            }
+            .ql-indent-3
+            {
+                margin-left: 60px;
+            }
+        }
+
+        &.expanded
+        {
+            .icon-arrow-down
+            {
+                transform: rotate(180deg);
+            }
+        }
+    }
+}
+
 /***** Antd *****/
 .ant-notification-notice-message,
 .ant-modal-confirm-title,
@@ -760,4 +908,83 @@ input[type="text"]
 .ant-btn
 {
     font-weight: 500 !important;
+}
+.ant-select
+{
+    color: $black;
+}
+.ant-select-dropdown-menu-item
+{
+    color: $black-80;
+}
+.ant-select-dropdown-menu-item-selected,
+.ant-select-dropdown-menu-item-selected:hover
+{
+    color: $black-80;
+}
+
+
+/***** Quill editor *****/
+quill-editor *
+{
+    outline: none;
+}
+.ql-toolbar
+{
+    border-radius: 6px 6px 0 0;
+    border-color: #ddd !important;
+}
+.ql-container
+{
+    border-radius: 0 0 6px 6px;
+    border-color: #ddd !important;
+}
+quill-editor > *
+{
+    opacity: 0.5;
+    transition: 0.2s opacity;
+}
+quill-editor:hover > *,
+quill-editor:focus > *,
+quill-editor:active > *
+{
+    opacity: 1;
+}
+.ql-tooltip
+{
+    left: 12px !important;
+}
+quill-editor .ql-editor
+{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    
+    ul, ol
+    {
+        padding-left: 0;
+    }
+    a
+    {
+        color: $red-color;
+    }
+    strong
+    {
+        font-weight: 600;
+    }
+}
+quill-editor .ql-editor li:not([class^="ql-indent-"])
+{
+    padding-left: 16px !important;
+}
+.ql-snow.ql-toolbar button:hover, .ql-snow .ql-toolbar button:hover, .ql-snow.ql-toolbar button:focus, .ql-snow .ql-toolbar button:focus, .ql-snow.ql-toolbar button.ql-active, .ql-snow .ql-toolbar button.ql-active, .ql-snow.ql-toolbar .ql-picker-label:hover, .ql-snow .ql-toolbar .ql-picker-label:hover, .ql-snow.ql-toolbar .ql-picker-label.ql-active, .ql-snow .ql-toolbar .ql-picker-label.ql-active, .ql-snow.ql-toolbar .ql-picker-item:hover, .ql-snow .ql-toolbar .ql-picker-item:hover, .ql-snow.ql-toolbar .ql-picker-item.ql-selected, .ql-snow .ql-toolbar .ql-picker-item.ql-selected
+{
+    color: $red-color !important;
+}
+.ql-snow.ql-toolbar button:hover .ql-stroke, .ql-snow .ql-toolbar button:hover .ql-stroke, .ql-snow.ql-toolbar button:focus .ql-stroke, .ql-snow .ql-toolbar button:focus .ql-stroke, .ql-snow.ql-toolbar button.ql-active .ql-stroke, .ql-snow .ql-toolbar button.ql-active .ql-stroke, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke, .ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke, .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke, .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke, .ql-snow.ql-toolbar button:hover .ql-stroke-miter, .ql-snow .ql-toolbar button:hover .ql-stroke-miter, .ql-snow.ql-toolbar button:focus .ql-stroke-miter, .ql-snow .ql-toolbar button:focus .ql-stroke-miter, .ql-snow.ql-toolbar button.ql-active .ql-stroke-miter, .ql-snow .ql-toolbar button.ql-active .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter
+{
+    stroke: $red-color !important;
+}
+.ql-snow.ql-toolbar button:hover .ql-fill, .ql-snow .ql-toolbar button:hover .ql-fill, .ql-snow.ql-toolbar button:focus .ql-fill, .ql-snow .ql-toolbar button:focus .ql-fill, .ql-snow.ql-toolbar button.ql-active .ql-fill, .ql-snow .ql-toolbar button.ql-active .ql-fill, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-fill, .ql-snow .ql-toolbar .ql-picker-label:hover .ql-fill, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-fill, .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-fill, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-fill, .ql-snow .ql-toolbar .ql-picker-item:hover .ql-fill, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-fill, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-fill, .ql-snow.ql-toolbar button:hover .ql-stroke.ql-fill, .ql-snow .ql-toolbar button:hover .ql-stroke.ql-fill, .ql-snow.ql-toolbar button:focus .ql-stroke.ql-fill, .ql-snow .ql-toolbar button:focus .ql-stroke.ql-fill, .ql-snow.ql-toolbar button.ql-active .ql-stroke.ql-fill, .ql-snow .ql-toolbar button.ql-active .ql-stroke.ql-fill, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill, .ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill, .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill, .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill
+{
+    fill: $red-color !important;
 }

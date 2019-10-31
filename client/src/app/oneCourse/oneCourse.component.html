@@ -130,98 +130,71 @@
         </section>
 
         <section class="warning-box" *ngIf="showWarningbox">
-            <b>*Importante: Este curso es para mejorar tu inglés y conseguir un nivel de {{ courseObj.course.tags[0].toUpperCase() }}</b> según el Marco Común Europeo. Este curso NO es para prepararte ningún examen certificado.
+            <b>*Importante: Este curso es para mejorar tu inglés y conseguir un nivel de {{ courseObj.course.category.name.toUpperCase() }}</b> según el Marco Común Europeo. Este curso NO es para prepararte ningún examen certificado.
         </section>
 
         <section id="expandible-info">
-            <!--<div class="expandible-item noselect" id="expandible-item-1" *ngIf="courseObj.course.foryouif">
-                <div class="top" (click)="expandItem('expandible-item-1')">
+            <div class="expandible-item" id="expandible-item-1" *ngIf="courseObj.course.category.forYouIf && courseObj.course.category.forYouIf.length > 0">
+                <div class="top noselect" (click)="expandItem('expandible-item-1')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-20 icon-like-green"></i>
                     <div class="title">Este curso es para ti si…</div>
                 </div>
                 <div class="content">
-                    <div class="content-container">
-                        <ul>
-                            <div class="sub-section">
-                                <div class="title">Tu nivel de inglés:</div>
-                                <li *ngFor="let level of courseObj.course.level">{{ level }}</li>
-                                <div class="title">Tu objetivo:</div>
-                                <li *ngFor="let objetive of courseObj.course.objetive">{{ objetive }}</li>
-                            </div>
-                         </ul>
-                    </div>
+                    <div class="content-container" innerHTML="{{ courseObj.course.category.forYouIf }}"></div>
                 </div>
             </div>
-            <div class="expandible-item noselect" id="expandible-item-2">
-                <div class="top" (click)="expandItem('expandible-item-2')">
+            <div class="expandible-item" id="expandible-item-2" *ngIf="courseObj.course.category.coursesInfo && courseObj.course.category.coursesInfo.length > 0">
+                <div class="top noselect" (click)="expandItem('expandible-item-2')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-20 icon-info-green"></i>
-                    <div class="title">De que va este curso</div>
+                    <div class="title">Qué debes saber sobre este curso</div>
                 </div>
                 <div class="content">
-                    <div class="content-container">
-                        <ul>
-                          <li><span class="fw-600">Información sobre el curso:</span> {{courseObj.course.infocourse}}</li>
-                          <li><span class="fw-600">El examen:</span>{{ courseObj.course.exam}}</li> 
-                          <li><span class="fw-600">Resultados del examen:</span>{{courseObj.course.examresults}}</li>
-                        </ul>
-                    </div>
+                    <div class="content-container" innerHTML="{{ courseObj.course.category.coursesInfo }}"></div>
                 </div>
-            </div>-->
-            <div class="expandible-item noselect" id="expandible-item-3" *ngIf="courseObj.course.howareclasses">
-                <div class="top" (click)="expandItem('expandible-item-3')">
+            </div>
+            <div class="expandible-item" id="expandible-item-3" *ngIf="courseObj.course.academyCategory && courseObj.course.academyCategory.howAreTheClasses && courseObj.course.academyCategory.howAreTheClasses.length > 0">
+                <div class="top noselect" (click)="expandItem('expandible-item-3')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-20 icon-class-green"></i>
                     <div class="title">Cómo serán las clases</div>
                 </div>
                 <div class="content">
-                    <div class="content-container">
-                        <ul>
-                            <li *ngFor="let howareclasses of courseObj.course.howareclasses">{{ howareclasses }}</li>
-                        </ul>
-                    </div>
+                    <div class="content-container" innerHTML="{{ courseObj.course.academyCategory.howAreTheClasses }}"></div>
                 </div>
             </div>
-            <div class="expandible-item noselect" id="expandible-item-4" *ngIf="courseObj.course.theme || courseObj.course.theme.material">
-                <div class="top" (click)="expandItem('expandible-item-4')">
+            <div class="expandible-item" id="expandible-item-4" *ngIf="courseObj.course.academyCategory && ((courseObj.course.academyCategory.syllabus && courseObj.course.academyCategory.syllabus.length > 0) || (courseObj.course.academyCategory.material && courseObj.course.academyCategory.material.length > 0))">
+                <div class="top noselect" (click)="expandItem('expandible-item-4')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-20 icon-book-green"></i>
                     <div class="title">Temario y material</div>
                 </div>
                 <div class="content">
                     <div class="content-container">
-                        <div class="sub-section">
+                        <div class="sub-section" *ngIf="courseObj.course.academyCategory.syllabus && courseObj.course.academyCategory.syllabus.length > 0">
                             <div class="title">Temario</div>
-                            <ul>
-                                <li *ngFor="let theme of courseObj.course.theme">{{ theme }}</li>
-                            </ul>
+                            <div innerHTML="{{ courseObj.course.academyCategory.syllabus }}"></div>
                         </div>
-                        <div class="sub-section">
+                        <div class="sub-section" *ngIf="courseObj.course.academyCategory.material && courseObj.course.academyCategory.material.length > 0">
                             <div class="title">Material</div>
-                            <ul>
-                                <li *ngFor="let material of courseObj.course.material">{{ material }}</li>
-                            </ul>
+                            <div innerHTML="{{ courseObj.course.academyCategory.material }}"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="expandible-item noselect" id="expandible-item-5" *ngIf="courseObj.course.academy.about">
-                <div class="top" (click)="expandItem('expandible-item-5')">
+            <div class="expandible-item" id="expandible-item-5" *ngIf="courseObj.course.academy.whyChooseMe && courseObj.course.academy.whyChooseMe.length > 0">
+                <div class="top noselect" (click)="expandItem('expandible-item-5')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-20 icon-graduation-green"></i>
                     <div class="title">¿Por qué elegir la academia <span class="color-green">{{ courseObj.course.academy.name }}</span>?</div>
                 </div>
                 <div class="content">
-                    <div class="content-container">
-                        <ul>
-                            <li *ngFor="let academyAbout of courseObj.course.academy.about">{{ academyAbout }}</li>
-                        </ul>
-                    </div>
+                    <div class="content-container" innerHTML="{{ courseObj.course.academy.whyChooseMe }}"></div>
                 </div>
             </div>
-            <div class="expandible-item noselect" id="expandible-item-6" *ngIf="courseObj.course.about">
-                <div class="top" (click)="expandItem('expandible-item-6')">
+            <!--<div class="expandible-item" id="expandible-item-6" *ngIf="courseObj.course.about">
+                <div class="top noselect" (click)="expandItem('expandible-item-6')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-20 icon-intelligence-green"></i>
                     <div class="title">¿Qué sabrás al finalizar este curso?</div>
@@ -233,32 +206,9 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-            <div class="expandible-item noselect" id="expandible-item-7">
-                <div class="top" (click)="expandItem('expandible-item-7')">
-                    <i class="icon size-14 icon-arrow-down"></i>
-                    <i class="icon size-20 icon-free-green"></i>
-                    <div class="title">Cómo conseguir tu clase de prueba</div>
-                </div>
-                <div class="content">
-                    <div class="content-container">
-                        <p><span class="fw-600">En Appcademos queremos que estés 100% segur@ de que este curso es el ideal para ti.</span> Por ello, tienes una clase de prueba gratis.</p>
-                        <br>
-                        <div class="fw-700">¿Cómo conseguirla?</div>
-                        <br>
-                        <ul>
-                          <li><span class="fw-600">Reservas tu plaza en nuestra web..</span></li>
-                          <li><span class="fw-600">Enseñas el correo de confirmación de tu plaza</span> de Appcademos que te llegará tras realizar la reserva.</li>
-                          <li><span class="fw-600">Vas el día y hora que elegiste</span> que te aparece en el correo.</li>
-                          <div class="fs-14">* Si tras probar no te ha gustado, no pasa nada, puedes irte tranquilamente. Te ayudaremos a encontrar tu curso ideal en otro centro.</div>
-                          <br>
-                          <li>En esta clase de prueba, tendrás la misma experiencia que si estuvieras apuntad@.<span class="fw-600">Conocerás a tu profesor@, verás la metodología, el nivel de tus compañeros...</span></li>
-                        </ul>          
-                    </div>
-                </div>
-            </div>
-            <!-- <div class="expandible-item noselect" id="expandible-item-8" *ngIf="courseObj.course.requirements">
-                <div class="top" (click)="expandItem('expandible-item-8')">
+            </div>-->
+            <!-- <div class="expandible-item" id="expandible-item-8" *ngIf="courseObj.course.requirements">
+                <div class="top noselect" (click)="expandItem('expandible-item-8')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-22 icon-test-green"></i>
                     <div class="title">Requisitos y Prueba de Nivel</div>
@@ -271,11 +221,11 @@
                     </div>
                 </div>
             </div> -->
-            <div class="expandible-item noselect" id="expandible-item-9">
-                <div class="top" (click)="expandItem('expandible-item-9')">
+            <div class="expandible-item" id="expandible-item-9">
+                <div class="top noselect" (click)="expandItem('expandible-item-9')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-22 icon-appcademos-a-red"></i>
-                    <div class="title">Beneficios de este curso con <span class="color-red">Appcademos</span></div>
+                    <div class="title">Beneficios de reservar con <span class="color-red">Appcademos</span></div>
                 </div>
                 <div class="content">
                     <div class="content-container">
@@ -287,25 +237,42 @@
                     </div>
                 </div>
             </div>
-
-            <div class="expandible-item noselect" id="expandible-item-10">
-                <div class="top" (click)="expandItem('expandible-item-10')">
+            
+            <div class="expandible-item" id="expandible-item-7">
+                <div class="top noselect" (click)="expandItem('expandible-item-7')">
                     <i class="icon size-14 icon-arrow-down"></i>
-                    <i class="icon size-22 icon-eye"></i>
-                    <div class="title"> Preguntas frecuentes sobre este curso:</div>
+                    <i class="icon size-20 icon-free-green"></i>
+                    <div class="title">Cómo conseguir tu clase de prueba gratis</div>
                 </div>
                 <div class="content">
                     <div class="content-container">
-                        <ul>
-                            <li><span class="fw-600">Centro de calidad verificado.</span> Puedes estar tranquil@, estás reservando en un centro que cumple con los requisitos de calidad verificados por nuestros expertos.</li>
-                            <li><span class="fw-600">Precio más bajo posible.</span> Si es tu primera vez, consigues 5€ de descuento.</li>
-                            <li><span class="fw-600">Clase de prueba gratis.</span> Tienes una clase sin compromiso reservando al instante.</li>
-                        </ul>
+                        <p><span class="fw-600">En Appcademos queremos que estés 100% segur@ de que este curso es el ideal para ti.</span> Por ello, tienes una clase de prueba gratis.</p>
                         <br>
+                        <div class="fw-700">¿Cómo conseguirla?</div>
                         <br>
+                        <ol>
+                          <li><span class="fw-600">Reservas tu plaza en nuestra web..</span></li>
+                          <li><span class="fw-600">Enseñas el correo de confirmación de tu plaza</span> de Appcademos que te llegará tras realizar la reserva.</li>
+                          <li><span class="fw-600">Vas el día y hora que elegiste</span> que te aparece en el correo.</li>
+                          <div>* Si tras probar no te ha gustado, no pasa nada, puedes irte tranquilamente. Te ayudaremos a encontrar tu curso ideal en otro centro.</div>
+                        </ol>
+                        <br>
+                        <div><p>En esta clase de prueba, tendrás la misma experiencia que si estuvieras apuntad@. <span class="fw-600">Conocerás a tu profesor@, verás la metodología, el nivel de tus compañeros...</span></p></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="expandible-item" id="expandible-item-10">
+                <div class="top noselect" (click)="expandItem('expandible-item-10')">
+                    <i class="icon size-14 icon-arrow-down"></i>
+                    <i class="icon size-22 icon-eye"></i>
+                    <div class="title"> Preguntas frecuentes sobre este curso</div>
+                </div>
+                <div class="content">
+                    <div class="content-container">
                         <div class="sub-section">
                             <div class="title">No sé qué nivel de inglés tengo, ¿qué puedo hacer?</div>
-                            <p>Si no sabes qué nivel de inglés tienes no hay problema. Reserva en el curso que tú crees que necesitas y en la academia te harán un test de nivel y te podrán reubicar a la clase adecuada.
+                            <p>Si no sabes qué nivel de inglés tienes no hay problema. Reserva en el curso que tú crees que necesitas y en la academia te harán un test de nivel y te podrán reubicar a la clase adecuada.</p>
                         </div>
                         <div class="sub-section">
                             <div class="title">No sé qué curso de inglés necesito ¿qué puedo hacer?</div>
@@ -313,7 +280,7 @@
                         </div>
                         <div class="sub-section">
                             <div class="title">¿Dónde pago el curso?</div>
-                            <p>Pagas en la academia. Recuerda enseñarles el correo de confirmación de reserva que te enviamos para que te hagan el descuento.</p>
+                            <p>Pagas en la academia. Recuerda enseñarles el correo de confirmación de reserva que te enviamos para que te hagan el descuento 😉</p>
                         </div>
                         <div class="sub-section">
                             <div class="title">Mi objetivo es sacarme un certificado ¿Cuánto tiempo tardaré en aprobarlo?</div>

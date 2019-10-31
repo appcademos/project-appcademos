@@ -1,56 +1,188 @@
-<div class="responsive-container">
-    <div class="form">
-        <h1 *ngIf="!isLogin">Academy SignUp</h1>
-        <h1 *ngIf="isLogin">Academy Login</h1>
+<div id="managerAcademy">
+    <div class="responsive-container" *ngIf="academy">
+        <div class="top">
+            <div>
+                <div class="superTitle">ACADEMIA</div>
+                <h2>{{ academy.name }}</h2>
+            </div>
+        </div>
+        
+        <section
+            id="infoType2"
+            class="card-banner"
+            [ngClass]="{ expanded: academyInfoExpanded }"
+            *ngIf="user.role == 'admin'"
+        >
+            <div
+                class="titleContainer flex space-between align-items-baseline"
+                (click)="academyInfoExpanded = !academyInfoExpanded"
+            >
+                <div class="title fw-600 fs-18">Info Academia <span class="color-black-50">· Info Tipo 2</span></div>
+                <div class="buttons">
+                    <i class="icon size-14 icon-arrow-down"></i>
+                </div>
+            </div>
+            
+            <div class="content">                
+                <div class="quillEditorContainer">
+                    <div class="title">Por qué elegir esta academia</div>
+                    <quill-editor [(ngModel)]="academy.whyChooseMe"></quill-editor>
+                </div>
+                
+                <div class="buttons">
+                    <button
+                        nz-button
+                        nzType="primary"
+                        nzSize="large"
+                        [nzLoading]="sendingAcademyInfo"
+                        (click)="sendAcademyInfo()"
+                    >
+                        Guardar
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <section
+            id="infoType3"
+            class="card-banner"
+            [ngClass]="{ expanded: categoriesExpanded }"
+        >
+            <div
+                class="titleContainer flex space-between align-items-baseline"
+                (click)="categoriesExpanded = !categoriesExpanded"
+            >
+                <div class="title fw-600 fs-18">Categorías <span class="color-black-50">· Info Tipo 4</span></div>
+                <div class="buttons">
+                    <i class="icon size-14 icon-arrow-down"></i>
+                </div>
+            </div>
+            
+            <div id="categories" class="content">
+                <div class="categoriesContainer">
+                    <div
+                        class="category button white small"
+                        *ngFor="let academyCategory of academy.categories"
+                        [ngClass]="{ selected: selectedCategory.category.name == academyCategory.category.name }"
+                        (click)="selectedCategory = academyCategory"
+                    >
+                        {{ academyCategory.category.name }}
+                    </div>
+                </div>
+                <div class="line-separator"></div>
+                
+                <div class="quillEditorContainer">
+                    <div class="title">Cómo serán las clases</div>
+                    <quill-editor [(ngModel)]="selectedCategory.howAreTheClasses"></quill-editor>
+                </div>
+                
+                <div class="quillEditorContainer">
+                    <div class="title">Temario</div>
+                    <quill-editor [(ngModel)]="selectedCategory.syllabus"></quill-editor>
+                </div>
+                
+                <div class="quillEditorContainer">
+                    <div class="title">Material</div>
+                    <quill-editor [(ngModel)]="selectedCategory.material"></quill-editor>
+                </div>
+                
+                <div class="buttons">
+                    <button
+                        nz-button
+                        nzType="default"
+                        nzSize="large"
+                        [nzLoading]="refreshingCategories"
+                        (click)="refreshCategories()"
+                    >
+                        Refrescar categorías
+                    </button>
+                    <button
+                        nz-button
+                        nzType="primary"
+                        nzSize="large"
+                        [nzLoading]="sendingCategories"
+                        (click)="sendCategories()"
+                    >
+                        Guardar categorías
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <div id="courses">
+            <div class="titleContainer flex space-between align-items-baseline">
+                <div class="title fw-600">Cursos <span class="color-black-50">· {{ academy.courses.length }} {{ (academy.courses.length == 1) ? 'curso' : 'cursos' }}</span></div>
+                <div class="flex buttons" *ngIf="selectedCourses.length > 1">
+                    <div class="color-green fs-13 fw-600 cursor-pointer noselect" (click)="showMultipleEditor = true">EDITAR SELECCIÓN</div>
+                    <div class="color-black-50 fs-13 fw-600 cursor-pointer noselect" (click)="clearSelection()">CANCELAR</div>
+                </div>
+            </div>
 
-        <form *ngIf="!isLogin">
-            <div class="form-group">
-              <label for="exampleInputEmail1">Email address</label>
-              <input type="email" class="form-control" [(ngModel)]="email" name="email" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Enter email">
-            </div>
-            <div class="form-group">
-              <label for="exampleInputName">Name</label>
-              <input type="text" class="form-control" [(ngModel)]="name" name="name" id="exampleInputName" placeholder="Name">
-            </div>
-            <div class="form-group">
-              <label for="exampleInputLocation">Location</label>
-              <input type="text" class="form-control" [(ngModel)]="location" name="location" id="exampleInputLocation" placeholder="Location">
-            </div>
-            <div class="form-group">
-              <label for="exampleInputPhone">Phone</label>
-              <input type="text" maxlength="9" class="form-control" [(ngModel)]="phone" name="phone" id="exampleInputPhone" placeholder="Phone">
-            </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Password</label>
-              <input type="password" class="form-control" [(ngModel)]="password" name="password" id="exampleInputPassword1" placeholder="Password">
-            </div>
-            <!--div class="form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <label for="exampleCheck1">Check me out</label>
-            </div-->
+            <div
+                class="course card-banner noselect"
+                [ngClass]="{'expanded': editingCourse != null && editingCourse._id === course._id }"
+                *ngFor="let course of academy.courses; let i = index"
+                [attr.data-index]="i">
+                <div class="header" (click)="onClickCourse(course)">
+                    <div class="titleContainer">
+                        <app-checkbox (onChange)="selectCourse(course, $event)"></app-checkbox>
+                        <div>
+                            <div class="title fw-500">{{ i+1 }} - {{ course.title }}</div>
+                            <div class="subtitleContainer flex-inline align-items-center">
+                                <div *ngIf="getCourseWasUpdated(course)" class="label-tag green">Actualizado</div>
+                                <div *ngIf="getCourseUpdatedError(course)" class="label-tag red">Error</div>
+                                <div class="subtitle">
+                                    Actualizado {{ formatDate(course.updated_at) }}&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;
+                                    <span class="impressions">
+                                        <span class="icon size-12 icon-eye"></span>&nbsp;{{ course.impressions }}
+                                    </span>
+                                    <span class="category" *ngIf="course.category.name">
+                                        &nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;
+                                        <span class="tag">{{ course.category.name }}</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="price color-red fw-600">{{ course.price }}€</div>
+                </div>
 
-            <div class="button" (click)="signup()">Sign Up!</div>
-            <div class="button white" (click)="isLogin = true">Ya tengo mi academia registrada</div>
-        </form>
+                <div class="line-separator" *ngIf="editingCourse != null && editingCourse._id === course._id"></div>
 
-        <form *ngIf="isLogin">
-            <div class="form-group">
-              <label for="exampleInputEmail1">Email address</label>
-              <input type="email" class="form-control" [(ngModel)]="email" name="email" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Enter email">
+                <app-createCourseForm
+                    [course]="course"
+                    class="formContainer"
+                    (onCourseUpdated)="onCourseUpdated($event)"
+                    (onCourseError)="onCourseError($event)"
+                ></app-createCourseForm>
             </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Password</label>
-              <input type="password" class="form-control" [(ngModel)]="password" name="password" id="exampleInputPassword1" placeholder="Password">
-            </div>
-            <!--div class="form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <label for="exampleCheck1">Check me out</label>
-            </div-->
+        </div>
 
-            <div class="button" (click)="login()">Submit</div>
-            <div class="button white" (click)="isLogin = false">Quiero registrar mi academia!</div>
-        </form>
+        <div id="multipleEditorModal" [ngClass]="{'show': showMultipleEditor}">
+            <div class="overlay" (click)="closeMultipleEditor()"></div>
+
+            <div class="icon size-48 icon-close-circle-white cursor-pointer" (click)="closeMultipleEditor()"></div>
+
+            <div class="responsive-container">
+                <div class="cardContainer">
+                    <div class="header">
+                        <div class="color-black-80 fs-13 fw-600">EDICIÓN MÚLTIPLE <span class="color-black-50">· {{ selectedCourses.length }} cursos</span></div>
+                        <div class="titles">
+                            <span class="fw-600 fs-20" *ngFor="let selectedCourse of selectedCourses; let last = last;">
+                                {{ selectedCourse.title }} ({{selectedCourse.price}}€){{ (last) ? null : ', ' }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="line-separator"></div>
+                    <app-createCourseForm
+                        [courses]="selectedCourses"
+                        (onCoursesUpdated)="onCoursesUpdated()"
+                        (onCourseUpdated)="onCourseUpdated($event)"
+                        (onCourseError)="onCourseError($event)"
+                    ></app-createCourseForm>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </div>

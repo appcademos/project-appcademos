@@ -6,7 +6,6 @@ const bcrypt = require("bcrypt");
 const User = require("./user.model");
 const passport = require("passport");
 const bcryptSalt = parseInt(process.env.BCRYPT);
-const Academy = require("../academy/academy.model");
 const debug = require("debug")("server:user.controller");
 const fields = Object.keys(_.omit(User.schema.paths, ["__v", "_id"]));
 
@@ -28,9 +27,17 @@ const logInPromise = (user, req) => {
 };
 
 const loggedIn = (req, res) => {
-  if (req.user) {
-    res.status(200).json(req.user);
-  } else {
+  if (req.user)
+  {
+      let returnUser = {...req.user._doc}
+      delete returnUser.password;
+      delete returnUser.__v;
+      delete returnUser.created_at;
+      delete returnUser.updated_at;
+      res.status(200).json(returnUser);
+  }
+  else
+  {
     res.status(400).json({
       message: "You should login first"
     });
@@ -72,61 +79,69 @@ const signup = (req, res, next) =>
         }
         else
         {
-            Academy.findOne({ email: userData.email })
+            const salt = bcrypt.genSaltSync(bcryptSalt);
+            userData.password = bcrypt.hashSync(userData.password, salt);
+
+            const newUser = new User(userData);
+            newUser.role = "student";
+
+            return newUser
+            .save()
             .then(user =>
-            {
-                if (user !== null)
+            {    
+                logInPromise(user, req)
+                .then(user =>
                 {
-                    res.status(409).json({ message: "Email already registered" });
-                    return;
-                }
-                else
-                {
-                    const salt = bcrypt.genSaltSync(bcryptSalt);
-                    userData.password = bcrypt.hashSync(userData.password, salt);
-
-                    const newUser = new User(userData);
-
-                    return newUser
-                    .save()
-                    .then(user =>
-                    {    
-                        logInPromise(user, req)
-                        .then(user => res.status(200).json(user));
-                    })
-                }
+                    let returnUser = {...user._doc}
+                    delete returnUser.password;
+                    delete returnUser.__v;
+                    delete returnUser.created_at;
+                    delete returnUser.updated_at;
+                    res.status(200).json(returnUser);
+                });
             })
         }
     })
     .catch(e =>
     {
-        res.status(400).json({ message: "Something went wrong when trying to find user" })
+        debug(e);
+        res.status(400).json({ message: "Something went wrong when creating the user", error: e })
     });
 };
 
-const login = (req, res, next) => {
-  if (req.user) {
-    return res.status(400).json({
-      message: "User already logged in"
-    });
-  }
-  passport.authenticate("user-local", (err, user, info) => {
-    if (err) {
-      return next(err);
+const login = (req, res, next) =>
+{
+    if (req.user)
+    {
+        return res.status(400).json({ message: "User already logged in" });
     }
-    if (!user) {
-      return res.status(400).json(info);
-    }
-    logInPromise(user, req)
-      .then(user => res.status(200).json(user)).catch(err => debug("132", err));
+    
+    passport.authenticate("user-local", (err, user, info) =>
+    {
+        if (err)
+          return next(err);
+        if (!user)
+          return res.status(400).json(info);
+        
+        logInPromise(user, req)
+        .then(user =>
+        {
+            let returnUser = {...user._doc}
+            delete returnUser.password;
+            delete returnUser.__v;
+            delete returnUser.created_at;
+            delete returnUser.updated_at;
+            res.status(200).json(returnUser);
+        })
+        .catch(err => debug(err));
 
-  })(req, res, next);
+    })(req, res, next);
 }
 
 const getThisUser = (req, res, next) => {
   if (req.user) {
     User.findById(req.user.id)
-      .select("-password")
+      .select("-password -__v -created_at -updated_at")
       .then(user => {
         res.status(200).json(
           user
@@ -198,29 +213,6 @@ const update = (req, res, next) => {
   }
 };
 
-const erase = (req, res, next) => {
-  if (req.user) {
-    User.findByIdAndRemove(req.user.id)
-      .then(() => {
-        req.session.destroy(function (err) {
-          res.status(200).json({
-            message: "User removed"
-          });
-        });
-      })
-      .catch(err => {
-        debug(err);
-        res.status(500).json({
-          message: "Error when erasing user"
-        });
-      });
-  } else {
-    res.status(400).json({
-      message: "You are not logged in!"
-    });
-    return;
-  }
-};
 
 module.exports = {
   loggedIn,
@@ -228,6 +220,5 @@ module.exports = {
   signup,
   login,
   getThisUser,
-  update,
-  erase
+  update
 };

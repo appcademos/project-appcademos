@@ -43,8 +43,14 @@
                     </div>
 
                     <div class="icon-text noselect" *ngIf="user != null">
-                        <i class="icon size-16 icon-user"></i>
-                        <p>{{ user.name }}</p>
+                        <a *ngIf="user.role != 'student'" class="userLinkContainer" [routerLink]="['/manager']">
+                            <i class="icon size-16 icon-user"></i>
+                            <p>{{ user.name }} {{ user.lastName }}</p>
+                        </a>
+                        <a *ngIf="user.role == 'student'" class="userLinkContainer">
+                            <i class="icon size-16 icon-user"></i>
+                            <p>{{ user.name }} {{ user.lastName }}</p>
+                        </a>
                         <span class="logout-separator color-black">·</span>
                         <div class="cursor-pointer color-red fw-500 fs-15" (click)="logout()">Salir</div>
                     </div>
@@ -62,8 +68,14 @@
                 </div>
 
                 <div class="icon-text noselect" *ngIf="user != null">
-                    <i class="icon size-16" [ngClass]="{'icon-user': !isHome, 'icon-user-white': isHome}"></i>
-                    <p>{{ user.name }}</p>
+                    <a *ngIf="user.role != 'student'" class="userLinkContainer" [routerLink]="['/manager']">
+                        <i class="icon size-16" [ngClass]="{'icon-user': !isHome, 'icon-user-white': isHome}"></i>
+                        <p>{{ user.name }} {{ user.lastName }}</p>
+                    </a>
+                    <span *ngIf="user.role == 'student'" class="userLinkContainer">
+                        <i class="icon size-16" [ngClass]="{'icon-user': !isHome, 'icon-user-white': isHome}"></i>
+                        <p>{{ user.name }} {{ user.lastName }}</p>
+                    </span>
                     <span class="logout-separator">·</span>
                     <div class="cursor-pointer color-red fw-500 fs-15" (click)="logout()">Salir</div>
                 </div>
