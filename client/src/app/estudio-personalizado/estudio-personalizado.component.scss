@@ -5,13 +5,66 @@ body
     background-color: #f2f2f2 !important;
 }
 
+#estudioPersonalizadoContainer
+{
+    margin: 32px auto 80px;
+    max-width: 520px;
+    width: 100%;
+    
+    h1
+    {
+        font-size: 32px;
+        margin-bottom: 16px;
+    }
+    .subtitle
+    {
+        font-weight: 600;
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: $black-80;
+    }
+    .list
+    {
+        & > div
+        {
+            display: flex;
+            align-items: center;
+            padding: 4px 0;
+            
+            .iconContainer
+            {
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                background: $green-color;
+                margin-right: 12px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                
+                .icon
+                {
+                    filter: brightness(0) invert(1);
+                }
+            }
+            
+            .text
+            {
+                font-size: 17px;
+                font-weight: 500;
+            }
+        }
+    }
+}
 #estudioPersonalizado
 {
     width: 100%;
-    max-width: 490px;
-    margin: 32px auto 80px;
+    max-width: 500px;
+    margin: 32px 0 80px;
     border-radius: 12px;
     padding-left: 20px;
     padding-right: 12px;
     min-height: 400px;
+    
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 8px 32px $green-color-32;
 }
