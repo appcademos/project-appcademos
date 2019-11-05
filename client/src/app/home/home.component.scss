@@ -177,7 +177,7 @@ section#triptic
             {
                 margin-bottom: 0;
             }
-            &[ng-reflect-router-link]
+            &:nth-child(2)
             {
                 cursor: pointer;
                 transition: 0.2s transform;
