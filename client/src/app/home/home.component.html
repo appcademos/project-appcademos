@@ -63,11 +63,29 @@
     </div>
 </section>
 
-<section id="estudio">
+<section id="whatCourses">
     <div class="responsive-container">
-        <h3>¿No te apetece buscar? Estudiamos tu perfil y te enviamos los mejores cursos para ti</h3>
-        <div>
-            <div class="button" [routerLink]="['estudio-personalizado']">Pide tu estudio personalizado gratis</div>
+        <h2>¿Qué cursos encontrarás en nuestra web?</h2>
+        
+        <div class="coursesSection">
+            <div class="title">Para sacarte un certificado:</div>
+            <div class="buttons">
+                <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'first' }">First certificate</a>
+                <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'advanced' }">Advanced</a>
+                <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'toefl' }">TOEFL</a>
+                <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'ielts' }">IELTS</a>
+                <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'toeic' }">TOEIC</a>
+                <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'proficiency' }">Proficiency</a>
+            </div>
+        </div>
+        
+        <div class="coursesSection">
+            <div class="title">Para mejorar tu inglés:</div>
+            <div class="buttons">
+                <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'nivel b1' }">Inglés General B1</a>
+                <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'nivel b2' }">Inglés General B2</a>
+                <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'nivel c1' }">Inglés General C1</a>
+            </div>
         </div>
     </div>
 </section>
@@ -96,7 +114,7 @@
 
 <section id="help-container">
     <div class="responsive-container">
-        <p class="fs-20 fw-600 text-center">Estamos para ayudarte</p>
+        <p class="fs-22 fw-600 text-center">Estamos para ayudarte</p>
         <div class="pictures">
             <div class="picture">
                 <div class="image"></div>
