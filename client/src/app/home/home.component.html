@@ -52,10 +52,11 @@
                 <div class="title">Busca y compara</div>
                 <div class="text color-black-80">Información de todas las academias actualizada a diario y opiniones de otros alumnos.</div>
             </div>
-            <div class="triptic-item">
+            <div class="triptic-item" [routerLink]="['estudio-personalizado']">
                 <div class="icon size-92 icon-red-help"></div>
                 <div class="title">Te ayudamos a elegir (si lo necesitas)</div>
-                <div class="text color-black-80">Háblanos por <span class="fw-500">WhatsApp</span> y te ayudaremos gratuitamente a elegir qué opción te encaja mejor.</div>
+                <div class="text color-black-80">Estudiamos tu perfil y te enviamos las mejores opciones para ti.</div>
+                <a [routerLink]="['estudio-personalizado']">Pide tu estudio personalizado gratis</a>
             </div>
             <div class="triptic-item">
                 <div class="icon size-92 icon-red-class"></div>
