@@ -1,7 +1,7 @@
 <div id="hero">
     <div class="gradient-overlay"></div>
     <div class="overlay"></div>
-    <video #videoPlayer class="background-video" [ngClass]="{ 'visible': canPlayVideo }" [src]="videoSource" autoplay loop muted (canplay)="onCanPlayVideo()" onloadedmetadata="this.muted = true"></video>
+    <video #videoPlayer class="background-video" [ngClass]="{ 'visible': canPlayVideo }" [src]="videoSource" autoplay playsinline loop muted (canplay)="onCanPlayVideo()" onloadedmetadata="this.muted = true"></video>
     
     <div class="hero-content" [ngStyle]="{ 'padding-top': getTopBannerHeight() }">
         <div class="hero-text">
