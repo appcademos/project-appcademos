@@ -1,12 +1,15 @@
 <div id="hero">
     <div class="gradient-overlay"></div>
     <div class="overlay"></div>
+    <video #videoPlayer class="background-video" [ngClass]="{ 'visible': canPlayVideo }" [src]="videoSource" autoplay loop muted (canplay)="onCanPlayVideo()" onloadedmetadata="this.muted = true"></video>
+    
     <div class="hero-content" [ngStyle]="{ 'padding-top': getTopBannerHeight() }">
         <div class="hero-text">
-            <h1>La forma más sencilla de reservar en cualquier academia de inglés</h1>
-            <p>COMPARA ENTRE LOS MEJORES CURSOS VALORADOS POR ESTUDIANTES COMO TÚ</p>
+            <h1>Estudiamos tu perfil y te enviamos los mejores cursos de academias de inglés</h1>
+            <p>RECÍBELOS EN MENOS DE 12 HORAS</p>
+            <div class="button" [routerLink]="['estudio-personalizado']">Pide tu estudio personalizado gratis</div>
         </div>
-        <app-searchbox #searchbox (onSearch)="findCourses($event)" (onFocus)="onFocusSearchbox()"></app-searchbox>
+        <!--<app-searchbox #searchbox (onSearch)="findCourses($event)" (onFocus)="onFocusSearchbox()"></app-searchbox>-->
     </div>
     <div id="fixed-searchbox" [ngClass]="{'show': showFixedSearchbar}">
         <div class="responsive-container">
