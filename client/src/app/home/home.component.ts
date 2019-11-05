@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, ElementRef } from '@angular/core';
 import { CoursesService } from "../../services/courses.service";
 import { Router } from "@angular/router";
 import { UtilsService } from '../../services/utils.service';
