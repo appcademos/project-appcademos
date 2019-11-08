@@ -7,6 +7,7 @@ const User = require("../user/user.model");
 const Academy = require("../academy/academy.model");
 const Course = require("../course/course.model");
 const Review = require("../review/review.model");
+const Category = require("../category/category.model");
 const debug = require("debug")("server:academy.controller");
 const fields = Object.keys(_.omit(Academy.schema.paths, ["__v", "_id"]));
 const bcryptSalt = parseInt(process.env.BCRYPT);
@@ -86,6 +87,38 @@ const getThis = async (req, res, next) =>
     }
 };
 
+const create = async (req, res, next) =>
+{
+    let props = {...req.body}
+    const categories = await Category.find({});
+    props.categories = []
+    
+    if (categories != null && categories.length > 0)
+    {
+        categories.forEach(category =>
+        {
+            props.categories.push(
+                            {
+                                category: category._id
+                            });
+        });
+        
+        let newAcademy = new Academy(props);
+
+        newAcademy.save(err =>
+        {            
+            if (err)
+                res.status(400).json({ message: "Something went wrong when trying to create the academy", error: err });
+            else
+                res.status(200).json({ message: "Academy created" });
+        });
+    }
+    else
+    {
+        res.status(400).json({ message: "Something went wrong when trying to create the academy: categories error" });
+    }
+};
+
 const update = (req, res, next) =>
 {
     let updates = _.pick(req.body, fields);
@@ -147,5 +180,6 @@ module.exports = {
   getAll,
   getOne,
   getThis,
+  create,
   update
 };

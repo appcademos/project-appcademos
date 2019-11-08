@@ -3,12 +3,9 @@ const Schema = mongoose.Schema;
 
 const academySchema = new Schema(
 {
+    name: { type: String, required: true },
     user: { type: Schema.Types.ObjectId, ref: "User", default: null },
-    imagePath: String,
-    imageName: String,
-    description: String,
-    address: String,
-    about: [String], // TO BE DELETED
+    address: { type: String, required: true },
     whyChooseMe: String,
     images: [
         {imagePath: String},
@@ -18,14 +15,13 @@ const academySchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Review"
     }],
-    isVerified: {
-      type: Boolean,
-      default: false
-    },
-    name: String,
+    isVerified: { type: Boolean, default: false },
     location: {
-      type: { type: String },
-      coordinates: [Number]
+        type:
+        {
+            coordinates: { type: [Number], required: true }
+        },
+        required: true
     },
     district: String,
     city: String,
