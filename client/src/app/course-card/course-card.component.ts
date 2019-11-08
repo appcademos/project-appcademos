@@ -17,6 +17,8 @@ export class CourseCardComponent implements OnInit
     {
         this.average = this.calcReviewGrade(this.course.academy.reviews);
         this.params = this.getUrlLinkParams();
+        
+        console.log(this.course);
     }
 
     calcReviewGrade(reviews)
@@ -41,7 +43,8 @@ export class CourseCardComponent implements OnInit
            
         {
             params[i++] = '/course';
-            params[i++] = this.course.tags[0];
+            if (this.course.category != null && this.course.category.name != null)
+                params[i++] = this.course.category.name.replace(/ /g, '-').toLowerCase();
             params[i++] = this.course.duration.replace(/ /g, '');
             params[i++] = this.course.academy.district.toLowerCase() + '-' + this.course.academy.city.toLowerCase();
             params[i++] = 'academia-' + this.course.academy.name.replace(/ /g, '-').toLowerCase();
