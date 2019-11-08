@@ -32,21 +32,21 @@
     </div>
 
     <div id="gallery" class="noselect">
-        <div class="left-area">
+        <div class="left-area" *ngIf="(courseImages != null && courseImages.length > 0)">
             <i class="icon size-42 icon-arrow-left-white"></i>
         </div>
-        <div class="right-area">
+        <div class="right-area" *ngIf="(courseImages != null && courseImages.length > 0)">
             <i class="icon size-42 icon-arrow-right-white"></i>
         </div>
 
-        <div class="background" [style.backgroundImage]="'url(' + currentGalleryImage.imagePath + ')'">
-            <div class="overlay"></div>
+        <div class="background" [style.backgroundImage]="'url(' + currentGalleryImage + ')'">
+            <div *ngIf="(courseImages != null && courseImages.length > 0)" class="overlay"></div>
         </div>
 
         <div class="gallery-items">
             <div class="gallery-item" *ngFor="let image of courseImages; let last = last">
                 {{ onGalleryLoopFinished(last) }}
-                <div class="image" [style.backgroundImage]="'url(' + image.imagePath + ')'"></div>
+                <div class="image" [style.backgroundImage]="'url(' + image + ')'"></div>
             </div>
         </div>
     </div>

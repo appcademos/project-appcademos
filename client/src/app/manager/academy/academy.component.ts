@@ -34,6 +34,8 @@ export class AcademyComponent implements OnInit, OnDestroy
     
     messageServiceSubscription = null
     
+    showCreateCourseModal = false
+    
     constructor(private router: Router,
                 private activatedRoute: ActivatedRoute,
                 private userService: UserSessionService,
@@ -278,5 +280,11 @@ export class AcademyComponent implements OnInit, OnDestroy
     closeMultipleEditor()
     {
         this.showMultipleEditor = false;
+    }
+    
+    onCourseCreated()
+    {
+        this.showCreateCourseModal = false;
+        this.getAcademy();
     }
 }
