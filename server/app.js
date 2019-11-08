@@ -15,6 +15,7 @@ const hashSecret = process.env.HASHCODE;
 const dbURL = process.env.DBURL;
 const cors = require("cors");
 var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
+const Course = require("./api/course/course.model");
 
 mongoose.Promise = Promise;
 mongoose
@@ -22,6 +23,8 @@ mongoose
 .then(() =>
 {
     debug(`Connected to Mongo at ${dbURL}`);
+    
+    fixCourseImages();
 })
 .catch(err =>
 {
@@ -122,6 +125,42 @@ require("./routes/routes")(app);
 app.use(function (req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
+
+
+async function fixCourseImages()
+{
+    const courses = await Course.find({});
+    
+    courses.forEach(async (course) => 
+    {
+        if (course.images != null && course.images.length > 0)
+       {
+           let newImages = []
+           course.images.forEach((imageObj) =>
+           {
+               if (imageObj != null && imageObj.imagePath != null && imageObj.imagePath.length > 0)
+                    newImages.push(imageObj.imagePath);
+           });
+           
+           if (newImages.length > 0)
+           {
+               try
+               {
+                   const res = await Course.collection.update(
+                                    { _id: course._id },
+                                    { $set: { images: newImages } },
+                                    { runValidators: false, multi: false, strict: false, safe: false }
+                                );
+                   console.log(res.result);
+               }
+               catch (err)
+               {
+                   console.log(err);
+               }
+           }
+       }
+    });
+}
 
 
 module.exports = app;

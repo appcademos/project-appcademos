@@ -160,36 +160,26 @@ const getOne = (req, res, next) => {
     });
 };
 
-const create = (req, res, next) => {
-  if (req.academy) {
-    if (req.academy.isVerified) {
-      const properties = _.pick(req.body, fields);
-      let newCourse = new Course(properties);
-      newCourse.academy = req.academy.id;
+const create = (req, res, next) =>
+{
+    if (req.body.academy != null)
+    {
+        const properties = _.pick(req.body, fields);
+        let newCourse = new Course(properties);
+        newCourse.academy = properties.academy;
 
-      newCourse.save(err => {
-        if (err) {
-          res
-            .status(400)
-            .json({
-              message: "Something went wrong when trying to create course"
-            });
-        } else {
-          res.status(200).json({
-            message: "Course saved"
+        newCourse.save(err =>
+        {
+            if (err)
+              res.status(400).json({ message: "Something went wrong when trying to create course" });
+            else
+                res.status(200).json({ message: "Course saved" });
           });
-        }
-      });
-    } else {
-      res.status(400).json({
-        message: "You are not verified to create courses"
-      });
     }
-  } else {
-    res.status(400).json({
-      message: "You should login first"
-    });
-  }
+    else
+    {
+        res.status(400).json({ message: "academy is missing" });
+    }
 };
 
 const update = (req, res, next) =>

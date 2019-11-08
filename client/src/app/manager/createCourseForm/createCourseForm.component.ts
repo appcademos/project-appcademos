@@ -15,15 +15,22 @@ export class CreateCourseFormComponent implements OnInit
 {
     @Input() course: any;
     @Input() courses: any;
+    @Input() createMode: any;
+    @Input() academyId: string;
+    
     @Output() onCourseUpdated: EventEmitter<any> = new EventEmitter();
     @Output() onCourseError: EventEmitter<any> = new EventEmitter();
     @Output() onCoursesUpdated: EventEmitter<any> = new EventEmitter();
+    @Output() onCourseCreated: EventEmitter<any> = new EventEmitter();
+
+    mainButtonText: string;
 
     price: Number;
     duration: String;
     oldPrice: Number;
     title: String;
     hours: Number;
+    weekClasses: Number;
     startDate: String;
     isBooked: boolean;
     videoUrl: String;
@@ -31,6 +38,8 @@ export class CreateCourseFormComponent implements OnInit
     description: String;
     tags: [String];
     categoryId: String;
+    group = []
+    images = []
 
     numCoursesUpdated = 0;
     
@@ -44,16 +53,21 @@ export class CreateCourseFormComponent implements OnInit
     ngOnInit()
     {
         if (this.course)
-        {    
+        {             
             this.title      = this.course.title;
             this.duration   = this.course.duration;
             this.hours      = this.course.hours;
+            this.group      = this.course.group;
+            this.weekClasses = this.course.weekclasses;
             this.price      = this.course.price;
             this.oldPrice   = this.course.oldPrice;
             this.startDate  = moment(this.course.startDate).format('DD/MM/YYYY');
             this.isBooked   = this.course.isBooked ? this.course.isBooked : false;
             this.videoUrl   = this.course.videoUrl;
             this.categoryId = this.course.category._id;
+            this.group      = this.course.group;
+            this.images     = this.course.images;
+            this.sizeClass  = this.course.sizeClass;
         }
         else
         {
@@ -66,6 +80,17 @@ export class CreateCourseFormComponent implements OnInit
     onChangeIsBooked(checked)
     {
         this.isBooked = checked;
+    }
+    onPressMainButton()
+    {
+        if (this.createMode)
+        {
+            this.createCourse();
+        }
+        else
+        {
+            this.updateCourse();
+        }
     }
 
     validateCourse()
@@ -84,6 +109,10 @@ export class CreateCourseFormComponent implements OnInit
         {
             allOk = false;
         }
+        if (this.weekClasses == null || (this.weekClasses + '').length == 0)
+        {
+            allOk = false;
+        }
         if (this.price == null || (this.price + '').length == 0)
         {
             allOk = false;
@@ -96,9 +125,34 @@ export class CreateCourseFormComponent implements OnInit
         {
             allOk = false;
         }
+        if (this.sizeClass == null || (this.sizeClass + '').length == 0)
+        {
+            allOk = false;
+        }
+        
+        if (this.createMode)
+        {
+            let group = this.filterEmptyStringsArray(this.group);
+            if (group == null || group.length == 0)
+            {
+                allOk = false;
+            }
+            
+            let images = this.filterEmptyStringsArray(this.images);
+            if (images == null || images.length == 0)
+            {
+                allOk = false;
+            }
+        }
 
         if (!allOk)
-            alert('Rellena correctamente todos los datos');
+        {
+            this.notifications.create(
+              'error',
+              'Error',
+               `Rellena correctamente todos los datos`
+            );
+        }
 
         return allOk;
     }
@@ -116,6 +170,9 @@ export class CreateCourseFormComponent implements OnInit
 
             if (this.hours != null && (this.hours + '').length > 0)
                 courseDataToUpdate.hours = this.hours;
+                
+            if (this.weekClasses != null && (this.weekClasses + '').length > 0)
+                courseDataToUpdate.weekclasses = this.weekClasses;
 
             if (this.price != null && (this.price + '').length > 0)
                 courseDataToUpdate.price = this.price;
@@ -134,6 +191,17 @@ export class CreateCourseFormComponent implements OnInit
                 
             if (this.categoryId != null && (this.categoryId + '').length > 0)
                 courseDataToUpdate.category = this.categoryId;
+                
+            if (this.sizeClass != null && (this.sizeClass + '').length > 0)
+                courseDataToUpdate.sizeClass = this.sizeClass;
+            
+            let group = this.filterEmptyStringsArray(this.group);
+            if (group != null && group.length > 0)
+                courseDataToUpdate.group = group;
+                
+            let images = this.filterEmptyStringsArray(this.images);
+            if (images != null && images.length > 0)
+                courseDataToUpdate.images = images;
             
 
             for (let i = 0; i < this.courses.length; i++)
@@ -177,13 +245,17 @@ export class CreateCourseFormComponent implements OnInit
                     title: this.title,
                     duration: this.duration,
                     hours: this.hours,
+                    weekclasses: this.weekClasses,
                     price: this.price,
                     oldPrice: this.oldPrice,
                     startDate: moment(this.startDate + '', 'DD/MM/YYYY').toISOString(),
                     academy: this.course.academy,
                     isBooked: this.isBooked,
                     videoUrl: (this.videoUrl != null && this.videoUrl.trim().length > 0) ? this.videoUrl : null,
-                    category: this.categoryId
+                    category: this.categoryId,
+                    group: this.filterEmptyStringsArray(this.group),
+                    images: this.filterEmptyStringsArray(this.images),
+                    sizeClass: this.sizeClass
                 }
 
                 this.courseService.updateCourse(this.course._id, courseToUpdate)
@@ -204,6 +276,46 @@ export class CreateCourseFormComponent implements OnInit
             }
         }
     }
+    createCourse()
+    {
+        if (this.validateCourse())
+        {
+            var courseToCreate =
+            {
+                title: this.title,
+                duration: this.duration,
+                hours: this.hours,
+                weekclasses: this.weekClasses,
+                price: this.price,
+                oldPrice: this.oldPrice,
+                startDate: moment(this.startDate + '', 'DD/MM/YYYY').toISOString(),
+                isBooked: this.isBooked,
+                videoUrl: (this.videoUrl != null && this.videoUrl.trim().length > 0) ? this.videoUrl : null,
+                category: this.categoryId,
+                group: this.filterEmptyStringsArray(this.group),
+                images: this.filterEmptyStringsArray(this.images),
+                sizeClass: this.sizeClass,
+                academy: this.academyId
+            }
+            
+            console.log(courseToCreate);
+
+            this.courseService.createCourse(courseToCreate)
+            .subscribe(res =>
+            {
+                this.onCourseCreated.emit();
+                this.showCourseCreatedSuccessNotification();
+                
+                console.log(res);
+            },
+            error =>
+            {
+                console.log(error);
+
+                this.showCourseCreatedErrorNotification();
+            });
+        }
+    }
     resetCourseData()
     {
         this.title      = undefined;
@@ -215,6 +327,9 @@ export class CreateCourseFormComponent implements OnInit
         this.isBooked   = false;
         this.videoUrl   = undefined;
         this.categoryId = undefined;
+        this.sizeClass  = undefined;
+        this.group      = []
+        this.images     = []
     }
     
     getCategories()
@@ -254,5 +369,34 @@ export class CreateCourseFormComponent implements OnInit
           'Error',
           message
         );
+    }
+    
+    showCourseCreatedSuccessNotification()
+    {
+        this.notifications.create(
+          'success',
+          'Curso creado',
+          `El curso "${this.title}" ha sido creado`
+        );
+    }
+    showCourseCreatedErrorNotification()
+    {        
+        this.notifications.create(
+          'error',
+          'Error',
+           `El curso "${this.title}" no ha podido crearse`
+        );
+    }
+    
+    filterEmptyStringsArray(arr)
+    {
+        let filteredArray = null;
+        
+        if (arr != null)
+        {
+             filteredArray = arr.filter((item) => (('' + item).trim().length > 0));
+        }
+        
+        return filteredArray;
     }
 }

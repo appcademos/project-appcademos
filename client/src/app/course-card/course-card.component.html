@@ -1,6 +1,6 @@
 <a class="course-link" [routerLink]="params">
    <div class="course-item">
-     <div class="course-item-image" [ngStyle]="{ 'background-image': 'url(' + course.images[0].imagePath + ')' }" alt="course.images[0].imageName">
+     <div class="course-item-image" [ngStyle]="{ 'background-image': (course.images != null && course.images.length > 0) ? 'url(' + course.images[0] + ')' : null }">
          <div class="course-tag" *ngIf="course.isBooked">COMPLETO</div>
          <div class="course-video-icon icon-video" *ngIf="course.videoUrl"></div>
      </div>

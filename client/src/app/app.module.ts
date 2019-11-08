@@ -52,6 +52,7 @@ import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-logi
 import { EstudioPersonalizadoComponent } from './estudio-personalizado/estudio-personalizado.component';
 import { ManagerComponent } from './manager/manager/manager.component';
 import { TopBannerComponent } from './top-banner/top-banner.component';
+import { TextArrayEditorComponent } from './manager/_components/text-array-editor/text-array-editor.component';
 
 
 export function metaFactory(): MetaLoader
@@ -117,7 +118,8 @@ export function provideConfig() {
       SocialLoginComponent,
       EstudioPersonalizadoComponent,
       ManagerComponent,
-      TopBannerComponent
+      TopBannerComponent,
+      TextArrayEditorComponent
    ],
 
   imports: [

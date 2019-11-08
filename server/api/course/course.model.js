@@ -24,7 +24,7 @@ const courseSchema = new Schema(
     videoUrl: String,
     approvedRate: Number,
     sizeClass: Number,
-    description: String,
+    description: String, // TO BE DELETED
     teacher: String, // TO BE DELETED
     tags: [String], // TO BE DELETED
     category: {

@@ -235,8 +235,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
     }
     setCourseImages()
     {
-        this.courseImages = [...this.courseObj.course.images, ...this.courseObj.course.academy.images];
-        this.courseImages = this.courseImages.filter(courseImage => courseImage.imagePath != null);
+        this.courseImages = [...this.courseObj.course.images];
         this.currentGalleryImage = this.courseImages[0];
     }
     onGalleryLoopFinished(last: boolean)

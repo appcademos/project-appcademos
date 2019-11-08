@@ -1,21 +1,33 @@
 <div class="form full-width">
       <div class="form-group">
-        <label>Nombre del curso</label>
+        <label>Nombre del curso<span *ngIf="createMode || this.course != null">*</span></label>
         <input type="text" class="form-control" [(ngModel)]="title" name="title">
       </div>
       <div class="form-group-container">
           <div class="form-group">
-            <label>Duración</label>
-            <input type="text" class="form-control" [(ngModel)]="duration" name="duration">
+              <label>Categoría<span *ngIf="createMode || this.course != null">*</span></label>
+              <nz-select [(ngModel)]="categoryId" nzSize="large">
+                  <nz-option *ngFor="let category of categories" [nzLabel]="category.name" [nzValue]="category._id"></nz-option>
+              </nz-select>
           </div>
           <div class="form-group">
-              <label>Numero de horas</label>
-              <input type="number" class="form-control" [(ngModel)]="hours" name="hours">
+            <label>Duración<span *ngIf="createMode || this.course != null">*</span></label>
+            <input type="text" class="form-control" [(ngModel)]="duration" name="duration">
           </div>
       </div>
       <div class="form-group-container">
           <div class="form-group">
-            <label>Precio</label>
+              <label>Numero de horas<span *ngIf="createMode || this.course != null">*</span></label>
+              <input type="number" class="form-control" [(ngModel)]="hours" name="hours">
+          </div>
+          <div class="form-group">
+            <label>Clases semanales<span *ngIf="createMode || this.course != null">*</span></label>
+            <input type="number" class="form-control" [(ngModel)]="weekClasses" name="weekclasses">
+          </div>
+      </div>
+      <div class="form-group-container">
+          <div class="form-group">
+            <label>Precio<span *ngIf="createMode || this.course != null">*</span></label>
             <input type="number" class="form-control" [(ngModel)]="price" name="price">
           </div>
           <div class="form-group">
@@ -25,7 +37,7 @@
       </div>
       <div class="form-group-container">
           <div class="form-group">
-            <label>Fecha de inicio</label>
+            <label>Fecha de inicio<span *ngIf="createMode || this.course != null">*</span></label>
             <input class="form-control" [(ngModel)]="startDate" name="startdate" placeholder="dd/mm/aaaa">
           </div>
           <div class="form-group">
@@ -35,10 +47,22 @@
       </div>
       <div class="form-group-container">
           <div class="form-group">
-              <label>Categoría</label>
-              <nz-select [(ngModel)]="categoryId" nzSize="large">
-                  <nz-option *ngFor="let category of categories" [nzLabel]="category.name" [nzValue]="category._id"></nz-option>
-              </nz-select>
+            <label>Grupos<span *ngIf="createMode || this.course != null">*</span></label>
+            <app-text-array-editor
+                [(array)]="group"
+            ></app-text-array-editor>
+          </div>
+          <div class="form-group">
+            <label>Imágenes<span *ngIf="createMode || this.course != null">*</span></label>
+            <app-text-array-editor
+                [(array)]="images"
+            ></app-text-array-editor>
+          </div>
+      </div>
+      <div class="form-group-container">
+          <div class="form-group">
+            <label>Nº máximo alumnos<span *ngIf="createMode || this.course != null">*</span></label>
+            <input type="number" class="form-control" [(ngModel)]="sizeClass" name="sizeClass">
           </div>
           <div class="form-group">
             <label>Completo</label>
@@ -48,5 +72,5 @@
           </div>
       </div>
 
-      <div class="button full-width noshadow" (click)="updateCourse()">{{ (courses != null && courses.length > 1) ? 'Actualizar cursos' : 'Guardar curso' }}</div>
+      <div class="button full-width noshadow" (click)="onPressMainButton()">{{ createMode ? 'Crear curso' : ((courses != null && courses.length > 1) ? 'Actualizar cursos' : 'Guardar curso') }}</div>
 </div>
