@@ -21,6 +21,7 @@ const getAll = (req, res) => {
             model: 'Review'
         }
     })
+    .populate('category')
     .then(courses =>
     {
         res.status(200).json(courses);
@@ -94,6 +95,7 @@ const getSearched = async (req, res, next) =>
             model: 'Review'
         }
     })
+    .populate('category')
     .then(courses =>
     {
         return Promise.all(courses.map(course =>
