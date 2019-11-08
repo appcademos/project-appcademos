@@ -104,7 +104,7 @@ export class AllCoursesComponent
                 {
                     this.courseService.findCourses(query)
                     .subscribe(() =>
-                    {
+                    {    
                         this.allCourses = [...this.courseService.foundCourses];
                         this.courses = [...this.courseService.foundCourses];
                         this.orderBy(this.currentOrder);

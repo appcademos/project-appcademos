@@ -1,0 +1,15 @@
+<div class="textArrayEditor" [ngClass]="{ 'expanded': expanded }">
+    <div class="header" (click)="expanded = !expanded">
+        <div class="placeholder">{{ expanded ? 'Click para contraer' : 'Click para desplegar' }}</div>
+        <i class="icon size-12 icon-arrow-down"></i>
+    </div>
+    <div class="body">
+        <div class="inputContainer" *ngFor="let arrayItem of array; let i = index; trackBy:trackByIndex;">
+            <input class="form-control" [(ngModel)]="array[i]">
+            <i class="delete" (click)="removeArrayItem(i)">-</i>
+        </div>
+        <div class="inputContainer newItemContainer" (click)="addInput()">
+            +
+        </div>
+    </div>
+</div>

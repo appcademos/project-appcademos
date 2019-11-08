@@ -15,7 +15,7 @@ router.get("/search", getSearched);
 router.get("/all", getAll);
 router.get("/:id", getOne);
 router.put("/:id", [ Utils.hasAccess('adminAndAcademy'), update ]);
-router.post("/create", [ Utils.hasAccess('adminAndAcademy'), create ]);
+router.post("/", [ Utils.hasAccess('adminAndAcademy'), create ]);
 router.delete("/:id", [ Utils.hasAccess('adminAndAcademy'), erase ]);
 
 module.exports = router;
