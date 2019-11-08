@@ -6,12 +6,15 @@ const {
   getAll,
   getOne,
   getThis,
+  create,
   update
 } = require("./academy.controller");
 
 router.get("/", [ Utils.hasAccess('academy'), getThis ]);
 router.get("/all", [ Utils.hasAccess('admin'), getAll ]);
 router.get("/:id", [ Utils.hasAccess('adminAndAcademy'), getOne ]);
+router.get("/", [ Utils.hasAccess('academy'), getThis ]);
+router.post("/", [ Utils.hasAccess('admin'), create ]);
 router.put("/update/:id", update);
 
 module.exports = router;

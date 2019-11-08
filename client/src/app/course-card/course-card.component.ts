@@ -17,8 +17,6 @@ export class CourseCardComponent implements OnInit
     {
         this.average = this.calcReviewGrade(this.course.academy.reviews);
         this.params = this.getUrlLinkParams();
-        
-        console.log(this.course);
     }
 
     calcReviewGrade(reviews)
