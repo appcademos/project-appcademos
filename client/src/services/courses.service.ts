@@ -83,6 +83,14 @@ export class CoursesService
             .map(res => res.json())
             .catch(error => Observable.throw(error));
     }
+    
+    deleteCourse(courseId)
+    {
+          return this.http
+            .delete(`${environment.BASEURL}/api/course/${courseId}`, this.options)
+            .map(res => res.json())
+            .catch(error => Observable.throw(error));
+    }
 
 
     createReview(review)

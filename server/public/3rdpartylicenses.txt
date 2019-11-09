@@ -165,7 +165,11 @@ ng-zorro-antd/modal
 
 ng-zorro-antd/notification
 
+ng-zorro-antd/popconfirm
+
 ng-zorro-antd/select
+
+ng-zorro-antd/tooltip
 
 ngx-quill
 MIT
