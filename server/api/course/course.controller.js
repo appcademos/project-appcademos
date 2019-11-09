@@ -213,38 +213,30 @@ const update = (req, res, next) =>
     });
 };
 
-const erase = (req, res, next) => {
-  Course.findById(req.params.id).then(course => {
-    if (course.academy === req.academy.id) {
-      Course.remove(req.params.id).then(() => {
-          Review.find({
-              course: req.params.id
+const erase = (req, res, next) =>
+{    
+    Course.findById(req.params.id).then(course =>
+    {
+        debug(course.academy.user);
+        
+        if (req.user.role === 'admin' ||
+            (req.user.role === 'academy' && course.academy.user === req.user._id))
+        {
+            Course.remove({ _id: req.params.id }).then(() =>
+            {
+                res.status(200).json({ message: "Course deleted" });
             })
-            .remove()
-            .then(() => {
-              res.status(200).json({
-                message: "Course removed"
-              });
-            })
-            .catch(err => {
-              debug(err);
-              res.status(400).json({
-                message: "Error erasing reviews"
-              });
+            .catch(err =>
+            {
+                debug(err);
+                res.status(400).json({ message: "Error deleting course" });
             });
-        })
-        .catch(err => {
-          debug(err);
-          res.status(400).json({
-            message: "Error erasing course"
-          });
-        });
-    } else {
-      res.status(400).json({
-        message: "You can only erase your own courses"
-      });
-    }
-  });
+        }
+        else
+        {
+            res.status(400).json({ message: "You can only delete your own courses" });
+        }
+    });
 };
 
 module.exports = {

@@ -354,6 +354,10 @@ input[type="text"]
 {
     background-image: url('../assets/public/images/icons/eye.svg');
 }
+.icon-trash-red
+{
+    background-image: url('../assets/public/images/icons/trash_red.svg');
+}
 
 
 .spinner
@@ -370,6 +374,11 @@ input[type="text"]
     {
         width: 32px;
         height: 32px;
+    }
+    &.small
+    {
+        width: 20px;
+        height: 20px;
     }
 }
 .spinner.green

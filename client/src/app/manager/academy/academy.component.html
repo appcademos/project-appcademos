@@ -116,7 +116,10 @@
                     <div *ngIf="selectedCourses.length > 1" class="color-green fs-13 fw-600 cursor-pointer noselect" (click)="showMultipleEditor = true">EDITAR SELECCIÓN</div>
                     <div *ngIf="selectedCourses.length > 1" class="color-black-50 fs-13 fw-600 cursor-pointer noselect" (click)="clearSelection()">CANCELAR</div>
                     
-                    <div *ngIf="selectedCourses.length <= 1" class="color-red fs-13 fw-600 cursor-pointer noselect" (click)="showCreateCourseModal = true">NUEVO</div>
+                    <div *ngIf="deleteMode" class="color-black-50 fs-13 fw-600 cursor-pointer noselect" (click)="deleteMode = false">CANCELAR</div>
+                    <div *ngIf="!deleteMode && academy.courses.length > 0 && selectedCourses.length <= 1" class="color-black-50 fs-13 fw-600 cursor-pointer noselect" (click)="deleteMode = true">ELIMINAR</div>
+                    
+                    <div *ngIf="selectedCourses.length <= 1 && !deleteMode" class="color-red fs-13 fw-600 cursor-pointer noselect" (click)="showCreateCourseModal = true">NUEVO</div>
                 </div>
             </div>
 
@@ -127,7 +130,7 @@
                 [attr.data-index]="i">
                 <div class="header" (click)="onClickCourse(course)">
                     <div class="titleContainer">
-                        <app-checkbox (onChange)="selectCourse(course, $event)"></app-checkbox>
+                        <app-checkbox *ngIf="!deleteMode" (onChange)="selectCourse(course, $event)"></app-checkbox>
                         <div>
                             <div class="title fw-500">{{ i+1 }} - {{ course.title }}</div>
                             <div class="subtitleContainer flex-inline align-items-center">
@@ -146,7 +149,23 @@
                             </div>
                         </div>
                     </div>
-                    <div class="price color-red fw-600">{{ course.price }}€</div>
+                    <div class="rightItems">
+                        <div class="price color-red fw-600">{{ course.price }}€</div>
+                        
+                        <div
+                            class="iconRight"
+                            *ngIf="deleteMode"
+                            (click)="onClickDeleteCourse($event)"
+                            nz-popconfirm
+                            nzTitle="¿Quieres eliminar este curso?"
+                            nzOkText="Eliminar"
+                            nzCancelText="Cancelar"
+                            (nzOnConfirm)="sendDeleteCourse(course._id)"
+                        >
+                            <i class="icon size-16 icon-trash-red" [hidden]="deletingCourseId == course._id"></i>
+                            <div class="spinner small" [hidden]="deletingCourseId != course._id"></div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="line-separator" *ngIf="editingCourse != null && editingCourse._id === course._id"></div>

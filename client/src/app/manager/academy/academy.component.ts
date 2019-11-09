@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserSessionService } from '../../../services/userSession.service';
 import { AcademySessionService } from '../../../services/academySession.service';
+import { CoursesService } from '../../../services/courses.service';
 import { MessageService } from '../../../services/message.service';
 import { Router, ActivatedRoute } from "@angular/router";
-import { NzNotificationService, NzModalService } from 'ng-zorro-antd';
+import { NzNotificationService } from 'ng-zorro-antd';
 import * as moment from 'moment';
 declare var $: any;
 
@@ -35,13 +36,16 @@ export class AcademyComponent implements OnInit, OnDestroy
     messageServiceSubscription = null
     
     showCreateCourseModal = false
+    deleteMode = false
+    deletingCourseId = null
     
     constructor(private router: Router,
                 private activatedRoute: ActivatedRoute,
                 private userService: UserSessionService,
                 private academyService: AcademySessionService,
                 private notifications: NzNotificationService,
-                private messageService: MessageService)
+                private messageService: MessageService,
+                private courseService: CoursesService)
     {
         
     }
@@ -146,7 +150,6 @@ export class AcademyComponent implements OnInit, OnDestroy
         this.sendingAcademyInfo = true;
         
         let academy = { whyChooseMe: this.academy.whyChooseMe }
-        console.log(academy);
         
         this.academyService.updateAcademy(this.academyId, academy).subscribe(
             res =>
@@ -286,5 +289,39 @@ export class AcademyComponent implements OnInit, OnDestroy
     {
         this.showCreateCourseModal = false;
         this.getAcademy();
+    }
+    
+    onClickDeleteCourse(event)
+    {    
+        event.stopPropagation();
+    }
+    sendDeleteCourse(courseId)
+    {
+        this.deletingCourseId = courseId;
+        
+        this.courseService.deleteCourse(courseId).subscribe(
+            res =>
+            {
+                this.getAcademy();
+                
+                this.notifications.create(
+                  'success',
+                  'Curso eliminado',
+                  null
+                );
+                
+                this.deletingCourseId = null;
+            },
+            err =>
+            {
+                this.notifications.create(
+                  'error',
+                  'No se pudo eliminar el curso',
+                  null
+                );
+                
+                this.deletingCourseId = null;
+            }
+        );
     }
 }
