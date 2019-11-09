@@ -211,6 +211,32 @@
                     flex-direction: row;
                     align-items: center;
                 }
+                .rightItems
+                {
+                    display: flex;
+                    align-items: center;
+                    
+                    .iconRight
+                    {
+                        margin-left: 32px;
+                        padding: 8px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        cursor: pointer;
+                        
+                        .icon
+                        {
+                            opacity: 0.6;
+                            transition: 0.2s all;
+                        }
+                    }
+                    &:hover .iconRight .icon
+                    {
+                        opacity: 1;
+                    }
+                }
+                
                 app-checkbox
                 {
                     margin-right: 16px;
