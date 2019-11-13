@@ -1,4 +1,3 @@
-/// <reference types="@types/googlemaps" />
 import { Component, ViewChild, HostListener, OnInit, OnDestroy } from "@angular/core";
 import { CoursesService } from "../../services/courses.service";
 import { ActivatedRoute } from "@angular/router";
@@ -12,7 +11,7 @@ import { AcademySessionService } from '../../services/academySession.service';
 import { MetaService } from '@ngx-meta/core';
 import * as moment from 'moment';
 
-const MOBILE_WIDTH = 870;
+const MOBILE_WIDTH = 885;
 
 @Component({
   selector: "app-oneCourse",

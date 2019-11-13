@@ -10,7 +10,7 @@ const ORDER_RELEVANCE = 1;
 const ORDER_PRICE_DESCENDING = 2;
 const ORDER_PRICE_ASCENDING = 3;
 
-const MOBILE_WIDTH = 870;
+const MOBILE_WIDTH = 885;
 
 @Component({
   selector: "app-allCourses",
