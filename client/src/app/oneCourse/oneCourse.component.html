@@ -19,7 +19,7 @@
                     <div class="verified" *ngIf="courseObj.course.academy.isVerified"><i class="icon size-9 icon-green-check"></i>VERIFICADA</div>
                 </div>
                 <h1>{{ courseObj.course.title }}</h1>
-                <div class="course-rating">
+                <div class="course-rating" (click)="utils.scrollToElement('#reviews', undefined, 40)">
                     <ngb-rating [(rate)]="reviewsAverage" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
                     <p>{{ courseObj.course.academy.reviews.length }}</p>
                 </div>
