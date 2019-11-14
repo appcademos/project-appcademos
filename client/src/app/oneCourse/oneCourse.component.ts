@@ -1,3 +1,4 @@
+/// <reference types="@types/googlemaps" />
 import { Component, ViewChild, HostListener, OnInit, OnDestroy } from "@angular/core";
 import { CoursesService } from "../../services/courses.service";
 import { ActivatedRoute } from "@angular/router";
