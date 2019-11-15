@@ -1,6 +1,7 @@
 @import '../../sass/abstracts/variables.scss';
 
-.course-link {
+.course-link
+{
   text-decoration: none !important;
   color: inherit;
   outline: none !important;
@@ -10,12 +11,24 @@
       outline: none !important;
   }
 }
-.course-item {
-
-  a {
-    text-decoration: none !important;
-    color: inherit;
-  }
+.course-item
+{
+    padding: 6px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    transition: 0.16s all;
+    
+    a
+    {
+        text-decoration: none !important;
+        color: inherit;
+    }
+    
+    &:hover
+    {
+        border-color: $border-color;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
 }
 
 .course-item-image
@@ -165,4 +178,68 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
+}
+
+.course-goto-button-container
+{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border-radius: 8px;
+    z-index: 2;
+    transition: 0.16s background;
+    
+    .goto-button
+    {
+        color: $red-color;
+        font-weight: 500;
+        font-size: 15px;
+        padding: 4px 12px;
+        border-radius: 20px;
+        background: #fff;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+        margin-top: -32px;
+        opacity: 0;
+        transition: 0.16s opacity, 0.24s margin-top;
+    }
+}
+.course-item:hover .course-goto-button-container
+{
+    background: rgba(72,72,72,0.32);
+    
+    .goto-button
+    {
+        margin-top: 0;
+        opacity: 1;
+    }
+}
+.mobile-course-link
+{
+    display: none;
+}
+
+
+@media (max-width: 580px)
+{
+    .course-item
+    {
+        border-color: transparent !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+    .course-goto-button-container
+    {
+        display: none;
+    }
+    
+    .mobile-course-link
+    {
+        display: block;
+        margin-top: 12px;
+        color: $red-color !important;
+    }
 }
