@@ -5,7 +5,7 @@ import { Router, Event, NavigationEnd, ActivatedRoute } from "@angular/router";
 import { MessageService } from '../../services/message.service';
 import { Subscription } from 'rxjs';
 
-const MOBILE_WIDTH = 870;
+const MOBILE_WIDTH = 885;
 
 @Component({
   selector: "app-header",

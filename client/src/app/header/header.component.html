@@ -32,9 +32,13 @@
                 </div>
                 <div class="separator"></div>
                 <div>
-                    <a class="icon-text" href="https://wa.me/34611626712" target="_blank">
+                    <a class="icon-text" href="https://www.appcademos.com/blog" target="_blank">
+                        <i class="icon size-20 icon-graduation"></i>
+                        <p>Blog: Orientación Post-Universitaria</p>
+                    </a>
+                    <a class="icon-text" href="https://wa.me/34677827178" target="_blank">
                         <i class="icon size-16 icon-whatsapp"></i>
-                        <p>611 626 712</p>
+                        <p>677 827 178</p>
                     </a>
                     <div class="icon-text cursor-pointer noselect" (click)="showLogin = true" *ngIf="user == null">
                         <i class="icon size-16 icon-user"></i>
@@ -57,9 +61,13 @@
             </nav>
 
             <div class="right">
-                <a class="icon-text" href="https://wa.me/34611626712" target="_blank">
+                <a class="icon-text" href="https://www.appcademos.com/blog" target="_blank">
+                    <i class="icon size-20" [ngClass]="{'icon-graduation': !isHome, 'icon-graduation-white': isHome}"></i>
+                    <p>Blog: Orientación Post-Universitaria</p>
+                </a>
+                <a class="icon-text" href="https://wa.me/34677827178" target="_blank">
                     <i class="icon size-16" [ngClass]="{'icon-whatsapp': !isHome, 'icon-whatsapp-white': isHome}"></i>
-                    <p>611 626 712</p>
+                    <p>677 827 178</p>
                 </a>
                 <div class="icon-text cursor-pointer noselect" (click)="showLogin = true" *ngIf="user == null">
                     <i class="icon size-16" [ngClass]="{'icon-user': !isHome, 'icon-user-white': isHome}"></i>

@@ -81,10 +81,11 @@ h2
     }
     .course-rating
     {
-        display: flex;
+        display: inline-flex;
         flex-direction: row;
         align-items: baseline;
         margin-top: 12px;
+        cursor: pointer !important;
 
         p
         {
@@ -100,6 +101,7 @@ h2
             color: rgba(72,72,72,0.24);
             font-size: 17px;
             margin-right: 3px;
+            cursor: pointer !important;
         }
         .full
         {
@@ -909,7 +911,7 @@ h2
         }
     }
 }
-@media (max-width: 870px)
+@media (max-width: 885px)
 {
     #info-box
     {

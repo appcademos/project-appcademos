@@ -32,4 +32,10 @@ export class CookiesBoxComponent implements OnInit
     {
         this.router.navigate(['/cookie-policy']);
     }
+    
+    onClickClose()
+    {
+        localStorage.setItem('cookies', 'true');
+        this.show = false;
+    }
 }

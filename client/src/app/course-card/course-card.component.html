@@ -3,6 +3,9 @@
      <div class="course-item-image" [ngStyle]="{ 'background-image': (course.images != null && course.images.length > 0) ? 'url(' + course.images[0] + ')' : null }">
          <div class="course-tag" *ngIf="course.isBooked">COMPLETO</div>
          <div class="course-video-icon icon-video" *ngIf="course.videoUrl"></div>
+         <div class="course-goto-button-container">
+             <div class="goto-button">Ver este curso</div>
+         </div>
      </div>
 
      <div class="course-body">
@@ -37,6 +40,7 @@
             <div class="price">{{ course.price }}€</div>
         </div>
         
+        <a class="mobile-course-link button small white full-width" [routerLink]="params">Ver este curso</a>
      </div>
    </div>
 </a>

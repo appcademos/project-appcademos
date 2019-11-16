@@ -587,7 +587,7 @@ section#happy-users
                 {
                     transform: rotateY(180deg);
                     
-                    @media (max-width: 870px)
+                    @media (max-width: 885px)
                     {
                         transform: none;
                     }
@@ -647,7 +647,7 @@ section#happy-users
                         font-weight: 500;
                         font-size: 15px;
                         
-                        @media (max-width: 870px)
+                        @media (max-width: 885px)
                         {
                             display: block;
                         }
@@ -699,6 +699,10 @@ section#happy-users
 }
 section#partners
 {
+    h2
+    {
+        margin-bottom: 32px !important;
+    }
     .partners-container
     {
         display: flex;
@@ -706,12 +710,65 @@ section#partners
         justify-content: center;
         align-items: center;
         flex-wrap: wrap;
+        
+        .imageContainer
+        {
+            width: 25%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            @media (max-width: 1072px)
+            {
+                width: 33%;
+            }
+            @media (max-width: 800px)
+            {
+                width: 50%;
+            }
+            @media (max-width: 450px)
+            {
+                width: 100%;
+            }
+        }
 
         img
         {
-            height: 80px;
+            height: 50px;
             width: auto;
-            margin: 0 48px 48px;
+            margin: 32px 48px;
+            
+            &.taller
+            {
+                height: 64px;
+            }
+            &.widthLimitation
+            {
+                height: auto;
+                max-width: 240px;
+            }
+            
+            @media (max-width: 800px)
+            {
+                margin: 32px 24px;
+            }
+            @media (max-width: 550px)
+            {
+                &.widthLimitation
+                {
+                    max-width: 200px;
+                }
+            }
+            @media (max-width: 450px)
+            {
+                height: 56px;
+                margin: 20px 16px;
+                
+                &.taller
+                {
+                    height: 68px;
+                }
+            }
         }
     }
 }
@@ -770,24 +827,6 @@ section#partners
         .picture:nth-child(2)
         {
             margin: 0 48px;
-        }
-    }
-
-    section#partners
-    {
-        .partners-container
-        {
-            margin: 0 24px;
-
-            img
-            {
-                margin-bottom: 40px;
-
-                &:last-child
-                {
-                    margin-bottom: 0;
-                }
-            }
         }
     }
 }
