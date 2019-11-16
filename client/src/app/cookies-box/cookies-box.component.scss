@@ -8,36 +8,44 @@
     border: 1px solid #E2E2E2;
     box-shadow: 0 2px 4px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.12);
     max-width: 600px;
-    padding: 16px 24px;
+    padding: 16px 48px 16px 16px;
     z-index: 4;
     font-weight: 600;
     font-size: 14px;
     line-height: 1.3;
 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
 
     .icon-cookie-monster
     {
         width: 40px;
         height: 40px;
-        margin-bottom: 6px;
+        margin-right: 12px;
+        flex-shrink: 0;
     }
     .icon-container
     {
-        padding: 8px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 12px;
         flex-shrink: 0;
-        margin-top: -6px;
-        margin-left: 16px;
         cursor: pointer;
 
         .icon
         {
             flex-shrink: 0;
-            width: 16px;
-            height: 16px;
-            opacity: 0.8;
+            width: 14px;
+            height: 14px;
+            opacity: 0.6;
+            transition: 0.16s all;
+        }
+        
+        &:hover .icon
+        {
+            opacity: 1;
         }
     }
     .buttons-container
@@ -55,7 +63,7 @@
     }
 }
 
-@media (max-width: 870px)
+@media (max-width: 885px)
 {
     #cookies-box
     {

@@ -298,6 +298,14 @@ input[type="text"]
 {
     background-image: url('../assets/public/images/icons/graduation_green.svg');
 }
+.icon-graduation
+{
+    background-image: url('../assets/public/images/icons/graduation.svg');
+}
+.icon-graduation-white
+{
+    background-image: url('../assets/public/images/icons/graduation_white.svg');
+}
 .icon-intelligence-green
 {
     background-image: url('../assets/public/images/icons/intelligence_green.svg');
@@ -399,7 +407,7 @@ input[type="text"]
 .fs-11 { font-size: 11px; }
 .fs-12 { font-size: 12px; }
 .fs-13 { font-size: 13px; }
-.fs-14 { font-size: 14px; }
+.fs-14 { font-size: 14px !important; }
 .fs-15 { font-size: 15px; }
 .fs-16 { font-size: 16px; }
 .fs-17 { font-size: 17px; }

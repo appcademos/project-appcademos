@@ -1,6 +1,6 @@
 @import '../../sass/abstracts/variables.scss';
 
-$cardsHorizontalSeparation: 16px;
+$cardsHorizontalSeparation: 8px;
 $cardsVerticalSeparation: 36px;
 
 
@@ -183,7 +183,7 @@ $cardsVerticalSeparation: 36px;
     display: flex;
     flex-direction: row;
     align-items: flex-end;
-    padding-bottom: 24px;
+    padding-bottom: 20px;
 
     h1
     {
