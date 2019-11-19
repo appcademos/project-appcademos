@@ -67,12 +67,14 @@
 {
     #cookies-box
     {
-        left: 0;
-        right: 0;
-        bottom: 0;
-        box-shadow: none;
-        border: none;
-        border-top: 1px solid #E2E2E2;
+        left: 12px;
+        right: 12px;
+        bottom: 16px;
         max-width: 100%;
+        
+        &.inCourse
+        {
+            bottom: 100px;
+        }
     }
 }

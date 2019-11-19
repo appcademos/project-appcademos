@@ -38,4 +38,9 @@ export class CookiesBoxComponent implements OnInit
         localStorage.setItem('cookies', 'true');
         this.show = false;
     }
+    
+    isInCoursePage()
+    {
+        return window.location.href.indexOf('/course/') > -1;
+    }
 }

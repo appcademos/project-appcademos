@@ -1,4 +1,4 @@
-<div id="cookies-box" *ngIf="show">
+<div id="cookies-box" *ngIf="show" [ngClass]="{ inCourse: isInCoursePage() }">
     <div class="icon icon-cookie-monster"></div>
     <p>El monstruo de las galletas trabaja en nuestro equipo. Cerrando este mensaje aceptas nuestra <a class="color-green" [routerLink]="['cookie-policy']">Política de cookies</a>.</p>
     <div class="icon-container" (click)="onClickClose()">
