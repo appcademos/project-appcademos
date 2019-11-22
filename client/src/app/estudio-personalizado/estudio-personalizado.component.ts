@@ -11,7 +11,7 @@ export class EstudioPersonalizadoComponent implements OnInit
 
     ngOnInit()
     {
-        if ((window as any).hbspt != undefined)
+        /*if ((window as any).hbspt != undefined)
         {
             (window as any).hbspt.forms.create(
             {
@@ -23,6 +23,6 @@ export class EstudioPersonalizadoComponent implements OnInit
                     document.querySelector('#estudioPersonalizado iframe').setAttribute('data-hj-allow-iframe', '');
                 }
             });
-        }
+        }*/
     }
 }
