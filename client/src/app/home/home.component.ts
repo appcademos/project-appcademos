@@ -27,7 +27,7 @@ export class HomeComponent
     heroHeight: number = undefined;
     igPosts = []
     
-    videoSource = "../../assets/public/videos/typing.mp4";
+    videoSource = "../../assets/public/videos/typing_fast.mp4";
     canPlayVideo = false;
     
     IG_POSTS_IDS = ['BynuXCSC3Ay', 'B0EAJn4CcZi', 'B1ohkcPCc6G']
