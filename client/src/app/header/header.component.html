@@ -89,7 +89,7 @@
             </div>
         </nav>
 
-        <nav id="navbarBottom">
+        <nav id="navbarBottom" *ngIf="!isHome">
             <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'first' }" [class.active]="isLinkActive('first')" (click)="isMobileNavVisible = false; selectedCategory = 'first';">First Certificate</a>
             <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'advanced' }" [class.active]="isLinkActive('advanced')" (click)="isMobileNavVisible = false; selectedCategory = 'advanced';">Advanced</a>
             <a class="nav-link" [routerLink]="['search']" [queryParams]="{ course: 'nivel b1' }" [class.active]="isLinkActive('nivel b1')" (click)="isMobileNavVisible = false; selectedCategory = 'nivel b1';">Inglés General B1</a>
