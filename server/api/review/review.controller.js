@@ -49,17 +49,35 @@ const create = (req, res, next) =>
     });
 };
 
-const update = (req, res, next) => {
-  // Idea: Reviews can't be updated
-  const updates = _.pick(req.body, fields);
+const update = (req, res, next) =>
+{
+    const updates = _.pick(req.body, fields);
 
-  Review.findByIdAndUpdate(req.params.id, updates)
-    .then(review => {
-      res.status(200).json({ message: "Review updated." });
+    Review.findByIdAndUpdate(req.params.id, updates)
+    .then(async (review) =>
+    {
+        if (updates.created_at != null)
+        {
+            review.created_at = updates.created_at;
+            
+            try
+            {
+                let savedReview = await review.save();
+                if (savedReview != null)
+                    res.status(200).json({ message: "Review updated." });
+            }
+            catch(saveErr)
+            {
+                debug(saveErr);
+            }
+        }
+        else
+            res.status(200).json({ message: "Review updated." });
     })
-    .catch(err => {
-      debug(err);
-      res.status(400).json({ message: "Error updating review" });
+    .catch(err =>
+    {
+        debug(err);
+        res.status(400).json({ message: "Error updating review" });
     });
 };
 

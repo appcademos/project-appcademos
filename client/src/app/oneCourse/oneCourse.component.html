@@ -343,11 +343,11 @@
                 <div class="carousel">
                     <div class="review-group" *ngFor="let reviewGroup of reviews; let last = last">
                         <div class="review" *ngFor="let review of reviewGroup">
-                            <div class="initials icon size-44">{{ getNameInitials(review.author.name) }}</div>
+                            <div class="initials icon size-44">{{ getNameInitials(null, review) }}</div>
                             <div>
                                 <div class="top">
                                     <div class="author-container">
-                                        <div class="author">{{ review.author.name || "Anónimo" }}</div>
+                                        <div class="author">{{ (review.author != null) ? (review.author.name || "Anónimo") : ((review.guestName != null) ? review.guestName : "Anónimo") }}</div>
                                         <ngb-rating class="rating" [(rate)]="review.grade" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
                                     </div>
                                     <div class="date">{{ getReviewDate(review.created_at) }}</div>

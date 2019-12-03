@@ -11,7 +11,7 @@ import { environment } from "../environments/environment.prod";
 // LIBRARIES
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
-import { NzNotificationModule, NzModalModule, NzButtonModule, NzSelectModule, NzPopconfirmModule, NZ_I18N, es_ES } from 'ng-zorro-antd';
+import { NzNotificationModule, NzModalModule, NzButtonModule, NzSelectModule, NzPopconfirmModule, NzRateModule, NZ_I18N, es_ES } from 'ng-zorro-antd';
 import { QuillModule } from 'ngx-quill';
 
 // SERVICES
@@ -53,6 +53,7 @@ import { EstudioPersonalizadoComponent } from './estudio-personalizado/estudio-p
 import { ManagerComponent } from './manager/manager/manager.component';
 import { TopBannerComponent } from './top-banner/top-banner.component';
 import { TextArrayEditorComponent } from './manager/_components/text-array-editor/text-array-editor.component';
+import { ReviewEditorComponent } from './manager/_components/review-editor/review-editor.component';
 
 
 export function metaFactory(): MetaLoader
@@ -119,7 +120,8 @@ export function provideConfig() {
       EstudioPersonalizadoComponent,
       ManagerComponent,
       TopBannerComponent,
-      TextArrayEditorComponent
+      TextArrayEditorComponent,
+      ReviewEditorComponent
    ],
 
   imports: [
@@ -140,6 +142,7 @@ export function provideConfig() {
     NzButtonModule,
     NzSelectModule,
     NzPopconfirmModule,
+    NzRateModule,
     QuillModule.forRoot({
         modules: {
             toolbar: [

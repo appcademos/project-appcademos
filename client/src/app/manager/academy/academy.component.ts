@@ -3,6 +3,7 @@ import { UserSessionService } from '../../../services/userSession.service';
 import { AcademySessionService } from '../../../services/academySession.service';
 import { CoursesService } from '../../../services/courses.service';
 import { MessageService } from '../../../services/message.service';
+import { UtilsService } from '../../../services/utils.service';
 import { Router, ActivatedRoute } from "@angular/router";
 import { NzNotificationService } from 'ng-zorro-antd';
 import * as moment from 'moment';
@@ -27,6 +28,9 @@ export class AcademyComponent implements OnInit, OnDestroy
     sendingCategories = false
     categoriesExpanded = false
     
+    reviewsExpanded = false
+    expandedReviewId = null
+    
     editingCourse = null;
     updatedCourses = []
     errorCourses = []
@@ -45,7 +49,8 @@ export class AcademyComponent implements OnInit, OnDestroy
                 private academyService: AcademySessionService,
                 private notifications: NzNotificationService,
                 private messageService: MessageService,
-                private courseService: CoursesService)
+                private courseService: CoursesService,
+                private utils: UtilsService)
     {
         
     }
@@ -119,6 +124,8 @@ export class AcademyComponent implements OnInit, OnDestroy
         .subscribe(
             res =>
             {
+                console.log(res);
+                
                 this.refreshingCategories = false;
                 
                 if (res != null)
@@ -323,5 +330,26 @@ export class AcademyComponent implements OnInit, OnDestroy
                 this.deletingCourseId = null;
             }
         );
+    }
+    
+    onReviewDeleted(review)
+    {        
+        if (review.create)
+        {
+            let index = this.academy.reviews.indexOf(review);
+            this.academy.reviews.splice(index, 1);
+        }
+        else
+            this.getAcademy();
+    }
+    onCreateNewReviewItem()
+    {
+        this.academy.reviews.push(
+        {
+            description: 'Nueva opinión',
+            grade: 0,
+            created_at: this.utils.randomDate().toISOString(),
+            create: true
+        });
     }
 }

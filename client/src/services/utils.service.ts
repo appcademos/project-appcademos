@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 declare var $: any;
+import * as moment from 'moment';
+
+const RANDOM_DATE_START = new Date(2018, 0, 1);
+const RANDOM_DATE_END = new Date();
 
 @Injectable()
 export class UtilsService
@@ -31,5 +35,10 @@ export class UtilsService
         });
         
         return initials;
+    }
+    
+    randomDate()
+    {
+        return moment(new Date(RANDOM_DATE_START.getTime() + Math.random() * (RANDOM_DATE_END.getTime() - RANDOM_DATE_START.getTime())));
     }
 }

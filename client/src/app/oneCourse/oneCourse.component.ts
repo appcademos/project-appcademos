@@ -432,8 +432,19 @@ export class OneCourseComponent implements OnInit, OnDestroy
         this.meta.removeTag('property="og:description"');
     }
     
-    getNameInitials(name)
+    getNameInitials(name, review)
     {
+        if (review != null)
+        {
+            name = (review.author != null) ?
+                    (review.author.lastName != null && review.author.lastName.length > 0) ?
+                        `${review.author.name} ${review.author.lastName}`
+                        :
+                        review.author.name
+                    :
+                    review.guestName;
+        }
+        
         return this.utils.getNameInitials(name);
     }
     getUpdatedDate(date)
