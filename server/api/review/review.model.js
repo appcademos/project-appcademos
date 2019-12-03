@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const reviewSchema = new Schema(
-  {
+{
     title: {
       type: String,
       required: false
@@ -18,10 +18,14 @@ const reviewSchema = new Schema(
       required: true
     },
     author: {
-      required: true,
+      required: false,
       type: Schema.Types.ObjectId,
       ref: "User"
     },
+    guestName: {
+        type: String,
+        required: false
+    }
     // course: {
         //   type: Schema.Types.ObjectId,
         //   ref: "Course",

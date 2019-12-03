@@ -32,6 +32,17 @@ const getOne = (req, res, next) =>
     Academy.findById(req.params.id)
     .select("-password")
     .populate('categories.category')
+    .populate(
+    {
+        path: 'reviews',
+        populate:
+        {
+            path: 'author',
+            model: 'User',
+            select: '-__v -password'
+        },
+        options: { sort: { created_at: -1 } }
+    })
     .then(async (academy) =>
     {
         if (academy != null)
@@ -61,7 +72,18 @@ const getThis = async (req, res, next) =>
     {
         const academy = await Academy.findOne({ user: req.user.id })
                                     .select("-__v")
-                                    .populate('categories.category');
+                                    .populate('categories.category')
+                                    .populate(
+                                    {
+                                        path: 'reviews',
+                                        populate:
+                                        {
+                                            path: 'author',
+                                            model: 'User',
+                                            select: '-__v -password'
+                                        },
+                                        options: { sort: { created_at: -1 } }
+                                    });
         
         if (academy != null)
         {            
@@ -175,11 +197,67 @@ const update = (req, res, next) =>
     });
 };
 
+const createReview = async (req, res, next) =>
+{
+    try
+    {
+        let academy = await Academy.findById(req.params.id);
+        
+        if (academy != null)
+        {
+            const newReview = new Review(req.body);
+            await newReview.save();
+            
+            if (newReview != null)
+            {
+                let reviews = academy.reviews;
+                reviews.push(newReview._id);
+                await Academy.findByIdAndUpdate(req.params.id, { reviews: reviews });
+                
+                // Update the averageRating
+                if (academy.reviews != null)
+                {
+                    let averageRating = 0;
+                    
+                    academy.reviews.forEach((review) =>
+                    {
+                        averageRating += review.grade;
+                    });
+                    
+                    if (averageRating > 0)
+                        averageRating = averageRating / academy.reviews.length;
+                        
+                    Academy.findByIdAndUpdate(req.params.id, { averageRating: averageRating })
+                    .then(acad =>
+                    {
+                        res.status(200).json({ message: "Review created." });
+                    })
+                    .catch((error) =>
+                    {
+                        console.log('ERROR: Could not update averageRating');
+                        
+                        res.status(200).json({ message: "Review created." });
+                    });
+                }
+            }
+            else
+                res.status(400).json({message: "Error creating review"});
+        }
+        else
+            res.status(404).json({message: "Academy not found"});
+    }
+    catch(error)
+    {
+        res.status(400).json({message: "Error creating review"});
+    }
+};
+
 
 module.exports = {
   getAll,
   getOne,
   getThis,
   create,
-  update
+  update,
+  createReview
 };

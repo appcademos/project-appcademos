@@ -43,7 +43,8 @@ userSchema.plugin(require('mongoose-role'),
         student: ['student'],
         academy: ['academy'],
         admin: ['admin'],
-        adminAndAcademy: ['admin', 'academy']
+        adminAndAcademy: ['admin', 'academy'],
+        allRoles: ['admin', 'academy', 'student'],
     }
 });
 

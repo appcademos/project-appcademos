@@ -189,6 +189,8 @@ ng-zorro-antd/notification
 
 ng-zorro-antd/popconfirm
 
+ng-zorro-antd/rate
+
 ng-zorro-antd/select
 
 ng-zorro-antd/tooltip

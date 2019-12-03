@@ -1,0 +1,56 @@
+<div class="reviewEditor" [ngClass]="{ 'expanded': expanded }">
+    <i class="delete" (click)="onClickDelete()">-</i>
+    
+    <div class="header" (click)="onClickExpand()">
+        <div class="textsContainer">
+            <div class="overtitleContainer">
+                <div class="overtitle">{{ formatDate(review.created_at) }}</div>
+                <nz-rate class="small" nzDisabled [ngModel]="review.grade"></nz-rate>
+                <span class="rateCount">({{ review.grade }})</span>
+            </div>
+            <div class="title">{{ review.description }}</div>
+        </div>
+        <i class="icon size-12 icon-arrow-down"></i>
+    </div>
+    <div class="body">
+        <div class="inputContainer rating">
+            <label>Puntuación</label>
+            <nz-rate [(ngModel)]="review.grade"></nz-rate>
+        </div>
+        
+        <div *ngIf="(review.guestName != null && review.guestName.length > 0) || (review.author == null)" class="inputContainer string">
+            <label>Guest name</label>
+            <input class="form-control" [(ngModel)]="review.guestName" />
+        </div>
+        <div *ngIf="(review.author != null && review.author.name != null)" class="inputContainer string">
+            <label>Autor</label>
+            <input disabled class="form-control" [value]="review.author.name + ((review.author.lastName != null && review.author.lastName.length > 0) ? ' ' + review.author.lastName : '')" />
+        </div>
+        
+        <div class="inputContainer date">
+            <label>Fecha creación</label>
+            <input
+                class="form-control"
+                placeholder="DD/MM/YYYY"
+                [ngModel]="formatDate(review.created_at)"
+                (ngModelChange)="onDateChanged($event)"
+            />
+        </div>
+        
+        <div class="inputContainer text">
+            <label>Mensaje</label>
+            <textarea class="form-control" (change)="review.description = $event.target.value">{{ review.description }}</textarea>
+        </div>
+        
+        <div class="buttonsContainer">
+            <button
+                nz-button
+                [nzLoading]="loading"
+                nzType="default"
+                (click)="onClickSave()"
+            >
+                {{ review.create ? 'Crear' : 'Guardar' }}
+            </button>
+        </div>
+    </div>
+</div>
