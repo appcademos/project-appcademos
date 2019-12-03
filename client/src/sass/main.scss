@@ -940,6 +940,20 @@ input[type="text"]
     color: $black-80;
 }
 
+nz-rate.small
+{
+    transform: translate(0, -1px);
+    
+    .ant-rate
+    {
+        font-size: 12px !important;
+    }
+    .ant-rate-star
+    {
+        margin-right: 4px !important;
+    }
+}
+
 
 /***** Quill editor *****/
 quill-editor *

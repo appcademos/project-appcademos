@@ -12,6 +12,7 @@ export class AcademySessionService
 
     constructor(private http: Http) {}
     
+    
     getAcademies()
     {
         return this.http
@@ -36,5 +37,30 @@ export class AcademySessionService
           .put(`${environment.BASEURL}/api/academy/update/${academyId}`, academy, this.options)
           .map(res => res.json())
           .catch(error => Observable.throw(error));
+    }
+    
+    
+    createReview(academyId, review)
+    {
+        return this.http
+          .post(`${environment.BASEURL}/api/academy/${academyId}/review`, review, this.options)
+          .map(res => res.json())
+          .catch(error => Observable.throw(error.json()));
+    }
+
+    updateReview(reviewId, review)
+    {
+          return this.http
+            .put(`${environment.BASEURL}/api/review/${reviewId}`, review, this.options)
+            .map(res => res.json())
+            .catch(error => Observable.throw(error));
+    }
+    
+    deleteReview(reviewId)
+    {
+          return this.http
+            .delete(`${environment.BASEURL}/api/review/${reviewId}`, this.options)
+            .map(res => res.json())
+            .catch(error => Observable.throw(error));
     }
 }

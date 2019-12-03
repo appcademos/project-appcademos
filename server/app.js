@@ -15,7 +15,8 @@ const hashSecret = process.env.HASHCODE;
 const dbURL = process.env.DBURL;
 const cors = require("cors");
 var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
-const Course = require("./api/course/course.model");
+const Review = require("./api/review/review.model");
+var moment = require('moment');
 
 mongoose.Promise = Promise;
 mongoose
@@ -23,6 +24,8 @@ mongoose
 .then(() =>
 {
     debug(`Connected to Mongo at ${dbURL}`);
+    
+    setRandomDatesToReviews();
 })
 .catch(err =>
 {
@@ -123,6 +126,34 @@ require("./routes/routes")(app);
 app.use(function (req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
+
+
+function getRandomDate()
+{
+    const RANDOM_DATE_START = new Date(2018, 0, 1);
+    const RANDOM_DATE_END = new Date();
+    
+    return moment(new Date(RANDOM_DATE_START.getTime() + Math.random() * (RANDOM_DATE_END.getTime() - RANDOM_DATE_START.getTime())));
+}
+async function setRandomDatesToReviews()
+{
+    try
+    {
+        let reviews = await Review.find({});
+        console.log(`${reviews.length} reviews`);
+        
+        reviews.forEach(review =>
+        {
+            let randomDate = getRandomDate();
+            review.created_at = randomDate.toISOString();
+            review.save();
+        });
+    }
+    catch(error)
+    {
+        console.log(error);
+    }
+}
 
 
 module.exports = app;

@@ -109,6 +109,40 @@
             </div>
         </section>
         
+        <section
+            id="academyReviews"
+            class="card-banner"
+            [ngClass]="{ expanded: reviewsExpanded }"
+            *ngIf="user.role == 'admin'"
+        >
+            <div
+                class="titleContainer flex space-between align-items-baseline"
+                (click)="reviewsExpanded = !reviewsExpanded"
+            >
+                <div class="title fw-600 fs-18">Opiniones <span class="color-black-50">· {{ academy.reviews.length }}</span></div>
+                <div class="buttons">
+                    <i class="icon size-14 icon-arrow-down"></i>
+                </div>
+            </div>
+            
+            <div class="content">
+                <app-review-editor
+                    *ngFor="let review of academy.reviews; let j = index"
+                    [review]="review"
+                    [academyId]="academy._id"
+                    [expanded]="expandedReviewId === review._id"
+                    (onExpand)="expandedReviewId = (expandedReviewId === review._id) ? null : review._id"
+                    (onReviewDeleted)="onReviewDeleted($event)"
+                    (onReviewUpdated)="getAcademy()"
+                    (onReviewCreated)="getAcademy()"
+                ></app-review-editor>
+                
+                <div class="newItemContainer" (click)="onCreateNewReviewItem()">
+                    +
+                </div>
+            </div>
+        </section>
+        
         <div id="courses">
             <div class="titleContainer flex space-between align-items-baseline">
                 <div class="title fw-600">Cursos <span class="color-black-50">· {{ academy.courses.length }} {{ (academy.courses.length == 1) ? 'curso' : 'cursos' }}</span></div>
