@@ -123,9 +123,7 @@ export class AcademyComponent implements OnInit, OnDestroy
         this.academyService.getAcademy(this.academyId)
         .subscribe(
             res =>
-            {
-                console.log(res);
-                
+            {                
                 this.refreshingCategories = false;
                 
                 if (res != null)
