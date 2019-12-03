@@ -129,37 +129,4 @@ app.use(function (req, res) {
 });
 
 
-async function setGuestNames()
-{
-    try
-    {
-        let reviews = await Review.find({}).populate('author');
-        let usersToDelete = []
-        
-        reviews.forEach(async (review) =>
-        {
-            if (review.author != null)
-            {
-                let emailParts = review.author.email.replace('.com','').toLowerCase().split('@');
-                                
-                if (emailParts[0] == emailParts[1])
-                {
-                    usersToDelete.push(review.author._id);
-                    review.guestName = review.author.name;
-                    review.author = null;
-                    
-                    await review.save();
-                }
-            }
-        });
-        
-        await User.deleteMany({ _id: usersToDelete });
-    }
-    catch(error)
-    {
-        debug(error);
-    }
-}
-
-
 module.exports = app;
