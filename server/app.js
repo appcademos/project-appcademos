@@ -16,6 +16,7 @@ const dbURL = process.env.DBURL;
 const cors = require("cors");
 var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
 const Review = require("./api/review/review.model");
+const User = require("./api/user/user.model");
 var moment = require('moment');
 
 mongoose.Promise = Promise;
@@ -25,7 +26,7 @@ mongoose
 {
     debug(`Connected to Mongo at ${dbURL}`);
     
-    setRandomDatesToReviews();
+    setGuestNames();
 })
 .catch(err =>
 {
@@ -128,30 +129,35 @@ app.use(function (req, res) {
 });
 
 
-function getRandomDate()
-{
-    const RANDOM_DATE_START = new Date(2018, 0, 1);
-    const RANDOM_DATE_END = new Date();
-    
-    return moment(new Date(RANDOM_DATE_START.getTime() + Math.random() * (RANDOM_DATE_END.getTime() - RANDOM_DATE_START.getTime())));
-}
-async function setRandomDatesToReviews()
+async function setGuestNames()
 {
     try
     {
-        let reviews = await Review.find({});
-        console.log(`${reviews.length} reviews`);
+        let reviews = await Review.find({}).populate('author');
+        let usersToDelete = []
         
-        reviews.forEach(review =>
+        reviews.forEach(async (review) =>
         {
-            let randomDate = getRandomDate();
-            review.created_at = randomDate.toISOString();
-            review.save();
+            if (review.author != null)
+            {
+                let emailParts = review.author.email.replace('.com','').toLowerCase().split('@');
+                                
+                if (emailParts[0] == emailParts[1])
+                {
+                    usersToDelete.push(review.author._id);
+                    review.guestName = review.author.name;
+                    review.author = null;
+                    
+                    await review.save();
+                }
+            }
         });
+        
+        await User.deleteMany({ _id: usersToDelete });
     }
     catch(error)
     {
-        console.log(error);
+        debug(error);
     }
 }
 
