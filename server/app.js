@@ -25,8 +25,6 @@ mongoose
 .then(() =>
 {
     debug(`Connected to Mongo at ${dbURL}`);
-    
-    setGuestNames();
 })
 .catch(err =>
 {

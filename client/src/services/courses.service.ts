@@ -96,7 +96,7 @@ export class CoursesService
     createReview(review)
     {
         return this.http
-          .post(`${environment.BASEURL}/api/review/create`, review, this.options)
+          .post(`${environment.BASEURL}/api/review/`, review, this.options)
           .map(res => res.json())
           .catch(error => Observable.throw(error));
     }
