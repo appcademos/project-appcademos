@@ -1,0 +1,173 @@
+{{!--
+This template is used for the index page.
+It can be used also as the home page or the default page.
+--}}
+
+{{!-- The tag below means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{!< default}}
+
+<div class="main-wrap">
+  {{!-- Special header.hbs partial to generate the <header> tag --}}
+  {{> header background=@site.cover_image}}
+  {{!-- Inject styles of the hero image to make it responsive --}}
+  {{> hero background=@site.cover_image}}
+  <div class="m-hero__content" data-aos="fade-down">
+    <h1 class="m-hero-title bigger">{{@site.title}}</h1>
+    {{#if @site.description}}
+    <p class="m-hero-description bigger">{{@site.description}}</p>
+    {{/if}}
+    {{#if @labs.subscribers}}
+    <a href="{{@site.url}}/subscribe" class="m-button filled">{{t "Subscribe"}}</a>
+    {{/if}}
+  </div>
+  </section>
+  
+  <main>
+    <div class="l-content">
+      <div class="l-wrapper" data-aos="fade-up" data-aos-delay="300">
+        <!--
+        <div class="l-grid centered">
+          {{#get "posts" filter="featured:true" include="authors,tags" limit="5" as |featured|}}
+          {{#if featured}}
+          <div class="m-featured-slider">
+            <div class="m-featured-slider__list js-featured-articles">
+              {{#foreach featured}}
+              <div class="m-featured-slider__list__item">
+                {{#if feature_image}}
+                <article class="m-featured-article">
+                  {{else}}
+                  <article class="m-featured-article no-picture">
+                    {{/if}}
+                    <div class="m-featured-article__picture">
+                      {{#if feature_image}}
+                      <div class="lozad no-fade-animation" data-background-image="{{img_url feature_image size="l"}}"></div>
+                      {{/if}}
+                    </div>
+                    <div class="m-featured-article__meta">
+                      <a href="{{primary_author.url}}" class="m-featured-article__author js-tooltip" aria-label="Authors" data-tippy-content="{{t "Posted by"}} {{primary_author.name}} {{authors autolink="false" from="2" prefix=(t "Among with") separator=" , "}}">
+                        {{#if primary_author.profile_image}}
+                        <div style="background-image: url({{img_url primary_author.profile_image size="xs"}});"></div>
+                        {{else}}
+                        <div style="background-image: url({{asset "images/default-avatar-square-small.jpg"}});"></div>
+                        {{/if}}
+                      </a>
+                      {{#if primary_tag}}
+                      <a href="{{primary_tag.url}}" class="m-featured-article__tag">{{primary_tag.name}}</a>
+                      {{/if}}
+                    </div>
+                    <div class="m-featured-article__ribbon">
+                      <span class="icon-star"></span>
+                      <span>{{t "Featured"}}</span>
+                    </div>
+                    <a href="{{url}}" class="m-featured-article__content">
+                      <h1 class="m-featured-article__title">{{title}}</h1>
+                      <div class="m-featured-article__timestamp">
+                        <span>{{date published_at timeago="true"}}</span>
+                        <span>&bull;</span>
+                        <span>{{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</span>
+                      </div>
+                    </a>
+                  </article>
+              </div>
+              {{/foreach}}
+            </div>
+          </div>
+          {{/if}}
+          {{/get}}
+          {{!-- The tag below iterates over all the posts --}}
+          {{> "loop"}}
+        </div>
+        -->
+        
+        <div class="l-wrapper">
+            <h2>¿Qué quieres aprender hoy?</h2>
+            <br/>
+        </div>
+        
+        <div class="l-grid centered">
+            <article class="m-article-card post" style="height:auto;">
+              <div class="m-article-card__picture lozad" data-background-image="/blog/content/images/size/w2000/2019/08/Dise-o-sin-t-tulo--16---1-.png">
+              <a href="/blog/tag/consejos-trucos-encontrar-trabajo-madrid/" class="m-article-card__picture-link" aria-label="Section"></a>
+            </div>
+              <div class="m-article-card__info" style="height:auto; padding-top:16px;">
+              <a href="/blog/tag/consejos-trucos-encontrar-trabajo-madrid/" class="m-article-card__info-link">
+                <div>
+                  <h2 class="m-article-card__title">Empleo y Desarrollo Profesional</h2>
+                </div>
+              </a>
+            </div>
+            </article>
+
+            <article class="m-article-card post" style="height:auto;">
+              <div class="m-article-card__picture lozad" data-background-image="/blog/content/images/size/w2000/2019/08/Dise-o-sin-t-tulo--17---1-.png">
+              <a href="/blog/tag/trucos-consejos-estudiar-trabajar-extranjero/" class="m-article-card__picture-link" aria-label="Section"></a>
+            </div>
+              <div class="m-article-card__info" style="height:auto; padding-top:16px;">
+              <a href="/blog/tag/trucos-consejos-estudiar-trabajar-extranjero/" class="m-article-card__info-link">
+                <div>
+                  <h2 class="m-article-card__title">Estudiar o Trabajar en el Extranjero</h2>
+                </div>
+              </a>
+            </div>
+            </article>
+
+            <article class="m-article-card post" style="height:auto;">
+          <div class="m-article-card__picture lozad" data-background-image="/blog/content/images/size/w2000/2019/08/Dise-o-sin-t-tulo--18-.png">
+          <a href="/blog/tag/trucos-y-consejos-para-aprender-ingles/" class="m-article-card__picture-link" aria-label="Section"></a>
+        </div>
+          <div class="m-article-card__info" style="height:auto; padding-top:16px;">
+          <a href="/blog/tag/trucos-y-consejos-para-aprender-ingles/" class="m-article-card__info-link">
+            <div>
+              <h2 class="m-article-card__title">El inglés: clave para tu futuro</h2>
+            </div>
+          </a>
+        </div>
+        </article>
+        </div>
+        
+        
+        <div class="l-wrapper">
+            <h2>Queremos que te quedes con nosotros ❤️</h2>
+            <br/>
+        </div>
+        
+        <div class="l-grid centered">
+            <article class="m-article-card post" style="height:auto;">
+                  <div class="m-article-card__picture lozad" data-background-image="https://images.unsplash.com/photo-1536009282123-37ba63756c6b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80">
+                  <a href="https://www.instagram.com/appcademos/" class="m-article-card__picture-link" aria-label="Section"></a>
+                </div>
+                  <div class="m-article-card__info" style="height:auto; padding-top:16px;">
+                  <a href="https://www.instagram.com/appcademos/" class="m-article-card__info-link">
+                    <div>
+                      <h2 class="m-article-card__title">Síguenos en Instagram</h2>
+                    </div>
+                  </a>
+                </div>
+            </article>
+
+            <article class="m-article-card post" style="height:auto;">
+                  <div class="m-article-card__picture lozad" data-background-image="https://scontent-mad1-1.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s640x640/73424572_958686147835740_2210832785414802402_n.jpg?_nc_ht=scontent-mad1-1.cdninstagram.com&_nc_cat=100&oh=0d782cb8dcc65e46da85ac9ae42c9378&oe=5E77BD8A">
+                  <a href="/blog/tag/sobre-nosotros/" class="m-article-card__picture-link" aria-label="Section"></a>
+                </div>
+                  <div class="m-article-card__info" style="height:auto; padding-top:16px;">
+                  <a href="/blog/tag/sobre-nosotros/" class="m-article-card__info-link">
+                    <div>
+                      <h2 class="m-article-card__title">Descubre más sobre nosotros</h2>
+                    </div>
+                  </a>
+                </div>
+            </article>
+        </div>
+        
+      </div>
+      {{!-- Links to Previous/Next posts --}}
+      <!--{{pagination}}-->
+    </div>
+  </main>
+</div>
+
+{{!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs --}}
+{{#contentFor "scripts"}}
+  <script defer src="{{asset "js/home.js"}}"></script>
+{{/contentFor}}
