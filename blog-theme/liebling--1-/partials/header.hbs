@@ -8,11 +8,24 @@ This header template is shared across all the pages.
   <header class="m-header js-header">
 {{/if}}
   <div class="m-mobile-topbar" data-aos="fade-down">
-    <button class="m-icon-button in-mobile-topbar js-open-menu" aria-label="Open menu">
+    <!--<button class="m-icon-button in-mobile-topbar js-open-menu" aria-label="Open menu">
       <span class="icon-menu"></span>
-    </button>
-    {{#if @site.logo}}
-      <a href="{{@site.url}}" class="m-logo in-mobile-topbar">
+  </button>-->
+     
+      {{#if backToStartButton}}
+        {{#if isPostPage}}
+          <a class="backToStartButton in-mobile-topbar" onclick="window.history.back()">
+            <span class="icon-arrow-left"></span>
+            <span> Inicio</span>
+          </a>
+        {{else}}
+            <a href="/blog" class="backToStartButton in-mobile-topbar">
+              <span class="icon-arrow-left"></span>
+              <span> Inicio</span>
+            </a>
+        {{/if}}
+    {{else if @site.logo}}
+      <a href="https://www.appcademos.com" class="m-logo in-mobile-topbar">
         <img src="{{@site.logo}}" alt="{{@site.title}}">
       </a>
     {{else}}
@@ -20,6 +33,7 @@ This header template is shared across all the pages.
         {{@site.title}}
       </a>
     {{/if}}
+    
     <button class="m-icon-button in-mobile-topbar js-open-search" aria-label="Open search">
       <span class="icon-search"></span>
     </button>
@@ -36,9 +50,23 @@ This header template is shared across all the pages.
             <ul role="submenu">
               {{#if @site.logo}}
                 <li class="only-desktop" role="menuitem">
-                  <a href="{{@site.url}}" class="m-logo">
-                    <img src="{{@site.logo}}" alt="{{@site.title}}">
-                  </a>
+                    {{#if backToStartButton}}
+                        {{#if isPostPage}}
+                          <a class="backToStartButton in-mobile-topbar" onclick="window.history.back()">
+                            <span class="icon-arrow-left"></span>
+                            <span> Inicio</span>
+                          </a>
+                        {{else}}
+                            <a href="/blog" class="backToStartButton in-mobile-topbar">
+                              <span class="icon-arrow-left"></span>
+                              <span> Inicio</span>
+                            </a>
+                        {{/if}}
+                    {{else}}
+                      <a href="{{@site.url}}" class="m-logo">
+                        <img src="{{@site.logo}}" alt="{{@site.title}}">
+                      </a>
+                    {{/if}}
                 </li>
                 {{else}}
                 <li class="only-desktop" role="menuitem">
