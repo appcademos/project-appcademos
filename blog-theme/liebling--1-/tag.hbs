@@ -10,13 +10,14 @@ into the {body} of the default.hbs template --}}
   {{!-- Everything inside the #tag tags pulls data from the tag --}}
   {{#tag}}
   {{!-- Special header.hbs partial to generate the <header> tag --}}
-  {{> header background=feature_image}}
+  {{> header background=feature_image backToStartButton=true}}
   {{!-- Inject styles of the hero image to make it responsive --}}
   {{> hero background=feature_image}}
   <div class="m-hero__content" data-aos="fade-down">
     <h1 class="m-hero-title bigger">{{name}}</h1>
     <p class="m-heading__description">
-      {{plural ../pagination.total empty=(t "No posts") singular=(t "1 post") plural=(t "% posts")}} {{t "with this tag"}}
+      <!--{{plural ../pagination.total empty=(t "No posts") singular=(t "1 post") plural=(t "% posts")}} {{t "with this tag"}}-->
+      {{ description }}
     </p>
   </div>
   </section>
