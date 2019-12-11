@@ -85,17 +85,8 @@ body
     margin: 0 0 80px;
     border-radius: 12px;
     min-height: 400px;
-    overflow: hidden;
+    padding-left: 20px;
+    padding-right: 12px;
     
     box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 8px 32px $green-color-32;
-    
-    iframe
-    {
-        outline: none;
-        border: none;
-        width: 100%;
-        min-height: 910px;
-        height: auto;
-        margin-top: -70px;
-    }
 }

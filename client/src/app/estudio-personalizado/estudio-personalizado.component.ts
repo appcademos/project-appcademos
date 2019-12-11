@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-estudio-personalizado',
@@ -7,11 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EstudioPersonalizadoComponent implements OnInit
 {
-    constructor() {}
+    constructor(private location: Location) {  }
 
     ngOnInit()
     {
-        /*if ((window as any).hbspt != undefined)
+        if ((window as any).hbspt != undefined)
         {
             (window as any).hbspt.forms.create(
             {
@@ -21,8 +22,12 @@ export class EstudioPersonalizadoComponent implements OnInit
                 onFormReady: function()
                 {
                     document.querySelector('#estudioPersonalizado iframe').setAttribute('data-hj-allow-iframe', '');
-                }
+                },
+                onFormSubmitted: () =>
+                {
+                    this.location.go(window.location.href + '/formulario-completado');
+                } 
             });
-        }*/
+        }
     }
 }
