@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { NzNotificationService, NzModalService } from 'ng-zorro-antd';
 import { MessageService } from '../../services/message.service';
 import { Subscription } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-checkout',
@@ -47,7 +48,8 @@ export class CheckoutComponent implements OnInit
                 private bookingsService: BookingsService,
                 private notifications: NzNotificationService,
                 private modalService: NzModalService,
-                private messageService: MessageService)
+                private messageService: MessageService,
+                private location: Location)
     {
         
     }
@@ -187,6 +189,8 @@ export class CheckoutComponent implements OnInit
                 nzTitle: 'Reserva confirmada',
                 nzContent: (this.signupCompleted) ? 'Tu cuenta se ha creado correctamente.\nTu plaza ha sido reservada.' : 'Tu plaza ha sido reservada.'
             });
+            
+            this.location.go(window.location.href + '/reserva-confirmada');
         },
         err =>
         {
