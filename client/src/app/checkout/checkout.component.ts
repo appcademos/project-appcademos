@@ -190,7 +190,7 @@ export class CheckoutComponent implements OnInit
                 nzContent: (this.signupCompleted) ? 'Tu cuenta se ha creado correctamente.\nTu plaza ha sido reservada.' : 'Tu plaza ha sido reservada.'
             });
             
-            this.location.go(window.location.href + '/reserva-confirmada');
+            this.location.go(window.location.pathname + window.location.search + '/reserva-confirmada');
         },
         err =>
         {
