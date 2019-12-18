@@ -25,7 +25,7 @@ export class EstudioPersonalizadoComponent implements OnInit
                 },
                 onFormSubmitted: () =>
                 {
-                    this.location.go(window.location.href + '/formulario-completado');
+                    this.location.go(window.location.pathname + '/formulario-completado');
                 } 
             });
         }
