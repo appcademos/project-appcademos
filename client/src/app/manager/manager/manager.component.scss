@@ -196,4 +196,77 @@
             }
         }
     }
+
+    .modal
+    {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 6;
+
+        display: none;
+
+        &.show
+        {
+            display: block;
+        }
+
+        .overlay
+        {
+            background: $black-80;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+        }
+        .icon-close-circle-white
+        {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            z-index: 3;
+        }
+        .cardContainer
+        {
+            position: relative;
+            z-index: 2;
+            background: #fff;
+            padding: 20px 16px 16px;
+            border-radius: 8px;
+            margin: 100px 0;
+            max-height: 80vh;
+            overflow: scroll;
+        }
+        .header
+        {
+            padding-bottom: 12px;
+            
+            .title
+            {
+                font-weight: 600;
+                font-size: 20px;
+            }
+            .titles
+            {
+                overflow: auto;
+                white-space: nowrap;
+                padding: 4px 0;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+
+                &::-webkit-scrollbar
+                {
+                    display: none;
+                }
+            }
+        }
+        .line-separator
+        {
+            margin-bottom: 20px;
+        }
+    }
 }

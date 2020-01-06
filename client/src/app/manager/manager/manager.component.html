@@ -72,6 +72,9 @@
         <section id="academies" class="card-banner notExpandible">
             <div class="titleContainer flex space-between align-items-baseline">
                 <div class="title fw-600 fs-18">Academias <span class="color-black-50" *ngIf="academies.length > 0">· {{ academies.length }}</span></div>
+                <div class="flex buttons">                    
+                    <div class="color-red fs-13 fw-600 cursor-pointer noselect" (click)="showCreateAcademyModal = true">NUEVA</div>
+                </div>
             </div>
             
             <div class="content">
@@ -87,5 +90,25 @@
                 </div>
             </div>
         </section>
+        
+        
+        <div id="createAcademyModal" class="modal" [ngClass]="{'show': showCreateAcademyModal}">
+            <div class="overlay" (click)="showCreateAcademyModal = false"></div>
+
+            <div class="icon size-48 icon-close-circle-white cursor-pointer" (click)="showCreateAcademyModal = false"></div>
+
+            <div class="responsive-container">
+                <div class="cardContainer">
+                    <div class="header">
+                        <div class="title">Nueva academia</div>
+                    </div>
+                    <div class="line-separator"></div>
+                    <app-createAcademyForm
+                        [createMode]="true"
+                        (onAcademyCreated)="onAcademyCreated()"
+                    ></app-createAcademyForm>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

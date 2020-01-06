@@ -30,6 +30,7 @@ import { AllCoursesComponent } from "./allCourses/allCourses.component";
 import { AppComponent } from "./app.component";
 import { CheckoutComponent } from "./checkout/checkout.component";
 import { CreateCourseFormComponent } from "./manager/createCourseForm/createCourseForm.component";
+import { CreateAcademyFormComponent } from "./manager/createAcademyForm/createAcademyForm.component";
 import { FooterComponent } from "./footer/footer.component";
 import { HeaderComponent } from "./header/header.component";
 import { HomeComponent } from "./home/home.component";
@@ -100,6 +101,7 @@ export function provideConfig() {
       AppComponent,
       CheckoutComponent,
       CreateCourseFormComponent,
+      CreateAcademyFormComponent,
       FooterComponent,
       HeaderComponent,
       HomeComponent,
