@@ -132,12 +132,6 @@ export class CreateCourseFormComponent implements OnInit
         
         if (this.createMode)
         {
-            let group = this.filterEmptyStringsArray(this.group);
-            if (group == null || group.length == 0)
-            {
-                allOk = false;
-            }
-            
             let images = this.filterEmptyStringsArray(this.images);
             if (images == null || images.length == 0)
             {
