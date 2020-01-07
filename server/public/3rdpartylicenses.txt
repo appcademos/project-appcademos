@@ -193,6 +193,8 @@ ng-zorro-antd/rate
 
 ng-zorro-antd/select
 
+ng-zorro-antd/switch
+
 ng-zorro-antd/tooltip
 
 ngx-quill

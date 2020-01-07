@@ -24,6 +24,7 @@ export class CreateAcademyFormComponent implements OnInit
     longitude: string;
     district: string;
     city: string;
+    isVerified: boolean = false;
     
     loading = false
 
@@ -224,7 +225,8 @@ export class CreateAcademyFormComponent implements OnInit
                     coordinates: [ parseFloat(this.latitude.trim()), parseFloat(this.longitude.trim()) ]
                 },
                 district: this.district.trim(),
-                city: this.city.trim()
+                city: this.city.trim(),
+                isVerified: this.isVerified
             }
             
             console.log(academyToCreate);
