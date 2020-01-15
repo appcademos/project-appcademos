@@ -1,43 +1,87 @@
 <div id="hero">
     <div class="gradient-overlay"></div>
-    <div class="overlay"></div>
-    <video #videoPlayer class="background-video" [ngClass]="{ 'visible': canPlayVideo }" [src]="videoSource" autoplay playsinline loop muted (canplay)="onCanPlayVideo()" onloadedmetadata="this.muted = true"></video>
+    <div class="overlay"></div>    
     
     <div class="hero-content" [ngStyle]="{ 'padding-top': getTopBannerHeight() }">
-        <div class="hero-text">
-            <h1>Encontramos tu curso y academia de inglés en menos de 12 horas</h1>
-            <p>NO PIERDAS MÁS TIEMPO BUSCANDO EN GOOGLE</p>
-            <div class="button" [routerLink]="['estudio-personalizado']">Pruébalo, es gratis</div>
+        <div class="responsive-container">
+            <div class="hero-text">
+                <h1>Encontramos tu curso y academia de inglés ideal hoy mismo</h1>
+                <p>NO PIERDAS MÁS TIEMPO BUSCANDO EN GOOGLE</p>
+                <div class="button" [routerLink]="['estudio-personalizado']">Pruébalo, es gratis</div>
+            </div>
+            <!--<app-searchbox #searchbox (onSearch)="findCourses($event)" (onFocus)="onFocusSearchbox()"></app-searchbox>-->
         </div>
-        <!--<app-searchbox #searchbox (onSearch)="findCourses($event)" (onFocus)="onFocusSearchbox()"></app-searchbox>-->
     </div>
     <div id="fixed-searchbox" [ngClass]="{'show': showFixedSearchbar}">
         <div class="responsive-container">
             <app-searchbox #fixedsearchbox [fixed]="true" [small]="true" [isHome]="true" (onSearch)="findCourses($event)" (onFocus)="onFocusSearchbox()"></app-searchbox>
-
+        </div>
+    </div>
+    
+    <div class="trusted">
+        <div class="responsive-container">
+            <div class="trustedContainer">
+                <div class="fw-700">EXCELENTE</div>
+                <div>9/10</div>
+                <div class="stars">
+                    <i nz-icon nzType="star" nzTheme="fill"></i>
+                    <i nz-icon nzType="star" nzTheme="fill"></i>
+                    <i nz-icon nzType="star" nzTheme="fill"></i>
+                    <i nz-icon nzType="star" nzTheme="fill"></i>
+                    <i nz-icon nzType="star" nzTheme="fill"></i>
+                </div>
+                <div class="image"></div>
+            </div>
         </div>
     </div>
 </div>
+
 <section id="course-types">
     <div class="responsive-container">
         <div class="course-container">
-            <p class="fs-20 fw-600 text-center">Solo trabajamos con academias que te preparan para los certificados más importantes.</p>
-            <div class="pictures">
-                <div class="picture">
-                    <div class="image"></div>
+            <p class="fs-20 fw-600 text-center">Solo trabajamos con academias que te preparan para los certificados más importantes</p>
+            <div class="imagesContainer">
+                <div class="imageContainer">
+                    <img src="../../assets/public/course-logos/preparar-first-certificate.png" />
                 </div>
-                <div class="picture">
-                    <div class="image"></div>
+                <div class="imageContainer">
+                    <img src="../../assets/public/course-logos/preparar-advanced-certificate.png" />
                 </div>
-                <div class="picture">
-                    <div class="image"></div>
+                <div class="imageContainer">
+                    <img src="../../assets/public/course-logos/preparar-proficiency-certificate.png" />
                 </div>
-                <div class="picture">
-                    <div class="image"></div>
+                <div class="imageContainer">
+                    <img src="../../assets/public/course-logos/logo-aptis.jpg" />
                 </div>
-                <div class="picture">
-                    <div class="image"></div>
+                <div class="imageContainer">
+                    <img src="../../assets/public/course-logos/TOEFL_Logo.png" />
                 </div>
+                <div class="imageContainer">
+                    <img src="../../assets/public/course-logos/IELTS_logo.png" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="help-container">
+    <div class="responsive-container">
+        <h2 class="fs-28">Un grupo de expertos para ayudarte:</h2>
+        <div class="pictures">
+            <div class="picture">
+                <div class="image"></div>
+                <p class="text-center fs-18 fw-600">Carmen</p>
+                <p class="text-center fs-15 fw-500">Course expert</p>
+            </div>
+            <div class="picture">
+                <div class="image"></div>
+                <p class="text-center fs-18 fw-600">Michael</p>
+                <p class="text-center fs-15 fw-500">Grammar expert</p>
+            </div>
+            <div class="picture">
+                <div class="image"></div>
+                <p class="text-center fs-18 fw-600">Anna</p>
+                <p class="text-center fs-15 fw-500">Speaking expert</p>
             </div>
         </div>
     </div>
@@ -47,23 +91,45 @@
     <div class="responsive-container">
         <h2>Hacemos que encontrar tu academia ideal sea fácil</h2>
         <div class="triptic-container">
-            <div class="triptic-item">
-                <div class="icon size-92 icon-red-search-compare"></div>
-                <div class="title">Busca y compara</div>
-                <div class="text color-black-80">Información de todas las academias actualizada a diario y opiniones de otros alumnos.</div>
-            </div>
             <div class="triptic-item" [routerLink]="['estudio-personalizado']">
-                <div class="icon size-92 icon-red-help"></div>
-                <div class="title">Te ayudamos a elegir (si lo necesitas)</div>
-                <div class="text color-black-80">Te enviamos las 2-3 opciones que mejor encajan con lo que buscas.</div>
-                <a [routerLink]="['estudio-personalizado']">Pruébalo, es gratis</a>
+                <div class="icon size-92 icon-red-search-compare">
+                    <div class="number card-banner">1</div>
+                </div>
+                <div class="title">Nos cuentas tus objetivos</div>
             </div>
             <div class="triptic-item">
-                <div class="icon size-92 icon-red-class"></div>
-                <div class="title">Reserva al instante tu clase de prueba <span class="color-red">sin pagar nada</span></div>
-                <div class="text color-black-80">Asiste a clase y decide si continúas.</div>
+                <div class="icon size-92 icon-red-help">
+                    <div class="number card-banner">2</div>
+                </div>
+                <div class="title">Recibes el mismo día toda la información de los 3 cursos mejor valorados</div>
+            </div>
+            <div class="triptic-item">
+                <div class="icon size-92 icon-red-class">
+                    <div class="number card-banner">3</div>
+                </div>
+                <div class="title">Al reservar tienes un <span class="color-red">descuento y una clase gratis</span> para probar</div>
             </div>
         </div>
+    </div>
+</section>
+
+<section id="verified-academies">
+    <div class="responsive-container">
+        <h2><span class="green-dots">+</span>200 cursos de las <span class="color-green">mejores academias</span></h2>
+        <div class="academies">
+            <div class="academy card-banner wideImage">
+                <img src="../../assets/public/images/academies/american_language.png" />
+            </div>
+            <div class="academy card-banner">
+                <img src="../../assets/public/images/academies/ulic.png" />
+            </div>
+            <div class="academy card-banner">
+                <img src="../../assets/public/images/academies/future_house.png" />
+            </div>
+            <div class="academy card-banner">
+                <img src="../../assets/public/images/academies/english_plus.png" />
+            </div>
+        </div>    
     </div>
 </section>
 
@@ -94,53 +160,10 @@
     </div>
 </section>
 
-<section id="verified-academies">
-    <div class="responsive-container">
-        <h2><span class="green-dots">A</span>cademias verificadas por nosotros, <span class="color-green">para ti</span></h2>
-        <p class="text-center fs-18">Nos aseguramos que cumplen nuestros requisitos de calidad:</p>
-        <div class="cards-container">
-            <div class="card-banner">
-                <div class="icon size-18 icon-green-check"></div>
-                <p class="color-green fw-500 fs-18"><span class="fw-700">Visitamos personalmente</span> los centros</p>
-            </div>
-            <div class="card-banner">
-                <div class="icon size-18 icon-green-check"></div>
-                <p class="color-green fw-500 fs-18"><span class="fw-700">Hablamos con alumnos</span> para saber su opinión de la academia</p>
-            </div>
-        </div>
-        
-        <div class="video-container">
-            <p class="fs-20 fw-600 text-center">Así es como verificamos las academias</p>
-            <iframe width="392" height="220" src="https://www.youtube.com/embed/zhTAgj5_C6U?modestbranding=1&showinfo=0&controls=1&autohide=1&rel=0&iv_load_policy=3" frameborder="0" allowfullscreen></iframe>
-        </div>
-    </div>
-</section>
-
-<section id="help-container">
-    <div class="responsive-container">
-        <p class="fs-22 fw-600 text-center">Estamos para ayudarte</p>
-        <div class="pictures">
-            <div class="picture">
-                <div class="image"></div>
-                <p class="text-center fs-18 fw-600">Álvaro Castro</p>
-            </div>
-            <div class="picture">
-                <div class="image"></div>
-                <p class="text-center fs-18 fw-600">Antea Martín</p>
-            </div>
-            <div class="picture">
-                <div class="image"></div>
-                <p class="text-center fs-18 fw-600">Nacho Campomanes</p>
-            </div>
-        </div>
-        <a href="https://www.facebook.com/appcademos" target="_blank" class="button green">Mira lo que dicen de nosotros en Facebook <i class="icon size-14 icon-arrow-right-white"></i></a>
-    </div>
-</section>
-
 <section id="happy-users">
     <div class="background"></div>
     <div class="responsive-container">
-        <h2>Ellos consiguieron su objetivo. <span class="color-red">¿Te unes?</span></h2>
+        <h2>Ellos cumplieron su objetivo. <span class="color-red">¿Te unes?</span></h2>
         <div class="posts-wrapper">
             <a class="profile" href="https://www.instagram.com/appcademos/" target="_blank">
                 <div class="profile-image">
@@ -174,24 +197,36 @@
     </div>
 </section>
 
+<section id="cities">
+    <div class="responsive-container">
+        <h2>Encuentra tu curso ideal en:</h2>
+        <div class="cities">
+            <div class="city madrid noselect"><span class="title">Madrid</span><div class="overlay"></div></div>
+            <div class="city barcelona noselect"><span class="title">Barcelona</span><div class="overlay"></div></div>
+            <div class="city bilbao noselect"><span class="title">Bilbao</span><div class="overlay"></div></div>
+            <div class="city sevilla noselect"><span class="title">Sevilla</span><div class="overlay"></div></div>
+        </div>
+    </div>
+</section>
+
 <section id="partners">
     <div class="responsive-container">
         <h2>Apoyados por</h2>
         <div class="partners-container">
             <div class="imageContainer">
-                <img class="taller" src="../../assets/public/images/partners/tetuan_valley.png" />
-            </div>
-            <div class="imageContainer">
-                <img class="taller" src="../../assets/public/images/partners/club_empresarial_icade.png" />
-            </div>
-            <div class="imageContainer">
-                <img class="taller" src="../../assets/public/images/partners/seklab.png" />
+                <img class="taller" src="../../assets/public/images/partners/ucm.png" />
             </div>
             <div class="imageContainer">
                 <img class="widthLimitation" src="../../assets/public/images/partners/google_startups.png" />
             </div>
             <div class="imageContainer">
-                <img src="../../assets/public/images/partners/la_nave.jpg" />
+                <img src="../../assets/public/images/partners/comillas.svg" />
+            </div>
+            <div class="imageContainer">
+                <img src="../../assets/public/images/partners/uc3m.png" />
+            </div>
+            <div class="imageContainer">
+                <img src="../../assets/public/images/partners/urjc.png" />
             </div>
             <div class="imageContainer">
                 <img src="../../assets/public/images/partners/eoi.png" />
@@ -203,16 +238,22 @@
                 <img src="../../assets/public/images/partners/deusto.png" />
             </div>
             <div class="imageContainer">
-                <img src="../../assets/public/images/partners/comillas.svg" />
+                <img class="widthLimitation" src="../../assets/public/images/partners/camilo.png" />
             </div>
             <div class="imageContainer">
-                <img src="../../assets/public/images/partners/uc3m.png" />
+                <img src="../../assets/public/images/partners/la_nave.jpg" />
+            </div>
+            <div class="imageContainer">
+                <img class="taller" src="../../assets/public/images/partners/club_empresarial_icade.png" />
+            </div>
+            <div class="imageContainer">
+                <img class="taller" src="../../assets/public/images/partners/tetuan_valley.png" />
             </div>
             <div class="imageContainer">
                 <img src="../../assets/public/images/partners/madrid.png" />
             </div>
             <div class="imageContainer">
-                <img class="widthLimitation" src="../../assets/public/images/partners/camilo.png" />
+                <img class="taller" src="../../assets/public/images/partners/seklab.png" />
             </div>
         </div>
     </div>

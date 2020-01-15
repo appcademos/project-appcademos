@@ -21,14 +21,10 @@ export class HomeComponent
 {
     @ViewChild('searchbox') searchboxComponent: SearchboxComponent;
     @ViewChild('fixedsearchbox') fixedSearchboxComponent: SearchboxComponent;
-    @ViewChild('videoPlayer') videoplayer: ElementRef;
 
     showFixedSearchbar: boolean = false;
     heroHeight: number = undefined;
     igPosts = []
-    
-    videoSource = "../../assets/public/videos/typing_fast.mp4";
-    canPlayVideo = false;
     
     IG_POSTS_IDS = ['BynuXCSC3Ay', 'B0EAJn4CcZi', 'B1ohkcPCc6G']
 
@@ -57,12 +53,6 @@ export class HomeComponent
     ngOnDestroy()
     {
         this.removeMetaData();
-    }
-    
-    onCanPlayVideo()
-    {        
-        this.canPlayVideo = true;
-        this.videoplayer.nativeElement.play();
     }
 
     findCourses(query)
