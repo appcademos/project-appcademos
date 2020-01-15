@@ -415,8 +415,8 @@ input[type="text"]
 .fs-19 { font-size: 19px; }
 .fs-20 { font-size: 20px !important; }
 .fs-22 { font-size: 22px; }
-.fs-24 { font-size: 24px; }
-.fs-28 { font-size: 28px; }
+.fs-24 { font-size: 24px !important; }
+.fs-28 { font-size: 28px !important; }
 .fs-32 { font-size: 32px; }
 
 .color-white
@@ -469,7 +469,7 @@ input[type="text"]
 .button
 {
     cursor: pointer;
-    padding: 14px 16px;
+    padding: 14px 20px;
     border-radius: 6px;
     color: white;
     background: $red-color-button;

@@ -29,6 +29,18 @@ footer
         &:last-child
         {
             margin-left: 12px;
+            
+            .text-content .text
+            {
+                @media (max-width: 400px)
+                {
+                    font-size: 22px !important;
+                }
+                @media (max-width: 360px)
+                {
+                    font-size: 18px !important;
+                }
+            }
         }
 
         .icon
