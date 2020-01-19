@@ -13,7 +13,7 @@
                 <div>
                     <div class="flex flex-row align-items-center">
                         <div class="fs-10 fw-600 color-black-60">ACADEMIA {{ course.academy.name.toUpperCase() }}</div>
-                        <div class="verified" *ngIf="course.academy.isVerified"><i class="icon size-7 icon-green-check"></i>VERIFICADA</div>
+                        <div class="verified"><i class="icon size-7 icon-green-check"></i>VERIFICADA</div>
                     </div>
                     <div class="title fs-17 fw-600">{{ course.title }}</div>
                 </div>
@@ -22,11 +22,11 @@
         </div>
     </div>
     
-    <div class="warning-box">
+    <div class="warning-box" *ngIf="isVerifiedCourse">
         <b>Importante:</b> Al cumplimentar este formulario, vas a <span class="fw-600">reservar al instante tu plaza en una clase gratis</span> en la academia <span class="fw-600">{{ course.academy.name }}</span>. Al cumplimentarlo <span class="fw-600">te comprometes a asistir</span>. La academia tiene plazas limitadas y será notificada automáticamente recibiendo tus datos.
     </div>
     
-    <div class="bookingForm">
+    <div class="bookingForm" *ngIf="isVerifiedCourse">
         <div class="card-banner-title fw-600 fs-14 color-black-60">RELLENA TUS DATOS</div>
         <div class="card-banner">
             <div class="form full-width">
@@ -75,7 +75,7 @@
         </div>
     </div>
     
-    <div class="additionalInfo">
+    <div class="additionalInfo" *ngIf="isVerifiedCourse">
         <div class="card-banner-title fw-600 fs-14 color-black-60">INFORMACIÓN ADICIONAL</div>
         <div class="card-banner">
             <div class="title fs-16 fw-600">Antes de ir debes saber</div>
@@ -87,6 +87,20 @@
             <div class="title fs-16 fw-600">Ayuda</div>
             <p>Puedes llamarnos al 677827178 😉</p>
         </div>
+    </div>
+    
+    
+    <div id="requestInfo" *ngIf="!isVerifiedCourse">
+        <div class="card-banner-title fw-600 fs-14 color-black-60">RELLENA TUS DATOS</div>
+        <div class="card-banner">
+            <div id="requestInfoForm"></div>
+        </div>
+    </div>
+    
+    <div id="contactBox" *ngIf="!isVerifiedCourse">
+        <h3>¿Prefieres contactarnos tú?</h3>
+        <p>Habla con uno de nuestros expertos</p>
+        <a nz-button nzType="primary" href="https://wa.me/+34677827178" target="_blank">Abrir Whatsapp</a>
     </div>
 </div>
     
