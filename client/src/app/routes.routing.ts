@@ -16,6 +16,7 @@ export const routes: Routes = [
     { path: "all", component: AllCoursesComponent },
     { path: "search", component: AllCoursesComponent },
     { path: "checkout", component: CheckoutComponent },
+    { path: "pedir-informacion", component: CheckoutComponent },
 
     { path: "course/view", component: OneCourseComponent },
     { path: "course/:id", component: OneCourseComponent },
