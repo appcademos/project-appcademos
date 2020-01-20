@@ -11,7 +11,7 @@
      <div class="course-body">
         <div class="course-academy-container">
             <div class="course-academy fs-13 color-black-50 fw-600">{{ course.academy.name }}</div>
-            <div class="verified" *ngIf="course.academy.isVerified"><i class="icon size-9 icon-green-check"></i>VERIFICADA</div>
+            <div class="verified"><i class="icon size-9 icon-green-check"></i>VERIFICADA</div>
         </div>
 
          <a [routerLink]="['/course/view']" [queryParams]="{id: course._id}">
@@ -28,7 +28,7 @@
             <p>{{ course.academy.address }}</p>
         </div>
 
-        <div class="course-rating">
+        <div class="course-rating" *ngIf="course.academy.isVerified">
             <ngb-rating [(rate)]="average" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
             <p>
                 <span class="average">{{ average | number:'1.0-1' }}</span> ({{ course.academy.reviews.length }})

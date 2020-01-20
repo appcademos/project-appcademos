@@ -11,7 +11,7 @@ import { environment } from "../environments/environment.prod";
 // LIBRARIES
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
-import { NzNotificationModule, NzModalModule, NzButtonModule, NzSelectModule, NzPopconfirmModule, NzRateModule, NzIconModule, NZ_I18N, es_ES } from 'ng-zorro-antd';
+import { NzNotificationModule, NzModalModule, NzButtonModule, NzSelectModule, NzPopconfirmModule, NzRateModule, NzIconModule, NzSwitchModule, NZ_I18N, es_ES } from 'ng-zorro-antd';
 import { QuillModule } from 'ngx-quill';
 import { AbTestsModule } from 'angular-ab-tests';
 
@@ -31,6 +31,7 @@ import { AllCoursesComponent } from "./allCourses/allCourses.component";
 import { AppComponent } from "./app.component";
 import { CheckoutComponent } from "./checkout/checkout.component";
 import { CreateCourseFormComponent } from "./manager/createCourseForm/createCourseForm.component";
+import { CreateAcademyFormComponent } from "./manager/createAcademyForm/createAcademyForm.component";
 import { FooterComponent } from "./footer/footer.component";
 import { HeaderComponent } from "./header/header.component";
 import { HomeComponent } from "./home/home.component";
@@ -101,6 +102,7 @@ export function provideConfig() {
       AppComponent,
       CheckoutComponent,
       CreateCourseFormComponent,
+      CreateAcademyFormComponent,
       FooterComponent,
       HeaderComponent,
       HomeComponent,
@@ -144,6 +146,7 @@ export function provideConfig() {
     NzSelectModule,
     NzPopconfirmModule,
     NzRateModule,
+    NzSwitchModule,
     NzIconModule,
     QuillModule.forRoot({
         modules: {

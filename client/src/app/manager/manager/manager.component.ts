@@ -24,6 +24,8 @@ export class ManagerComponent implements OnInit, OnDestroy
     
     messageServiceSubscription = null
     
+    showCreateAcademyModal = false
+    
     constructor(private router: Router,
                 private userService: UserSessionService,
                 private categoriesService: CategoriesService,
@@ -196,6 +198,12 @@ export class ManagerComponent implements OnInit, OnDestroy
                 );
             }
         );
+    }
+    
+    onAcademyCreated()
+    {
+        this.showCreateAcademyModal = false;
+        this.getAcademies();
     }
     
     logout()

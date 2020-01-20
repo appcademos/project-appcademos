@@ -16,10 +16,14 @@
             <div class="left">
                 <div class="academy">
                     <div class="fs-14 fw-700 color-black-80">ACADEMIA {{ courseObj.course.academy.name.toUpperCase() }}</div>
-                    <div class="verified" *ngIf="courseObj.course.academy.isVerified"><i class="icon size-9 icon-green-check"></i>VERIFICADA</div>
+                    <div class="verified"><i class="icon size-9 icon-green-check"></i>VERIFICADA</div>
                 </div>
                 <h1>{{ courseObj.course.title }}</h1>
-                <div class="course-rating" (click)="utils.scrollToElement('#reviews', undefined, 40)">
+                <div
+                    class="course-rating"
+                    *ngIf="courseObj.course.academy.isVerified"
+                    (click)="utils.scrollToElement('#reviews', undefined, 40)"
+                >
                     <ngb-rating [(rate)]="reviewsAverage" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
                     <p>{{ courseObj.course.academy.reviews.length }}</p>
                 </div>
@@ -67,12 +71,12 @@
                         <div class="title">Nº de horas</div>
                         <div class="text fs-20">{{ courseObj.course.hours }}</div>
                     </div>
-                    <div class="group">
+                    <div class="group" *ngIf="courseObj.course.academy.isVerified">
                         <div class="title">Nº máximo alumnos</div>
                         <div class="text fs-20">{{ courseObj.course.sizeClass }}</div>
                     </div>
                 </div>
-                <div class="col-section">
+                <div class="col-section" *ngIf="courseObj.course.academy.isVerified">
                     <div class="group">
                         <div class="title">Horarios</div>
                         <div class="radio-container" *ngFor="let group of courseObj.course.group; let i = index">
@@ -86,11 +90,15 @@
                         <div class="text">{{ courseObj.course.academy.address }}</div>
                         <div class="color-green fs-13 fw-500 cursor-pointer noselect" (click)="utils.scrollToElement('#location')">Ver mapa</div>
                     </div>
+                    <div class="group" *ngIf="!courseObj.course.academy.isVerified">
+                        <div class="title">Nº máximo alumnos</div>
+                        <div class="text fs-20">{{ courseObj.course.sizeClass }}</div>
+                    </div>
                 </div>
                 
                 <div class="separator"></div>
                 
-                <div class="col-section important">
+                <div class="col-section important" *ngIf="courseObj.course.academy.isVerified">
                     <div class="group">
                         <div class="title">Importante</div>
                         <div class="text">
@@ -103,7 +111,7 @@
                     </div>
                 </div>
                 
-                <div class="separator"></div>
+                <div class="separator" *ngIf="courseObj.course.academy.isVerified"></div>
                 
                 <div class="col-section price">
                     <div class="group">
@@ -114,14 +122,16 @@
                         </div>
                     </div>
                     
-                    <div class="button light-shadow" *ngIf="!courseObj.course.isBooked" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">Reservar clase de prueba gratis</div>
-                    <div class="bookingInfo" *ngIf="!courseObj.course.isBooked">*Sin tarjeta de crédito</div>
+                    <div class="button light-shadow" *ngIf="courseObj.course.academy.isVerified && !courseObj.course.isBooked" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">Reservar clase de prueba gratis</div>
+                    <div class="button light-shadow" *ngIf="!courseObj.course.academy.isVerified && !courseObj.course.isBooked" [routerLink]="['/pedir-informacion']" [queryParams]="{course: courseObj.course._id}">Pedir más info</div>
+                    <div class="bookingInfo" *ngIf="courseObj.course.academy.isVerified && !courseObj.course.isBooked">*Sin tarjeta de crédito</div>
                     
                     <div class="booked label-tag red large" *ngIf="courseObj.course.isBooked">COMPLETO</div>
                     
                     <div class="fixed-button">
-                        <div class="button light-shadow" *ngIf="!courseObj.course.isBooked" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">Reservar clase de prueba gratis</div>
-                        <div class="bookingInfo fixed" *ngIf="!courseObj.course.isBooked">*Sin tarjeta de crédito</div>
+                        <div class="button light-shadow" *ngIf="courseObj.course.academy.isVerified && !courseObj.course.isBooked" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">Reservar clase de prueba gratis</div>
+                        <div class="button light-shadow" *ngIf="!courseObj.course.academy.isVerified && !courseObj.course.isBooked" [routerLink]="['/pedir-informacion']" [queryParams]="{course: courseObj.course._id}">Pedir más info</div>
+                        <div class="bookingInfo fixed" *ngIf="courseObj.course.academy.isVerified && !courseObj.course.isBooked">*Sin tarjeta de crédito</div>
                         
                         <div class="booked label-tag red large" *ngIf="courseObj.course.isBooked">COMPLETO</div>
                     </div>
@@ -276,7 +286,7 @@
                         </div>
                         <div class="sub-section">
                             <div class="title">No sé qué curso de inglés necesito ¿qué puedo hacer?</div>
-                            <p>Si no tienes claro qué curso de inglés necesitas, nosotros podemos ayudarte haciéndote un estudio personalizado de tu perfil. Solo tienes que hablarnos por el chat o por WhatsApp. (la palabra WhatsApp tendría el hipervínculo con el link al WhatsApp, y la palabra aparecerá subrayada y en nuestro color verde)</p>
+                            <p>Si no tienes claro qué curso de inglés necesitas, nosotros podemos ayudarte haciéndote un estudio personalizado de tu perfil. Solo tienes que hablarnos por el chat o por <a href="https://wa.me/34677827178" target="_blank" class="fw-600 color-green">WhatsApp</a>.</p>
                         </div>
                         <div class="sub-section">
                             <div class="title">¿Dónde pago el curso?</div>
@@ -299,7 +309,7 @@
             </div>
         </section>
 
-        <section id="reviews" *ngIf="reviews != null">
+        <section id="reviews" *ngIf="courseObj.course.academy.isVerified && reviews != null && reviews.length > 0">
             <h2>Opiniones verificadas de alumnos</h2>
             <div class="fs-14 fw-500 color-black-60">Solo pueden comentar los estudiantes que se hayan apuntado a esta academia.</div>
             <div class="rating">
