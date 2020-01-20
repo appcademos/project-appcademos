@@ -29,19 +29,6 @@ body
             margin-right: 48px;
         }
     }
-    .subtitle
-    {
-        font-weight: 600;
-        font-size: 18px;
-        margin-bottom: 8px;
-        margin-top: 40px;
-        color: $black-80;
-        
-        @media all and (max-width: 1050px)
-        {
-            margin-top: 0px;
-        }
-    }
     .list
     {
         margin-bottom: 32px;
