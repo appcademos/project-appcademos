@@ -11,8 +11,9 @@ import { environment } from "../environments/environment.prod";
 // LIBRARIES
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
-import { NzNotificationModule, NzModalModule, NzButtonModule, NzSelectModule, NzPopconfirmModule, NzRateModule, NzSwitchModule, NZ_I18N, es_ES } from 'ng-zorro-antd';
+import { NzNotificationModule, NzModalModule, NzButtonModule, NzSelectModule, NzPopconfirmModule, NzRateModule, NzIconModule, NzSwitchModule, NZ_I18N, es_ES } from 'ng-zorro-antd';
 import { QuillModule } from 'ngx-quill';
+import { AbTestsModule } from 'angular-ab-tests';
 
 // SERVICES
 import { AcademySessionService } from "../services/academySession.service";
@@ -146,6 +147,7 @@ export function provideConfig() {
     NzPopconfirmModule,
     NzRateModule,
     NzSwitchModule,
+    NzIconModule,
     QuillModule.forRoot({
         modules: {
             toolbar: [
@@ -162,7 +164,14 @@ export function provideConfig() {
                 ['link']                                            // link
             ]
         }
-    })
+    }),
+    AbTestsModule.forRoot([
+      {
+        versions: [ 'A', 'B' ],
+        versionForCrawlers: 'A',
+        expiration: 30
+      },
+    ])
   ],
   providers: [
     AcademySessionService,
@@ -179,6 +188,7 @@ export function provideConfig() {
     { provide: NZ_I18N, useValue: es_ES },
     CategoriesService
   ],
+  exports: [ AbTestsModule ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
