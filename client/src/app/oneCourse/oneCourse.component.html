@@ -309,7 +309,7 @@
             </div>
         </section>
 
-        <section id="reviews" *ngIf="courseObj.course.academy.isVerified && reviews != null">
+        <section id="reviews" *ngIf="courseObj.course.academy.isVerified && reviews != null && reviews.length > 0">
             <h2>Opiniones verificadas de alumnos</h2>
             <div class="fs-14 fw-500 color-black-60">Solo pueden comentar los estudiantes que se hayan apuntado a esta academia.</div>
             <div class="rating">
