@@ -142,6 +142,37 @@
     }
 }
 
+#requestInfo
+{
+    margin-bottom: 48px;
+    
+    #requestInfoForm
+    {
+        padding: 20px 20px 0;
+    }
+}
+
+#contactBox
+{
+    margin-bottom: 80px;
+    
+    p
+    {
+        margin: 8px 0 20px;
+    }
+    a
+    {
+        color: #fff;
+        background-color: $green-color;
+        border-color: $green-color;
+        
+        &:hover
+        {
+            background-color: $green-color-button-hover;
+        }
+    }
+}
+
 .additionalInfo
 {
     margin-top: 32px;

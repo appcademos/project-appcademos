@@ -1,143 +1,83 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { CoursesService } from '../../../services/courses.service';
-import { CategoriesService } from '../../../services/categories.service';
+import { AcademySessionService } from '../../../services/academySession.service';
 import { Router } from "@angular/router";
 import * as moment from 'moment';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzNotificationService } from 'ng-zorro-antd';
 
 @Component({
-  selector: 'app-createCourseForm',
-  templateUrl: './createCourseForm.component.html',
-  styleUrls: ['./createCourseForm.component.scss']
+  selector: 'app-createAcademyForm',
+  templateUrl: './createAcademyForm.component.html',
+  styleUrls: ['./createAcademyForm.component.scss']
 })
-export class CreateCourseFormComponent implements OnInit
-{
-    @Input() course: any;
-    @Input() courses: any;
+export class CreateAcademyFormComponent implements OnInit
+{    
+    @Input() academy: any;
     @Input() createMode: any;
-    @Input() academyId: string;
     
-    @Output() onCourseUpdated: EventEmitter<any> = new EventEmitter();
-    @Output() onCourseError: EventEmitter<any> = new EventEmitter();
-    @Output() onCoursesUpdated: EventEmitter<any> = new EventEmitter();
-    @Output() onCourseCreated: EventEmitter<any> = new EventEmitter();
+    @Output() onAcademyError: EventEmitter<any> = new EventEmitter();
+    @Output() onAcademyCreated: EventEmitter<any> = new EventEmitter();
 
-    mainButtonText: string;
-
-    price: Number;
-    duration: String;
-    oldPrice: Number;
-    title: String;
-    hours: Number;
-    weekClasses: Number;
-    startDate: String;
-    isBooked: boolean;
-    videoUrl: String;
-    sizeClass: Number;
-    description: String;
-    tags: [String];
-    categoryId: String;
-    group = []
-    images = []
-
-    numCoursesUpdated = 0;
+    name: string;
+    address: string;
+    latitude: string;
+    longitude: string;
+    district: string;
+    city: string;
+    isVerified: boolean = false;
     
-    categories = null;
+    loading = false
 
     constructor(public router: Router,
-                private courseService: CoursesService,
-                private categoriesService: CategoriesService,
+                private academyService: AcademySessionService,
                 private notifications: NzNotificationService) { }
 
     ngOnInit()
     {
-        if (this.course)
-        {             
-            this.title      = this.course.title;
-            this.duration   = this.course.duration;
-            this.hours      = this.course.hours;
-            this.group      = this.course.group;
-            this.weekClasses = this.course.weekclasses;
-            this.price      = this.course.price;
-            this.oldPrice   = this.course.oldPrice;
-            this.startDate  = moment(this.course.startDate).format('DD/MM/YYYY');
-            this.isBooked   = this.course.isBooked ? this.course.isBooked : false;
-            this.videoUrl   = this.course.videoUrl;
-            this.categoryId = this.course.category._id;
-            this.group      = this.course.group;
-            this.images     = this.course.images;
-            this.sizeClass  = this.course.sizeClass;
-        }
-        else
-        {
-            this.isBooked = false;
-        }
         
-        this.getCategories();
     }
     
-    onChangeIsBooked(checked)
-    {
-        this.isBooked = checked;
-    }
     onPressMainButton()
     {
         if (this.createMode)
         {
-            this.createCourse();
+            this.createAcademy();
         }
         else
         {
-            this.updateCourse();
+            //this.updateCourse();
         }
     }
 
-    validateCourse()
+    validateAcademy()
     {
         var allOk = true;
 
-        if (this.title == null || this.title.length == 0)
+        if (this.name == null || this.name.trim().length == 0)
         {
             allOk = false;
         }
-        if (this.duration == null || this.duration.length == 0)
+        if (this.address == null || this.address.trim().length == 0)
         {
             allOk = false;
         }
-        if (this.hours == null || (this.hours + '').length == 0)
+        if (this.latitude == null || this.latitude.trim().length == 0)
         {
             allOk = false;
         }
-        if (this.weekClasses == null || (this.weekClasses + '').length == 0)
+        if (this.longitude == null || this.longitude.trim().length == 0)
         {
             allOk = false;
         }
-        if (this.price == null || (this.price + '').length == 0)
+        if (this.district == null || this.district.trim().length == 0)
         {
             allOk = false;
         }
-        if (this.startDate == null || this.startDate.length == 0 || !(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/).test('' + this.startDate))
-        {
-            allOk = false;
-        }
-        if (this.categoryId == null || this.categoryId.length == 0)
-        {
-            allOk = false;
-        }
-        if (this.sizeClass == null || (this.sizeClass + '').length == 0)
+        if (this.city == null || this.city.trim().length == 0)
         {
             allOk = false;
         }
         
-        if (this.createMode)
-        {
-            let images = this.filterEmptyStringsArray(this.images);
-            if (images == null || images.length == 0)
-            {
-                allOk = false;
-            }
-        }
 
         if (!allOk)
         {
@@ -150,14 +90,15 @@ export class CreateCourseFormComponent implements OnInit
 
         return allOk;
     }
+    /*
     updateCourse()
     {
         if (this.courses != null && this.courses.length > 1)
         {
             var courseDataToUpdate: any = {}
 
-            if (this.title != null && this.title.trim().length > 0)
-                courseDataToUpdate.title = this.title.trim();
+            if (this.name != null && this.name.trim().length > 0)
+                courseDataToUpdate.name = this.name.trim();
 
             if (this.duration != null && this.duration.trim().length > 0)
                 courseDataToUpdate.duration = this.duration.trim();
@@ -232,11 +173,11 @@ export class CreateCourseFormComponent implements OnInit
         }
         else
         {
-            if (this.validateCourse())
+            if (this.validateAcademy())
             {
                 var courseToUpdate =
                 {
-                    title: this.title,
+                    name: this.name,
                     duration: this.duration,
                     hours: this.hours,
                     weekclasses: this.weekClasses,
@@ -270,49 +211,52 @@ export class CreateCourseFormComponent implements OnInit
             }
         }
     }
-    createCourse()
+    */
+    createAcademy()
     {
-        if (this.validateCourse())
+        if (this.validateAcademy())
         {
-            var courseToCreate =
+            var academyToCreate =
             {
-                title: this.title,
-                duration: this.duration,
-                hours: this.hours,
-                weekclasses: this.weekClasses,
-                price: this.price,
-                oldPrice: this.oldPrice,
-                startDate: moment(this.startDate + '', 'DD/MM/YYYY').toISOString(),
-                isBooked: this.isBooked,
-                videoUrl: (this.videoUrl != null && this.videoUrl.trim().length > 0) ? this.videoUrl : null,
-                category: this.categoryId,
-                group: this.filterEmptyStringsArray(this.group),
-                images: this.filterEmptyStringsArray(this.images),
-                sizeClass: this.sizeClass,
-                academy: this.academyId
+                name: this.name.trim(),
+                address: this.address.trim(),
+                location:
+                {
+                    coordinates: [ parseFloat(this.latitude.trim()), parseFloat(this.longitude.trim()) ]
+                },
+                district: this.district.trim(),
+                city: this.city.trim(),
+                isVerified: this.isVerified
             }
             
-            console.log(courseToCreate);
+            console.log(academyToCreate);
 
-            this.courseService.createCourse(courseToCreate)
+            this.loading = true
+
+            this.academyService.createAcademy(academyToCreate)
             .subscribe(res =>
             {
-                this.onCourseCreated.emit();
-                this.showCourseCreatedSuccessNotification();
+                this.loading = false
+                
+                this.onAcademyCreated.emit();
+                this.showAcademyCreatedSuccessNotification();
                 
                 console.log(res);
             },
             error =>
             {
-                console.log(error);
+                this.loading = false
 
-                this.showCourseCreatedErrorNotification();
+                this.showAcademyCreatedErrorNotification();
+                
+                console.log(error);
             });
         }
     }
+    /*
     resetCourseData()
     {
-        this.title      = undefined;
+        this.name      = undefined;
         this.duration   = undefined;
         this.hours      = undefined;
         this.price      = undefined;
@@ -326,37 +270,18 @@ export class CreateCourseFormComponent implements OnInit
         this.images     = []
     }
     
-    getCategories()
-    {        
-        this.categoriesService.getCategories()
-        .subscribe(
-            res =>
-            {                
-                this.categories = res;
-            },
-            err =>
-            {
-                console.log(err);
-                this.notifications.create(
-                  'error',
-                  'Error',
-                  'No se han podido obtener las categorías.'
-                );
-            }
-        );
-    }
     
     showCourseUpdatedSuccessNotification()
     {
         this.notifications.create(
           'success',
           'Curso actualizado',
-          `El curso "${this.course.title}" ha sido actualizado`
+          `El curso "${this.course.name}" ha sido actualizado`
         );
     }
     showCourseUpdatedErrorNotification(course?)
     {
-        let message = (course != null) ? `El curso "${course.title}" no ha podido actualizarse` : 'El curso no ha podido actualizarse';
+        let message = (course != null) ? `El curso "${course.name}" no ha podido actualizarse` : 'El curso no ha podido actualizarse';
         
         this.notifications.create(
           'error',
@@ -364,21 +289,22 @@ export class CreateCourseFormComponent implements OnInit
           message
         );
     }
+    */
     
-    showCourseCreatedSuccessNotification()
+    showAcademyCreatedSuccessNotification()
     {
         this.notifications.create(
           'success',
           'Curso creado',
-          `El curso "${this.title}" ha sido creado`
+          `La academia "${this.name}" ha sido creada`
         );
     }
-    showCourseCreatedErrorNotification()
+    showAcademyCreatedErrorNotification()
     {        
         this.notifications.create(
           'error',
           'Error',
-           `El curso "${this.title}" no ha podido crearse`
+           `La academia "${this.name}" no ha podido crearse`
         );
     }
     

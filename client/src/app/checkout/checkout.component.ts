@@ -41,6 +41,8 @@ export class CheckoutComponent implements OnInit
     
     password: String;
     repeatPassword: String;
+    
+    isVerifiedCourse: boolean = false;
 
     constructor(private courseservice: CoursesService,
                 private activatedRoute: ActivatedRoute,
@@ -65,6 +67,10 @@ export class CheckoutComponent implements OnInit
                 {
                     this.course = res.course;
                     this.startDateFormatted = moment(this.course.startDate).locale("es").format("dddd D MMMM");
+                    this.isVerifiedCourse = this.course.academy.isVerified;
+                    
+                    if (!this.isVerifiedCourse)
+                        this.setHubspotForm();
                     
                     this.userService.isLoggedIn().subscribe(user =>
                     {
@@ -284,5 +290,26 @@ export class CheckoutComponent implements OnInit
                 reject();
             });
         });
+    }
+    
+    setHubspotForm()
+    {
+        if ((window as any).hbspt != undefined)
+        {
+            (window as any).hbspt.forms.create(
+            {
+                portalId: "4604246",
+                formId: "2f790db1-6758-4611-9631-1cc6a5abfea4",
+                target: "#requestInfoForm",
+                onFormReady: function()
+                {
+                    document.querySelector('#estudioPersonalizado iframe').setAttribute('data-hj-allow-iframe', '');
+                },
+                onFormSubmitted: () =>
+                {
+                    this.location.go(window.location.pathname + '/formulario-completado');
+                } 
+            });
+        }
     }
 }

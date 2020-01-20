@@ -1,0 +1,48 @@
+.form-group-container
+{
+    display: flex;
+
+    .form-group
+    {
+        flex: 1;
+        
+        label
+        {
+            display: block;
+        }
+
+        &:first-child
+        {
+            margin-right: 8px;
+        }
+        &:last-child
+        {
+            margin-left: 8px;
+        }
+        
+        .checkboxContainer
+        {
+            height: 38px;
+            display: flex;
+            align-items: center;
+        }
+        
+        nz-select
+        {
+            width: 100%;
+        }
+        .ant-select-lg .ant-select-selection--single
+        {
+            height: 38px;
+        }
+        .ant-select-lg .ant-select-selection__rendered
+        {
+            line-height: 36px;
+        }
+    }
+}
+
+button
+{
+    margin-top: 20px;
+}

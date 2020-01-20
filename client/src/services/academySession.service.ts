@@ -30,6 +30,14 @@ export class AcademySessionService
             .map(res => res.json())
             .catch(error => Observable.throw(error));
     }
+    
+    createAcademy(academy)
+    {
+        return this.http
+          .post(`${environment.BASEURL}/api/academy`, academy, this.options)
+          .map(res => res.json())
+          .catch(error => Observable.throw(error));
+    }
 
     updateAcademy(academyId, academy)
     {

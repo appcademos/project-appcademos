@@ -267,7 +267,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
     {
         const warningTags = ['b1', 'b2', 'c1']
         
-        if (warningTags.includes(this.courseObj.course.category.name.toLowerCase()))
+        if (this.courseObj.course.academy.isVerified && warningTags.includes(this.courseObj.course.category.name.toLowerCase()))
             this.showWarningbox = true;
     }
 

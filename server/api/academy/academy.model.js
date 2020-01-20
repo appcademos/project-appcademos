@@ -5,7 +5,7 @@ const academySchema = new Schema(
 {
     name: { type: String, required: true },
     user: { type: Schema.Types.ObjectId, ref: "User", default: null },
-    address: { type: String, required: true },
+    address: { type: String, required: false, default: null },
     whyChooseMe: String,
     images: [
         {imagePath: String},
