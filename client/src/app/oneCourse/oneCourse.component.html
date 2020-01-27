@@ -21,7 +21,7 @@
                 <h1>{{ courseObj.course.title }}</h1>
                 <div
                     class="course-rating"
-                    *ngIf="courseObj.course.academy.isVerified"
+                    *ngIf="courseObj.course.academy.isVerified && courseObj.course.academy.reviews.length > 0"
                     (click)="utils.scrollToElement('#reviews', undefined, 40)"
                 >
                     <ngb-rating [(rate)]="reviewsAverage" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
