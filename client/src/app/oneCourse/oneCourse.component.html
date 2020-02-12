@@ -71,7 +71,7 @@
                         <div class="title">Nº de horas</div>
                         <div class="text fs-20">{{ courseObj.course.hours }}</div>
                     </div>
-                    <div class="group" *ngIf="courseObj.course.academy.isVerified">
+                    <div class="group" *ngIf="courseObj.course.academy.isVerified && courseObj.course.sizeClass">
                         <div class="title">Nº máximo alumnos</div>
                         <div class="text fs-20">{{ courseObj.course.sizeClass }}</div>
                     </div>
@@ -90,7 +90,7 @@
                         <div class="text">{{ courseObj.course.academy.address }}</div>
                         <div class="color-green fs-13 fw-500 cursor-pointer noselect" (click)="utils.scrollToElement('#location')">Ver mapa</div>
                     </div>
-                    <div class="group" *ngIf="!courseObj.course.academy.isVerified">
+                    <div class="group" *ngIf="!courseObj.course.academy.isVerified && courseObj.course.sizeClass">
                         <div class="title">Nº máximo alumnos</div>
                         <div class="text fs-20">{{ courseObj.course.sizeClass }}</div>
                     </div>
@@ -123,14 +123,14 @@
                     </div>
                     
                     <div class="button light-shadow" *ngIf="courseObj.course.academy.isVerified && !courseObj.course.isBooked" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">Reservar clase de prueba gratis</div>
-                    <div class="button light-shadow" *ngIf="!courseObj.course.academy.isVerified && !courseObj.course.isBooked" [routerLink]="['/pedir-informacion']" [queryParams]="{course: courseObj.course._id}">Pedir más info</div>
+                    <div class="button light-shadow" *ngIf="!courseObj.course.academy.isVerified && !courseObj.course.isBooked" [routerLink]="['/pedir-informacion']" [queryParams]="{course: courseObj.course._id}">Pedir más información</div>
                     <div class="bookingInfo" *ngIf="courseObj.course.academy.isVerified && !courseObj.course.isBooked">*Sin tarjeta de crédito</div>
                     
                     <div class="booked label-tag red large" *ngIf="courseObj.course.isBooked">COMPLETO</div>
                     
                     <div class="fixed-button">
                         <div class="button light-shadow" *ngIf="courseObj.course.academy.isVerified && !courseObj.course.isBooked" [routerLink]="['/checkout']" [queryParams]="{course: courseObj.course._id}">Reservar clase de prueba gratis</div>
-                        <div class="button light-shadow" *ngIf="!courseObj.course.academy.isVerified && !courseObj.course.isBooked" [routerLink]="['/pedir-informacion']" [queryParams]="{course: courseObj.course._id}">Pedir más info</div>
+                        <div class="button light-shadow" *ngIf="!courseObj.course.academy.isVerified && !courseObj.course.isBooked" [routerLink]="['/pedir-informacion']" [queryParams]="{course: courseObj.course._id}">Pedir más información</div>
                         <div class="bookingInfo fixed" *ngIf="courseObj.course.academy.isVerified && !courseObj.course.isBooked">*Sin tarjeta de crédito</div>
                         
                         <div class="booked label-tag red large" *ngIf="courseObj.course.isBooked">COMPLETO</div>

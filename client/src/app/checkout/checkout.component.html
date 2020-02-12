@@ -1,5 +1,5 @@
 <div class="bookingContainer responsive-container" *ngIf="course != null">
-    <h1>Reserva de curso</h1>
+    <h1>{{ isVerifiedCourse ? 'Reserva de curso' : 'Pedir información' }}</h1>
     
     <div class="courseBanner">
         <div class="card-banner-title fw-600 fs-14 color-black-60">CURSO ELEGIDO</div>
