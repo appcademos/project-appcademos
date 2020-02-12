@@ -1,3 +1,4 @@
+
 <div id="hero">
     <div class="gradient-overlay"></div>
     <div class="overlay"></div>    
@@ -5,11 +6,39 @@
     <div class="hero-content" [ngStyle]="{ 'padding-top': getTopBannerHeight() }">
         <div class="responsive-container">
             <div class="hero-text">
-                <h1>Te enviamos el mejor curso de inglés cerca de ti con descuento</h1>
-                <p>EL MISMO CURSO, MÁS BARATO</p>
-                <div class="button" [routerLink]="['estudio-personalizado']">Quiero mi curso</div>
+                
+                
+                <div class="home-box">
+                    <h1>Compara los mejores cursos de inglés cerca de ti</h1>
+                    <div class="card-container" >
+                        
+                        <div class="card">
+                            <h3>Reserva tu plaza con descuentos exclusivos de hasta el 30%</h3>
+                            <div>
+                                <div class="input-container">
+                                    <input
+                                        type="text"
+                                        name="cp"
+                                        placeholder="Escribe tu dirección correo postal"
+                                    >
+                                </div>
+                                <div class="input-container">
+                                    <app-searchbox #searchbox (onSearch)="findCourses($event)" (onFocus)="onFocusSearchbox()"></app-searchbox>
+                                </div>
+                            </div>
+                        
+                        </div>
+                    </div>
+                </div>
+
+
+                    <!--<div class="row">
+                        <div class="col-sm">
+                            <app-searchbox #searchbox (onSearch)="findCourses($event)" (onFocus)="onFocusSearchbox()"></app-searchbox>
+                        </div>
+                    </div>-->
+
             </div>
-            <!--<app-searchbox #searchbox (onSearch)="findCourses($event)" (onFocus)="onFocusSearchbox()"></app-searchbox>-->
         </div>
     </div>
     <div id="fixed-searchbox" [ngClass]="{'show': showFixedSearchbar}">
@@ -35,6 +64,75 @@
         </div>
     </div>
 </div>
+
+<section id="verified-academies">
+    <div class="responsive-container">
+        <h2><span class="green-dots">+</span>200 cursos de las <span class="color-green">mejores academias</span></h2>
+        <div class="academies">
+            <div class="academy card-banner wideImage">
+                <img src="../../assets/public/images/academies/american_language.png" />
+            </div>
+            <div class="academy card-banner">
+                <img src="../../assets/public/images/academies/ulic.png" />
+            </div>
+            <div class="academy card-banner">
+                <img src="../../assets/public/images/academies/future_house.png" />
+            </div>
+            <div class="academy card-banner">
+                <img src="../../assets/public/images/academies/english_plus.png" />
+            </div>
+        </div>    
+    </div>
+</section>
+
+<section id="triptic">
+    <div class="responsive-container">
+        <h2>Beneficios de reservar tu plaza a través de Appcademos</h2>
+        <div class="triptic-container">
+            <div class="triptic-item" [routerLink]="['estudio-personalizado']">
+                <div class="icon size-92 icon-red-search-compare">
+                    <div class="number card-banner">1</div>
+                </div>
+                <div class="title">Descuentos de hasta el 30%</div><div>Precios más bajos que reservando en la academia</div>
+            </div>
+            <div class="triptic-item">
+                <div class="icon size-92 icon-red-help">
+                    <div class="number card-banner">2</div>
+                </div>
+                <div class="title">Clase de prueba gratis</div>
+            </div>
+            <div class="triptic-item">
+                <div class="icon size-92 icon-red-class">
+                    <div class="number card-banner">3</div>
+                </div>
+                <div class="title">Asistencia personalizada por un experto</div><div>Te ayudamos a elegir si lo necesitas</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="help-container">
+    <div class="responsive-container">
+        <h2 class="fs-28">Un grupo de expertos para ayudarte:</h2>
+        <div class="pictures">
+            <div class="picture">
+                <div class="image"></div>
+                <p class="text-center fs-18 fw-600">Alvaro</p>
+                <p class="text-center fs-15 fw-500">Course expert</p>
+            </div>
+            <div class="picture">
+                <div class="image"></div>
+                <p class="text-center fs-18 fw-600">Michael</p>
+                <p class="text-center fs-15 fw-500">Grammar expert</p>
+            </div>
+            <div class="picture">
+                <div class="image"></div>
+                <p class="text-center fs-18 fw-600">Anna</p>
+                <p class="text-center fs-15 fw-500">Speaking expert</p>
+            </div>
+        </div>
+    </div>
+</section>
 
 <section id="course-types">
     <div class="responsive-container">
@@ -64,76 +162,7 @@
     </div>
 </section>
 
-<section id="help-container">
-    <div class="responsive-container">
-        <h2 class="fs-28">Un grupo de expertos para ayudarte:</h2>
-        <div class="pictures">
-            <div class="picture">
-                <div class="image"></div>
-                <p class="text-center fs-18 fw-600">Alvaro</p>
-                <p class="text-center fs-15 fw-500">Course expert</p>
-            </div>
-            <div class="picture">
-                <div class="image"></div>
-                <p class="text-center fs-18 fw-600">Michael</p>
-                <p class="text-center fs-15 fw-500">Grammar expert</p>
-            </div>
-            <div class="picture">
-                <div class="image"></div>
-                <p class="text-center fs-18 fw-600">Anna</p>
-                <p class="text-center fs-15 fw-500">Speaking expert</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="triptic">
-    <div class="responsive-container">
-        <h2>Hacemos que encontrar tu academia ideal sea fácil</h2>
-        <div class="triptic-container">
-            <div class="triptic-item" [routerLink]="['estudio-personalizado']">
-                <div class="icon size-92 icon-red-search-compare">
-                    <div class="number card-banner">1</div>
-                </div>
-                <div class="title">Nos cuentas tus objetivos</div>
-            </div>
-            <div class="triptic-item">
-                <div class="icon size-92 icon-red-help">
-                    <div class="number card-banner">2</div>
-                </div>
-                <div class="title">Recibes el mismo día toda la información del mejor curso</div>
-            </div>
-            <div class="triptic-item">
-                <div class="icon size-92 icon-red-class">
-                    <div class="number card-banner">3</div>
-                </div>
-                <div class="title">Al reservar tienes un <span class="color-red">descuento y una clase gratis</span> para probar</div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="verified-academies">
-    <div class="responsive-container">
-        <h2><span class="green-dots">+</span>200 cursos de las <span class="color-green">mejores academias</span></h2>
-        <div class="academies">
-            <div class="academy card-banner wideImage">
-                <img src="../../assets/public/images/academies/american_language.png" />
-            </div>
-            <div class="academy card-banner">
-                <img src="../../assets/public/images/academies/ulic.png" />
-            </div>
-            <div class="academy card-banner">
-                <img src="../../assets/public/images/academies/future_house.png" />
-            </div>
-            <div class="academy card-banner">
-                <img src="../../assets/public/images/academies/english_plus.png" />
-            </div>
-        </div>    
-    </div>
-</section>
-
-<section id="whatCourses">
+<!--<section id="whatCourses">
     <div class="responsive-container">
         <h2>¿Qué cursos encontrarás en nuestra web?</h2>
         
@@ -158,7 +187,7 @@
             </div>
         </div>
     </div>
-</section>
+</section>-->
 
 <section id="happy-users">
     <div class="background"></div>

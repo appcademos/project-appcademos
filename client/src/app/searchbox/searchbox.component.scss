@@ -8,26 +8,26 @@
     {
         position: relative;
         z-index: 1;
-        font-size: 18px;
-        padding: 0 0 0 20px;
-        height: 60px;
+        font-size: 16px;
+        padding: 0 12px;
+        height: 46px;
         width: 100%;
-        border: 0;
-        border-radius: 12px;
-        font-weight: 600;
-        box-shadow: 0 12px 20px rgba(0,0,0,0.32);
+        border: 1px solid rgba(72,72,72,0.2);
+        border-radius: 8px;
+        font-weight: 400;
+        box-shadow: 0 1px 4px rgba(72,72,72,0.2);
 
         transition: box-shadow 0.2s ease, border-radius 0.2s ease, height 0.2s ease;
 
         &:focus
         {
             outline: none !important;
-            border: 0 !important;
-            box-shadow: 0 24px 40px rgba(0,0,0,0.32);
+            /*border: 0 !important;
+            box-shadow: 0 24px 40px rgba(0,0,0,0.32);*/
         }
         &:hover
         {
-            box-shadow: 0 24px 40px rgba(0,0,0,0.32);
+            /*box-shadow: 0 24px 40px rgba(0,0,0,0.32);*/
         }
 
         &::placeholder
@@ -81,11 +81,12 @@
     }
     .search-panel
     {
-        position: absolute;
-        z-index: 2;
-        top: 100%;
+        position: fixed;
+        z-index: 99;
+        width: 390px;
+        /*top: 100%;
         left: 0;
-        right: 0;
+        right: 0;*/
         background: white;
         border-radius: 0 0 12px 12px;
         padding: 16px 0px 12px 20px;
