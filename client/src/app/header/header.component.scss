@@ -27,6 +27,12 @@ header.absolute
 
     display: flex;
     flex-direction: column;
+    
+    @media (max-width: 480px)
+    {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 }
 
 .navbar
@@ -45,6 +51,68 @@ header.absolute
     .logo-mobile
     {
         display: none;
+        
+        .phone
+        {
+            text-align: right;
+            font-weight: 600;
+            
+            .title
+            {
+                font-size: 15px;
+                margin-bottom: 2px;
+            }
+            .number
+            {
+                font-size: 20px;
+                text-decoration: underline;
+            }
+        }
+        
+        &.isHome .phone
+        {
+            color: #fff;
+        }
+    
+        @media (max-width: 452px)
+        {
+            img
+            {
+                height: 36px;
+            }
+            
+            .phone
+            {
+                .title  { font-size: 13px; }
+                .number { font-size: 18px; }
+            }
+        }
+        @media (max-width: 380px)
+        {
+            img
+            {
+                height: 32px;
+            }
+            
+            .phone
+            {
+                .title  { font-size: 11px; margin-bottom: 0; }
+                .number { font-size: 16px; }
+            }
+        }
+        @media (max-width: 340px)
+        {
+            img
+            {
+                height: 28px;
+            }
+            
+            .phone
+            {
+                .title  { font-size: 10px; }
+                .number { font-size: 15px; }
+            }
+        }
     }
     .right
     {
@@ -205,7 +273,7 @@ header.absolute #navbarBottom
     align-items: center;
 }
 
-@media (max-width: 885px)
+@media (max-width: 897px)
 {
     .responsive-container-header
     {
@@ -313,12 +381,5 @@ header.absolute #navbarBottom
     #navbarBottom
     {
         display: none;
-    }
-}
-@media (max-width: 340px)
-{
-    #navbarTop .logo-mobile img
-    {
-        height: 40px;
     }
 }

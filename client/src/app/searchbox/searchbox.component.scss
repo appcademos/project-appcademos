@@ -16,6 +16,7 @@
         border-radius: 12px;
         font-weight: 600;
         box-shadow: 0 12px 20px rgba(0,0,0,0.32);
+        color: $black;
 
         transition: box-shadow 0.2s ease, border-radius 0.2s ease, height 0.2s ease;
 
@@ -28,20 +29,6 @@
         &:hover
         {
             box-shadow: 0 24px 40px rgba(0,0,0,0.32);
-        }
-
-        &::placeholder
-        { /* Chrome, Firefox, Opera, Safari 10.1+ */
-            color: $black-50;
-            opacity: 1; /* Firefox */
-        }
-        &:-ms-input-placeholder
-        { /* Internet Explorer 10-11 */
-            color: $black-50;
-        }
-        &::-ms-input-placeholder
-        { /* Microsoft Edge */
-            color: $black-50;
         }
     }
     &.searchPanelOpened input
@@ -183,6 +170,31 @@
             }
         }
     }
+    .tags
+    {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 1;
+        padding: 9.5px 0 0 12px;
+        
+        .tag
+        {
+            font-size: 15px;
+            padding: 0 8px;
+            line-height: 1.5;
+            font-weight: 500;
+            color: $red-color;
+            
+            transition: none;
+            
+            &:hover
+            {
+                opacity: 1;
+            }
+        }
+    }
 
     a.allCourses
     {
@@ -218,13 +230,11 @@
         font-weight: 500;
         box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 
-        &:focus
+        &:hover,
+        &:focus,
+        &:active
         {
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-        &:hover
-        {
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 1px 12px rgba(0,0,0,0.2);
         }
     }
     &.searchPanelOpened
@@ -280,6 +290,14 @@
         }
     }
 }
+
+#searchbox.small-size.shorter
+{
+    max-height: 44px;
+    
+    input { height: 44px; }
+}
+
 
 
 @media (max-width: 885px)
@@ -350,6 +368,20 @@
         {
             width: 100%;
             border-radius: 0 0 12px 12px;
+        }
+    }
+    
+    #searchbox.small-size.shorter
+    {
+        &.searchPanelOpened:not(.isHome)
+        {
+            height: 44px;
+            max-height: 44px;
+
+            input
+            {
+                height: 44px;
+            }
         }
     }
 }

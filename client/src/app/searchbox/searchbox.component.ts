@@ -13,6 +13,9 @@ export class SearchboxComponent
     @Input() small: boolean;
     @Input() fixed: boolean;
     @Input() isHome: boolean;
+    @Input() shorter: boolean;
+    @Input() useTags: boolean;
+    @Input() hideSearchButton: boolean = false;
     @Output() onSearch = new EventEmitter();
     @Output() onFocus = new EventEmitter();
 
@@ -60,5 +63,15 @@ export class SearchboxComponent
     {
         this.onSearch.emit(this.query);
         this.doHideSearchPanel();
+    }
+    
+    onCloseTag()
+    {
+        this.query = null;
+        setTimeout(() =>
+        {
+            this.focus();
+            this.doShowSearchPanel();
+        });
     }
 }

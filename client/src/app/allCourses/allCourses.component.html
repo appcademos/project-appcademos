@@ -1,10 +1,10 @@
-<div id="whatsappBanner">
+<div class="whatsappBanner">
     <div class="responsive-container">
         <div>
-            <div class="title">Te enviamos el mejor curso de inglés cerca de ti con descuento</div>
-            <div class="subtitle">El mismo curso, más barato</div>
+            <div class="title">Un experto te ayuda a elegir el mejor curso para ti.</div>
+            <div class="subtitle">Le podrás preguntar todas tus dudas ;)</div>
         </div>
-        <a class="button medium green noshadow" href="/estudio-personalizado">Quiero mi curso</a>
+        <a class="button medium green noshadow" href="/estudio-personalizado">Contactar con experto</a>
     </div>
 </div>
 
@@ -26,7 +26,17 @@
             </div>
         </div>
     </div>
-    <div id="fixed-searchbox" [ngClass]="{'show': showFixedSearchbar}">
+    
+    <div class="whatsappBanner fixed" [ngClass]="{'show': showFixedSearchbar}">
+        <div class="responsive-container">
+            <div>
+                <div class="title">Un experto te ayuda a elegir el mejor curso para ti.</div>
+                <div class="subtitle">Le podrás preguntar todas tus dudas ;)</div>
+            </div>
+            <a class="button medium green noshadow" href="/estudio-personalizado">Contactar con experto</a>
+        </div>
+    </div>
+    <!--<div id="fixed-searchbox" [ngClass]="{'show': showFixedSearchbar}">
         <div class="responsive-container">
             <app-searchbox #fixedsearchbox class="searchbox" [fixed]="true" [small]="true" (onSearch)="findCourses($event)" (onFocus)="onFocusSearchbox()"></app-searchbox>
             <div #fixedorderbox class="orderbox noselect" [ngClass]="{'expanded': orderExpanded}">
@@ -44,10 +54,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 
     <div class="title-view" *ngIf="courses.length !== 0">
-        <h1>Las mejores academias de inglés en Madrid</h1>
+        <h1>Las mejores academias de {{ searchCategory ? searchCategory : 'inglés' }} cerca de ti</h1>
         <!--<div class="results-count">{{ courses.length }} CURSOS</div>-->
     </div>
 

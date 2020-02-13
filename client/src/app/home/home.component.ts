@@ -8,7 +8,7 @@ import { SeoService } from '../../services/seo.service';
 import { Http } from "@angular/http";
 import { Observable } from "rxjs/Rx";
 
-const MOBILE_WIDTH = 885;
+const MOBILE_WIDTH = 898;
 
 @Component(
 {
@@ -26,6 +26,9 @@ export class HomeComponent
     heroHeight: number = undefined;
     igPosts = []
     
+    zipCode: string = null;
+    heroCategorySearch: string = null;
+    
     IG_POSTS_IDS = ['BynuXCSC3Ay', 'B0EAJn4CcZi', 'B1ohkcPCc6G']
 
     constructor(private courses: CoursesService,
@@ -41,6 +44,12 @@ export class HomeComponent
     {
         this.setMetaData();
         this.getIgPosts();
+        
+        setTimeout(() =>
+        {
+            this.searchboxComponent.focus();
+            this.searchboxComponent.doShowSearchPanel();
+        });
     }
     ngAfterViewInit()
     {
@@ -70,29 +79,46 @@ export class HomeComponent
             {
                 if (this.showFixedSearchbar)
                     this.fixedSearchboxComponent.focus();
-                /*else
-                    this.searchboxComponent.focus();*/
+                else
+                    this.searchboxComponent.focus();
             }, 0);
         }
     }
 
     onClickAnywhere(event)
     {
-        if (/*!this.searchboxComponent.searchbox.nativeElement.contains(event.target) &&*/
+        if (!this.searchboxComponent.searchbox.nativeElement.contains(event.target) &&
             !this.fixedSearchboxComponent.searchbox.nativeElement.contains(event.target))
         {
-            //this.searchboxComponent.doHideSearchPanel();
+            this.searchboxComponent.doHideSearchPanel();
             this.fixedSearchboxComponent.doHideSearchPanel();
         }
-    }
-    onFocusSearchbox()
-    {
-        if (!this.showFixedSearchbar && window.innerWidth <= MOBILE_WIDTH)
-            this.utils.scrollToElement('#searchbox', 300, 20);
     }
     onClickScrollToContact()
     {
         this.utils.scrollToElement('footer');
+    }
+    onClickedHeroSearchCategory($event)
+    {
+        this.heroCategorySearch = $event;
+        
+        console.log(this.heroCategorySearch);
+        console.log(this.zipCode);
+    }
+    onClickHeroSearch()
+    {
+        if (this.heroCategorySearch != null &&
+            this.heroCategorySearch.length > 0)
+        {
+            this.findCourses(this.heroCategorySearch);
+        }
+        else
+        {
+            setTimeout(() =>
+            {
+                this.searchboxComponent.doShowSearchPanel();
+            });
+        }
     }
 
     setMetaData()

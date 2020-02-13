@@ -5,16 +5,35 @@
     <div class="hero-content" [ngStyle]="{ 'padding-top': getTopBannerHeight() }">
         <div class="responsive-container">
             <div class="hero-text">
-                <h1>Te enviamos el mejor curso de inglés cerca de ti con descuento</h1>
-                <p>EL MISMO CURSO, MÁS BARATO</p>
-                <div class="button" [routerLink]="['estudio-personalizado']">Quiero mi curso</div>
+                <h1>Compara los mejores cursos de inglés cerca de ti</h1>
+                <div class="hero-card">
+                    <h2>Reserva tu plaza con descuentos exclusivos de hasta el 30%</h2>
+                    <input
+                        class="zipCode"
+                        type="text"
+                        name="zipCode"
+                        [(ngModel)]="zipCode"
+                        placeholder="Escribe tu Código Postal"
+                        data-hj-whitelist
+                        autocomplete="off"
+                    >
+                    <app-searchbox
+                        #searchbox
+                        [small]="true"
+                        [hideSearchButton]="true"
+                        [shorter]="true"
+                        [isHome]="true"
+                        [useTags]="true"
+                        (onSearch)="onClickedHeroSearchCategory($event)"
+                    ></app-searchbox>
+                    <div class="button full-width light-shadow" (click)="onClickHeroSearch()">Buscar</div>
+                </div>
             </div>
-            <!--<app-searchbox #searchbox (onSearch)="findCourses($event)" (onFocus)="onFocusSearchbox()"></app-searchbox>-->
         </div>
     </div>
     <div id="fixed-searchbox" [ngClass]="{'show': showFixedSearchbar}">
         <div class="responsive-container">
-            <app-searchbox #fixedsearchbox [fixed]="true" [small]="true" [isHome]="true" (onSearch)="findCourses($event)" (onFocus)="onFocusSearchbox()"></app-searchbox>
+            <app-searchbox #fixedsearchbox [fixed]="true" [small]="true" [isHome]="true" (onSearch)="findCourses($event)"></app-searchbox>
         </div>
     </div>
     
@@ -36,83 +55,6 @@
     </div>
 </div>
 
-<section id="course-types">
-    <div class="responsive-container">
-        <div class="course-container">
-            <p class="fs-20 fw-600 text-center">Solo trabajamos con academias que te preparan para los certificados más importantes</p>
-            <div class="imagesContainer">
-                <div class="imageContainer">
-                    <img src="../../assets/public/course-logos/preparar-first-certificate.png" />
-                </div>
-                <div class="imageContainer">
-                    <img src="../../assets/public/course-logos/preparar-advanced-certificate.png" />
-                </div>
-                <div class="imageContainer">
-                    <img src="../../assets/public/course-logos/preparar-proficiency-certificate.png" />
-                </div>
-                <div class="imageContainer">
-                    <img src="../../assets/public/course-logos/logo-aptis.jpg" />
-                </div>
-                <div class="imageContainer">
-                    <img src="../../assets/public/course-logos/TOEFL_Logo.png" />
-                </div>
-                <div class="imageContainer">
-                    <img src="../../assets/public/course-logos/IELTS_logo.png" />
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="help-container">
-    <div class="responsive-container">
-        <h2 class="fs-28">Un grupo de expertos para ayudarte:</h2>
-        <div class="pictures">
-            <div class="picture">
-                <div class="image"></div>
-                <p class="text-center fs-18 fw-600">Alvaro</p>
-                <p class="text-center fs-15 fw-500">Course expert</p>
-            </div>
-            <div class="picture">
-                <div class="image"></div>
-                <p class="text-center fs-18 fw-600">Michael</p>
-                <p class="text-center fs-15 fw-500">Grammar expert</p>
-            </div>
-            <div class="picture">
-                <div class="image"></div>
-                <p class="text-center fs-18 fw-600">Anna</p>
-                <p class="text-center fs-15 fw-500">Speaking expert</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="triptic">
-    <div class="responsive-container">
-        <h2>Hacemos que encontrar tu academia ideal sea fácil</h2>
-        <div class="triptic-container">
-            <div class="triptic-item" [routerLink]="['estudio-personalizado']">
-                <div class="icon size-92 icon-red-search-compare">
-                    <div class="number card-banner">1</div>
-                </div>
-                <div class="title">Nos cuentas tus objetivos</div>
-            </div>
-            <div class="triptic-item">
-                <div class="icon size-92 icon-red-help">
-                    <div class="number card-banner">2</div>
-                </div>
-                <div class="title">Recibes el mismo día toda la información del mejor curso</div>
-            </div>
-            <div class="triptic-item">
-                <div class="icon size-92 icon-red-class">
-                    <div class="number card-banner">3</div>
-                </div>
-                <div class="title">Al reservar tienes un <span class="color-red">descuento y una clase gratis</span> para probar</div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <section id="verified-academies">
     <div class="responsive-container">
         <h2><span class="green-dots">+</span>200 cursos de las <span class="color-green">mejores academias</span></h2>
@@ -133,28 +75,74 @@
     </div>
 </section>
 
-<section id="whatCourses">
+<section id="triptic">
     <div class="responsive-container">
-        <h2>¿Qué cursos encontrarás en nuestra web?</h2>
-        
-        <div class="coursesSection">
-            <div class="title">Para sacarte un certificado:</div>
-            <div class="buttons">
-                <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'first' }">First certificate</a>
-                <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'advanced' }">Advanced</a>
-                <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'toefl' }">TOEFL</a>
-                <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'ielts' }">IELTS</a>
-                <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'toeic' }">TOEIC</a>
-                <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'proficiency' }">Proficiency</a>
+        <h2>Beneficios de reservar tu plaza a través de Appcademos</h2>
+        <div class="triptic-container">
+            <div class="triptic-item">
+                <div class="icon size-92 icon-red-dicount-tag"></div>
+                <div class="title">Descuentos de hasta el 30%</div>
+                <p>Precios más bajos que reservando en la academia</p>
+            </div>
+            <div class="triptic-item">
+                <div class="icon size-92 icon-red-class"></div>
+                <div class="title">Clase de prueba gratis</div>
+            </div>
+            <div class="triptic-item" [routerLink]="['estudio-personalizado']">
+                <div class="icon size-92 icon-red-help"></div>
+                <div class="title">Asistencia personalizada por un experto</div>
+                <p>Te ayudamos a elegir si lo necesitas</p>
             </div>
         </div>
-        
-        <div class="coursesSection">
-            <div class="title">Para mejorar tu inglés:</div>
-            <div class="buttons">
-                <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'nivel b1' }">Inglés General B1</a>
-                <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'nivel b2' }">Inglés General B2</a>
-                <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'nivel c1' }">Inglés General C1</a>
+    </div>
+</section>
+
+<section id="help-container">
+    <div class="responsive-container">
+        <h2>Un grupo de expertos para ayudarte:</h2>
+        <div class="pictures">
+            <div class="picture">
+                <div class="image"></div>
+                <p class="text-center fs-18 fw-600">Alvaro</p>
+                <p class="text-center fs-15 fw-500">Course expert</p>
+            </div>
+            <div class="picture">
+                <div class="image"></div>
+                <p class="text-center fs-18 fw-600">Michael</p>
+                <p class="text-center fs-15 fw-500">Grammar expert</p>
+            </div>
+            <div class="picture">
+                <div class="image"></div>
+                <p class="text-center fs-18 fw-600">Anna</p>
+                <p class="text-center fs-15 fw-500">Speaking expert</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="course-types">
+    <div class="responsive-container">
+        <div class="course-container">
+            <p class="fs-24 fw-600 text-center">Solo trabajamos con academias que te preparan para los certificados más importantes</p>
+            <div class="imagesContainer">
+                <div class="imageContainer">
+                    <img src="../../assets/public/course-logos/preparar-first-certificate.png" />
+                </div>
+                <div class="imageContainer">
+                    <img src="../../assets/public/course-logos/preparar-advanced-certificate.png" />
+                </div>
+                <div class="imageContainer">
+                    <img src="../../assets/public/course-logos/preparar-proficiency-certificate.png" />
+                </div>
+                <div class="imageContainer">
+                    <img src="../../assets/public/course-logos/logo-aptis.jpg" />
+                </div>
+                <div class="imageContainer">
+                    <img src="../../assets/public/course-logos/TOEFL_Logo.png" />
+                </div>
+                <div class="imageContainer">
+                    <img src="../../assets/public/course-logos/IELTS_logo.png" />
+                </div>
             </div>
         </div>
     </div>

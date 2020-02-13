@@ -226,6 +226,8 @@ ng-zorro-antd/select
 
 ng-zorro-antd/switch
 
+ng-zorro-antd/tag
+
 ng-zorro-antd/tooltip
 
 ngx-quill

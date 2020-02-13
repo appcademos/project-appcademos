@@ -20,7 +20,7 @@ const MOBILE_WIDTH = 885;
 export class AllCoursesComponent
 {
     @ViewChild('searchbox') searchboxComponent: SearchboxComponent;
-    @ViewChild('fixedsearchbox') fixedSearchboxComponent: SearchboxComponent;
+    //@ViewChild('fixedsearchbox') fixedSearchboxComponent: SearchboxComponent;
     @ViewChild('orderbox') orderbox;
     @ViewChild('fixedorderbox') fixedorderbox;
 
@@ -37,6 +37,7 @@ export class AllCoursesComponent
     searching: boolean = false;
     showFixedSearchbar: boolean = false;
     searchbarOffsetTop: number = undefined;
+    searchCategory: string = null;
 
 
     constructor(private courseService: CoursesService,
@@ -62,8 +63,10 @@ export class AllCoursesComponent
                     
                     if (params.course.length !== 0)
                     {
+                        this.searchCategory = params.course;
+                        
                         this.searchboxComponent.setInputValue(params.course);
-                        this.fixedSearchboxComponent.setInputValue(params.course);
+                        //this.fixedSearchboxComponent.setInputValue(params.course);
                         this.findCourses(params.course);
                     }
                 });
@@ -72,7 +75,7 @@ export class AllCoursesComponent
             {
                 this.setMetaData(true);
                 this.searchboxComponent.setInputValue('');
-                this.fixedSearchboxComponent.setInputValue('');
+                //this.fixedSearchboxComponent.setInputValue('');
                 this.findCourses(null, true);
             }
         });
@@ -199,13 +202,13 @@ export class AllCoursesComponent
         if (!this.orderbox.nativeElement.contains(event.target) && !this.fixedorderbox.nativeElement.contains(event.target) && this.orderExpanded)
             this.orderExpanded = false;
 
-        if (!this.searchboxComponent.searchbox.nativeElement.contains(event.target) &&
-            !this.fixedSearchboxComponent.searchbox.nativeElement.contains(event.target))
+        if (!this.searchboxComponent.searchbox.nativeElement.contains(event.target) /*&&
+            !this.fixedSearchboxComponent.searchbox.nativeElement.contains(event.target)*/)
         {
             this.searchboxComponent.blur();
-            this.fixedSearchboxComponent.blur();
+            //this.fixedSearchboxComponent.blur();
             this.searchboxComponent.doHideSearchPanel();
-            this.fixedSearchboxComponent.doHideSearchPanel();
+            //this.fixedSearchboxComponent.doHideSearchPanel();
         }
     }
     onFocusSearchbox()
@@ -251,8 +254,8 @@ export class AllCoursesComponent
             else if (this.showFixedSearchbar)
             {
                 this.showFixedSearchbar = false;
-                this.fixedSearchboxComponent.blur();
-                this.fixedSearchboxComponent.doHideSearchPanel();
+                //this.fixedSearchboxComponent.blur();
+                //this.fixedSearchboxComponent.doHideSearchPanel();
             }
         }
     }
