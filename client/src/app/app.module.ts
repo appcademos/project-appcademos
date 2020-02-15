@@ -11,7 +11,7 @@ import { environment } from "../environments/environment.prod";
 // LIBRARIES
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
-import { NzNotificationModule, NzModalModule, NzButtonModule, NzSelectModule, NzPopconfirmModule, NzRateModule, NzIconModule, NzSwitchModule, NZ_I18N, es_ES } from 'ng-zorro-antd';
+import { NzNotificationModule, NzModalModule, NzButtonModule, NzSelectModule, NzPopconfirmModule, NzRateModule, NzIconModule, NzSwitchModule, NzTagModule, NZ_I18N, es_ES } from 'ng-zorro-antd';
 import { QuillModule } from 'ngx-quill';
 import { AbTestsModule } from 'angular-ab-tests';
 
@@ -148,6 +148,7 @@ export function provideConfig() {
     NzRateModule,
     NzSwitchModule,
     NzIconModule,
+    NzTagModule,
     QuillModule.forRoot({
         modules: {
             toolbar: [

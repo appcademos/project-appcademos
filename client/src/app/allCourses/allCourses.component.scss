@@ -188,7 +188,17 @@ $cardsVerticalSeparation: 36px;
     h1
     {
         font-size: 28px;
-        font-weight: 700;
+        font-weight: 600;
+        line-height: 1.32;
+        
+        @media (max-width: 452px)
+        {
+            font-size: 24px;
+        }
+        @media (max-width: 392px)
+        {
+            font-size: 19px;
+        }
     }
     .results-count
     {
@@ -201,7 +211,7 @@ $cardsVerticalSeparation: 36px;
     }
 }
 
-#whatsappBanner
+.whatsappBanner
 {
     border-bottom: 1px solid #EAEAEA;
     background: $green-color-08;
@@ -229,6 +239,60 @@ $cardsVerticalSeparation: 36px;
         font-size: 18px;
         font-weight: 600;
         margin-bottom: 8px;
+    }
+
+    &.fixed
+    {
+        position: fixed;
+        z-index: 4;
+        left: 0;
+        top: -90px;
+        right: 0;
+        opacity: 0;
+        visibility: hidden;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+        
+        transition: top 0.2s ease;
+        
+        &.show
+        {
+            top: 0;
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    @media (max-width: 436px)
+    {
+        padding: 16px 0 12px;
+        
+        .responsive-container
+        {
+            flex-direction: column;
+        }
+        .button
+        {
+            margin-top: 12px;
+            margin-left: 0;
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+    }
+    @media (max-width: 380px)
+    {
+        .title
+        {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+        .subtitle
+        {
+            font-size: 14px;
+        }
+        .button
+        {
+            font-size: 14px;
+        }
     }
 }
 
@@ -369,19 +433,6 @@ $cardsVerticalSeparation: 36px;
 }
 @media (max-width: 480px)
 {
-    #whatsappBanner
-    {
-        .responsive-container
-        {
-            flex-direction: column;
-        }
-
-        .button
-        {
-            margin-top: 16px;
-            margin-left: 0;
-        }
-    }
     .orderbox
     {
         margin-left: 12px;

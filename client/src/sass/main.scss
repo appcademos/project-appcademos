@@ -189,6 +189,10 @@ input[type="text"]
 {
     background-image: url('../assets/public/images/icons/arrow_left_white.svg');
 }
+.icon-red-dicount-tag
+{
+    background-image: url('../assets/public/images/icons/red_discount_tag.svg');
+}
 .icon-red-search-compare
 {
     background-image: url('../assets/public/images/icons/red_search_compare.svg');
@@ -952,6 +956,11 @@ nz-rate.small
     {
         margin-right: 4px !important;
     }
+}
+
+.ant-tag .anticon-close
+{
+    vertical-align: 2px;
 }
 
 

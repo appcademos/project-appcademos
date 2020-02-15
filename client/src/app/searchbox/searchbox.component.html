@@ -1,21 +1,31 @@
-<div #searchbox id="searchbox" [ngClass]="{'searchPanelOpened': showSearchPanel, 'small-size': small, 'fixed': fixed, 'isHome': isHome}">
+<div #searchbox id="searchbox" [ngClass]="{'searchPanelOpened': showSearchPanel, 'small-size': small, 'fixed': fixed, 'isHome': isHome, 'shorter': shorter}">
     <input
         #searchInput
         type="text"
         name="query"
         [(ngModel)]="query"
-        placeholder="¿Qué curso necesitas?"
+        [placeholder]="useTags ? 'Selecciona curso' : '¿Qué curso buscas?'"
         (keyup.enter)="doOnSearch()"
         (focus)="doShowSearchPanel(); this.onFocus.emit();"
         (keyup.esc)="onInputPressEsc()"
         data-hj-whitelist
         autocomplete="off"
     >
-    <button type="button" (click)="doOnSearch()">
+    <button type="button" (click)="doOnSearch()" *ngIf="!hideSearchButton">
         <i class="icon icon-search" [ngClass]="{'size-24': !small, 'size-20': small}"></i>
     </button>
     <!--<a class="allCourses" routerLink="/all">Ver todos los cursos <i class="icon size-10 icon-arrow-right-white"></i></a>-->
-
+    
+    <div class="tags" *ngIf="useTags && query != null && query.trim().length > 0">
+        <nz-tag 
+            class="tag"
+            nzMode="closeable"
+            (nzOnClose)="onCloseTag()"
+        >
+            {{ query }}
+        </nz-tag>
+    </div>
+    
     <div class="search-panel" [hidden]="!showSearchPanel">
         <div class="top">
             <div class="tabs noselect">
