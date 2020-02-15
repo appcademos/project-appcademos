@@ -57,7 +57,7 @@
     </div>-->
 
     <div class="title-view" *ngIf="courses.length !== 0">
-        <h1>Las mejores academias de {{ searchCategory ? searchCategory : 'inglés' }} cerca de ti</h1>
+        <h1>Las mejores academias de <span class="fw-700">{{ commonCategoryFullName ? commonCategoryFullName : (searchCategory ? searchCategory : 'inglés') }}</span> cerca de ti</h1>
         <!--<div class="results-count">{{ courses.length }} CURSOS</div>-->
     </div>
 

@@ -22,7 +22,7 @@ export class AllCoursesComponent
     @ViewChild('searchbox') searchboxComponent: SearchboxComponent;
     //@ViewChild('fixedsearchbox') fixedSearchboxComponent: SearchboxComponent;
     @ViewChild('orderbox') orderbox;
-    @ViewChild('fixedorderbox') fixedorderbox;
+    //@ViewChild('fixedorderbox') fixedorderbox;
 
     allCourses = [];
     courses = [];
@@ -38,6 +38,7 @@ export class AllCoursesComponent
     showFixedSearchbar: boolean = false;
     searchbarOffsetTop: number = undefined;
     searchCategory: string = null;
+    commonCategoryFullName: string = null;
 
 
     constructor(private courseService: CoursesService,
@@ -108,10 +109,13 @@ export class AllCoursesComponent
                     this.courseService.findCourses(query)
                     .subscribe(() =>
                     {    
+                        console.log(this.courseService.foundCourses);
+                        
                         this.allCourses = [...this.courseService.foundCourses];
                         this.courses = [...this.courseService.foundCourses];
                         this.orderBy(this.currentOrder);
                         this.searching = false;
+                        this.commonCategoryFullName = this.findCommonCategoryFullName(this.courseService.foundCourses);
                     });
                 }, 250);
             }
@@ -197,9 +201,28 @@ export class AllCoursesComponent
             break;
         }
     }
+    findCommonCategoryFullName(coursesArray)
+    {
+        if (coursesArray == null || coursesArray.length === 0)
+            return null;
+        
+        let commonCatFullName = coursesArray[0].category.fullName;
+        let i = 0;
+        
+        while (i < coursesArray.length && commonCatFullName != null)
+        {
+            if (commonCatFullName != coursesArray[i].category.fullName)
+                commonCatFullName = null;
+                
+            i++;
+        }
+        
+        return commonCatFullName;
+    }
+    
     onClickAnywhere(event)
     {
-        if (!this.orderbox.nativeElement.contains(event.target) && !this.fixedorderbox.nativeElement.contains(event.target) && this.orderExpanded)
+        if (!this.orderbox.nativeElement.contains(event.target)/* && !this.fixedorderbox.nativeElement.contains(event.target)*/ && this.orderExpanded)
             this.orderExpanded = false;
 
         if (!this.searchboxComponent.searchbox.nativeElement.contains(event.target) /*&&

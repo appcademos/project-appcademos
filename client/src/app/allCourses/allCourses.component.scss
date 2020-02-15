@@ -188,7 +188,17 @@ $cardsVerticalSeparation: 36px;
     h1
     {
         font-size: 28px;
-        font-weight: 700;
+        font-weight: 600;
+        line-height: 1.32;
+        
+        @media (max-width: 452px)
+        {
+            font-size: 24px;
+        }
+        @media (max-width: 392px)
+        {
+            font-size: 19px;
+        }
     }
     .results-count
     {

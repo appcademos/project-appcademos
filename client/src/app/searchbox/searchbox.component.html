@@ -4,7 +4,7 @@
         type="text"
         name="query"
         [(ngModel)]="query"
-        placeholder="¿Qué curso buscas?"
+        [placeholder]="useTags ? 'Selecciona curso' : '¿Qué curso buscas?'"
         (keyup.enter)="doOnSearch()"
         (focus)="doShowSearchPanel(); this.onFocus.emit();"
         (keyup.esc)="onInputPressEsc()"

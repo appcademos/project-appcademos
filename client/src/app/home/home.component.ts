@@ -44,12 +44,6 @@ export class HomeComponent
     {
         this.setMetaData();
         this.getIgPosts();
-        
-        setTimeout(() =>
-        {
-            this.searchboxComponent.focus();
-            this.searchboxComponent.doShowSearchPanel();
-        });
     }
     ngAfterViewInit()
     {
@@ -101,9 +95,6 @@ export class HomeComponent
     onClickedHeroSearchCategory($event)
     {
         this.heroCategorySearch = $event;
-        
-        console.log(this.heroCategorySearch);
-        console.log(this.zipCode);
     }
     onClickHeroSearch()
     {
@@ -111,6 +102,17 @@ export class HomeComponent
             this.heroCategorySearch.length > 0)
         {
             this.findCourses(this.heroCategorySearch);
+            
+            if ((window as any).dataLayer != null &&
+                this.zipCode != null &&
+                this.zipCode.length > 0)
+            {
+                (window as any).dataLayer.push(
+                {
+                    'event': 'zipCodeSearch',
+                    'zipCode': this.zipCode
+                });
+            }
         }
         else
         {
