@@ -39,6 +39,15 @@ export class SearchboxComponent
     {
         this.searchInput.nativeElement.blur();
     }
+    
+    onClickInput()
+    {        
+        if (this.useTags && !this.showSearchPanel)
+        {
+            this.doShowSearchPanel();
+            this.onFocus.emit();
+        }
+    }
 
     doShowSearchPanel()
     {
