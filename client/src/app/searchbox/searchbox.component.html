@@ -1,16 +1,19 @@
 <div #searchbox id="searchbox" [ngClass]="{'searchPanelOpened': showSearchPanel, 'small-size': small, 'fixed': fixed, 'isHome': isHome, 'shorter': shorter}">
-    <input
-        #searchInput
-        type="text"
-        name="query"
-        [(ngModel)]="query"
-        [placeholder]="useTags ? 'Selecciona curso' : '¿Qué curso buscas?'"
-        (keyup.enter)="doOnSearch()"
-        (focus)="doShowSearchPanel(); this.onFocus.emit();"
-        (keyup.esc)="onInputPressEsc()"
-        data-hj-whitelist
-        autocomplete="off"
-    >
+    <span (click)="onClickInput()">
+        <input
+            #searchInput
+            type="text"
+            name="query"
+            [(ngModel)]="query"
+            [placeholder]="useTags ? 'Selecciona curso' : '¿Qué curso buscas?'"
+            (keyup.enter)="doOnSearch()"
+            (focus)="doShowSearchPanel(); this.onFocus.emit();"
+            (keyup.esc)="onInputPressEsc()"
+            data-hj-whitelist
+            autocomplete="off"
+            [disabled]="useTags"
+        >
+    </span>
     <button type="button" (click)="doOnSearch()" *ngIf="!hideSearchButton">
         <i class="icon icon-search" [ngClass]="{'size-24': !small, 'size-20': small}"></i>
     </button>
