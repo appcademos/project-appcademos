@@ -40,6 +40,7 @@ export class CreateCourseFormComponent implements OnInit
     categoryId: String;
     group = []
     images = []
+    hidden: boolean = false;
 
     numCoursesUpdated = 0;
     
@@ -68,6 +69,7 @@ export class CreateCourseFormComponent implements OnInit
             this.group      = this.course.group;
             this.images     = this.course.images;
             this.sizeClass  = this.course.sizeClass;
+            this.hidden     = (this.course.hidden != null) ? this.course.hidden : null;
         }
         else
         {
@@ -80,6 +82,10 @@ export class CreateCourseFormComponent implements OnInit
     onChangeIsBooked(checked)
     {
         this.isBooked = checked;
+    }
+    onChangeHidden(hidden)
+    {
+        this.hidden = hidden;
     }
     onPressMainButton()
     {
@@ -122,10 +128,6 @@ export class CreateCourseFormComponent implements OnInit
             allOk = false;
         }
         if (this.categoryId == null || this.categoryId.length == 0)
-        {
-            allOk = false;
-        }
-        if (this.sizeClass == null || (this.sizeClass + '').length == 0)
         {
             allOk = false;
         }
@@ -188,6 +190,9 @@ export class CreateCourseFormComponent implements OnInit
                 
             if (this.sizeClass != null && (this.sizeClass + '').length > 0)
                 courseDataToUpdate.sizeClass = this.sizeClass;
+                
+            if (this.hidden != null)
+                courseDataToUpdate.hidden = this.hidden;
             
             let group = this.filterEmptyStringsArray(this.group);
             if (group != null && group.length > 0)
@@ -249,7 +254,8 @@ export class CreateCourseFormComponent implements OnInit
                     category: this.categoryId,
                     group: this.filterEmptyStringsArray(this.group),
                     images: this.filterEmptyStringsArray(this.images),
-                    sizeClass: this.sizeClass
+                    sizeClass: this.sizeClass,
+                    hidden: this.hidden
                 }
 
                 this.courseService.updateCourse(this.course._id, courseToUpdate)
@@ -288,8 +294,9 @@ export class CreateCourseFormComponent implements OnInit
                 category: this.categoryId,
                 group: this.filterEmptyStringsArray(this.group),
                 images: this.filterEmptyStringsArray(this.images),
-                sizeClass: this.sizeClass,
-                academy: this.academyId
+                sizeClass: (this.sizeClass != null && ('' + this.sizeClass).trim().length > 0) ? this.sizeClass : null,
+                academy: this.academyId,
+                hidden: this.hidden
             }
             
             console.log(courseToCreate);
@@ -324,6 +331,7 @@ export class CreateCourseFormComponent implements OnInit
         this.sizeClass  = undefined;
         this.group      = []
         this.images     = []
+        this.hidden     = false;
     }
     
     getCategories()
