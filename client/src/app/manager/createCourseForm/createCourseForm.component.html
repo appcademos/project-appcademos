@@ -61,13 +61,21 @@
       </div>
       <div class="form-group-container">
           <div class="form-group">
-            <label>Nº máximo alumnos<span *ngIf="createMode || this.course != null">*</span></label>
+            <label>Nº máximo alumnos</label>
             <input type="number" class="form-control" [(ngModel)]="sizeClass" name="sizeClass">
           </div>
           <div class="form-group">
             <label>Completo</label>
             <div class="checkboxContainer">
                 <app-checkbox [red]="true" [checked]="isBooked" (onChange)="onChangeIsBooked($event)"></app-checkbox>
+            </div>
+          </div>
+      </div>
+      <div class="form-group-container">
+          <div class="form-group">
+            <label>Oculto</label>
+            <div class="checkboxContainer">
+                <app-checkbox [red]="true" [checked]="hidden" (onChange)="onChangeHidden($event)"></app-checkbox>
             </div>
           </div>
       </div>

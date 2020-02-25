@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const courseSchema = new Schema(
-  {
+{
     price: Number,
     oldPrice: Number,
     title: {
@@ -35,6 +35,10 @@ const courseSchema = new Schema(
         type: Number,
         default: 0
     },
+    hidden: {
+        type: Boolean,
+        default: false
+    }
   },
   {
     timestamps: {

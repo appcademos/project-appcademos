@@ -11,7 +11,7 @@ const getAll = (req, res) => {
 
     let courseReviews = [];
 
-    Course.find()
+    Course.find({ hidden: {$ne: true} })
     .populate(
     {
         path: 'academy',
@@ -58,7 +58,7 @@ const getSearched = async (req, res, next) =>
 {
     let courseReviews = [];
     let query = req.query.course.replace(/'+'/g, '[\s]').normalize('NFD').replace(/[\u0300-\u036f]/g, "");
-    let findObj = {}
+    let findObj = { hidden: {$ne: true} }
     
     const categories = await Category.find({});
     let foundCategory = null;
@@ -68,20 +68,14 @@ const getSearched = async (req, res, next) =>
         
     if (foundCategory != null)
     {
-        findObj =
-        {
-            category: foundCategory._id
-        }
+        findObj.category = foundCategory._id;
     }
     else
     {
-        findObj = 
+        findObj.title =
         {
-            title:
-            {
-                $regex: query,
-                $options: "i"
-            }
+            $regex: query,
+            $options: "i"
         }
     }
     
