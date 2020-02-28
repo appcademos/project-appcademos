@@ -1,6 +1,9 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { UserSessionService } from '../../services/userSession.service';
 import { Router } from "@angular/router";
+import { Directive, HostBinding } from '@angular/core';
+import { AuthService, SocialUser } from "angularx-social-login";
+import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 
 @Component(
 {
@@ -16,6 +19,9 @@ export class LoginComponent
     loginComplete: boolean = false;
     signupComplete: boolean = false;
 
+    private user: SocialUser;
+    private loggedIn: boolean;
+
     login =
     {
         email: null,
@@ -28,20 +34,38 @@ export class LoginComponent
         email: null,
         password: null,
         repeatPassword: null,
-        conditionsAccepted: false
+        conditionsAccepted: false,
+        imagePath: null,
+        authtoken: null,
+        facebookID: null
+
     }
 
     emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    @Input() visible: boolean;
+    @Input() visible: boolean = false;
     @Output() onClose = new EventEmitter();
+    //@HostBinding('class.overflow') private _addOverflow = false;
 
     constructor(private userService: UserSessionService,
                 private router: Router)
+                private authService: AuthService)
     {
 
     }
 
+    ngOnInit() {
+        // this.authService.authState.subscribe((user) => {
+
+    
+        // });
+    
+    }
+    ngOnDestroy()
+    {
+      console.log("ngOnDestroy")
+      this.authService.authState.subscribe = null
+    }
     ngOnChanges(changes)
     {
         if (changes.visible != null)
@@ -85,6 +109,7 @@ export class LoginComponent
     }
     validateSignup()
     {
+        console.log("validateSignup")
         var allOk = true;
         var message = 'Rellena correctamente todos los campos.';
 
@@ -202,6 +227,88 @@ export class LoginComponent
             });
         }
     }
+
+    registerWithFacebook() {
+        console.log("callFacebookLogin")
+        this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((user) => {
+            console.log(user)
+            this.user = user;
+            this.loggedIn = (user != null);
+            if (this.loggedIn == false) {
+              alert("No user returned");
+            } else {
+              console.log("user: "+user)
+              let data =
+              {
+                  name: user.name + ' ' + user.lastName,
+                  email: user.email,
+                  authToken: user.authToken,
+                  imagePath: user.photoUrl,
+                  facebookID: user.id,
+                  password: "1234"
+  
+              }
+              this.userService.signup(data).subscribe(() =>
+              {
+                  this.sendingSignup = false;
+                  this.signupComplete = true;
+                  console.log("logged in " + data)
+                  setTimeout(() => this.close(), 3000);
+              },
+              error =>
+              {
+                  this.sendingSignup = false;
+                  console.log("sign up FAILED"  +error)
+                  alert((error.json != null) ? error.json().message : error);
+              });
+            }
+        });
+        // this.authService.authState.subscribe((user) => {
+
+        // });
+
+    }
+    signInWithGoogle(): void {
+        console.log("signInWithGoogle " + GoogleLoginProvider.PROVIDER_ID)
+        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    }
+     
+    signInWithFB(): void {
+        console.log("signInWithGoogle " + FacebookLoginProvider.PROVIDER_ID)
+        this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((user) => {
+
+            this.user = user;
+            this.loggedIn = (user != null);
+            if (this.loggedIn == false) {
+              alert("No user returned");
+            } else {
+                console.log("user: "+user.email)
+                console.log("user: "+user.authToken)
+
+              var data =
+              {
+                  username: user.email,
+                  password: "1234"
+              }
+              console.log("data: "+data)
+              //this.userService.isLoggedIn().subscribe
+              this.userService.login(data).subscribe(() =>
+              {
+                  this.sendingSignup = false;
+                  this.signupComplete = true;
+                  console.log("logged in "  + data)
+                  setTimeout(() => this.close(), 3000);
+              },
+              error =>
+              {
+                  this.sendingSignup = false;
+                  console.log("logged in FAILED " + error)
+  
+                  alert((error.json != null) ? error.json().message : error);
+              });
+            }
+        });
+    } 
 
     close()
     {
