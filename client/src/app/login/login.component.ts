@@ -48,7 +48,7 @@ export class LoginComponent
     //@HostBinding('class.overflow') private _addOverflow = false;
 
     constructor(private userService: UserSessionService,
-                private router: Router)
+                private router: Router,
                 private authService: AuthService)
     {
 
@@ -228,9 +228,10 @@ export class LoginComponent
         }
     }
 
-    registerWithFacebook() {
-        console.log("callFacebookLogin")
-        this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((user) => {
+    signUpWithFacebook()
+    {
+        this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((user) =>
+        {
             console.log(user)
             this.user = user;
             this.loggedIn = (user != null);
@@ -268,15 +269,17 @@ export class LoginComponent
         // });
 
     }
+    
     signInWithGoogle(): void {
         console.log("signInWithGoogle " + GoogleLoginProvider.PROVIDER_ID)
         this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
     }
      
-    signInWithFB(): void {
+    signInWithFB(): void
+    {
         console.log("signInWithGoogle " + FacebookLoginProvider.PROVIDER_ID)
-        this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((user) => {
-
+        this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((user) =>
+        {
             this.user = user;
             this.loggedIn = (user != null);
             if (this.loggedIn == false) {
