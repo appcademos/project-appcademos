@@ -82,10 +82,10 @@ const googleLoginOptions: LoginOpt = {
  
 let config = new AuthServiceConfig(
 [
-    /*{
+    {
         id: GoogleLoginProvider.PROVIDER_ID,
-        provider: new GoogleLoginProvider("AIzaSyARBExbvgz2Zl8KWGCp1ku_HwCA47-2PY8",googleLoginOptions)
-    },*/
+        provider: new GoogleLoginProvider("589677356916-ou4ks4n96sffnrhi1f97r042gfebtq75.apps.googleusercontent.com",googleLoginOptions)
+    },
     {
         id: FacebookLoginProvider.PROVIDER_ID,
         provider: new FacebookLoginProvider("2599747643594744",fbLoginOptions)

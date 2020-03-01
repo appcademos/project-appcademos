@@ -226,11 +226,6 @@ export class LoginComponent
             });
         }
     }
-    
-    signInWithGoogle(): void {
-        console.log("signInWithGoogle " + GoogleLoginProvider.PROVIDER_ID)
-        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-    }
      
     logInWithFB()
     {
@@ -302,6 +297,83 @@ export class LoginComponent
                     console.log(error);
                     
                     alert('Error\nSe ha producido un error al hacer login a través de Facebook.');
+                });
+            }
+        });
+    }
+    
+    loginWithGoogle()
+    {
+        this.sendingLogin = true;
+        
+        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((user) =>
+        {
+            console.log(user);
+            
+            if (user == null)
+            {
+                this.sendingLogin = false;
+                alert("Error\nNo se ha podido obtener el usuario de Google.");
+            }
+            else
+            {
+                this.userService.loginGoogleToken(user.idToken)
+                .subscribe(res =>
+                {                    
+                    this.sendingLogin = false;
+                    this.loginComplete = true;
+
+                    if (res != null && (res.role === 'admin' || res.role === 'academy'))
+                    {
+                        setTimeout(() =>
+                        {
+                            this.close();
+                            this.router.navigate(["/manager"]);
+                        }, 1000);
+                    }
+                    else
+                        setTimeout(() => this.close(), 2000);
+                },
+                error =>
+                {
+                    this.sendingLogin = false;
+                    console.log(error);
+                    
+                    if (error.status === 404)
+                        alert('Error\nEl usuario no tiene una cuenta creada.\nPulsa en "Regístrate" para crear tu cuenta.');
+                    else
+                        alert('Error\nSe ha producido un error al hacer login a través de Google.');
+                });
+            }
+        });
+    }
+    signupWithGoogle()
+    {
+        this.sendingSignup = true;
+        
+        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((user) =>
+        {
+            if (user == null)
+            {
+                this.sendingSignup = false;
+                alert("Error\nNo se ha podido obtener el usuario de Google.");
+            }
+            else
+            {
+                this.userService.signupGoogleToken(user.idToken)
+                .subscribe(res =>
+                {                    
+                    this.sendingSignup = false;
+                    this.signupComplete = true;
+
+                    setTimeout(() => this.close(), 3000);
+                },
+                error =>
+                {
+                    this.sendingSignup = false;
+                    console.log(error);
+                    
+                    alert('Error\nSe ha producido un error al hacer login a través de Google.');
                 });
             }
         });

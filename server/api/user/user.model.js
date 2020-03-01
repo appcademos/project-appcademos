@@ -26,7 +26,8 @@ const userSchema = new Schema(
         type: String,
         default: "student"
     },
-    facebookId: String
+    facebookId: String,
+    googleId: String
 },
 {
     timestamps: {
