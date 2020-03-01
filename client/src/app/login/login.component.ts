@@ -45,7 +45,6 @@ export class LoginComponent
 
     @Input() visible: boolean = false;
     @Output() onClose = new EventEmitter();
-    //@HostBinding('class.overflow') private _addOverflow = false;
 
     constructor(private userService: UserSessionService,
                 private router: Router,
@@ -54,12 +53,12 @@ export class LoginComponent
 
     }
 
-    ngOnInit() {
+    ngOnInit()
+    {
         // this.authService.authState.subscribe((user) => {
 
     
         // });
-    
     }
     ngOnDestroy()
     {
@@ -227,91 +226,86 @@ export class LoginComponent
             });
         }
     }
-
-    signUpWithFacebook()
-    {
-        this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((user) =>
-        {
-            console.log(user)
-            this.user = user;
-            this.loggedIn = (user != null);
-            if (this.loggedIn == false) {
-              alert("No user returned");
-            } else {
-              console.log("user: "+user)
-              let data =
-              {
-                  name: user.name + ' ' + user.lastName,
-                  email: user.email,
-                  authToken: user.authToken,
-                  imagePath: user.photoUrl,
-                  facebookID: user.id,
-                  password: "1234"
-  
-              }
-              this.userService.signup(data).subscribe(() =>
-              {
-                  this.sendingSignup = false;
-                  this.signupComplete = true;
-                  console.log("logged in " + data)
-                  setTimeout(() => this.close(), 3000);
-              },
-              error =>
-              {
-                  this.sendingSignup = false;
-                  console.log("sign up FAILED"  +error)
-                  alert((error.json != null) ? error.json().message : error);
-              });
-            }
-        });
-        // this.authService.authState.subscribe((user) => {
-
-        // });
-
-    }
     
     signInWithGoogle(): void {
         console.log("signInWithGoogle " + GoogleLoginProvider.PROVIDER_ID)
         this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
     }
      
-    signInWithFB(): void
+    logInWithFB()
     {
-        console.log("signInWithGoogle " + FacebookLoginProvider.PROVIDER_ID)
+        this.sendingLogin = true;
+        
         this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((user) =>
-        {
-            this.user = user;
-            this.loggedIn = (user != null);
-            if (this.loggedIn == false) {
-              alert("No user returned");
-            } else {
-                console.log("user: "+user.email)
-                console.log("user: "+user.authToken)
+        {            
+            if (user == null)
+            {
+                this.sendingLogin = false;
+                alert("Error\nNo se ha podido obtener el usuario de Facebook.");
+            }
+            else
+            {
+                this.userService.loginFacebookToken(user.authToken)
+                .subscribe(res =>
+                {                    
+                    this.sendingLogin = false;
+                    this.loginComplete = true;
 
-              var data =
-              {
-                  username: user.email,
-                  password: "1234"
-              }
-              console.log("data: "+data)
-              //this.userService.isLoggedIn().subscribe
-              this.userService.login(data).subscribe(() =>
-              {
-                  this.sendingSignup = false;
-                  this.signupComplete = true;
-                  console.log("logged in "  + data)
-                  setTimeout(() => this.close(), 3000);
-              },
-              error =>
-              {
-                  this.sendingSignup = false;
-                  console.log("logged in FAILED " + error)
-  
-                  alert((error.json != null) ? error.json().message : error);
-              });
+                    if (res != null && (res.role === 'admin' || res.role === 'academy'))
+                    {
+                        setTimeout(() =>
+                        {
+                            this.close();
+                            this.router.navigate(["/manager"]);
+                        }, 1000);
+                    }
+                    else
+                        setTimeout(() => this.close(), 2000);
+                },
+                error =>
+                {
+                    this.sendingLogin = false;
+                    console.log(error);
+                    
+                    if (error.status === 404)
+                        alert('Error\nEl usuario no tiene una cuenta creada.\nPulsa en "Regístrate" para crear tu cuenta.');
+                    else
+                        alert('Error\nSe ha producido un error al hacer login a través de Facebook.');
+                });
             }
         });
-    } 
+    }
+    signupWithFB()
+    {
+        this.sendingSignup = true;
+        
+        this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((user) =>
+        {            
+            if (user == null)
+            {
+                this.sendingSignup = false;
+                alert("Error\nNo se ha podido obtener el usuario de Facebook.");
+            }
+            else
+            {
+                this.userService.signupFacebookToken(user.authToken)
+                .subscribe(res =>
+                {                    
+                    this.sendingSignup = false;
+                    this.signupComplete = true;
+
+                    setTimeout(() => this.close(), 3000);
+                },
+                error =>
+                {
+                    this.sendingSignup = false;
+                    console.log(error);
+                    
+                    alert('Error\nSe ha producido un error al hacer login a través de Facebook.');
+                });
+            }
+        });
+    }
 
     close()
     {
