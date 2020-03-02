@@ -601,16 +601,32 @@ h2
             flex-direction: row;
 
             .icon
-            {                
+            {              
+                position: relative; 
                 margin-right: 24px;
                 min-width: 44px;
                 flex-shrink: 0;
                 line-height: 44px;
                 border-radius: 50%;
+                overflow: hidden;
                 background: $green-color;
                 color: #fff;
                 font-weight: 600;
                 text-align: center;
+                z-index: 1;
+                
+                .image
+                {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    z-index: 2;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: cover;
+                }
             }
             .top
             {
