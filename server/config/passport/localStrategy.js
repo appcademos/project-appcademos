@@ -6,12 +6,12 @@ const User = require("../../api/user/user.model");
 const bcrypt = require("bcrypt");
 const debug = require("debug")("server:passport.strategy");
 
-const fbClientId = "2599747643594744";
-const fbClientSecret = "cc5735aade06a4365ef38df120dc483e";
+const fbClientId = process.env.FACEBOOK_CLIENT_ID;
+const fbClientSecret = process.env.FACEBOOK_CLIENT_SECRET;
 const fbGraphVersion = "v3.0";
 
-const googleClientId = "589677356916-ou4ks4n96sffnrhi1f97r042gfebtq75.apps.googleusercontent.com";
-const googleClientSecret = "IOnHgpWy8VW-FKRRaocJ3Gv9";
+const googleClientId = process.env.GOOGLE_CLIENT_ID;
+const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET;
 
 passport.use("user-local",
     new LocalStrategy((username, password, next) =>
