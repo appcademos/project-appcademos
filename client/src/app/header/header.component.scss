@@ -225,6 +225,10 @@ header.mobileOpened #navbarTop #mobile-nav
 {
     transform: translate(0,0);
 }
+header.mobileOpened #navbarTop .logo-mobile.isHome .phone
+{
+    color: $black;
+}
 
 #navbarBottom
 {

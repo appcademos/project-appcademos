@@ -72,4 +72,54 @@ export class UserSessionService
       })
       .catch(error => Observable.throw(error.json().message));
   }
+  
+  loginFacebookToken(fbToken)
+  {
+      return this.http
+        .get(`${environment.BASEURL}/api/user/auth/facebook/login?access_token=${fbToken}`, this.options)
+        .map(res => res.json())
+        .map(user =>
+        {
+            this.messageService.sendMessage({ user: user });
+            return this.handleUser(user);
+        })
+        .catch(error => Observable.throw(error));
+  }
+  signupFacebookToken(fbToken)
+  {
+      return this.http
+        .get(`${environment.BASEURL}/api/user/auth/facebook/signup?access_token=${fbToken}`, this.options)
+        .map(res => res.json())
+        .map(user =>
+        {
+            this.messageService.sendMessage({ user: user });
+            return this.handleUser(user);
+        })
+        .catch(error => Observable.throw(error));
+  }
+  
+  loginGoogleToken(googleToken)
+  {
+      return this.http
+        .get(`${environment.BASEURL}/api/user/auth/google/login?access_token=${googleToken}`, this.options)
+        .map(res => res.json())
+        .map(user =>
+        {
+            this.messageService.sendMessage({ user: user });
+            return this.handleUser(user);
+        })
+        .catch(error => Observable.throw(error));
+  }
+  signupGoogleToken(googleToken)
+  {
+      return this.http
+        .get(`${environment.BASEURL}/api/user/auth/google/signup?access_token=${googleToken}`, this.options)
+        .map(res => res.json())
+        .map(user =>
+        {
+            this.messageService.sendMessage({ user: user });
+            return this.handleUser(user);
+        })
+        .catch(error => Observable.throw(error));
+  }
 }

@@ -12,8 +12,7 @@ const userSchema = new Schema(
       required: true
     },
     phone: Number,
-    imageName: String,
-    imagePath: String,
+    imageUrl: String,
     email: {
       type: String,
       required: true,
@@ -21,12 +20,14 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
-      required: true
+      required: false
     },
     role: {
         type: String,
         default: "student"
-    }
+    },
+    facebookId: String,
+    googleId: String
 },
 {
     timestamps: {
