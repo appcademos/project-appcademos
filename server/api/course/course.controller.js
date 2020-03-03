@@ -127,7 +127,8 @@ const getOne = (req, res, next) => {
               populate:
               {
                   path: 'author',
-                  model: 'User'
+                  model: 'User',
+                  select: '-password -__v -created_at -updated_at'
               }
           }
       })

@@ -217,9 +217,17 @@ input[type="text"]
 {
     background-image: url('../assets/public/images/icons/email.svg');
 }
+.icon-google-g
+{
+    background-image: url('../assets/public/images/icons/google_g.svg');
+}
 .icon-facebook
 {
     background-image: url('../assets/public/images/icons/facebook.svg');
+}
+.icon-facebook-white
+{
+    background-image: url('../assets/public/images/icons/facebook_white.svg');
 }
 .icon-twitter
 {
@@ -473,7 +481,7 @@ input[type="text"]
 .button
 {
     cursor: pointer;
-    padding: 14px 20px;
+    padding: 13px 20px;
     border-radius: 6px;
     color: white;
     background: $red-color-button;
@@ -537,7 +545,8 @@ input[type="text"]
     background: white;
     color: $black;
     border: 1px solid #EAEAEA;
-    box-shadow: 0 1px 4px $black-08;
+    box-shadow: 0 1px 4px $black-16;
+    padding: 12px 20px;
 
     &:active
     {
@@ -562,6 +571,15 @@ input[type="text"]
         opacity: 0.8;
     }
 }
+.button.facebookLogin
+{
+    background: $facebookBlue;
+    color: #fff;
+}
+.button.googleLogin
+{
+    border-color: $black-20;
+}
 .button.full-width
 {
     width: 100%;
@@ -580,6 +598,10 @@ input[type="text"]
 .button.noshadow
 {
     box-shadow: none;
+}
+.button > .icon
+{
+    margin-right: 12px;
 }
 
 .label-tag

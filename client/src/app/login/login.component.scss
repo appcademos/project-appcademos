@@ -36,14 +36,48 @@
         border-radius: 8px;
         box-shadow: 0 15px 30px -15px rgba(0,0,0,0.24);
         overflow: hidden;
+        
+        hr
+        {
+            margin: 0;
+            border: 0;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .socialLoginButtons
+        {
+            .button
+            {
+                margin-bottom: 12px;
+            }
+        }
+        .separator
+        {
+            margin-top: 12px;
+            margin-bottom: 12px;
+            
+            .or
+            {
+                text-align: center;
+                font-size: 14px;
+                font-weight: 600;
+                line-height: 1;
+                background: #fff;
+                display: table;
+                margin: 0 auto;
+                margin-top: -8px;
+                width: 40px;
+                color: $black-80;
+            }
+        }
 
         .input-container
         {
-            margin-bottom: 16px;
+            margin-bottom: 12px;
 
             &:last-child
             {
-                margin-bottom: 0;
+                margin-bottom: 24px;
             }
 
             .title
@@ -62,7 +96,7 @@
                 border: 1px solid $black-20;
                 border-radius: 8px;
                 box-shadow: 0 1px 4px $black-20;
-                height: 48px;
+                height: 44px;
                 padding: 0 12px;
                 font-size: 16px;
                 width: 100%;
@@ -85,7 +119,7 @@
             position: relative;
             padding-left: 36px;
             padding-top: 2px;
-            margin-top: 24px;
+            margin-bottom: 24px;
             cursor: pointer;
 
             -webkit-user-select: none;
@@ -151,13 +185,14 @@
             transform: rotate(45deg);
         }
 
-        .button
+        & > .button
         {
-            margin-top: 40px;
+            margin-bottom: 12px;
         }
+
         .bottom
         {
-            margin-top: 24px;
+            margin-top: 12px;
 
             .item
             {
@@ -197,7 +232,7 @@
 
 #login .icon-close-circle-white
 {
-    position: absolute;
+    position: fixed;
     top: 48px;
     right: 48px;
 }

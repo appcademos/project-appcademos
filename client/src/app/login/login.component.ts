@@ -1,6 +1,9 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { UserSessionService } from '../../services/userSession.service';
 import { Router } from "@angular/router";
+import { Directive, HostBinding } from '@angular/core';
+import { AuthService, SocialUser } from "angularx-social-login";
+import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 
 @Component(
 {
@@ -15,6 +18,9 @@ export class LoginComponent
     sendingSignup: boolean = false;
     loginComplete: boolean = false;
     signupComplete: boolean = false;
+
+    private user: SocialUser;
+    private loggedIn: boolean;
 
     login =
     {
@@ -33,11 +39,12 @@ export class LoginComponent
 
     emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    @Input() visible: boolean;
+    @Input() visible: boolean = false;
     @Output() onClose = new EventEmitter();
 
     constructor(private userService: UserSessionService,
-                private router: Router)
+                private router: Router,
+                private authService: AuthService)
     {
 
     }
@@ -201,6 +208,178 @@ export class LoginComponent
                 alert((error.json != null) ? error.json().message : error);
             });
         }
+    }
+     
+    logInWithFB()
+    {
+        this.sendingLogin = true;
+        
+        this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((user) =>
+        {            
+            if (user == null)
+            {
+                this.sendingLogin = false;
+                alert("Error\nNo se ha podido obtener el usuario de Facebook.");
+            }
+            else
+            {
+                this.userService.loginFacebookToken(user.authToken)
+                .subscribe(res =>
+                {                    
+                    this.sendingLogin = false;
+                    this.loginComplete = true;
+
+                    if (res != null && (res.role === 'admin' || res.role === 'academy'))
+                    {
+                        setTimeout(() =>
+                        {
+                            this.close();
+                            this.router.navigate(["/manager"]);
+                        }, 1000);
+                    }
+                    else
+                        setTimeout(() => this.close(), 2000);
+                },
+                error =>
+                {
+                    this.sendingLogin = false;
+                    console.log(error);
+                    
+                    if (error.status === 404)
+                        alert('Error\nEl usuario no tiene una cuenta creada.\nPulsa en "Regístrate" para crear tu cuenta.');
+                    else
+                        alert('Error\nSe ha producido un error al hacer login a través de Facebook.');
+                });
+            }
+        })
+        .catch(error =>
+        {
+            this.sendingLogin = false;
+            console.log(error);
+        });
+    }
+    signupWithFB()
+    {
+        this.sendingSignup = true;
+        
+        this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then((user) =>
+        {            
+            if (user == null)
+            {
+                this.sendingSignup = false;
+                alert("Error\nNo se ha podido obtener el usuario de Facebook.");
+            }
+            else
+            {
+                this.userService.signupFacebookToken(user.authToken)
+                .subscribe(res =>
+                {                    
+                    this.sendingSignup = false;
+                    this.signupComplete = true;
+
+                    setTimeout(() => this.close(), 3000);
+                },
+                error =>
+                {
+                    this.sendingSignup = false;
+                    console.log(error);
+                    
+                    alert('Error\nSe ha producido un error al hacer login a través de Facebook.');
+                });
+            }
+        })
+        .catch(error =>
+        {
+            this.sendingSignup = false;
+            console.log(error);
+        });
+    }
+    
+    loginWithGoogle()
+    {
+        this.sendingLogin = true;
+        
+        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((user) =>
+        {
+            console.log(user);
+            
+            if (user == null)
+            {
+                this.sendingLogin = false;
+                alert("Error\nNo se ha podido obtener el usuario de Google.");
+            }
+            else
+            {
+                this.userService.loginGoogleToken(user.idToken)
+                .subscribe(res =>
+                {                    
+                    this.sendingLogin = false;
+                    this.loginComplete = true;
+
+                    if (res != null && (res.role === 'admin' || res.role === 'academy'))
+                    {
+                        setTimeout(() =>
+                        {
+                            this.close();
+                            this.router.navigate(["/manager"]);
+                        }, 1000);
+                    }
+                    else
+                        setTimeout(() => this.close(), 2000);
+                },
+                error =>
+                {
+                    this.sendingLogin = false;
+                    console.log(error);
+                    
+                    if (error.status === 404)
+                        alert('Error\nEl usuario no tiene una cuenta creada.\nPulsa en "Regístrate" para crear tu cuenta.');
+                    else
+                        alert('Error\nSe ha producido un error al hacer login a través de Google.');
+                });
+            }
+        })
+        .catch(error =>
+        {
+            this.sendingLogin = false;
+            console.log(error);
+        });
+    }
+    signupWithGoogle()
+    {
+        this.sendingSignup = true;
+        
+        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((user) =>
+        {
+            if (user == null)
+            {
+                this.sendingSignup = false;
+                alert("Error\nNo se ha podido obtener el usuario de Google.");
+            }
+            else
+            {
+                this.userService.signupGoogleToken(user.idToken)
+                .subscribe(res =>
+                {                    
+                    this.sendingSignup = false;
+                    this.signupComplete = true;
+
+                    setTimeout(() => this.close(), 3000);
+                },
+                error =>
+                {
+                    this.sendingSignup = false;
+                    console.log(error);
+                    
+                    alert('Error\nSe ha producido un error al hacer login a través de Google.');
+                });
+            }
+        })
+        .catch(error =>
+        {
+            this.sendingSignup = false;
+            console.log(error);
+        });
     }
 
     close()
