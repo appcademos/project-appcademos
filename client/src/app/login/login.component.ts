@@ -49,18 +49,6 @@ export class LoginComponent
 
     }
 
-    ngOnInit()
-    {
-        // this.authService.authState.subscribe((user) => {
-
-    
-        // });
-    }
-    ngOnDestroy()
-    {
-      console.log("ngOnDestroy")
-      this.authService.authState.subscribe = null
-    }
     ngOnChanges(changes)
     {
         if (changes.visible != null)
@@ -104,7 +92,6 @@ export class LoginComponent
     }
     validateSignup()
     {
-        console.log("validateSignup")
         var allOk = true;
         var message = 'Rellena correctamente todos los campos.';
 
@@ -264,6 +251,11 @@ export class LoginComponent
                         alert('Error\nSe ha producido un error al hacer login a través de Facebook.');
                 });
             }
+        })
+        .catch(error =>
+        {
+            this.sendingLogin = false;
+            console.log(error);
         });
     }
     signupWithFB()
@@ -295,6 +287,11 @@ export class LoginComponent
                     alert('Error\nSe ha producido un error al hacer login a través de Facebook.');
                 });
             }
+        })
+        .catch(error =>
+        {
+            this.sendingSignup = false;
+            console.log(error);
         });
     }
     
@@ -341,6 +338,11 @@ export class LoginComponent
                         alert('Error\nSe ha producido un error al hacer login a través de Google.');
                 });
             }
+        })
+        .catch(error =>
+        {
+            this.sendingLogin = false;
+            console.log(error);
         });
     }
     signupWithGoogle()
@@ -372,6 +374,11 @@ export class LoginComponent
                     alert('Error\nSe ha producido un error al hacer login a través de Google.');
                 });
             }
+        })
+        .catch(error =>
+        {
+            this.sendingSignup = false;
+            console.log(error);
         });
     }
 
