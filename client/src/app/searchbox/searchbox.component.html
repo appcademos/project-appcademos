@@ -11,7 +11,7 @@
             (keyup.esc)="onInputPressEsc()"
             data-hj-whitelist
             autocomplete="off"
-            [disabled]="useTags"
+            [readonly]="useTags"
         >
     </span>
     <button type="button" (click)="doOnSearch()" *ngIf="!hideSearchButton">
