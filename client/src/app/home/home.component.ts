@@ -8,8 +8,6 @@ import { SeoService } from '../../services/seo.service';
 import { Http } from "@angular/http";
 import { Observable } from "rxjs/Rx";
 
-const MOBILE_WIDTH = 898;
-
 @Component(
 {
     selector: 'app-home',

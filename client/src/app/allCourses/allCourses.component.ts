@@ -1,16 +1,16 @@
 import { Component, ViewChild, HostListener } from "@angular/core";
 import { CoursesService } from "../../services/courses.service";
 import { Router, ActivatedRoute } from "@angular/router";
-import { SearchboxComponent } from '../searchbox/searchbox.component';
 import { Location } from '@angular/common';
 import { UtilsService } from '../../services/utils.service';
 import { MetaService } from '@ngx-meta/core';
 
 const ORDER_RELEVANCE = 1;
-const ORDER_PRICE_DESCENDING = 2;
-const ORDER_PRICE_ASCENDING = 3;
+const ORDER_PRICE_ASCENDING = 2;
 
-const MOBILE_WIDTH = 885;
+const NEIGHBORHOODS = [ 'Alcobendas', 'Arganzuela - Atocha', 'Barajas', 'Carabanchel', 'Centro', 'Ciudad Lineal', 'Chamartín', 'Chamberí - Ríos Rosas', 'Fuencarral - Bº del Pilar', 'Hortaleza', 'Latina', 'Moncloa - Argüelles', 'Moratalaz', 'Retiro', 'Salamanca', 'San Blas - Canillejas', 'Puente de Vallecas', 'Usera', 'Tetuán - Cuatro Caminos', 'Vicálvaro', 'Villa de Vallecas', 'Villaverde' ]
+
+const MOBILE_WIDTH = 897;
 
 @Component({
   selector: "app-allCourses",
@@ -19,26 +19,32 @@ const MOBILE_WIDTH = 885;
 })
 export class AllCoursesComponent
 {
-    @ViewChild('searchbox') searchboxComponent: SearchboxComponent;
-    //@ViewChild('fixedsearchbox') fixedSearchboxComponent: SearchboxComponent;
     @ViewChild('orderbox') orderbox;
-    //@ViewChild('fixedorderbox') fixedorderbox;
 
-    allCourses = [];
-    courses = [];
+    neighborhoods = [...NEIGHBORHOODS]
+    allCourses = []
+    courses = []
     orders =
     [
         { id: ORDER_RELEVANCE, name: 'Mejor valorados' },
-        { id: ORDER_PRICE_DESCENDING, name: 'Precio (más alto arriba)' },
         { id: ORDER_PRICE_ASCENDING, name: 'Precio (más bajo arriba)' }
     ]
-    currentOrder: any = this.orders[0];
-    orderExpanded: boolean = false;
+    
+    selectedNeighborhoods = []
+    appliedNeighborhoods = []
+    
+    currentOrder: any = this.orders[0].id;
     searching: boolean = false;
     showFixedSearchbar: boolean = false;
     searchbarOffsetTop: number = undefined;
     searchCategory: string = null;
     commonCategoryFullName: string = null;
+    showMobileFilters: boolean = false;
+    
+    fixedFilters: boolean = false;
+    showFixedFilters: boolean = false;
+    searchviewOffsetTop: number = undefined;
+    lastScrollOffsetTop: number = 0;
 
 
     constructor(private courseService: CoursesService,
@@ -49,8 +55,6 @@ export class AllCoursesComponent
                 private readonly meta: MetaService)
     {
         this.courseService.searching = true;
-
-        document.addEventListener('click', this.onClickAnywhere.bind(this));
     }
     ngOnInit()
     {
@@ -66,8 +70,6 @@ export class AllCoursesComponent
                     {
                         this.searchCategory = params.course;
                         
-                        this.searchboxComponent.setInputValue(params.course);
-                        //this.fixedSearchboxComponent.setInputValue(params.course);
                         this.findCourses(params.course);
                     }
                 });
@@ -75,8 +77,6 @@ export class AllCoursesComponent
             else
             {
                 this.setMetaData(true);
-                this.searchboxComponent.setInputValue('');
-                //this.fixedSearchboxComponent.setInputValue('');
                 this.findCourses(null, true);
             }
         });
@@ -87,6 +87,7 @@ export class AllCoursesComponent
         {
             let theSearchView = <HTMLElement>document.getElementsByClassName('search-view')[0];
             this.searchbarOffsetTop = theSearchView.offsetTop + theSearchView.offsetHeight;
+            this.searchviewOffsetTop = theSearchView.offsetTop;
         });
     }
     ngOnDestroy()
@@ -106,25 +107,18 @@ export class AllCoursesComponent
                 this.searching = true;
                 setTimeout(() =>
                 {
-                    this.courseService.findCourses(query)
+                    this.courseService.findCourses(query, this.selectedNeighborhoods)
                     .subscribe(() =>
-                    {    
-                        console.log(this.courseService.foundCourses);
-                        
+                    {                        
                         this.allCourses = [...this.courseService.foundCourses];
                         this.courses = [...this.courseService.foundCourses];
                         this.orderBy(this.currentOrder);
                         this.searching = false;
                         this.commonCategoryFullName = this.findCommonCategoryFullName(this.courseService.foundCourses);
+                        
+                        this.appliedNeighborhoods = [...this.selectedNeighborhoods]
                     });
                 }, 250);
-            }
-            else
-            {
-                setTimeout(() =>
-                {
-                    this.searchboxComponent.focus();
-                });
             }
         }
         else
@@ -143,12 +137,11 @@ export class AllCoursesComponent
             }, 250);
         }
     }
-    orderBy(order)
+    orderBy(orderId)
     {
-        this.currentOrder = order;
-        this.orderExpanded = false;
+        this.currentOrder = orderId;
 
-        switch (this.currentOrder.id)
+        switch (this.currentOrder)
         {
             case ORDER_RELEVANCE:
             this.courses = this.courses.sort((courseA, courseB) =>
@@ -173,18 +166,6 @@ export class AllCoursesComponent
                             return 0;
                     }
                 }
-            });
-            break;
-
-            case ORDER_PRICE_DESCENDING:
-            this.courses = this.courses.sort((courseA, courseB) =>
-            {
-                if (courseA.price > courseB.price)
-                    return -1;
-                else if (courseA.price < courseB.price)
-                    return 1;
-                else
-                    return 0;
             });
             break;
 
@@ -220,26 +201,6 @@ export class AllCoursesComponent
         return commonCatFullName;
     }
     
-    onClickAnywhere(event)
-    {
-        if (!this.orderbox.nativeElement.contains(event.target)/* && !this.fixedorderbox.nativeElement.contains(event.target)*/ && this.orderExpanded)
-            this.orderExpanded = false;
-
-        if (!this.searchboxComponent.searchbox.nativeElement.contains(event.target) /*&&
-            !this.fixedSearchboxComponent.searchbox.nativeElement.contains(event.target)*/)
-        {
-            this.searchboxComponent.blur();
-            //this.fixedSearchboxComponent.blur();
-            this.searchboxComponent.doHideSearchPanel();
-            //this.fixedSearchboxComponent.doHideSearchPanel();
-        }
-    }
-    onFocusSearchbox()
-    {
-        if (!this.showFixedSearchbar && window.innerWidth <= MOBILE_WIDTH)
-            this.utils.scrollToElement('#searchbox', 300, 20);
-    }
-    
     setMetaData(isSearchingAllCourses: boolean, searchText?: string)
     {
         if (!isSearchingAllCourses && searchText != null)
@@ -260,26 +221,109 @@ export class AllCoursesComponent
         this.meta.removeTag('property="og:title"');
         this.meta.removeTag('property="og:description"');
     }
+    
+    toggleMobileFilters()
+    {
+        if (!this.showMobileFilters)
+        {
+            this.showMobileFilters = true;
+            
+            if (window.innerWidth <= MOBILE_WIDTH)
+            {
+                document.body.style.overflow = 'hidden';
+                document.getElementById("hubspot-messages-iframe-container").classList.add('hidden');
+            }
+        }
+        else
+        {
+            this.showMobileFilters = false;
+            
+            if (window.innerWidth <= MOBILE_WIDTH)
+            {
+                document.body.style.overflow = 'initial';
+                setTimeout(() =>
+                {
+                    document.getElementById("hubspot-messages-iframe-container").classList.remove('hidden');
+                }, 250);
+            }
+        }
+    }
+    onChangeNeighborhoodFilter(neighborhood, isChecked, reloadCourses = false)
+    {        
+        if (isChecked && !this.selectedNeighborhoods.includes(neighborhood))
+        {
+            this.selectedNeighborhoods.push(neighborhood);
+        }
+        
+        if (!isChecked && this.selectedNeighborhoods.includes(neighborhood))
+        {
+            this.selectedNeighborhoods = this.selectedNeighborhoods.filter(n => n !== neighborhood);
+        }
+
+        if (reloadCourses)
+            this.findCourses(this.searchCategory);
+    }
+    onClickApplyFilters()
+    {
+        this.toggleMobileFilters();
+        this.findCourses(this.searchCategory);
+    }
+    isNeighborhoodSelected(neighborhood)
+    {
+        return this.selectedNeighborhoods.includes(neighborhood);
+    }
+    shouldShowMobileFilterButton()
+    {
+        return (window.innerWidth <= 580 && this.selectedNeighborhoods.length === 0);
+    }
 
     @HostListener("window:scroll", [])
     onScroll()
     {
-        if (this.searchbarOffsetTop != null)
+        let number = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        let downScroll = (number > this.lastScrollOffsetTop);
+        const minScrollDelta = 28;
+        let processEvent = Math.abs(this.lastScrollOffsetTop - number) >= minScrollDelta;
+        
+        if (processEvent)
         {
-            let number = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-
-            if (number >= this.searchbarOffsetTop)
+            console.log(this.lastScrollOffsetTop, number);
+            
+            if (this.searchbarOffsetTop != null)
             {
-                this.showFixedSearchbar = true;
-                this.searchboxComponent.blur();
-                this.searchboxComponent.doHideSearchPanel();
+                if (downScroll && number >= this.searchbarOffsetTop)
+                {
+                    if (!this.showFixedSearchbar)
+                        this.showFixedSearchbar = true;
+                }
+                else
+                {
+                    if (this.showFixedSearchbar)
+                        this.showFixedSearchbar = false;
+                }
+                
+                if (!downScroll && number >= this.searchviewOffsetTop)
+                {
+                    if (!this.fixedFilters)
+                    {
+                        this.fixedFilters = true;
+                        setTimeout(() =>
+                        {
+                            this.showFixedFilters = true;
+                        }, 100);
+                    }
+                }
+                else
+                {
+                    if (this.fixedFilters)
+                    {
+                        this.showFixedFilters = false;
+                        this.fixedFilters = false;
+                    }
+                }
             }
-            else if (this.showFixedSearchbar)
-            {
-                this.showFixedSearchbar = false;
-                //this.fixedSearchboxComponent.blur();
-                //this.fixedSearchboxComponent.doHideSearchPanel();
-            }
+            
+            this.lastScrollOffsetTop = number;
         }
     }
 }

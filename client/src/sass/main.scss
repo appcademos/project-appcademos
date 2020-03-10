@@ -34,6 +34,13 @@ body
     -ms-user-select: none;
     user-select: none;
 }
+.hidden
+{
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+}
 
 .is-ios *
 {
@@ -342,6 +349,10 @@ input[type="text"]
 {
     background-image: url('../assets/public/images/icons/filter.svg');
 }
+.icon-filter-green
+{
+    background-image: url('../assets/public/images/icons/filter-green.svg');
+}
 .icon-close
 {
     background-image: url('../assets/public/images/icons/close.svg');
@@ -557,6 +568,26 @@ input[type="text"]
         background: $red-color-button;
         color: #fff;
         border-color: $red-color-button;
+    }
+}
+.button.simple
+{
+    background: transparent;
+    color: $black-80;
+    font-weight: 500;
+    border: none;
+    padding: 12px 20px;
+    box-shadow: none;
+    
+    transition: all 0.16s;
+
+    &:active
+    {
+        color: $black;
+    }
+    &:active
+    {
+        opacity: 0;
     }
 }
 .button.dark

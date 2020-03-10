@@ -58,6 +58,7 @@ const getSearched = async (req, res, next) =>
 {
     let courseReviews = [];
     let query = req.query.course.replace(/'+'/g, '[\s]').normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+    let neighborhoods = req.query.neighborhoods ? JSON.parse(req.query.neighborhoods) : null;
     let findObj = { hidden: {$ne: true} }
     
     const categories = await Category.find({});
@@ -92,8 +93,16 @@ const getSearched = async (req, res, next) =>
     .populate('category')
     .then(courses =>
     {
-        return Promise.all(courses.map(course =>
+        if (neighborhoods)
+        {
+            courses = courses.filter(course =>
+            {
+                return (course.academy.neighborhoods != null && course.academy.neighborhoods.some(n => neighborhoods.includes(n)));
+            });
+        }
         
+        courses.forEach(course =>
+        {
             Review.find({ course: course.id })
             .populate("author")
             .then(reviews =>
@@ -104,8 +113,9 @@ const getSearched = async (req, res, next) =>
                         course.reviews.push(reviews[i]);
                 }
             })
-        ))
-        .then(() => { res.status(200).json(courses) })
+        });
+        
+        res.status(200).json(courses);
     })
     .catch(err =>
     {

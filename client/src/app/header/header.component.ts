@@ -6,7 +6,7 @@ import { MessageService } from '../../services/message.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from "angularx-social-login";
 
-const MOBILE_WIDTH = 885;
+const MOBILE_WIDTH = 897;
 
 @Component({
   selector: "app-header",

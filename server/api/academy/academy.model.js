@@ -36,7 +36,8 @@ const academySchema = new Schema(
             syllabus: { type: String, default: null },
             material: { type: String, default: null }
         }
-    ]
+    ],
+    neighborhoods: [{ type: String }]
 },
 {
     timestamps: {
