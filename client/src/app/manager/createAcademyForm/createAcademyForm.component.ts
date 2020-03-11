@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import * as moment from 'moment';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzNotificationService } from 'ng-zorro-antd';
+import { NEIGHBORHOODS } from '../../../services/utils.service';
 
 @Component({
   selector: 'app-createAcademyForm',
@@ -13,7 +14,7 @@ import { NzNotificationService } from 'ng-zorro-antd';
 export class CreateAcademyFormComponent implements OnInit
 {    
     @Input() academy: any;
-    @Input() createMode: any;
+    @Input() createMode: boolean;
     
     @Output() onAcademyError: EventEmitter<any> = new EventEmitter();
     @Output() onAcademyCreated: EventEmitter<any> = new EventEmitter();
@@ -25,7 +26,10 @@ export class CreateAcademyFormComponent implements OnInit
     district: string;
     city: string;
     isVerified: boolean = false;
+    whyChooseMe: string;
+    neighborhoods = []
     
+    allNeighborhoods = [...NEIGHBORHOODS]
     loading = false
 
     constructor(public router: Router,
@@ -34,7 +38,18 @@ export class CreateAcademyFormComponent implements OnInit
 
     ngOnInit()
     {
-        
+        if (this.academy != null)
+        {            
+            this.name = this.academy.name;
+            this.address = this.academy.address;
+            this.latitude = '' + this.academy.location.coordinates[0];
+            this.longitude = '' + this.academy.location.coordinates[1];
+            this.district = this.academy.district;
+            this.city = this.academy.city;
+            this.isVerified = this.academy.isVerified;
+            this.whyChooseMe = this.academy.whyChooseMe;
+            this.neighborhoods = this.academy.neighborhoods;
+        }
     }
     
     onPressMainButton()
@@ -45,7 +60,7 @@ export class CreateAcademyFormComponent implements OnInit
         }
         else
         {
-            //this.updateCourse();
+            this.updateAcademy();
         }
     }
 
@@ -90,128 +105,54 @@ export class CreateAcademyFormComponent implements OnInit
 
         return allOk;
     }
-    /*
-    updateCourse()
+    updateAcademy()
     {
-        if (this.courses != null && this.courses.length > 1)
+        if (this.validateAcademy())
         {
-            var courseDataToUpdate: any = {}
-
-            if (this.name != null && this.name.trim().length > 0)
-                courseDataToUpdate.name = this.name.trim();
-
-            if (this.duration != null && this.duration.trim().length > 0)
-                courseDataToUpdate.duration = this.duration.trim();
-
-            if (this.hours != null && (this.hours + '').length > 0)
-                courseDataToUpdate.hours = this.hours;
-                
-            if (this.weekClasses != null && (this.weekClasses + '').length > 0)
-                courseDataToUpdate.weekclasses = this.weekClasses;
-
-            if (this.price != null && (this.price + '').length > 0)
-                courseDataToUpdate.price = this.price;
-
-            if (this.oldPrice != null && (this.oldPrice + '').length > 0)
-                courseDataToUpdate.oldPrice = this.oldPrice;
-
-            if (this.startDate != null && this.startDate.trim().length > 0)
-                courseDataToUpdate.startDate = moment(this.startDate + '', 'DD/MM/YYYY').toISOString();
-        
-            if (this.isBooked != null)
-                courseDataToUpdate.isBooked = this.isBooked;
-                
-            if (this.videoUrl != null && this.videoUrl.trim().length > 0)
-                courseDataToUpdate.videoUrl = this.videoUrl.trim();
-                
-            if (this.categoryId != null && (this.categoryId + '').length > 0)
-                courseDataToUpdate.category = this.categoryId;
-                
-            if (this.sizeClass != null && (this.sizeClass + '').length > 0)
-                courseDataToUpdate.sizeClass = this.sizeClass;
+            this.loading = true
             
-            let group = this.filterEmptyStringsArray(this.group);
-            if (group != null && group.length > 0)
-                courseDataToUpdate.group = group;
+            var academyToUpdate =
+            {
+                name: this.name.trim(),
+                address: this.address.trim(),
+                location: { coordinates: [ parseFloat(this.latitude.trim()), parseFloat(this.longitude.trim()) ] },
+                district: this.district.trim(),
+                city: this.city.trim(),
+                isVerified: this.isVerified,
                 
-            let images = this.filterEmptyStringsArray(this.images);
-            if (images != null && images.length > 0)
-                courseDataToUpdate.images = images;
-            
-
-            for (let i = 0; i < this.courses.length; i++)
-            {
-                let course = this.courses[i];
-
-                this.courseService.updateCourse(course._id, courseDataToUpdate)
-                .subscribe(res =>
-                {
-                    this.onCourseUpdated.emit({ course: { _id: course._id, ...courseToUpdate } });
-                    this.numCoursesUpdated++;
-                    if (this.numCoursesUpdated === this.courses.length)
-                    {
-                        this.numCoursesUpdated = 0;
-                        this.onCoursesUpdated.emit();
-                        
-                        this.resetCourseData();
-                    }
-                },
-                error =>
-                {
-                    this.onCourseError.emit({ course: { _id: course._id, ...courseToUpdate } });
-                    this.numCoursesUpdated++;
-                    if (this.numCoursesUpdated === this.courses.length)
-                    {
-                        this.numCoursesUpdated = 0;
-                        this.onCoursesUpdated.emit();
-                    }
-
-                    console.log(error);
-                    this.showCourseUpdatedErrorNotification(course);
-                });
+                neighborhoods: (this.neighborhoods != null && this.neighborhoods.length > 0) ?
+                                this.neighborhoods : null,
+                whyChooseMe: (this.whyChooseMe != null && this.whyChooseMe.trim().length > 0) ?
+                             this.whyChooseMe : null
             }
-        }
-        else
-        {
-            if (this.validateAcademy())
+
+            this.academyService.updateAcademy(this.academy._id, academyToUpdate)
+            .subscribe(res =>
             {
-                var courseToUpdate =
-                {
-                    name: this.name,
-                    duration: this.duration,
-                    hours: this.hours,
-                    weekclasses: this.weekClasses,
-                    price: this.price,
-                    oldPrice: this.oldPrice,
-                    startDate: moment(this.startDate + '', 'DD/MM/YYYY').toISOString(),
-                    academy: this.course.academy,
-                    isBooked: this.isBooked,
-                    videoUrl: (this.videoUrl != null && this.videoUrl.trim().length > 0) ? this.videoUrl : null,
-                    category: this.categoryId,
-                    group: this.filterEmptyStringsArray(this.group),
-                    images: this.filterEmptyStringsArray(this.images),
-                    sizeClass: this.sizeClass
-                }
-
-                this.courseService.updateCourse(this.course._id, courseToUpdate)
-                .subscribe(res =>
-                {
-                    this.onCourseUpdated.emit({ course: { _id: this.course._id, ...courseToUpdate } });
-                    this.showCourseUpdatedSuccessNotification();
-                    console.log(res.message);
-                },
-                error =>
-                {
-                    this.onCourseError.emit({ course: { _id: this.course._id, ...courseToUpdate } });
-                    console.log(error.json().message);
-
-                    this.showCourseUpdatedErrorNotification();
-                    console.log(error);
-                });
-            }
+                this.loading = false
+                
+                this.notifications.create(
+                  'success',
+                  'Info Academia',
+                  'La información de academia se ha guardado'
+                );
+                
+                console.log(res);
+            },
+            error =>
+            {
+                this.loading = false
+                
+                this.notifications.create(
+                  'error',
+                  'Error',
+                  'No se ha podido guardar la información de academia'
+                );
+                
+                console.log(error);
+            });
         }
     }
-    */
     createAcademy()
     {
         if (this.validateAcademy())
@@ -226,7 +167,12 @@ export class CreateAcademyFormComponent implements OnInit
                 },
                 district: this.district.trim(),
                 city: this.city.trim(),
-                isVerified: this.isVerified
+                isVerified: this.isVerified,
+                
+                neighborhoods: (this.neighborhoods != null && this.neighborhoods.length > 0) ?
+                                this.neighborhoods : null,
+                whyChooseMe: (this.whyChooseMe != null && this.whyChooseMe.trim().length > 0) ?
+                             this.whyChooseMe : null
             }
             
             console.log(academyToCreate);
@@ -253,43 +199,6 @@ export class CreateAcademyFormComponent implements OnInit
             });
         }
     }
-    /*
-    resetCourseData()
-    {
-        this.name      = undefined;
-        this.duration   = undefined;
-        this.hours      = undefined;
-        this.price      = undefined;
-        this.oldPrice   = undefined;
-        this.startDate  = undefined;
-        this.isBooked   = false;
-        this.videoUrl   = undefined;
-        this.categoryId = undefined;
-        this.sizeClass  = undefined;
-        this.group      = []
-        this.images     = []
-    }
-    
-    
-    showCourseUpdatedSuccessNotification()
-    {
-        this.notifications.create(
-          'success',
-          'Curso actualizado',
-          `El curso "${this.course.name}" ha sido actualizado`
-        );
-    }
-    showCourseUpdatedErrorNotification(course?)
-    {
-        let message = (course != null) ? `El curso "${course.name}" no ha podido actualizarse` : 'El curso no ha podido actualizarse';
-        
-        this.notifications.create(
-          'error',
-          'Error',
-          message
-        );
-    }
-    */
     
     showAcademyCreatedSuccessNotification()
     {

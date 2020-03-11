@@ -2,13 +2,11 @@ import { Component, ViewChild, HostListener } from "@angular/core";
 import { CoursesService } from "../../services/courses.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Location } from '@angular/common';
-import { UtilsService } from '../../services/utils.service';
+import { UtilsService, NEIGHBORHOODS } from '../../services/utils.service';
 import { MetaService } from '@ngx-meta/core';
 
 const ORDER_RELEVANCE = 1;
 const ORDER_PRICE_ASCENDING = 2;
-
-const NEIGHBORHOODS = [ 'Alcobendas', 'Arganzuela - Atocha', 'Barajas', 'Carabanchel', 'Centro', 'Ciudad Lineal', 'Chamartín', 'Chamberí - Ríos Rosas', 'Fuencarral - Bº del Pilar', 'Hortaleza', 'Latina', 'Moncloa - Argüelles', 'Moratalaz', 'Retiro', 'Salamanca', 'San Blas - Canillejas', 'Puente de Vallecas', 'Usera', 'Tetuán - Cuatro Caminos', 'Vicálvaro', 'Villa de Vallecas', 'Villaverde' ]
 
 const MOBILE_WIDTH = 897;
 

@@ -970,6 +970,10 @@ input[type="text"]
 }
 
 /***** Antd *****/
+.ant-btn > *
+{
+    vertical-align: middle;
+}
 .ant-notification-notice-message,
 .ant-modal-confirm-title,
 .ant-modal-title
@@ -989,12 +993,22 @@ input[type="text"]
 }
 .ant-select-dropdown-menu-item
 {
-    color: $black-80;
+    color: $black-88;
 }
 .ant-select-dropdown-menu-item-selected,
 .ant-select-dropdown-menu-item-selected:hover
 {
-    color: $black-80;
+    color: $black-88;
+}
+.ant-select-selection__choice
+{
+    height: 28px !important;
+    line-height: 28px !important;
+    font-size: 14px !important;
+}
+.ant-select-selection__choice__remove
+{
+    margin-top: -2px;
 }
 
 nz-rate.small

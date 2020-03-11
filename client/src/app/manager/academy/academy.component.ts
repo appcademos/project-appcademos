@@ -297,7 +297,7 @@ export class AcademyComponent implements OnInit, OnDestroy
     }
     
     onClickDeleteCourse(event)
-    {    
+    {
         event.stopPropagation();
     }
     sendDeleteCourse(courseId)
@@ -331,7 +331,7 @@ export class AcademyComponent implements OnInit, OnDestroy
     }
     
     onReviewDeleted(review)
-    {        
+    {
         if (review.create)
         {
             let index = this.academy.reviews.indexOf(review);

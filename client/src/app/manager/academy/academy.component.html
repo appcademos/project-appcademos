@@ -23,8 +23,13 @@
                 </div>
             </div>
             
-            <div class="content">                
-                <div class="quillEditorContainer">
+            <div class="content">
+                <app-createAcademyForm
+                    [academy]="academy"
+                    [createMode]="false"
+                ></app-createAcademyForm>
+                
+                <!--<div class="quillEditorContainer">
                     <div class="title">Por qué elegir esta academia</div>
                     <quill-editor [(ngModel)]="academy.whyChooseMe"></quill-editor>
                 </div>
@@ -39,7 +44,7 @@
                     >
                         Guardar
                     </button>
-                </div>
+                </div>-->
             </div>
         </section>
         
