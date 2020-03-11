@@ -216,16 +216,4 @@ export class CreateAcademyFormComponent implements OnInit
            `La academia "${this.name}" no ha podido crearse`
         );
     }
-    
-    filterEmptyStringsArray(arr)
-    {
-        let filteredArray = null;
-        
-        if (arr != null)
-        {
-             filteredArray = arr.filter((item) => (('' + item).trim().length > 0));
-        }
-        
-        return filteredArray;
-    }
 }
