@@ -15,7 +15,7 @@
         {
             margin-right: 8px;
         }
-        &:last-child
+        &:nth-child(2)
         {
             margin-left: 8px;
         }
@@ -42,7 +42,15 @@
     }
 }
 
+.buttons
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
 button
 {
-    margin-top: 20px;
+    margin-top: 12px;
 }

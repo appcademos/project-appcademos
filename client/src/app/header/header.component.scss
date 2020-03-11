@@ -150,7 +150,7 @@ header.absolute
         right: 0;
         height: 100%;
         background: white;
-        padding: 84px 24px 24px;
+        padding: 72px 24px 24px;
         z-index: 1;
         font-weight: 500;
         overflow: scroll;
@@ -302,8 +302,8 @@ header.absolute #navbarBottom
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
-            padding-bottom: 18px;
-            padding-top: 18px;
+            padding-bottom: 16px;
+            padding-top: 16px;
 
             .mobile-nav-button
             {

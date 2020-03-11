@@ -12,7 +12,7 @@ import { AcademySessionService } from '../../services/academySession.service';
 import { MetaService } from '@ngx-meta/core';
 import * as moment from 'moment';
 
-const MOBILE_WIDTH = 885;
+const MOBILE_WIDTH = 897;
 
 @Component({
   selector: "app-oneCourse",

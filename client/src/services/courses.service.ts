@@ -19,12 +19,15 @@ export class CoursesService
                 private router: Router)
     {}
 
-    findCourses(searchcourses)
+    findCourses(searchcourses, neighborhoods = null)
     {
         this.searchcourses = searchcourses.replace(/[\s]/g, "+");
 
+        let neighborhoodsQuery = (neighborhoods != null && neighborhoods.length > 0) ?
+                                 `&neighborhoods=${JSON.stringify(neighborhoods)}` : '';
+
         return this.http
-        .get(`${environment.BASEURL}/api/course/search?course=${this.searchcourses}`, this.options)
+        .get(`${environment.BASEURL}/api/course/search?course=${this.searchcourses}${neighborhoodsQuery}`, this.options)
         .map(res => res.json())
         .map(courses =>
         {
@@ -57,15 +60,6 @@ export class CoursesService
             this.foundCourses = courses;
           })
           .catch(error => Observable.throw(error.json().message));
-    }
-
-    setSearchValue(value)
-    {
-        if (value === "Precio") {
-          this.foundCourses.sort(function(a, b) {
-            return a.price - b.price;
-          });
-        }
     }
 
     createCourse(course)

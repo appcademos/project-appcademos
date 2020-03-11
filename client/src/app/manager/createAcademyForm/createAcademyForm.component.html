@@ -1,11 +1,13 @@
 <div class="form full-width">
-      <div class="form-group">
-        <label>Nombre<span *ngIf="createMode || this.academy != null">*</span></label>
-        <input type="text" class="form-control" [(ngModel)]="name" name="name">
-      </div>
-      <div class="form-group">
-        <label>Dirección<span *ngIf="createMode || this.academy != null">*</span></label>
-        <input type="text" class="form-control" [(ngModel)]="address" name="address">
+      <div class="form-group-container">
+          <div class="form-group">
+            <label>Nombre<span *ngIf="createMode || this.academy != null">*</span></label>
+            <input type="text" class="form-control" [(ngModel)]="name" name="name">
+          </div>
+          <div class="form-group">
+            <label>Dirección<span *ngIf="createMode || this.academy != null">*</span></label>
+            <input type="text" class="form-control" [(ngModel)]="address" name="address">
+          </div>
       </div>
       <div class="form-group-container">
           <div class="form-group">
@@ -32,16 +34,28 @@
             <label>Verificada</label>
             <nz-switch [(ngModel)]="isVerified"></nz-switch>
           </div>
+          
+          <div class="form-group">
+              <label>Barrios</label>
+              <nz-select nzMode="multiple" nzSize="large" nzPlaceHolder="Elige barrio/s" [(ngModel)]="neighborhoods">
+                  <nz-option *ngFor="let neighborhood of allNeighborhoods" [nzLabel]="neighborhood" [nzValue]="neighborhood"></nz-option>
+              </nz-select>
+          </div>
+      </div>
+      <div class="form-group">
+          <label>Por qué elegir esta academia</label>
+          <quill-editor [(ngModel)]="whyChooseMe"></quill-editor>
       </div>
 
-      <button
-          nz-button
-          [nzLoading]="loading"
-          nzType="primary"
-          nzBlock="true"
-          nzSize="large"
-          (click)="onPressMainButton()"
-      >
-          {{ createMode ? 'Crear academia' : 'Guardar academia' }}
-      </button>
+      <div class="buttons">
+          <button
+              nz-button
+              [nzLoading]="loading"
+              nzType="primary"
+              nzSize="large"
+              (click)="onPressMainButton()"
+          >
+              {{ createMode ? 'Crear academia' : 'Guardar academia' }}
+          </button>
+      </div>
 </div>

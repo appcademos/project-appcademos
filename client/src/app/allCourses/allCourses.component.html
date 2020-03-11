@@ -1,69 +1,108 @@
 <div class="whatsappBanner">
     <div class="responsive-container">
         <div>
-            <div class="title">Un experto te ayuda a elegir el mejor curso para ti.</div>
-            <div class="subtitle">Le podrás preguntar todas tus dudas ;)</div>
+            <div class="title">Te enviamos el mejor curso para ti con descuento exclusivo.</div>
         </div>
-        <a class="button medium green noshadow" href="/estudio-personalizado">Contactar con experto</a>
+        <a class="button medium green noshadow" href="/estudio-personalizado">Recibir curso</a>
     </div>
 </div>
 
-<div class="responsive-container">
-    <div class="search-view">
-        <app-searchbox #searchbox class="searchbox" [small]="true" [fixed]="showFixedSearchbar" (onSearch)="findCourses($event)" (onFocus)="onFocusSearchbox()"></app-searchbox>
-        <div #orderbox class="orderbox noselect" [ngClass]="{'expanded': orderExpanded}">
-            <div class="selector card-banner" (click)="orderExpanded = !orderExpanded">
-                <div class="left">
-                    <div class="title">Ordenar por</div>
-                    <div class="text">{{ currentOrder.name }}</div>
-                </div>
+<div class="search-view-container" [ngClass]="{ 'showingFilterButton': shouldShowMobileFilterButton() }">
+    <div class="search-view" [ngClass]="{ 'mobileFiltersVisible': showMobileFilters, 'fixed': fixedFilters, 'show': showFixedFilters }">
+        <div class="filterButtonContainer responsive-container" *ngIf="shouldShowMobileFilterButton()">
+            <div
+                id="filterButton" 
+                class="noselect card-banner" 
+                (click)="toggleMobileFilters()"
+            >
                 <div class="icon size-20 icon-filter"></div>
-                <div class="icon size-14 icon-arrow-down"></div>
+                <div class="title">Filtrar búsqueda</div>
+                <i class="icon size-12 icon-arrow-down"></i>
             </div>
-            <div class="selector-list">
-                <div class="title">Ordenar por</div>
-                <div class="item" [ngClass]="{'selected': order == currentOrder}" *ngFor="let order of orders" (click)="orderBy(order)">{{ order.name }}</div>
+        </div>
+        
+        <div class="filterPillsContainer responsive-container" *ngIf="!shouldShowMobileFilterButton()">
+            <div id="filterPills">
+                <div class="filterPill green noselect" (click)="toggleMobileFilters()">
+                    <div class="icon size-16 icon-filter-green"></div>
+                    <span>Filtros</span>
+                    <i class="icon size-10 icon-arrow-down"></i>
+                </div>
+                <div class="filterPill noselect" *ngFor="let neighborhood of appliedNeighborhoods">
+                    <span>{{ neighborhood }}</span>
+                    <i nz-icon nzType="close" nzTheme="outline" (click)="onChangeNeighborhoodFilter(neighborhood, false, true)"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="filtersContainer responsive-container">
+            <div id="mobileFilters" [ngClass]="{ 'visible': showMobileFilters }">
+                <div class="content">
+                    <div class="section">
+                        <div class="title">Seleccionar <span class="color-green">Ubicaciones</span></div>
+                        <div class="neighborhoods">
+                            <div class="neighborhood noselect" *ngFor="let neighborhood of neighborhoods; let i = index">
+                                <app-checkbox
+                                    [inputId]="'neighborhood-' + (i+1)"
+                                    [checked]="isNeighborhoodSelected(neighborhood)"
+                                    (onChange)="onChangeNeighborhoodFilter(neighborhood, $event)"
+                                ></app-checkbox>
+                                <label [for]="'neighborhood-' + (i+1)">{{ neighborhood }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="title">Ordenar por</div>
+                        <div class="orders">
+                            <div class="order noselect">
+                                <app-checkbox
+                                    inputId="order-1"
+                                    [checked]="currentOrder === 1"
+                                    [disabled]="currentOrder === 1"
+                                    (onChange)="currentOrder = 1"
+                                ></app-checkbox>
+                                <label for="order-1"><span class="color-green fw-600">Valoración:</span> mejor valorado arriba</label>
+                            </div>
+                            <div class="order noselect">
+                                <app-checkbox
+                                    inputId="order-2"
+                                    [checked]="currentOrder === 2"
+                                    [disabled]="currentOrder === 2"
+                                    (onChange)="currentOrder = 2"
+                                ></app-checkbox>
+                                <label for="order-2"><span class="color-green fw-600">Precio:</span> más barato arriba</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="buttons">
+                    <div class="button green light-shadow full-width medium" (click)="onClickApplyFilters()">Aplicar filtros</div>
+                    <div class="button simple full-width" (click)="toggleMobileFilters()">Cancelar</div>
+                </div>
             </div>
         </div>
     </div>
+</div>
     
+<div class="responsive-container">
     <div class="whatsappBanner fixed" [ngClass]="{'show': showFixedSearchbar}">
         <div class="responsive-container">
             <div>
-                <div class="title">Un experto te ayuda a elegir el mejor curso para ti.</div>
-                <div class="subtitle">Le podrás preguntar todas tus dudas ;)</div>
+                <div class="title">Te enviamos el mejor curso para ti con descuento exclusivo.</div>
             </div>
-            <a class="button medium green noshadow" href="/estudio-personalizado">Contactar con experto</a>
+            <a class="button medium green noshadow" href="/estudio-personalizado">Recibir curso</a>
         </div>
     </div>
-    <!--<div id="fixed-searchbox" [ngClass]="{'show': showFixedSearchbar}">
-        <div class="responsive-container">
-            <app-searchbox #fixedsearchbox class="searchbox" [fixed]="true" [small]="true" (onSearch)="findCourses($event)" (onFocus)="onFocusSearchbox()"></app-searchbox>
-            <div #fixedorderbox class="orderbox noselect" [ngClass]="{'expanded': orderExpanded}">
-                <div class="selector card-banner" (click)="orderExpanded = !orderExpanded">
-                    <div class="left">
-                        <div class="title">Ordenar por</div>
-                        <div class="text">{{ currentOrder.name }}</div>
-                    </div>
-                    <div class="icon size-20 icon-filter"></div>
-                    <div class="icon size-14 icon-arrow-down"></div>
-                </div>
-                <div class="selector-list">
-                    <div class="title">Ordenar por</div>
-                    <div class="item" [ngClass]="{'selected': order == currentOrder}" *ngFor="let order of orders" (click)="orderBy(order)">{{ order.name }}</div>
-                </div>
-            </div>
-        </div>
-    </div>-->
 
     <div class="title-view" *ngIf="courses.length !== 0">
         <h1>Las mejores academias de <span class="fw-700">{{ commonCategoryFullName ? commonCategoryFullName : (searchCategory ? searchCategory : 'inglés') }}</span> cerca de ti</h1>
-        <div class="results-count">{{ courses.length }} CURSOS</div>
     </div>
 
     <div>
         <div *ngIf="!searching && courses.length === 0">
-            <h3>No hay cursos para esta categoría</h3>
+            <h3>No hay cursos para esta búsqueda</h3>
         </div>
 
         <div class="spinner" [hidden]="!searching"></div>

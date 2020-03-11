@@ -2,6 +2,14 @@
     <div class="responsive-container" *ngIf="academy">
         <div class="top">
             <div>
+                <button
+                    nz-button
+                    nzSize="small"
+                    nzType="link"
+                    (click)="router.navigate(['/manager'])"
+                >
+                    <i nz-icon nzType="left"></i>Atrás
+                </button>
                 <div class="superTitle">ACADEMIA</div>
                 <h2>{{ academy.name }}</h2>
             </div>
@@ -23,23 +31,12 @@
                 </div>
             </div>
             
-            <div class="content">                
-                <div class="quillEditorContainer">
-                    <div class="title">Por qué elegir esta academia</div>
-                    <quill-editor [(ngModel)]="academy.whyChooseMe"></quill-editor>
-                </div>
-                
-                <div class="buttons">
-                    <button
-                        nz-button
-                        nzType="primary"
-                        nzSize="large"
-                        [nzLoading]="sendingAcademyInfo"
-                        (click)="sendAcademyInfo()"
-                    >
-                        Guardar
-                    </button>
-                </div>
+            <div class="content">
+                <app-createAcademyForm
+                    [academy]="academy"
+                    [createMode]="false"
+                    (onAcademyUpdated)="getAcademy()"
+                ></app-createAcademyForm>
             </div>
         </section>
         
@@ -159,7 +156,7 @@
 
             <div
                 class="course card-banner noselect"
-                [ngClass]="{'expanded': editingCourse != null && editingCourse._id === course._id }"
+                [ngClass]="{'expanded': editingCourse != null && editingCourse._id === course._id, 'isHidden': course.hidden }"
                 *ngFor="let course of academy.courses; let i = index"
                 [attr.data-index]="i">
                 <div class="header" (click)="onClickCourse(course)">

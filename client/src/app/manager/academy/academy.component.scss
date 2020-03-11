@@ -18,13 +18,22 @@
         align-items: flex-end;
         padding-bottom: 8px;
         border-bottom: 1px solid $border-color;
-        margin-bottom: 32px;
+        margin-bottom: 24px;
         
         & > div h2
         {
             line-height: 1.2 !important;
             font-size: 26px !important;
             margin-right: 20px !important;
+        }
+        button
+        {
+            padding-left: 0 !important;
+            border: 0 !important;
+            margin-bottom: 16px;
+            font-weight: 500;
+            
+            i { margin-top: -1px; }
         }
         .superTitle
         {
@@ -42,7 +51,7 @@
 
     section
     {
-        margin-bottom: 24px;
+        margin-bottom: 20px;
         overflow: hidden;
         
         & > .titleContainer
@@ -78,33 +87,6 @@
             overflow: hidden;
             
             transition: 0.2s all;
-            
-            .quillEditorContainer
-            {
-                margin-bottom: 20px;
-                
-                .title
-                {
-                    font-size: 14px;
-                    font-weight: 600;
-                    margin-bottom: 8px;
-                    margin-left: 4px;
-                }
-            }
-            
-            & > .buttons
-            {
-                margin-top: 28px;
-                display: flex;
-                flex-direction: row;
-                justify-content: flex-end;
-                align-items: center;
-                
-                & > *
-                {
-                    margin-left: 12px;
-                }
-            }
         }
         
         &.expanded
@@ -189,6 +171,22 @@
             overflow: hidden;
 
             transition: all 0.16s ease;
+
+            &.isHidden
+            {
+                background: transparent;
+                border-style: dashed;
+                
+                .header
+                {
+                    opacity: 0.4;
+                    background: $manager-background !important;
+                }
+                app-createCourseForm
+                {
+                    background: #fff;
+                }
+            }
 
             .header
             {
