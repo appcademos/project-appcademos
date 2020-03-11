@@ -18,6 +18,7 @@ export class CreateAcademyFormComponent implements OnInit
     
     @Output() onAcademyError: EventEmitter<any> = new EventEmitter();
     @Output() onAcademyCreated: EventEmitter<any> = new EventEmitter();
+    @Output() onAcademyUpdated: EventEmitter<any> = new EventEmitter();
 
     name: string;
     address: string;
@@ -137,7 +138,7 @@ export class CreateAcademyFormComponent implements OnInit
                   'La información de academia se ha guardado'
                 );
                 
-                console.log(res);
+                this.onAcademyUpdated.emit();
             },
             error =>
             {
@@ -174,8 +175,6 @@ export class CreateAcademyFormComponent implements OnInit
                 whyChooseMe: (this.whyChooseMe != null && this.whyChooseMe.trim().length > 0) ?
                              this.whyChooseMe : null
             }
-            
-            console.log(academyToCreate);
 
             this.loading = true
 
@@ -186,8 +185,6 @@ export class CreateAcademyFormComponent implements OnInit
                 
                 this.onAcademyCreated.emit();
                 this.showAcademyCreatedSuccessNotification();
-                
-                console.log(res);
             },
             error =>
             {

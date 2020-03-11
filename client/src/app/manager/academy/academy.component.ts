@@ -263,7 +263,7 @@ export class AcademyComponent implements OnInit, OnDestroy
     {
         let now = moment();
         let m = moment(date);
-        let isToday = now.diff(m, 'days') === 0;
+        let isToday = m.isSame(now, 'day');
 
         return (isToday) ? 'hoy ' + m.format('HH:mm') : m.format('DD-MM-YYYY HH:mm');
     }
