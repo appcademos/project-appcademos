@@ -112,6 +112,11 @@
         margin-bottom: 0;
     }
     
+    p
+    {
+        flex-grow: 1;
+    }
+    
     .icon
     {
         opacity: 0.4;
