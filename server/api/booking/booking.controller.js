@@ -39,7 +39,6 @@ const create = (req, res, next) =>
                         group: newBooking.group,
                         courseTitle: course.title,
                         coursePrice: course.price,
-                        courseStartDate: moment(course.startDate).locale("es").format("dddd D MMMM"),
                         academyName: course.academy.name.toUpperCase(),
                         academyAddress: course.academy.address
                     },
