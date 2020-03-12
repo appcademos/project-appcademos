@@ -8,8 +8,7 @@ const userSchema = new Schema(
       required: true
     },
     lastName: {
-      type: String,
-      required: true
+      type: String
     },
     phone: Number,
     imageUrl: String,

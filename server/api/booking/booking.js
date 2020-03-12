@@ -2,9 +2,11 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  create
+  create,
+  update
 } = require("./booking.controller");
 
 router.post("/", create);
+router.put("/:id", update);
 
 module.exports = router;

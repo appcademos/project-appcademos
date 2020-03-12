@@ -173,4 +173,18 @@ const create = (req, res, next) =>
     });
 };
 
-module.exports = { create };
+const update = async (req, res, next) =>
+{ 
+    try
+    {
+        await Booking.updateOne({ _id: req.params.id }, req.body);
+        
+        res.sendStatus(200);
+    }
+    catch(error)
+    {
+        console.log(error);
+    }
+};
+
+module.exports = { create, update };
