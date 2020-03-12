@@ -20,11 +20,11 @@ export class CheckoutComponent implements OnInit
     courseNotFound: boolean = false;
     
     course: any;
-    name: string = 'Alvaro Test';
-    phone: string = '600000000';
-    email: string = 'spanishackers@gmail.com';
+    name: string;
+    phone: string;
+    email: string;
     group: string;
-    termsAccepted: boolean = true;
+    termsAccepted: boolean = false;
     
     sendingBooking: boolean = false;
     courseBooked: boolean = false;
