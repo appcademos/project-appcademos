@@ -122,9 +122,10 @@
 
 <nz-modal
     class="registrationModal"
+    nzWrapClassName="vertical-center-modal"
     [(nzVisible)]="showRegistrationModal"
     nzTitle="Crea una cuenta"
-    nzOkText="Crear cuenta y reservar curso"
+    nzOkText="Crear cuenta y vincular reserva"
     nzCancelText="Continuar sin cuenta"
     (nzOnCancel)="onRegistrationModalCancel()"
     (nzOnOk)="onRegistrationModalOk()"

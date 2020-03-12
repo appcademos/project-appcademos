@@ -15,4 +15,12 @@ export class BookingsService
                 .map(res => res.json())
                 .catch(error => Observable.throw(error));
     }
+    
+    updateBooking(bookingId, data)
+    {
+        return this.http
+                .put(`${environment.BASEURL}/api/bookings/${bookingId}`, data)
+                .map(res => res)
+                .catch(error => Observable.throw(error));
+    }
 }

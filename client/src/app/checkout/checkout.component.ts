@@ -29,7 +29,6 @@ export class CheckoutComponent implements OnInit
     sendingBooking: boolean = false;
     courseBooked: boolean = false;
     sendingSignup: boolean = false;
-    signupCompleted: boolean = false;
     
     user: any;
     startDateFormatted: String;
@@ -38,6 +37,8 @@ export class CheckoutComponent implements OnInit
 
     loginSubscription: Subscription;
     showRegistrationModal: boolean = false;
+    bookingSuccessModalRef = null;
+    booking = null;
     
     password: String;
     repeatPassword: String;
@@ -59,10 +60,12 @@ export class CheckoutComponent implements OnInit
     ngOnInit()
     {
         this.activatedRoute.queryParams.subscribe(params =>
-        {
+        {            
             if (params.course)
             {
-                this.courseservice.getCourse(params.course)
+                let course = params.course.replace(/\/reserva-confirmada/g, '');
+                
+                this.courseservice.getCourse(course)
                 .subscribe(res =>
                 {
                     this.course = res.course;
@@ -86,7 +89,7 @@ export class CheckoutComponent implements OnInit
                     });
                 },
                 err =>
-                {                    
+                {
                     this.isLoading = false;
                     
                     if (err.status === 400)
@@ -123,14 +126,7 @@ export class CheckoutComponent implements OnInit
     {
         if (this.validateFields())
         {
-            if (this.user != null)
-            {
-                this.sendBooking();
-            }
-            else
-            {
-                this.showRegistrationModal = true;
-            }
+            this.sendBooking();
         }
     }
     
@@ -187,13 +183,21 @@ export class CheckoutComponent implements OnInit
         this.bookingsService.createBooking(data)
         .subscribe(res =>
         {
+            this.booking = res;
+            
             this.sendingBooking = false;
             this.courseBooked = true;
             
-            this.modalService.success(
+            this.bookingSuccessModalRef = this.modalService.success(
             {
                 nzTitle: 'Reserva confirmada',
-                nzContent: (this.signupCompleted) ? 'Tu cuenta se ha creado correctamente.\nTu plaza ha sido reservada.' : 'Tu plaza ha sido reservada.'
+                nzContent: 'Tu plaza ha sido reservada.',
+                nzWrapClassName: 'vertical-center-modal',
+                nzOnOk: () =>
+                {
+                    this.bookingSuccessModalRef.close();
+                    this.showRegistrationModal = true;
+                }
             });
             
             this.location.go(window.location.pathname + window.location.search + '/reserva-confirmada');
@@ -216,18 +220,12 @@ export class CheckoutComponent implements OnInit
     {
         if (this.validateRegistrationModal())
         {
-            this.sendSignup()
-            .then(() =>
-            {
-                setTimeout(() => { this.sendBooking(); }, 200);
-            })
-            .catch(() => {});
+            this.sendSignup();
         }
     }
     onRegistrationModalCancel()
     {
         this.showRegistrationModal = false;
-        this.sendBooking();
     }
     
     validateRegistrationModal()
@@ -264,31 +262,60 @@ export class CheckoutComponent implements OnInit
         let data =
         {
             name: this.name.trim(),
+            lastName: '',
             email: this.email.trim(),
             password: this.password
         }
 
-        return new Promise((resolve, reject) =>
+        this.userService.signup(data)
+        .subscribe(() =>
         {
-            this.userService.signup(data).subscribe(() =>
+            this.updateBookingWithUserId();
+        },
+        error =>
+        {
+            this.sendingSignup = false;
+            this.notifications.create(
+              'error',
+              'Error',
+              'No se ha podido crear tu cuenta. Inténtalo de nuevo o ponte en contacto con nosotros.'
+            );
+            
+            console.log(error);
+        });
+    }
+    updateBookingWithUserId()
+    {
+        this.sendingSignup = true;
+
+        let data =
+        {
+            user: this.user._id
+        }
+
+        this.bookingsService.updateBooking(this.booking._id, data)
+        .subscribe((res) =>
+        {            
+            this.sendingSignup = false;
+            this.showRegistrationModal = false;
+            
+            this.modalService.success(
             {
-                this.sendingSignup = false;
-                this.showRegistrationModal = false;
-                this.signupCompleted = true;
-                resolve();
-            },
-            error =>
-            {
-                this.sendingSignup = false;
-                this.notifications.create(
-                  'error',
-                  'Error',
-                  'No se ha podido crear tu cuenta. Inténtalo de nuevo o ponte en contacto con nosotros.'
-                );
-                
-                console.log(error);
-                reject();
+                nzTitle: 'Reserva vinculada',
+                nzContent: 'Tu reserva ha sido vinculada a tu cuenta.',
+                nzWrapClassName: 'vertical-center-modal'
             });
+        },
+        error =>
+        {
+            this.sendingSignup = false;
+            this.notifications.create(
+              'error',
+              'Error',
+              'No se ha podido vincular tula reserva a tu cuenta. Por favor, ponte en contacto con nosotros para vincularla.'
+            );
+            
+            console.log(error);
         });
     }
     

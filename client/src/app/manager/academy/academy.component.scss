@@ -139,6 +139,33 @@
         {
             margin: 4px 0 16px;
         }
+        
+        .quillEditorContainer
+        {
+            margin-bottom: 20px;
+            
+            .title
+            {
+                font-size: 14px;
+                font-weight: 600;
+                margin-bottom: 8px;
+                margin-left: 4px;
+            }
+        }
+        
+        .buttons
+        {
+            margin-top: 28px;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            
+            & > *
+            {
+                margin-left: 12px;
+            }
+        }
     }
 
 

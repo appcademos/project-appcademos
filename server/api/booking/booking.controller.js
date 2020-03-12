@@ -39,7 +39,6 @@ const create = (req, res, next) =>
                         group: newBooking.group,
                         courseTitle: course.title,
                         coursePrice: course.price,
-                        courseStartDate: moment(course.startDate).locale("es").format("dddd D MMMM"),
                         academyName: course.academy.name.toUpperCase(),
                         academyAddress: course.academy.address
                     },
@@ -174,4 +173,18 @@ const create = (req, res, next) =>
     });
 };
 
-module.exports = { create };
+const update = async (req, res, next) =>
+{ 
+    try
+    {
+        await Booking.updateOne({ _id: req.params.id }, req.body);
+        
+        res.sendStatus(200);
+    }
+    catch(error)
+    {
+        console.log(error);
+    }
+};
+
+module.exports = { create, update };
