@@ -416,13 +416,17 @@ export class OneCourseComponent implements OnInit, OnDestroy
     }
     
     setMetaData()
-    {
+    {        
         if (this.courseObj != null && this.courseObj.course != null)
-        {
-            this.meta.setTitle(`${this.courseObj.course.title} | Academia en Madrid | Appcademos`);
-        }
-        
-        this.meta.setTag('description', `Reserva de plaza gratuita. Precios, Horarios, Material, Temario... Toda la información actualizada a diario y opiniones de otros alumnos.`);
+        {            
+            let courseTitleNoDuration = this.courseObj.course.title.split(' - ')[0];
+            let neighborhoods = 'Madrid';
+            if (this.courseObj.course.academy.neighborhoods != null && this.courseObj.course.academy.neighborhoods.length > 0)
+                neighborhoods = this.courseObj.course.academy.neighborhoods.join(', ');
+            
+            this.meta.setTitle(`${courseTitleNoDuration} | ${neighborhoods} | Appcademos`);
+            this.meta.setTag('description', `${courseTitleNoDuration} en ${neighborhoods}. Horarios, precio, temario, opiniones verificadas... Toda la información de este curso de la academia ${this.courseObj.course.academy.name}.`);
+        }        
     }
     removeMetaData()
     {
