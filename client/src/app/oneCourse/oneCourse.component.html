@@ -8,14 +8,10 @@
 
 <div *ngIf="courseObj">
     <div class="responsive-container">
-        <div id="backButton" class="noselect" (click)="backClicked()">
-            <i class="icon size-12 icon-arrow-left"></i> Atrás
-        </div>
-
         <div class="title-view">
             <div class="left">
                 <div class="academy">
-                    <div class="fs-14 fw-700 color-black-80">ACADEMIA {{ courseObj.course.academy.name.toUpperCase() }}</div>
+                    <h2 class="color-black-80">ACADEMIA {{ courseObj.course.academy.name.toUpperCase() }}</h2>
                     <div class="verified"><i class="icon size-9 icon-green-check"></i>VERIFICADA</div>
                 </div>
                 <h1>{{ courseObj.course.title }}</h1>
@@ -29,8 +25,8 @@
                 </div>
             </div>
             <div class="right">
-                <div class="old-price fw-500 fs-28" *ngIf="courseObj.course.oldPrice">{{ courseObj.course.oldPrice }}€</div>
-                <div class="price color-red fw-600 fs-32">{{ courseObj.course.price }}€</div>
+                <div class="old-price fw-500" *ngIf="courseObj.course.oldPrice">{{ courseObj.course.oldPrice }}€</div>
+                <div class="price color-red fw-600">{{ courseObj.course.price }}€</div>
             </div>
         </div>
     </div>
@@ -148,7 +144,7 @@
                 <div class="top noselect" (click)="expandItem('expandible-item-1')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-20 icon-like-green"></i>
-                    <div class="title">Este curso es para ti si…</div>
+                    <h2 class="title">Este curso es para ti si…</h2>
                 </div>
                 <div class="content">
                     <div class="content-container" innerHTML="{{ courseObj.course.category.forYouIf }}"></div>
@@ -158,7 +154,7 @@
                 <div class="top noselect" (click)="expandItem('expandible-item-2')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-20 icon-info-green"></i>
-                    <div class="title">Qué debes saber sobre este curso</div>
+                    <h2 class="title">Qué debes saber sobre este curso</h2>
                 </div>
                 <div class="content">
                     <div class="content-container" innerHTML="{{ courseObj.course.category.coursesInfo }}"></div>
@@ -168,7 +164,7 @@
                 <div class="top noselect" (click)="expandItem('expandible-item-3')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-20 icon-class-green"></i>
-                    <div class="title">Cómo serán las clases</div>
+                    <h2 class="title">Cómo serán las clases</h2>
                 </div>
                 <div class="content">
                     <div class="content-container" innerHTML="{{ courseObj.course.academyCategory.howAreTheClasses }}"></div>
@@ -178,7 +174,7 @@
                 <div class="top noselect" (click)="expandItem('expandible-item-4')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-20 icon-book-green"></i>
-                    <div class="title">Temario y material</div>
+                    <h2 class="title">Temario y material</h2>
                 </div>
                 <div class="content">
                     <div class="content-container">
@@ -197,45 +193,18 @@
                 <div class="top noselect" (click)="expandItem('expandible-item-5')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-20 icon-graduation-green"></i>
-                    <div class="title">¿Por qué elegir la academia <span class="color-green">{{ courseObj.course.academy.name }}</span>?</div>
+                    <h2 class="title">¿Por qué elegir la academia <span class="color-green">{{ courseObj.course.academy.name }}</span>?</h2>
                 </div>
                 <div class="content">
                     <div class="content-container" innerHTML="{{ courseObj.course.academy.whyChooseMe }}"></div>
                 </div>
             </div>
-            <!--<div class="expandible-item" id="expandible-item-6" *ngIf="courseObj.course.about">
-                <div class="top noselect" (click)="expandItem('expandible-item-6')">
-                    <i class="icon size-14 icon-arrow-down"></i>
-                    <i class="icon size-20 icon-intelligence-green"></i>
-                    <div class="title">¿Qué sabrás al finalizar este curso?</div>
-                </div>
-                <div class="content">
-                    <div class="content-container">
-                        <ul>
-                            <li *ngFor="let courseAbout of courseObj.course.about">{{ courseAbout }}</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>-->
-            <!-- <div class="expandible-item" id="expandible-item-8" *ngIf="courseObj.course.requirements">
-                <div class="top noselect" (click)="expandItem('expandible-item-8')">
-                    <i class="icon size-14 icon-arrow-down"></i>
-                    <i class="icon size-22 icon-test-green"></i>
-                    <div class="title">Requisitos y Prueba de Nivel</div>
-                </div>
-                <div class="content">
-                    <div class="content-container">
-                        <ul>
-                            <li *ngFor="let requirement of courseObj.course.requirements">{{ requirement }}</li>
-                        </ul>
-                    </div>
-                </div>
-            </div> -->
+            
             <div class="expandible-item" id="expandible-item-9">
                 <div class="top noselect" (click)="expandItem('expandible-item-9')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-22 icon-appcademos-a-red"></i>
-                    <div class="title">Beneficios de reservar con <span class="color-red">Appcademos</span></div>
+                    <h2 class="title">Beneficios de reservar con <span class="color-red">Appcademos</span></h2>
                 </div>
                 <div class="content">
                     <div class="content-container">
@@ -252,7 +221,7 @@
                 <div class="top noselect" (click)="expandItem('expandible-item-7')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-20 icon-free-green"></i>
-                    <div class="title">Cómo conseguir tu clase de prueba gratis</div>
+                    <h2 class="title">Cómo conseguir tu clase de prueba gratis</h2>
                 </div>
                 <div class="content">
                     <div class="content-container">
@@ -276,7 +245,7 @@
                 <div class="top noselect" (click)="expandItem('expandible-item-10')">
                     <i class="icon size-14 icon-arrow-down"></i>
                     <i class="icon size-22 icon-eye"></i>
-                    <div class="title"> Preguntas frecuentes sobre este curso</div>
+                    <h2 class="title"> Preguntas frecuentes sobre este curso</h2>
                 </div>
                 <div class="content">
                     <div class="content-container">
