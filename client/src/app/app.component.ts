@@ -11,7 +11,6 @@ declare var userAgent: any;
 export class AppComponent implements OnInit
 {
     currentUrl = null;
-    title = 'Appcademos';
 
     constructor(private router: Router)
     {

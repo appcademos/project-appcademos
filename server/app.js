@@ -18,6 +18,7 @@ var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
 const Review = require("./api/review/review.model");
 const User = require("./api/user/user.model");
 var moment = require('moment');
+var generateSitemap = require('./sitemap-generator.js');
 
 mongoose.Promise = Promise;
 mongoose
@@ -25,6 +26,13 @@ mongoose
 .then(() =>
 {
     debug(`Connected to Mongo at ${dbURL}`);
+    
+    // Generate sitemap.xml every day
+    generateSitemap();
+    setInterval(() =>
+    {
+        generateSitemap();
+    }, 24*60*60*1000);
 })
 .catch(err =>
 {
@@ -125,6 +133,5 @@ require("./routes/routes")(app);
 app.use(function (req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
-
 
 module.exports = app;

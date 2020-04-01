@@ -388,7 +388,7 @@ section#course-types
         align-items: center;
         margin-top: 0px;
 
-        & > p
+        & > h2
         {
             margin-bottom: 20px;
             line-height: 1.36;
@@ -574,6 +574,7 @@ section#help-container
 section#triptic
 {
     margin-bottom: 12px;
+    margin-top: 20px;
     
     .triptic-container
     {
@@ -757,6 +758,17 @@ section#happy-users
     {
         position: relative;
         z-index: 2;
+    }
+    
+    h3
+    {
+        font-size: 32px !important;
+        font-weight: 700 !important;
+        margin: 0 !important;
+        line-height: 1.4 !important;
+        margin-bottom: 48px !important;
+        margin-top: 20px !important;
+        text-align: center;
     }
     
     .posts-wrapper
@@ -1060,9 +1072,13 @@ section#cities
 }
 section#partners
 {
-    h2
+    h3
     {
-        margin-bottom: 32px !important;
+        margin-bottom: 48px !important;
+        font-size: 32px !important;
+        font-weight: 700 !important;
+        line-height: 1.4 !important;
+        text-align: center;
     }
     .partners-container
     {

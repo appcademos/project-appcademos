@@ -190,9 +190,6 @@ export class CreateCourseFormComponent implements OnInit
                 
             if (this.sizeClass != null && (this.sizeClass + '').length > 0)
                 courseDataToUpdate.sizeClass = this.sizeClass;
-                
-            if (this.hidden != null)
-                courseDataToUpdate.hidden = this.hidden;
             
             let group = this.filterEmptyStringsArray(this.group);
             if (group != null && group.length > 0)

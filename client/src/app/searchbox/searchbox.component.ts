@@ -1,4 +1,5 @@
 import { Component, ViewChild, Input, Output, ElementRef, EventEmitter } from '@angular/core';
+import { UtilsService } from '../../services/utils.service';
 
 const TAB_CERTIFICATES  = 1;
 const TAB_LEVELS        = 2;
@@ -26,7 +27,7 @@ export class SearchboxComponent
     showSearchPanel: boolean;
     selectedTab: number = TAB_CERTIFICATES;
 
-    constructor()
+    constructor(private utils: UtilsService)
     {
 
     }
@@ -82,5 +83,11 @@ export class SearchboxComponent
             this.focus();
             this.doShowSearchPanel();
         });
+    }
+    
+    getCategoryTagTitle(category)
+    {
+        let cat = category.replace(/-/g, ' ');
+        return (cat.length > 5) ? cat.charAt(0).toUpperCase() + cat.slice(1) : cat.toUpperCase();
     }
 }

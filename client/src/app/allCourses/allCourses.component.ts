@@ -57,18 +57,19 @@ export class AllCoursesComponent
     ngOnInit()
     {
         this.activatedRoute.url.subscribe(url =>
-        {
+        {            
             if (url[0].path !== "all")
             {
-                this.activatedRoute.queryParams.subscribe(params =>
+                this.activatedRoute.params.subscribe(params =>
                 {
-                    this.setMetaData(false, params.course);
+                    let category = this.utils.urlCategoryToQuery(params.category);
                     
-                    if (params.course.length !== 0)
+                    this.setMetaData(false, category);
+                    
+                    if (category != null && category.length !== 0)
                     {
-                        this.searchCategory = params.course;
-                        
-                        this.findCourses(params.course);
+                        this.searchCategory = category;
+                        this.findCourses(category);
                     }
                 });
             }
@@ -99,9 +100,6 @@ export class AllCoursesComponent
         {
             if (query != null && query.trim().length > 0)
             {
-                // Change the url
-                this.router.navigate(['/search'], { queryParams: { course: query } });
-
                 this.searching = true;
                 setTimeout(() =>
                 {
@@ -200,15 +198,43 @@ export class AllCoursesComponent
     }
     
     setMetaData(isSearchingAllCourses: boolean, searchText?: string)
-    {
+    {        
         if (!isSearchingAllCourses && searchText != null)
         {
-            this.meta.setTitle(`Comparador Cursos ${searchText} en Madrid | Appcademos`);
-            this.meta.setTag('description', `Compara los cursos de ${searchText} de las mejores academias en Madrid.`);
+            let titleText = searchText;
+            switch(searchText)
+            {
+                case 'first':       titleText = 'First Certificate (FCE) inglés'; break;
+                case 'advanced':    titleText = 'Advanced (CAE) inglés'; break;
+                case 'proficiency': titleText = 'Proficiency (CPE) inglés'; break;
+                case 'nivel b1':    titleText = 'Inglés Nivel B1'; break;
+                case 'nivel b2':    titleText = 'Inglés Nivel B2'; break;
+                case 'nivel c1':    titleText = 'Inglés Nivel C1'; break;
+                case 'toefl':       titleText = 'TOEFL inglés'; break;
+                case 'ielts':       titleText = 'IELTS inglés'; break;
+                case 'toeic':       titleText = 'TOEIC inglés'; break;
+            }
+            
+            let descriptionText = searchText;
+            switch(descriptionText)
+            {
+                case 'first':       descriptionText = 'First Certificate (FCE)'; break;
+                case 'advanced':    descriptionText = 'Advanced (CAE)'; break;
+                case 'proficiency': descriptionText = 'Proficiency (CPE)'; break;
+                case 'nivel b1':    descriptionText = 'Inglés Nivel B1'; break;
+                case 'nivel b2':    descriptionText = 'Inglés Nivel B2'; break;
+                case 'nivel c1':    descriptionText = 'Inglés Nivel C1'; break;
+                case 'toefl':       descriptionText = 'TOEFL'; break;
+                case 'ielts':       descriptionText = 'IELTS'; break;
+                case 'toeic':       descriptionText = 'TOEIC'; break;
+            }
+            
+            this.meta.setTitle(`Comparador cursos ${titleText} en Madrid | Appcademos`);
+            this.meta.setTag('description', `Compara los mejores cursos de ${descriptionText} cerca de ti. Horarios, precios, temario, opiniones verificadas... Compara toda la información y reserva.`);
         }
         else
         {
-            this.meta.setTitle(`Comparador Cursos de Inglés en Madrid | Appcademos`);
+            this.meta.setTitle(`Comparador cursos de Inglés en Madrid | Appcademos`);
             this.meta.setTag('description', `Compara los cursos de las mejores academias de Inglés en Madrid.`);
         }
     }
@@ -284,9 +310,7 @@ export class AllCoursesComponent
         let processEvent = Math.abs(this.lastScrollOffsetTop - number) >= minScrollDelta;
         
         if (processEvent)
-        {
-            console.log(this.lastScrollOffsetTop, number);
-            
+        {            
             if (this.searchbarOffsetTop != null)
             {
                 if (downScroll && number >= this.searchbarOffsetTop)

@@ -25,7 +25,7 @@
             nzMode="closeable"
             (nzOnClose)="onCloseTag()"
         >
-            {{ query }}
+            {{ getCategoryTagTitle(query) }}
         </nz-tag>
     </div>
     
@@ -38,22 +38,22 @@
             <div class="icon size-14 icon-close cursor-pointer" (click)="doHideSearchPanel()"></div>
         </div>
         <div class="content" *ngIf="!small">
-            <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'first' }" [hidden]="selectedTab == 2">First certificate</a>
-            <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'advanced' }" [hidden]="selectedTab == 2">Advanced</a>
-            <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'nivel b1' }" [hidden]="selectedTab == 1">Inglés General B1</a>
-            <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'nivel b2' }" [hidden]="selectedTab == 1">Inglés General B2</a>
-            <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'nivel c1' }" [hidden]="selectedTab == 1">Inglés General C1</a>
-            <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'toefl' }" [hidden]="selectedTab == 2">TOEFL</a>
-            <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'ielts' }" [hidden]="selectedTab == 2">IELTS</a>
-            <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'toeic' }" [hidden]="selectedTab == 2">TOEIC</a>
-            <a class="search-panel-item noselect" [routerLink]="['search']" [queryParams]="{ course: 'proficiency' }" [hidden]="selectedTab == 2">Proficiency</a>
+            <a class="search-panel-item noselect" [routerLink]="['cursos-ingles', 'first-certificate']" [hidden]="selectedTab == 2">First certificate</a>
+            <a class="search-panel-item noselect" [routerLink]="['cursos-ingles', 'advanced']" [hidden]="selectedTab == 2">Advanced</a>
+            <a class="search-panel-item noselect" [routerLink]="['cursos-ingles', 'nivel-b1']" [hidden]="selectedTab == 1">Inglés General B1</a>
+            <a class="search-panel-item noselect" [routerLink]="['cursos-ingles', 'nivel-b2']" [hidden]="selectedTab == 1">Inglés General B2</a>
+            <a class="search-panel-item noselect" [routerLink]="['cursos-ingles', 'nivel-c1']" [hidden]="selectedTab == 1">Inglés General C1</a>
+            <a class="search-panel-item noselect" [routerLink]="['cursos-ingles', 'toefl']" [hidden]="selectedTab == 2">TOEFL</a>
+            <a class="search-panel-item noselect" [routerLink]="['cursos-ingles', 'ielts']" [hidden]="selectedTab == 2">IELTS</a>
+            <a class="search-panel-item noselect" [routerLink]="['cursos-ingles', 'toeic']" [hidden]="selectedTab == 2">TOEIC</a>
+            <a class="search-panel-item noselect" [routerLink]="['cursos-ingles', 'proficiency']" [hidden]="selectedTab == 2">Proficiency</a>
         </div>
         <div class="content" *ngIf="small">
-            <a class="search-panel-item noselect" (click)="query = 'first'; doOnSearch();" [hidden]="selectedTab == 2">First certificate</a>
+            <a class="search-panel-item noselect" (click)="query = 'first-certificate'; doOnSearch();" [hidden]="selectedTab == 2">First certificate</a>
             <a class="search-panel-item noselect" (click)="query = 'advanced'; doOnSearch();" [hidden]="selectedTab == 2">Advanced</a>
-            <a class="search-panel-item noselect" (click)="query = 'nivel b1'; doOnSearch();" [hidden]="selectedTab == 1">Inglés General B1</a>
-            <a class="search-panel-item noselect" (click)="query = 'nivel b2'; doOnSearch();" [hidden]="selectedTab == 1">Inglés General B2</a>
-            <a class="search-panel-item noselect" (click)="query = 'nivel c1'; doOnSearch();" [hidden]="selectedTab == 1">Inglés General C1</a>
+            <a class="search-panel-item noselect" (click)="query = 'nivel-b1'; doOnSearch();" [hidden]="selectedTab == 1">Inglés General B1</a>
+            <a class="search-panel-item noselect" (click)="query = 'nivel-b2'; doOnSearch();" [hidden]="selectedTab == 1">Inglés General B2</a>
+            <a class="search-panel-item noselect" (click)="query = 'nivel-c1'; doOnSearch();" [hidden]="selectedTab == 1">Inglés General C1</a>
             <a class="search-panel-item noselect" (click)="query = 'toefl'; doOnSearch();" [hidden]="selectedTab == 2">TOEFL</a>
             <a class="search-panel-item noselect" (click)="query = 'ielts'; doOnSearch();" [hidden]="selectedTab == 2">IELTS</a>
             <a class="search-panel-item noselect" (click)="query = 'toeic'; doOnSearch();" [hidden]="selectedTab == 2">TOEIC</a>

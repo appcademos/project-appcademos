@@ -8,6 +8,7 @@ import { NzNotificationService, NzModalService } from 'ng-zorro-antd';
 import { MessageService } from '../../services/message.service';
 import { Subscription } from 'rxjs';
 import { Location } from '@angular/common';
+import { MetaService } from '@ngx-meta/core';
 
 @Component({
   selector: 'app-checkout',
@@ -52,23 +53,25 @@ export class CheckoutComponent implements OnInit
                 private notifications: NzNotificationService,
                 private modalService: NzModalService,
                 private messageService: MessageService,
-                private location: Location)
+                private location: Location,
+                private meta: MetaService)
     {
         
     }
 
     ngOnInit()
     {
-        this.activatedRoute.queryParams.subscribe(params =>
+        this.activatedRoute.params.subscribe(params =>
         {            
-            if (params.course)
-            {
-                let course = params.course.replace(/\/reserva-confirmada/g, '');
-                
-                this.courseservice.getCourse(course)
+            if (params.id)
+            {                
+                this.courseservice.getCourse(params.id)
                 .subscribe(res =>
                 {
                     this.course = res.course;
+                    
+                    this.setMetaData();
+                    
                     this.startDateFormatted = moment(this.course.startDate).locale("es").format("dddd D MMMM");
                     this.isVerifiedCourse = this.course.academy.isVerified;
                     
@@ -104,6 +107,16 @@ export class CheckoutComponent implements OnInit
     {
         if (this.loginSubscription != null)
             this.loginSubscription.unsubscribe();
+    }
+    
+    setMetaData()
+    {
+        if (this.course != null)
+        {
+            let courseTitleNoDuration = this.course.title.split(' - ')[0];
+            this.meta.setTitle(`Reserva tu plaza online en ${courseTitleNoDuration}.`);
+            this.meta.setTag('description', `Reserva tu plaza online en ${courseTitleNoDuration}. Clase de prueba gratis para probar el curso. Tu plaza se reserva al instante y se notifica a la academia.`);
+        }
     }
     
     listenToLoginEvents()
@@ -330,7 +343,8 @@ export class CheckoutComponent implements OnInit
                 target: "#requestInfoForm",
                 onFormReady: function()
                 {
-                    document.querySelector('#estudioPersonalizado iframe').setAttribute('data-hj-allow-iframe', '');
+                    if (document.querySelector('#estudioPersonalizado iframe'))
+                        document.querySelector('#estudioPersonalizado iframe').setAttribute('data-hj-allow-iframe', '');
                 },
                 onFormSubmitted: () =>
                 {

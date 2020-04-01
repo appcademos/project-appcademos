@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { UtilsService } from '../../services/utils.service';
 
 @Component({
   selector: 'app-course-card',
@@ -11,7 +12,10 @@ export class CourseCardComponent implements OnInit
      average: number;
      params: any = []
 
-    constructor() { }
+    constructor(private utils : UtilsService)
+    {
+        
+    }
 
     ngOnInit()
     {
@@ -36,43 +40,19 @@ export class CourseCardComponent implements OnInit
         let params = []
         let i = 0;
 
-        if (this.course.academy.district != null && this.course.academy.district.length > 0 &&
-            this.course.academy.city     != null && this.course.academy.city.length > 0)
-           
+        if (this.course.category != null && this.course.category.name.length > 0 &&
+            this.course.academy != null && this.course.academy.name.length > 0)
         {
-            params[i++] = '/course';
-            if (this.course.category != null && this.course.category.name != null)
-                params[i++] = this.course.category.name.replace(/ /g, '-').toLowerCase();
-            params[i++] = this.course.duration.replace(/ /g, '');
-            params[i++] = this.course.academy.district.toLowerCase() + '-' + this.course.academy.city.toLowerCase();
-            params[i++] = 'academia-' + this.course.academy.name.replace(/ /g, '-').toLowerCase();
+            params[i++] = '/cursos-ingles';
+            params[i++] = this.utils.queryCategoryToUrl(this.course.category.name.toLowerCase());
+            params[i++] = 'academia-' + this.course.academy.name.replace(/ /g, '-').toLowerCase() + '-madrid';
             params[i++] = this.course._id;
-            
-            if (this.course.academy.material != null)
-                params[i++] = 'material-' + this.course.academy.material.replace(/ /g, '-').toLowerCase();
-            if (this.course.academy.theme != null)
-                params[i++] = 'theme-' + this.course.academy.theme.replace(/ /g, '-').toLowerCase();
-            if(this.course.academy.level != null)
-                params[i++]  = 'level' + this.course.academy.level.replace(/ /g, '-').toLowerCase();
-            if (this.course.academy.objetive != null)
-                params[i++]  = 'objetive' + this.course.academy.objetive.replace(/ /g, '-').toLowerCase();
-            if (this.course.academy.infocourse != null)
-                params[i++]  = 'infocourse' + this.course.academy.infocourse.replace(/ /g, '-').toLowerCase();
-            if (this.course.academy.exam != null)
-                params[i++] = 'exam' + this.course.academy.exam.replace(/ /g, '-').toLowerCase();
-            if (this.course.academy.examresults != null)
-                params[i++] = 'examresults' + this.course.academy.examresults.replace(/ /g, '-').toLowerCase();        
-            if (this.course.academy.howareclasses != null)
-                params[i++] = 'howareclasses' + this.course.academy.howareclasses.replace(/ /g, '-').toLowerCase();
-            
-         /*   if (this.course.academy.foryouif != null)
-                params[i++] = 'foryouif' + this.course.academy.foryouif.replace(/ /g, '-').toLowerCase();
-          */
         }
         else
         {
-            params[0] = '/course';
-            params[1] = this.course._id;
+            params[0] = '/cursos-ingles';
+            params[1] = 'curso';
+            params[2] = this.course._id;
         }
 
         return params;

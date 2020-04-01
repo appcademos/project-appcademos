@@ -43,4 +43,28 @@ export class UtilsService
     {
         return moment(new Date(RANDOM_DATE_START.getTime() + Math.random() * (RANDOM_DATE_END.getTime() - RANDOM_DATE_START.getTime())));
     }
+    
+    urlCategoryToQuery(urlCategory)
+    {
+        let queryCategory = null;
+        
+        if (urlCategory != null)
+            queryCategory = urlCategory.replace('-certificate','')
+                                        .replace(/-/g, ' ');
+                                        
+        return queryCategory;
+    }
+    queryCategoryToUrl(queryCategory)
+    {
+        let urlCategory = null;
+        
+        if (queryCategory != null)
+        {
+            urlCategory = queryCategory.replace(/ /g, '-').toLowerCase();
+            if (queryCategory === 'first')
+                urlCategory = 'first-certificate';
+        }
+                                        
+        return urlCategory;
+    }
 }

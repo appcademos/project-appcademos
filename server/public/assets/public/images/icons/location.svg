@@ -1,12 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="11px" height="15px" viewBox="0 0 11 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
-    <title>Shape</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Appcademos-Card" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-6.000000, -295.000000)">
-        <g id="Card" fill="#484848" fill-rule="nonzero">
-            <path d="M11.3571429,295 C8.41058036,295 6,297.3624 6,300.250033 C6,304.1875 11.3571429,310 11.3571429,310 C11.3571429,310 16.7142857,304.1875 16.7142857,300.250033 C16.7142857,297.3624 14.3037054,295 11.3571429,295 Z M11.3571429,302.125033 C10.2858482,302.125033 9.44383929,301.299866 9.44383929,300.250033 C9.44383929,299.200134 10.2858147,298.375033 11.3571429,298.375033 C12.428471,298.375033 13.2704464,299.200134 13.2704464,300.250033 C13.2704464,301.299866 12.4284375,302.125033 11.3571429,302.125033 Z" id="Shape"></path>
-        </g>
-    </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="11" height="15"><path d="M5.357 0C2.41 0 0 2.362 0 5.25 0 9.188 5.357 15 5.357 15s5.357-5.812 5.357-9.75c0-2.888-2.41-5.25-5.357-5.25zm0 7.125c-1.07 0-1.913-.825-1.913-1.875s.842-1.875 1.913-1.875S7.27 4.2 7.27 5.25s-.842 1.875-1.913 1.875z" fill="#484848" fill-rule="nonzero"/></svg>

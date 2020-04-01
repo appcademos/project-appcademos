@@ -2,7 +2,7 @@
     <h1>{{ isVerifiedCourse ? 'Reserva de curso' : 'Pedir información' }}</h1>
     
     <div class="courseBanner">
-        <div class="card-banner-title fw-600 fs-14 color-black-60">CURSO ELEGIDO</div>
+        <h2 class="card-banner-title fw-600 fs-14 color-black-60">CURSO ELEGIDO</h2>
         <div class="card-banner flex-inline flex-row align-items-center">
             <div class="info flex flex-row">
                 <div
@@ -27,7 +27,7 @@
     </div>
     
     <div class="bookingForm" *ngIf="isVerifiedCourse">
-        <div class="card-banner-title fw-600 fs-14 color-black-60">RELLENA TUS DATOS</div>
+        <h2 class="card-banner-title fw-600 fs-14 color-black-60">RELLENA TUS DATOS</h2>
         <div class="card-banner">
             <div class="form full-width">
                 <form>
@@ -76,7 +76,7 @@
     </div>
     
     <div class="additionalInfo" *ngIf="isVerifiedCourse">
-        <div class="card-banner-title fw-600 fs-14 color-black-60">INFORMACIÓN ADICIONAL</div>
+        <h2 class="card-banner-title fw-600 fs-14 color-black-60">INFORMACIÓN ADICIONAL</h2>
         <div class="card-banner">
             <div class="title fs-16 fw-600">Antes de ir debes saber</div>
             <p>Te harán una prueba de nivel previa a la clase, por lo que debes llegar 30 minutos antes del horario seleccionado. No necesitas llevar ningún material a esta clase gratis.</p>
@@ -91,7 +91,7 @@
     
     
     <div id="requestInfo" *ngIf="!isVerifiedCourse">
-        <div class="card-banner-title fw-600 fs-14 color-black-60">RELLENA TUS DATOS</div>
+        <h2 class="card-banner-title color-black-60">RELLENA TUS DATOS</h2>
         <div class="card-banner">
             <div id="requestInfoForm"></div>
         </div>

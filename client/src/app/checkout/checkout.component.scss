@@ -34,8 +34,10 @@
 
 .card-banner-title
 {
-    margin-left: 4px;
-    margin-bottom: 6px;
+    margin-left: 4px !important;
+    margin-bottom: 6px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
 }
 
 .courseBanner
