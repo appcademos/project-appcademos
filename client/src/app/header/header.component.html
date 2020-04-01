@@ -2,13 +2,13 @@
     <div class="responsive-container-header">
         <nav id="navbarTop">
             <a class="logo" [routerLink]="['']">
-                <img [hidden]="!isHome" src="../../assets/public/images/logo_white.png" alt="logo" height="48" />
-                <img [hidden]="isHome" src="../../assets/public/images/logo_red.png" alt="logo" height="48" />
+                <img [hidden]="!isHome" src="../../assets/public/images/logo_white.png" alt="Logo de Appcademos, el comparador de cursos y academias de inglés en Madrid." height="48" />
+                <img [hidden]="isHome" src="../../assets/public/images/logo_red.png" alt="Logo de Appcademos, el comparador de cursos y academias de inglés en Madrid." height="48" />
             </a>
 
             <div class="logo-mobile" [ngClass]="{ 'isHome': isHome }" (click)="isMobileNavVisible = !isMobileNavVisible">
-                <img [hidden]="!isHome || isMobileNavVisible" src="../../assets/public/images/logo_white.png" alt="logo" height="44" />
-                <img [hidden]="isHome && !isMobileNavVisible" src="../../assets/public/images/logo_red.png" alt="logo" height="44" />
+                <img [hidden]="!isHome || isMobileNavVisible" src="../../assets/public/images/logo_white.png" alt="Logo de Appcademos, el comparador de cursos y academias de inglés en Madrid." height="44" />
+                <img [hidden]="isHome && !isMobileNavVisible" src="../../assets/public/images/logo_red.png" alt="Logo de Appcademos, el comparador de cursos y academias de inglés en Madrid." height="44" />
 
                 <a class="phone" href="tel:+34677827178" (click)="$event.stopPropagation()">
                     <div class="title">Habla con un experto</div>
