@@ -43,6 +43,9 @@ export class OneCourseComponent implements OnInit, OnDestroy
     
     reviewsFilterGrade: number;
     filteringReviews: boolean = false;
+    
+    checkoutRouterParams = null
+    pedirInfoRouterParams = null
 
     constructor(private courseService: CoursesService,
                 private academyService: AcademySessionService,
@@ -58,22 +61,12 @@ export class OneCourseComponent implements OnInit, OnDestroy
     }
     ngOnInit()
     {
-        this.scrollToHash()
+        this.scrollToHash();
 
         this.setMetaData();
-        this.activatedRoute.queryParams.subscribe(queryParams =>
+        this.activatedRouteSubscription = this.activatedRoute.params.subscribe(params =>
         {
-            if (queryParams.id)
-            {
-                this.init(queryParams.id)
-            }
-            else
-            {
-                this.activatedRouteSubscription = this.activatedRoute.params.subscribe(params =>
-                {
-                    this.init(params.id)
-                });
-            }
+            this.init(params.id);
         });
     }
     ngOnDestroy()
@@ -97,13 +90,15 @@ export class OneCourseComponent implements OnInit, OnDestroy
         this.getCourse();
     }
 
-    ngAfterViewInit(): void {
-        this.scrollToHash()
+    ngAfterViewInit()
+    {
+        this.scrollToHash();
     }
 
-    scrollToHash() {
-
-        let interval = setTimeout(()=> {
+    scrollToHash()
+    {
+        let interval = setTimeout(()=>
+        {
             if (this.router.url.indexOf('#reviews') > -1)
             {
                this.utils.scrollToElement('#reviews', undefined, 32);
@@ -119,6 +114,8 @@ export class OneCourseComponent implements OnInit, OnDestroy
             {
                 this.courseObj = this.courseService.viewCourse;
                 this.setMetaData();
+                this.setCheckoutRouterParams();
+                this.setPedirInfoRouterParams();
                 
                 this.courseObj.course.academyCategory = this.courseObj.course.academy.categories
                                                         .find(academyCategory =>
@@ -144,6 +141,34 @@ export class OneCourseComponent implements OnInit, OnDestroy
             });
         }
     }
+    
+    setCheckoutRouterParams()
+    {
+        let params = []
+        let i = 0
+        
+        params[i++] = '/cursos-ingles';
+        params[i++] = this.utils.queryCategoryToUrl(this.courseObj.course.category.name.toLowerCase());
+        params[i++] = 'academia-' + this.courseObj.course.academy.name.replace(/ /g, '-').toLowerCase() + '-madrid';
+        params[i++] = this.courseObj.course._id;
+        params[i++] = 'checkout';
+        
+        this.checkoutRouterParams = params;
+    }
+    setPedirInfoRouterParams()
+    {
+        let params = []
+        let i = 0
+        
+        params[i++] = '/cursos-ingles';
+        params[i++] = this.utils.queryCategoryToUrl(this.courseObj.course.category.name.toLowerCase());
+        params[i++] = 'academia-' + this.courseObj.course.academy.name.replace(/ /g, '-').toLowerCase() + '-madrid';
+        params[i++] = this.courseObj.course._id;
+        params[i++] = 'pedir-informacion';
+        
+        this.pedirInfoRouterParams = params;
+    }
+    
     backClicked()
     {
         this.location.back();
@@ -416,7 +441,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
     }
     
     setMetaData()
-    {        
+    {
         if (this.courseObj != null && this.courseObj.course != null)
         {            
             let courseTitleNoDuration = this.courseObj.course.title.split(' - ')[0];

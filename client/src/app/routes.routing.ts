@@ -13,14 +13,14 @@ import { AcademyComponent } from "./manager/academy/academy.component";
 export const routes: Routes = [
     { path: "", component: HomeComponent },
 
-    { path: "all", component: AllCoursesComponent },
-    { path: "search", component: AllCoursesComponent },
-    { path: "checkout", component: CheckoutComponent },
-    { path: "pedir-informacion", component: CheckoutComponent },
+    //{ path: "all", component: AllCoursesComponent },
+    { path: "cursos-ingles/:category", component: AllCoursesComponent },
 
-    { path: "course/view", component: OneCourseComponent },
-    { path: "course/:id", component: OneCourseComponent },
-    { path: "course/:tag/:duration/:location/:academy/:id", component: OneCourseComponent },
+    { path: "cursos-ingles/curso/:id", component: OneCourseComponent },
+    { path: "cursos-ingles/:category/:academy/:id", component: OneCourseComponent },
+    
+    { path: "cursos-ingles/:category/:academy/:id/checkout", component: CheckoutComponent },
+    { path: "cursos-ingles/:category/:academy/:id/pedir-informacion", component: CheckoutComponent },
     
     { path: "estudio-personalizado", component: EstudioPersonalizadoComponent},
     

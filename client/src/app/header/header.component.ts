@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { AcademySessionService } from "../../services/academySession.service";
 import { UserSessionService } from "../../services/userSession.service";
-import { Router, Event, NavigationEnd, ActivatedRoute } from "@angular/router";
+import { Router, Event, NavigationEnd, UrlSerializer } from "@angular/router";
 import { MessageService } from '../../services/message.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from "angularx-social-login";
+import { UtilsService } from '../../services/utils.service';
 
 const MOBILE_WIDTH = 897;
 
@@ -27,40 +28,48 @@ export class HeaderComponent implements OnInit, OnDestroy
     messageServiceSubscription: Subscription;
 
     constructor(private router: Router,
-                private activatedRoute: ActivatedRoute,
+                private urlSerializer: UrlSerializer,
                 private academyService: AcademySessionService,
                 private userService: UserSessionService,
                 private messageService: MessageService,
-                private authService: AuthService)
+                private authService: AuthService,
+                private utils: UtilsService)
     {
 
     }
 
     ngOnInit()
-    {
+    {                
         this.user = this.userService.user;
 
         if (this.router.url.split('?')[0] === '/')
             this.isHome = true;
-        
-        this.activatedRoute.queryParams
-        .subscribe(params =>
-        {
-            if (window.location.pathname.indexOf("/search") > -1 && params.course)
-                this.selectedCategory = params.course;
-        });
 
         this.router.events.subscribe( (event: Event) =>
-        {
+        {            
             if (event instanceof NavigationEnd)
-            {
+            {                
                 if (this.router.url.split('?')[0] === '/')
                     this.isHome = true;
                 else
                     this.isHome = false;
                     
-                if (window.location.pathname.indexOf("/search") === -1)
+                if (window.location.pathname.indexOf("/cursos-ingles") === -1)
                     this.selectedCategory = null;
+                else
+                {
+                    let urlTree = this.urlSerializer.parse(this.router.url);
+                    let urlTreeSegments = urlTree.root.children.primary.segments;
+                    let categoryUrl = urlTreeSegments[urlTreeSegments.length-1].path;
+                    let categoryQuery = this.utils.urlCategoryToQuery(categoryUrl);
+                    
+                    if (window.location.pathname.indexOf("/cursos-ingles") > -1 &&
+                        categoryQuery != null &&
+                        categoryQuery.length > 0)
+                    {
+                        this.selectedCategory = categoryQuery;
+                    }
+                }
             }
         });
 

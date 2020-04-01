@@ -11,7 +11,7 @@ async function generateSitemap()
     
     courses.forEach((course, i) =>
     {
-        content += `<url><loc>https://www.appcademos.com/course/${course.id}</loc><changefreq>daily</changefreq></url>`;
+        content += `<url><loc>https://www.appcademos.com/cursos-ingles/curso/${course.id}</loc><changefreq>daily</changefreq></url>`;
     });
     
     content += `\n</urlset>`;
@@ -43,39 +43,39 @@ function getStaticContent()
 </url>
 
 <url>
-    <loc>https://www.appcademos.com/search?course=first</loc>
+    <loc>https://www.appcademos.com/cursos-ingles/first-certificate</loc>
     <changefreq>weekly</changefreq>
 </url>
 <url>
-    <loc>https://www.appcademos.com/search?course=advanced</loc>
+    <loc>https://www.appcademos.com/cursos-ingles/advanced</loc>
     <changefreq>weekly</changefreq>
 </url>
 <url>
-    <loc>https://www.appcademos.com/search?course=toefl</loc>
+    <loc>https://www.appcademos.com/cursos-ingles/toefl</loc>
     <changefreq>weekly</changefreq>
 </url>
 <url>
-    <loc>https://www.appcademos.com/search?course=ielts</loc>
+    <loc>https://www.appcademos.com/cursos-ingles/ielts</loc>
     <changefreq>weekly</changefreq>
 </url>
 <url>
-    <loc>https://www.appcademos.com/search?course=toeic</loc>
+    <loc>https://www.appcademos.com/cursos-ingles/toeic</loc>
     <changefreq>weekly</changefreq>
 </url>
 <url>
-    <loc>https://www.appcademos.com/search?course=proficiency</loc>
+    <loc>https://www.appcademos.com/cursos-ingles/proficiency</loc>
     <changefreq>weekly</changefreq>
 </url>
 <url>
-    <loc>https://www.appcademos.com/search?course=nivel%20b1</loc>
+    <loc>https://www.appcademos.com/cursos-ingles/nivel-b1</loc>
     <changefreq>weekly</changefreq>
 </url>
 <url>
-    <loc>https://www.appcademos.com/search?course=nivel%20b2</loc>
+    <loc>https://www.appcademos.com/cursos-ingles/nivel-b2</loc>
     <changefreq>weekly</changefreq>
 </url>
 <url>
-    <loc>https://www.appcademos.com/search?course=nivel%20c1</loc>
+    <loc>https://www.appcademos.com/cursos-ingles/nivel-c1</loc>
     <changefreq>weekly</changefreq>
 </url>`;
 }

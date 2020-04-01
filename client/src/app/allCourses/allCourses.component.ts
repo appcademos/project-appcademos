@@ -57,18 +57,19 @@ export class AllCoursesComponent
     ngOnInit()
     {
         this.activatedRoute.url.subscribe(url =>
-        {
+        {            
             if (url[0].path !== "all")
             {
-                this.activatedRoute.queryParams.subscribe(params =>
+                this.activatedRoute.params.subscribe(params =>
                 {
-                    this.setMetaData(false, params.course);
+                    let category = this.utils.urlCategoryToQuery(params.category);
                     
-                    if (params.course.length !== 0)
+                    this.setMetaData(false, category);
+                    
+                    if (category != null && category.length !== 0)
                     {
-                        this.searchCategory = params.course;
-                        
-                        this.findCourses(params.course);
+                        this.searchCategory = category;
+                        this.findCourses(category);
                     }
                 });
             }
@@ -99,9 +100,6 @@ export class AllCoursesComponent
         {
             if (query != null && query.trim().length > 0)
             {
-                // Change the url
-                this.router.navigate(['/search'], { queryParams: { course: query } });
-
                 this.searching = true;
                 setTimeout(() =>
                 {

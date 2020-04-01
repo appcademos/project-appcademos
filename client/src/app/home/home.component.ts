@@ -60,10 +60,7 @@ export class HomeComponent
     {
         if (query && query.length > 0)
         {
-            this.router.navigate(["/search"],
-            {
-                queryParams: { course: query.toLowerCase() }
-            });
+            this.router.navigate(["/cursos-ingles", query.toLowerCase()]);
         }
         else
         {

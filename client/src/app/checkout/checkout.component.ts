@@ -61,13 +61,11 @@ export class CheckoutComponent implements OnInit
 
     ngOnInit()
     {
-        this.activatedRoute.queryParams.subscribe(params =>
+        this.activatedRoute.params.subscribe(params =>
         {            
-            if (params.course)
-            {
-                let course = params.course.replace(/\/reserva-confirmada/g, '');
-                
-                this.courseservice.getCourse(course)
+            if (params.id)
+            {                
+                this.courseservice.getCourse(params.id)
                 .subscribe(res =>
                 {
                     this.course = res.course;
@@ -345,7 +343,8 @@ export class CheckoutComponent implements OnInit
                 target: "#requestInfoForm",
                 onFormReady: function()
                 {
-                    document.querySelector('#estudioPersonalizado iframe').setAttribute('data-hj-allow-iframe', '');
+                    if (document.querySelector('#estudioPersonalizado iframe'))
+                        document.querySelector('#estudioPersonalizado iframe').setAttribute('data-hj-allow-iframe', '');
                 },
                 onFormSubmitted: () =>
                 {
