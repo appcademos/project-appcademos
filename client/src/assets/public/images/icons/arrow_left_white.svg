@@ -1,12 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="6px" height="10px" viewBox="0 0 6 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
-    <title>Shape</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="arrow_right_white" transform="translate(3.000000, 5.000000) scale(-1, 1) translate(-3.000000, -5.000000) " fill="#FFFFFF" fill-rule="nonzero">
-            <path d="M4.19127488,4.99813919 L0.220264994,1.2169706 C-0.0734219979,0.93710458 -0.0734219979,0.48455527 0.220264994,0.20766654 C0.513950985,-0.06922218 0.988846971,-0.06922218 1.28253296,0.20766654 L5.78155383,4.49199851 C6.06586682,4.76293264 6.07211582,5.1976182 5.80342383,5.4774842 L1.28565796,9.7915891 C1.13881497,9.9315221 0.945106973,10 0.754522978,10 C0.563939984,10 0.370231989,9.9315221 0.223388994,9.7915891 C-0.070296998,9.5117231 -0.070296998,9.0591738 0.223388994,8.7822851 L4.19127488,4.99813919 Z" id="Shape"></path>
-        </g>
-    </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="6" height="10"><path d="M4.19 4.998L.22 1.217C-.073.937-.073.485.22.208s.77-.277 1.062 0l4.5 4.284a.69.69 0 0 1 .022.985L1.286 9.792A.77.77 0 0 1 .755 10a.77.77 0 0 1-.531-.208c-.294-.28-.294-.732 0-1.01L4.19 4.998z" transform="matrix(-1 0 0 1 6 0)" fill="#fff" fill-rule="nonzero"/></svg>
