@@ -27,8 +27,12 @@ mongoose
 {
     debug(`Connected to Mongo at ${dbURL}`);
     
-    // Generate sitemap.xml
+    // Generate sitemap.xml every day
     generateSitemap();
+    setInterval(() =>
+    {
+        generateSitemap();
+    }, 24*60*60*1000);
 })
 .catch(err =>
 {
