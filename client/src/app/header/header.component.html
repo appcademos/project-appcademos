@@ -10,7 +10,7 @@
                 <img [hidden]="!isHome || isMobileNavVisible" src="../../assets/public/images/logo_white.png" alt="Logo de Appcademos, el comparador de cursos y academias de inglés en Madrid." height="44" />
                 <img [hidden]="isHome && !isMobileNavVisible" src="../../assets/public/images/logo_red.png" alt="Logo de Appcademos, el comparador de cursos y academias de inglés en Madrid." height="44" />
 
-                <a class="phone" href="tel:+34677827178" (click)="$event.stopPropagation()">
+                <a id="llamar-experto" class="phone" href="tel:+34677827178" (click)="$event.stopPropagation()">
                     <div class="title">Habla con un experto</div>
                     <div class="number">+34 677 827 178</div>
                 </a>
@@ -70,7 +70,7 @@
                     <i class="icon size-20" [ngClass]="{'icon-graduation': !isHome, 'icon-graduation-white': isHome}"></i>
                     <p>Blog: Mejora tu inglés desde casa</p>
                 </a>
-                <div class="icon-text">
+                <div id="llamar-experto" class="icon-text">
                     <i class="icon size-16" [ngClass]="{'icon-whatsapp': !isHome, 'icon-whatsapp-white': isHome}"></i>
                     <p>
                         <span class="fs-10">Habla con un experto</span><br/>
