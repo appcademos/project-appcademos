@@ -461,6 +461,13 @@ h3
         font-size: 18px;
         font-weight: 600;
     }
+    .subtitle
+    {
+        color: $black-80;
+        font-weight: 500;
+        font-size: 15px;
+        margin-top: 8px;
+    }
 
     &.fixed
     {
