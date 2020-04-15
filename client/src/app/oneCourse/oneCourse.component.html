@@ -318,7 +318,7 @@
             </div>
 
             
-            <div class="carousel-container" [style.opacity]="reviewsCarouselReady ? 1 : 0">
+            <div class="carousel-container" *ngIf="reviews != null" [style.opacity]="reviewsCarouselReady ? 1 : 0">
                 <div class="carousel">
                     <div class="review-group" *ngFor="let reviewGroup of reviews; let last = last">
                         <div class="review" *ngFor="let review of reviewGroup">
