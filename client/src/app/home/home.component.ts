@@ -90,6 +90,7 @@ export class HomeComponent
     onClickedHeroSearchCategory($event)
     {
         this.heroCategorySearch = $event;
+        this.onClickHeroSearch();
     }
     onClickHeroSearch()
     {

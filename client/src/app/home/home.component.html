@@ -5,10 +5,10 @@
     <div class="hero-content" [ngStyle]="{ 'padding-top': getTopBannerHeight() }">
         <div class="responsive-container">
             <div class="hero-text">
-                <h1>Compara los mejores cursos de inglés cerca de ti</h1>
+                <h1>Compara los mejores cursos de inglés online</h1>
                 <div class="hero-card">
                     <h2>Reserva tu plaza con descuentos exclusivos de hasta el 30%</h2>
-                    <input
+                    <!--<input
                         class="zipCode"
                         type="text"
                         name="zipCode"
@@ -16,7 +16,7 @@
                         placeholder="Escribe tu Código Postal"
                         data-hj-whitelist
                         autocomplete="off"
-                    >
+                    >-->
                     <app-searchbox
                         #searchbox
                         [small]="true"
@@ -26,7 +26,12 @@
                         [useTags]="true"
                         (onSearch)="onClickedHeroSearchCategory($event)"
                     ></app-searchbox>
-                    <div class="button full-width light-shadow" (click)="onClickHeroSearch()">Buscar</div>
+                    <div class="separator">
+                        <hr/>
+                        <div class="or">o</div>
+                    </div>
+                    <a class="button full-width light-shadow" [routerLink]="['/estudio-personalizado']">Contacta con un experto</a>
+                    <p>y encontramos el mejor curso para ti ;)</p>
                 </div>
             </div>
         </div>
