@@ -183,6 +183,11 @@ input[type="text"]
     height: 92px;
     width: 92px;
 }
+.icon.size-108
+{
+    height: 108px;
+    width: 108px;
+}
 
 .icon-search
 {
@@ -388,6 +393,22 @@ input[type="text"]
 .icon-trash-red
 {
     background-image: url('../assets/public/images/icons/trash_red.svg');
+}
+.icon-red-form-bubbles
+{
+    background-image: url('../assets/public/images/icons/red_form_bubbles.png');
+}
+.icon-red-phone-bubbles
+{
+    background-image: url('../assets/public/images/icons/red_phone_bubbles.png');
+}
+.icon-red-search-people-bubbles
+{
+    background-image: url('../assets/public/images/icons/red_search_people_bubbles.png');
+}
+.icon-red-arrow-curved
+{
+    background-image: url('../assets/public/images/icons/red_arrow_curved.svg');
 }
 
 

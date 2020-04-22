@@ -7,6 +7,12 @@
 
 
 <div *ngIf="courseObj">
+    <div class="whatsappBanner">
+        <div class="responsive-container">
+            <div class="title">⚠ COVID-19: este curso se imparte online.</div>
+        </div>
+    </div>
+    
     <div class="responsive-container">
         <div class="title-view">
             <div class="left">
@@ -229,13 +235,23 @@
                         <br>
                         <div class="fw-700">¿Cómo conseguirla?</div>
                         <br>
-                        <ol>
+                        <ol *ngIf="courseObj.course.academy.isVerified">
                           <li><span class="fw-600">Reservas tu plaza en nuestra web..</span></li>
                           <li><span class="fw-600">Enseñas el correo de confirmación de tu plaza</span> de Appcademos que te llegará tras realizar la reserva.</li>
                           <li><span class="fw-600">Vas el día y hora que elegiste</span> que te aparece en el correo.</li>
                           <div>* Si tras probar no te ha gustado, no pasa nada, puedes irte tranquilamente. Te ayudaremos a encontrar tu curso ideal en otro centro.</div>
                         </ol>
-                        <br>
+                        
+                        <div *ngIf="!courseObj.course.academy.isVerified">
+                            <p>Contacta con nuestro equipo de expertos para conseguir tu clase de prueba.</p>
+                        </div>
+                        <br/>
+                        <ul *ngIf="!courseObj.course.academy.isVerified">
+                          <li><a href="https://wa.me/34677827178" target="_blank">WhatsApp: Chatea con un experto</a></li>
+                          <li><a href="tel:+34677827178" target="_blank">+34 677 827 178: Llama a un experto</a></li>
+                        </ul>
+                        
+                        <br/>
                         <div><p>En esta clase de prueba, tendrás la misma experiencia que si estuvieras apuntad@. <span class="fw-600">Conocerás a tu profesor@, verás la metodología, el nivel de tus compañeros...</span></p></div>
                     </div>
                 </div>
@@ -318,7 +334,7 @@
             </div>
 
             
-            <div class="carousel-container" [style.opacity]="reviewsCarouselReady ? 1 : 0">
+            <div class="carousel-container" *ngIf="reviews != null" [style.opacity]="reviewsCarouselReady ? 1 : 0">
                 <div class="carousel">
                     <div class="review-group" *ngFor="let reviewGroup of reviews; let last = last">
                         <div class="review" *ngFor="let review of reviewGroup">
