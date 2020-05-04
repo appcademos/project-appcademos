@@ -71,6 +71,6 @@ export class UtilsService
     
     isMobileWidth()
     {
-        return (window.innerWith <= MOBILE_WIDTH)
+        return (window.innerWidth <= MOBILE_WIDTH)
     }
 }

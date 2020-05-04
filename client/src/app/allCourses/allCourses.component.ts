@@ -250,7 +250,7 @@ export class AllCoursesComponent
         {
             this.showMobileFilters = true;
             
-            if (utils.isMobileWidth())
+            if (this.utils.isMobileWidth())
             {
                 document.body.style.overflow = 'hidden';
                 document.getElementById("hubspot-messages-iframe-container").classList.add('hidden');
@@ -260,7 +260,7 @@ export class AllCoursesComponent
         {
             this.showMobileFilters = false;
             
-            if (utils.isMobileWidth())
+            if (this.utils.isMobileWidth())
             {
                 document.body.style.overflow = 'initial';
                 setTimeout(() =>
