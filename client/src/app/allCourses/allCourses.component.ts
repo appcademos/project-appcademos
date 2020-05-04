@@ -8,8 +8,6 @@ import { MetaService } from '@ngx-meta/core';
 const ORDER_RELEVANCE = 1;
 const ORDER_PRICE_ASCENDING = 2;
 
-const MOBILE_WIDTH = 897;
-
 @Component({
   selector: "app-allCourses",
   templateUrl: "./allCourses.component.html",
@@ -252,7 +250,7 @@ export class AllCoursesComponent
         {
             this.showMobileFilters = true;
             
-            if (window.innerWidth <= MOBILE_WIDTH)
+            if (utils.isMobileWidth())
             {
                 document.body.style.overflow = 'hidden';
                 document.getElementById("hubspot-messages-iframe-container").classList.add('hidden');
@@ -262,7 +260,7 @@ export class AllCoursesComponent
         {
             this.showMobileFilters = false;
             
-            if (window.innerWidth <= MOBILE_WIDTH)
+            if (utils.isMobileWidth())
             {
                 document.body.style.overflow = 'initial';
                 setTimeout(() =>

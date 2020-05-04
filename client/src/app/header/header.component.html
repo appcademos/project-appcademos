@@ -66,7 +66,8 @@
             <div class="right">
                 <a class="icon-text" href="https://www.appcademos.com/blog/tag/trucos-y-consejos-para-aprender-ingles/" target="_blank">
                     <i class="icon size-20" [ngClass]="{'icon-graduation': !isHome, 'icon-graduation-white': isHome}"></i>
-                    <p>Blog: Mejora tu inglés desde casa</p>
+                    <p *ngIf="showFullBlogTitle()">Blog: Mejora tu inglés desde casa</p>
+                    <p *ngIf="!showFullBlogTitle()">Blog</p>
                 </a>
                 <div id="llamar-experto" class="icon-text">
                     <i class="icon size-16" [ngClass]="{'icon-whatsapp': !isHome, 'icon-whatsapp-white': isHome}"></i>

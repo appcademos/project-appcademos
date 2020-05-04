@@ -7,8 +7,6 @@ import { Subscription } from 'rxjs';
 import { AuthService } from "angularx-social-login";
 import { UtilsService } from '../../services/utils.service';
 
-const MOBILE_WIDTH = 897;
-
 @Component({
   selector: "app-header",
   templateUrl: "./header.component.html",
@@ -105,15 +103,18 @@ export class HeaderComponent implements OnInit, OnDestroy
     }
     onResizeWindow(event)
     {
-        let width = event.target.innerWidth;
-
-        if (width > MOBILE_WIDTH)
+        if (!this.utils.isMobileWidth())
             this.isMobileNavVisible = false;
     }
     
     isLinkActive(category): boolean
     {
         return category === this.selectedCategory;
+    }
+    
+    showFullBlogTitle()
+    {
+        return (window.innerWidth > 978)
     }
 
     logout()

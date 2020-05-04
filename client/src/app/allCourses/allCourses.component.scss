@@ -230,7 +230,7 @@ $cardsVerticalSeparation: 36px;
         
         transition: 0.16s ease;
         
-        @media (max-width: 897px)
+        @media (max-width: 786px)
         {
             top: 0;
             bottom: 0;
@@ -239,7 +239,7 @@ $cardsVerticalSeparation: 36px;
         }
     }
     
-    @media (max-width: 897px)
+    @media (max-width: 786px)
     {
         position: fixed;
         top: 100vh;
@@ -265,7 +265,7 @@ $cardsVerticalSeparation: 36px;
     {
         padding: 0 20px;
         
-        @media (max-width: 897px)
+        @media (max-width: 786px)
         {
             overflow: scroll;
         }

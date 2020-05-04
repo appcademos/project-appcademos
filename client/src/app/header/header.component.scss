@@ -74,6 +74,11 @@ header.absolute
         margin-left: 32px;
         color: $black !important;
 
+        &#llamar-experto
+        {
+            flex-shrink: 0;
+        }
+
         p
         {
             font-size: 14px;
@@ -82,6 +87,7 @@ header.absolute
         .icon
         {
             margin-right: 10px;
+            flex-shrink: 0;
         }
         .logout-separator
         {
@@ -227,9 +233,23 @@ header.absolute #navbarBottom
     flex-direction: row;
     display: flex;
     align-items: center;
+    
+    p
+    {
+        max-width: 120px;
+        white-space: nowrap; 
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+#mobile-nav .userLinkContainer p
+{
+    max-width: none;
+    white-space: normal;
+    overflow: auto;
 }
 
-@media (max-width: 897px)
+@media (max-width: 786px)
 {
     .responsive-container-header
     {

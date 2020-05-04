@@ -12,8 +12,6 @@ import { AcademySessionService } from '../../services/academySession.service';
 import { MetaService } from '@ngx-meta/core';
 import * as moment from 'moment';
 
-const MOBILE_WIDTH = 897;
-
 @Component({
   selector: "app-oneCourse",
   templateUrl: "./oneCourse.component.html",
@@ -503,7 +501,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
     onScroll()
     {
         // Hide fixed bottom if footer reached
-        if (window.innerWidth <= MOBILE_WIDTH)
+        if (this.utils.isMobileWidth())
         {
             if (window.pageYOffset + window.innerHeight - $('.fixed-button').outerHeight() >= $('footer').offset().top)
                 $('.fixed-button').hide();
