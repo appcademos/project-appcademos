@@ -1,0 +1,176 @@
+<div id="login" *ngIf="visible">
+    <div class="icon size-48 icon-close-circle-white cursor-pointer" (click)="close()"></div>
+
+    <div class="card-container" *ngIf="!showSignUp">
+        <div class="title fs-28 fw-700 color-white">
+        {{
+            isFavorites ? 'Inicia sesión para guardar cursos en tus favoritos'
+                        : 'Inicia sesión'
+        }}
+        </div>
+
+        <div class="card">
+            <div class="socialLoginButtons">
+                <div class="button facebookLogin light-shadow full-width" (click)="logInWithFB()">
+                    <div class="icon size-20 icon-facebook-white"></div>
+                    Iniciar sesión con Facebook
+                </div>
+                <div class="button white light-shadow full-width googleLogin" (click)="loginWithGoogle()">
+                    <div class="icon size-20 icon-google-g"></div>
+                    Iniciar sesión con Google
+                </div>
+                
+                <div *ngIf="!isFavorites" class="separator">
+                    <hr/>
+                    <div class="or">o</div>
+                </div>
+            </div>
+            
+            <div *ngIf="!isFavorites">
+                <!--<div class="button" (click)="signInWithGoogle()">Login with Google</div>-->
+                <div class="input-container">
+                    <div class="title">Email</div>
+                    <input
+                        type="text"
+                        name="email"
+                        placeholder="Escribe tu dirección de email"
+                        [(ngModel)]="login.email"
+                        (keyup.enter)="sendLogin()"
+                    >
+                </div>
+                <div class="input-container">
+                    <div class="title">Contraseña</div>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Escribe tu contraseña"
+                        [(ngModel)]="login.password"
+                        (keyup.enter)="sendLogin()"
+                    >
+                </div>
+            </div>
+            <!--<div class="forgot-pass noselect">¿Olvidaste tu contraseña?</div>-->
+            
+            <div *ngIf="!isFavorites" class="button white light-shadow full-width" (click)="sendLogin()">Inicia sesión</div>
+            
+            <div class="separator">
+                <hr/>
+            </div>
+            
+            <div class="bottom">
+                <div class="item">¿No tienes cuenta? <span class="noselect" (click)="showSignUp = true">Regístrate</span></div>
+            </div>
+
+            <div class="overlay" [hidden]="!sendingLogin">
+                <div class="spinner"></div>
+            </div>
+
+            <div class="overlay complete" *ngIf="loginComplete">
+                <div class="fs-20 fw-600 color-green">¡Hola {{ userService.user.name }} {{ userService.user.lastName }}!</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-container" *ngIf="showSignUp">
+        <div class="title fs-28 fw-700 color-white">
+            {{
+                isFavorites ? 'Regístrate para guardar cursos en tus favoritos'
+                            : 'Regístrate'
+            }}
+        </div>
+        <div class="card">
+            <div class="socialLoginButtons">
+                <div class="button facebookLogin light-shadow full-width" (click)="signupWithFB()">
+                    <div class="icon size-20 icon-facebook-white"></div>
+                    Seguir con Facebook
+                </div>
+                <div class="button white light-shadow full-width googleLogin" (click)="signupWithGoogle()">
+                    <div class="icon size-20 icon-google-g"></div>
+                    Seguir con Google
+                </div>
+                
+                <div *ngIf="!isFavorites" class="separator">
+                    <hr/>
+                    <div class="or">o</div>
+                </div>
+            </div>
+            
+            <div *ngIf="!isFavorites">
+                <div class="input-container">
+                    <div class="title">Nombre</div>
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Escribe tu nombre"
+                        [(ngModel)]="signup.name"
+                        (keyup.enter)="sendSignup()"
+                    >
+                </div>
+                <div class="input-container">
+                    <div class="title">Apellidos</div>
+                    <input
+                        type="text"
+                        name="last-name"
+                        placeholder="Escribe tus apellidos"
+                        [(ngModel)]="signup.lastName"
+                        (keyup.enter)="sendSignup()"
+                    >
+                </div>
+                <div class="input-container">
+                    <div class="title">Email</div>
+                    <input
+                        type="text"
+                        name="email"
+                        placeholder="Escribe tu dirección de email"
+                        [(ngModel)]="signup.email"
+                        (keyup.enter)="sendSignup()"
+                    >
+                </div>
+                <div class="input-container">
+                    <div class="title">Contraseña</div>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Escribe tu contraseña"
+                        [(ngModel)]="signup.password"
+                        (keyup.enter)="sendSignup()"
+                    >
+                </div>
+                <div class="input-container">
+                    <div class="title">Repite la contraseña</div>
+                    <input
+                        type="password"
+                        name="repeat-password"
+                        placeholder="Escribe tu contraseña"
+                        [(ngModel)]="signup.repeatPassword"
+                        (keyup.enter)="sendSignup()"
+                    >
+                </div>
+            </div>
+
+            <label *ngIf="!isFavorites" class="checkbox-container">
+                Acepto la <a href="/privacy-policy" target="_blank" class="color-green fw-500">política de privacidad</a>
+                <input type="checkbox" [(ngModel)]="signup.conditionsAccepted">
+                <span class="checkmark"></span>
+            </label>
+
+            <div *ngIf="!isFavorites" class="button white light-shadow full-width" (click)="sendSignup()">Crear cuenta</div>
+
+            <div class="separator">
+                <hr/>
+            </div>
+
+            <div class="bottom">
+                <div class="item">Ya tienes cuenta? <span class="noselect" (click)="showSignUp = false">Inicia sesión</span></div>
+            </div>
+
+            <div class="overlay" [hidden]="!sendingSignup">
+                <div class="spinner"></div>
+            </div>
+
+            <div class="overlay complete" [hidden]="!signupComplete">
+                <div class="fs-20 fw-600 color-green">¡Tu usuario ha sido creado!</div>
+            </div>
+        </div>
+    </div>
+</div>

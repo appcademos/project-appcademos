@@ -25,16 +25,16 @@
               "src/assets",
               "src/favicon.ico",
               {
-                  "glob": "**/*",
-                  "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
-                  "output": "/assets/"
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
               }
             ],
             "styles": [
-                "src/antd_theme.less",
-                "src/sass/main.scss",
-                "./node_modules/quill/dist/quill.bubble.css",
-                "./node_modules/quill/dist/quill.snow.css"
+              "src/antd_theme.less",
+              "src/sass/main.scss",
+              "./node_modules/quill/dist/quill.bubble.css",
+              "./node_modules/quill/dist/quill.snow.css"
             ],
             "scripts": []
           },

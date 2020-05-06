@@ -5,11 +5,11 @@ function hasAccess(accessLevel)
         if (req.user && req.user.hasAccess(accessLevel))
             return next()
         
-        return res.status(403).json(
-        {
-            success: false,
-            error: 'Unauthorized'
-        })
+        return res.status(401).json(
+                {
+                    success: false,
+                    error: 'Unauthorized'
+                })
     }
 }
 

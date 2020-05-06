@@ -11,9 +11,12 @@ import { environment } from "../environments/environment.prod";
 // LIBRARIES
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
-import { NzNotificationModule, NzModalModule, NzButtonModule, NzSelectModule, NzPopconfirmModule, NzRateModule, NzIconModule, NzSwitchModule, NzTagModule, NZ_I18N, es_ES } from 'ng-zorro-antd';
+import { NzNotificationModule, NzModalModule, NzButtonModule, NzSelectModule, NzPopconfirmModule, NzRateModule, NzIconModule, NzSwitchModule, NzTagModule, NzEmptyModule, NzDropDownModule, NzMessageModule, NZ_I18N, NZ_ICONS, NZ_ICON_DEFAULT_TWOTONE_COLOR, NZ_NOTIFICATION_CONFIG, es_ES } from 'ng-zorro-antd';
 import { QuillModule } from 'ngx-quill';
 import { AbTestsModule } from 'angular-ab-tests';
+import { LottieAnimationViewModule } from 'ng-lottie';
+import { IconDefinition } from '@ant-design/icons-angular';
+import { HeartTwoTone, LogoutOutline, SettingOutline } from '@ant-design/icons-angular/icons';
 
 // SERVICES
 import { AcademySessionService } from "../services/academySession.service";
@@ -26,36 +29,35 @@ import { BookingsService } from "../services/bookings.service";
 import { CategoriesService } from "../services/categories.service";
 
 // COMPONENTS
-import { AcademyComponent } from "./manager/academy/academy.component";
-import { AllCoursesComponent } from "./allCourses/allCourses.component";
+import { AcademyComponent } from "./screens/manager/academy/academy.component";
+import { AllCoursesComponent } from "./screens/allCourses/allCourses.component";
 import { AppComponent } from "./app.component";
-import { CheckoutComponent } from "./checkout/checkout.component";
-import { CreateCourseFormComponent } from "./manager/createCourseForm/createCourseForm.component";
-import { CreateAcademyFormComponent } from "./manager/createAcademyForm/createAcademyForm.component";
-import { FooterComponent } from "./footer/footer.component";
-import { HeaderComponent } from "./header/header.component";
-import { HomeComponent } from "./home/home.component";
-import { IsAcademyButtonComponent } from "./isAcademyButton/isAcademyButton.component";
-import { OneCourseComponent } from "./oneCourse/oneCourse.component";
-import { UserLoginFormComponent } from "./userLoginForm/userLoginForm.component";
-import { CourseCardComponent } from './course-card/course-card.component';
-import { CoursesCarouselComponent } from './courses-carousel/courses-carousel.component';
-import { SearchboxComponent } from './searchbox/searchbox.component';
-import { LoginComponent } from './login/login.component';
-import { ButtonSpinnerComponent } from './uiComponents/button-spinner/button-spinner.component';
-import { CookiesBoxComponent } from './cookies-box/cookies-box.component';
-import { CookiesComponent } from './cookies/cookies.component';
-import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
-import { CheckboxComponent } from './uiComponents/checkbox/checkbox.component';
-import { RadioComponent } from './uiComponents/radio/radio.component';
-import { SocialLoginComponent } from './social-login/social-login.component';
+import { CheckoutComponent } from "./screens/checkout/checkout.component";
+import { CreateCourseFormComponent } from "./screens/manager/createCourseForm/createCourseForm.component";
+import { CreateAcademyFormComponent } from "./screens/manager/createAcademyForm/createAcademyForm.component";
+import { FooterComponent } from "./components/footer/footer.component";
+import { HeaderComponent } from "./components/header/header.component";
+import { HomeComponent } from "./screens/home/home.component";
+import { OneCourseComponent } from "./screens/oneCourse/oneCourse.component";
+import { CourseCardComponent } from './components/course-card/course-card.component';
+import { CoursesCarouselComponent } from './components/courses-carousel/courses-carousel.component';
+import { SearchboxComponent } from './components/searchbox/searchbox.component';
+import { LoginComponent } from './components/login/login.component';
+import { ButtonSpinnerComponent } from './components/uiComponents/button-spinner/button-spinner.component';
+import { CookiesBoxComponent } from './components/cookies-box/cookies-box.component';
+import { CookiesComponent } from './screens/cookies/cookies.component';
+import { PrivacyPolicyComponent } from './screens/privacy-policy/privacy-policy.component';
+import { CheckboxComponent } from './components/uiComponents/checkbox/checkbox.component';
+import { RadioComponent } from './components/uiComponents/radio/radio.component';
 import { SocialLoginModule, AuthServiceConfig, LoginOpt } from "angularx-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
-import { EstudioPersonalizadoComponent } from './estudio-personalizado/estudio-personalizado.component';
-import { ManagerComponent } from './manager/manager/manager.component';
-import { TopBannerComponent } from './top-banner/top-banner.component';
-import { TextArrayEditorComponent } from './manager/_components/text-array-editor/text-array-editor.component';
-import { ReviewEditorComponent } from './manager/_components/review-editor/review-editor.component';
+import { EstudioPersonalizadoComponent } from './screens/estudio-personalizado/estudio-personalizado.component';
+import { ManagerComponent } from './screens/manager/manager/manager.component';
+import { TopBannerComponent } from './components/top-banner/top-banner.component';
+import { TextArrayEditorComponent } from './screens/manager/_components/text-array-editor/text-array-editor.component';
+import { ReviewEditorComponent } from './screens/manager/_components/review-editor/review-editor.component';
+import { FavoritesComponent } from './screens/favorites/favorites.component';
+import { FavoritesTutorialComponent } from './components/favorites-tutorial/favorites-tutorial.component';
 
 
 export function metaFactory(): MetaLoader
@@ -96,6 +98,10 @@ export function provideConfig() {
   return config;
 }
 
+/***** Antd icons config *****/
+const icons: IconDefinition[] = [ HeartTwoTone, LogoutOutline, SettingOutline ]
+
+
 @NgModule({
    declarations: [
       AcademyComponent,
@@ -107,9 +113,7 @@ export function provideConfig() {
       FooterComponent,
       HeaderComponent,
       HomeComponent,
-      IsAcademyButtonComponent,
       OneCourseComponent,
-      UserLoginFormComponent,
       CourseCardComponent,
       CoursesCarouselComponent,
       SearchboxComponent,
@@ -120,12 +124,13 @@ export function provideConfig() {
       PrivacyPolicyComponent,
       CheckboxComponent,
       RadioComponent,
-      SocialLoginComponent,
       EstudioPersonalizadoComponent,
       ManagerComponent,
       TopBannerComponent,
       TextArrayEditorComponent,
-      ReviewEditorComponent
+      ReviewEditorComponent,
+      FavoritesComponent,
+      FavoritesTutorialComponent
    ],
 
   imports: [
@@ -150,6 +155,9 @@ export function provideConfig() {
     NzSwitchModule,
     NzIconModule,
     NzTagModule,
+    NzEmptyModule,
+    NzDropDownModule,
+    NzMessageModule,
     QuillModule.forRoot({
         modules: {
             toolbar: [
@@ -173,7 +181,8 @@ export function provideConfig() {
         versionForCrawlers: 'A',
         expiration: 30
       },
-    ])
+    ]),
+    LottieAnimationViewModule.forRoot()
   ],
   providers: [
     AcademySessionService,
@@ -188,7 +197,10 @@ export function provideConfig() {
     },
     BookingsService,
     { provide: NZ_I18N, useValue: es_ES },
-    CategoriesService
+    CategoriesService,
+    { provide: NZ_ICON_DEFAULT_TWOTONE_COLOR, useValue: '#E43450' },
+    { provide: NZ_ICONS, useValue: icons },
+    { provide: NZ_NOTIFICATION_CONFIG, useValue: { nzTop: '80px' }}
   ],
   exports: [ AbTestsModule ],
   bootstrap: [AppComponent]

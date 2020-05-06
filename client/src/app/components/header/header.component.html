@@ -1,0 +1,142 @@
+<header [ngClass]="{'absolute': isHome, 'mobileOpened': isMobileNavVisible}">
+    <div class="responsive-container-header">
+        <nav id="navbarTop">
+            <a class="logo" [routerLink]="['']">
+                <img [hidden]="!isHome" src="../../assets/public/images/logo_white.png" alt="Logo de Appcademos, el comparador de cursos y academias de inglés en Madrid." height="44" />
+                <img [hidden]="isHome" src="../../assets/public/images/logo_red.png" alt="Logo de Appcademos, el comparador de cursos y academias de inglés en Madrid." height="44" />
+            </a>
+
+            <div class="logo-mobile" [ngClass]="{ 'isHome': isHome }" (click)="isMobileNavVisible = !isMobileNavVisible; showFavoritesTutorial = false">
+                <img [hidden]="!isHome || isMobileNavVisible" src="../../assets/public/images/logo_white.png" alt="Logo de Appcademos, el comparador de cursos y academias de inglés en Madrid." height="44" />
+                <img [hidden]="isHome && !isMobileNavVisible" src="../../assets/public/images/logo_red.png" alt="Logo de Appcademos, el comparador de cursos y academias de inglés en Madrid." height="44" />
+
+                <div class="mobile-nav-button noselect" [ngClass]="{'isHome': isHome && !isMobileNavVisible}">
+                    <i class="icon size-12" [ngClass]="{'icon-arrow-down': !isMobileNavVisible, 'icon-arrow-down-red': isMobileNavVisible, 'icon-arrow-down-white': isHome && !isMobileNavVisible }"></i>
+                    <div class="title">MENU</div>
+                </div>
+            </div>
+            <nav id="mobile-nav">
+                <div>
+                    <a [routerLink]="['']" (click)="isMobileNavVisible = false">Inicio</a>
+                </div>
+                <div class="separator"></div>
+                <div class="nav-course-items">
+                    <div class="title">Certificados</div>
+                    <a class="nav-course-item" [class.active]="isLinkActive('first')" [routerLink]="['cursos-ingles', 'first-certificate']" (click)="isMobileNavVisible = false; selectedCategory = 'first';">First Certificate</a>
+                    <a class="nav-course-item" [class.active]="isLinkActive('advanced')" [routerLink]="['cursos-ingles', 'advanced']" (click)="isMobileNavVisible = false; selectedCategory = 'advanced';">Advanced</a>
+                    
+                    <div class="title">Mejorar tu inglés</div>
+                    <a class="nav-course-item" [class.active]="isLinkActive('nivel b1')" [routerLink]="['cursos-ingles', 'nivel-b1']" (click)="isMobileNavVisible = false; selectedCategory = 'nivel b1';">Inglés General B1</a>
+                    <a class="nav-course-item" [class.active]="isLinkActive('nivel b2')" [routerLink]="['cursos-ingles', 'nivel-b2']" (click)="isMobileNavVisible = false; selectedCategory = 'nivel b2';">Inglés General B2</a>
+                    <a class="nav-course-item" [class.active]="isLinkActive('nivel c1')" [routerLink]="['cursos-ingles', 'nivel-c1']" (click)="isMobileNavVisible = false; selectedCategory = 'nivel c1';">Inglés General C1</a>
+                </div>
+                <div class="separator"></div>
+                <div>
+                    <a class="icon-text" href="https://www.appcademos.com/blog/tag/trucos-y-consejos-para-aprender-ingles/" target="_blank">
+                        <i class="icon size-20 icon-graduation"></i>
+                        <p>Blog: Mejora tu inglés desde casa</p>
+                    </a>
+                    <a id="llamar-experto" class="icon-text phone" href="tel:+34677827178" (click)="$event.stopPropagation()">
+                        <i class="icon size-16 icon-whatsapp"></i>
+                        <div>
+                            <p class="title fw-600">Habla con un experto</p>
+                            <p class="number">+34 677 827 178</p>
+                        </div>
+                    </a>
+                    <div class="icon-text cursor-pointer noselect" (click)="showLogin = true" *ngIf="user == null">
+                        <i class="icon size-16 icon-user"></i>
+                        <p>Registrarse</p>
+                    </div>
+
+                    <div class="icon-text noselect" *ngIf="user != null">
+                        <div class="mobileUserLinksContainer">
+                            <div class="userLinkContainer">
+                                <i class="icon size-16 icon-user"></i>
+                                {{ user.name }} {{ user.lastName }}
+                            </div>
+                            <div class="userSubLinkContainer" *ngIf="user.role != 'student'" [routerLink]="['/manager']" (click)="isMobileNavVisible = false">
+                                <i nz-icon nzType="setting" nzTheme="outline"></i> Manager
+                            </div>
+                            <div class="userSubLinkContainer" [routerLink]="['/favoritos']" (click)="isMobileNavVisible = false">
+                                <i nz-icon nzType="heart" nzTheme="twotone"></i> Mis cursos favoritos
+                            </div>
+                            <div class="separator"></div>
+                            <div class="userSubLinkContainer color-red" (click)="logout(); isMobileNavVisible = false;">
+                                <i nz-icon nzType="logout" nzTheme="outline"></i> Cerrar sesión
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="right">
+                <a class="icon-text" href="https://www.appcademos.com/blog/tag/trucos-y-consejos-para-aprender-ingles/" target="_blank">
+                    <i class="icon size-20" [ngClass]="{'icon-graduation': !isHome, 'icon-graduation-white': isHome}"></i>
+                    <p *ngIf="showFullBlogTitle()">Blog: Mejora tu inglés desde casa</p>
+                    <p *ngIf="!showFullBlogTitle()">Blog</p>
+                </a>
+                <div id="llamar-experto" class="icon-text">
+                    <i class="icon size-16" [ngClass]="{'icon-whatsapp': !isHome, 'icon-whatsapp-white': isHome}"></i>
+                    <p>
+                        <span class="fs-10">Habla con un experto</span><br/>
+                        +34 677 827 178
+                    </p>
+                </div>
+                <div class="icon-text cursor-pointer noselect" (click)="showLogin = true" *ngIf="user == null">
+                    <i class="icon size-16" [ngClass]="{'icon-user': !isHome, 'icon-user-white': isHome}"></i>
+                    <p>Registrarse</p>
+                </div>
+
+                <div class="icon-text noselect" *ngIf="user != null">                    
+                    <nz-dropdown [nzPlacement]="'bottomRight'">
+                        <a
+                            class="userLinkContainer"
+                            nz-dropdown
+                        >
+                            <i class="icon size-16" [ngClass]="{'icon-user': !isHome, 'icon-user-white': isHome}"></i>
+                            <p>{{ user.name }} {{ user.lastName }}</p><i nz-icon type="down"></i>
+                        </a>
+                        
+                        <ul nz-menu class="userDropdownContainer">
+                            <li class="title">
+                                {{ user.name }} {{ user.lastName }}
+                            </li>
+                            <li nz-menu-divider></li>
+                            <li nz-menu-item class="userDropdownItem" *ngIf="user.role != 'student'" [routerLink]="['/manager']">
+                                <i nz-icon nzType="setting" nzTheme="outline"></i> Manager
+                            </li>
+                            <li nz-menu-item class="userDropdownItem" [routerLink]="['/favoritos']">
+                                <i nz-icon nzType="heart" nzTheme="twotone"></i> Mis cursos favoritos
+                            </li>
+                            <li nz-menu-divider></li>
+                            <li nz-menu-item class="userDropdownItem color-red" (click)="logout()">
+                                <i nz-icon nzType="logout" nzTheme="outline"></i> Cerrar sesión
+                            </li>
+                        </ul>
+                    </nz-dropdown>
+                </div>
+            </div>
+        </nav>
+
+        <nav id="navbarBottom" *ngIf="!isHome">
+            <a class="nav-link" [routerLink]="['cursos-ingles', 'first-certificate']" [class.active]="isLinkActive('first')" (click)="isMobileNavVisible = false; selectedCategory = 'first';">First Certificate</a>
+            <a class="nav-link" [routerLink]="['cursos-ingles', 'advanced']" [class.active]="isLinkActive('advanced')" (click)="isMobileNavVisible = false; selectedCategory = 'advanced';">Advanced</a>
+            <a class="nav-link" [routerLink]="['cursos-ingles', 'nivel-b1']" [class.active]="isLinkActive('nivel b1')" (click)="isMobileNavVisible = false; selectedCategory = 'nivel b1';">Inglés General B1</a>
+            <a class="nav-link" [routerLink]="['cursos-ingles', 'nivel-b2']" [class.active]="isLinkActive('nivel b2')" (click)="isMobileNavVisible = false; selectedCategory = 'nivel b2';">Inglés General B2</a>
+            <a class="nav-link" [routerLink]="['cursos-ingles', 'nivel-c1']" [class.active]="isLinkActive('nivel c1')" (click)="isMobileNavVisible = false; selectedCategory = 'nivel c1';">Inglés General C1</a>
+        </nav>
+    </div>
+
+    <app-login [visible]="showLogin" (onClose)="showLogin = false"></app-login>
+    
+    <app-login
+        [visible]="showFavoritesLogin"
+        (onClose)="showFavoritesLogin = false"
+        [isFavorites]="true"
+    ></app-login>
+    
+    <app-favorites-tutorial
+        [visible]="showFavoritesTutorial"
+        (onClose)="showFavoritesTutorial = false"
+    ></app-favorites-tutorial>
+</header>

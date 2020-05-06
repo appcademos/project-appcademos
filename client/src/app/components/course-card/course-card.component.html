@@ -1,0 +1,64 @@
+<div class="course-item">
+    <a class="course-link" [routerLink]="params">
+         <div class="course-item-image" [ngStyle]="{ 'background-image': (course.images != null && course.images.length > 0) ? 'url(' + course.images[0] + ')' : null }">
+             <div class="course-tag" *ngIf="course.isBooked">COMPLETO</div>
+             <div class="course-video-icon icon-video" *ngIf="course.videoUrl"></div>
+             <div class="course-goto-button-container">
+                 <div class="goto-button">Ver este curso</div>
+             </div>
+             <div class="course-heart" (click)="onClickHeart($event)">
+                 <lottie-animation-view
+                    [options]="lottieConfig"
+                    [width]="32"
+                    [height]="32"
+                    (animCreated)="handleHeartAnimation($event)">
+                  </lottie-animation-view>
+             </div>
+         </div>
+        
+         <div class="course-body">
+            <div class="course-academy-container">
+                <div class="course-academy fs-12 color-black-50 fw-600">{{ course.academy.name }}</div>
+                <div class="verified"><i class="icon size-9 icon-green-check"></i>VERIFICADA</div>
+            </div>
+
+            <div class="course-title fw-600">{{ course.title }}</div>
+
+            <div class="course-rating" *ngIf="course.academy.isVerified && course.academy.reviews.length > 0">
+                <ngb-rating [(rate)]="average" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
+                <p>
+                    <span class="average">{{ average | number:'1.0-1' }}</span> ({{ course.academy.reviews.length }})
+                </p>
+            </div>
+
+            <div class="course-texts">
+                <div class="course-icon-text">
+                    <i class="icon size-15 icon-calendar"></i>
+                    <p>{{ course.startDate | date: "dd-MM-yyyy" }}&nbsp;&nbsp;|&nbsp;&nbsp;{{ course.weekclasses + ((course.weekclasses == 1) ? ' clase semanal' : ' clases semanales') }}</p>
+                </div>
+                <div class="course-icon-text address">
+                    <i class="icon size-15 icon-location"></i>
+                    <p>{{ course.academy.address }}</p>
+                </div>
+            </div>
+            
+            <div class="neighborhoods">
+                <nz-tag class="neighborhood" *ngFor="let neighborhood of course.academy.neighborhoods">{{ neighborhood }}</nz-tag>
+            </div>
+            
+            <div class="course-price fw-600 color-red">
+                <div class="oldprice" *ngIf="course.oldPrice">{{ course.oldPrice }}€</div>
+                <div class="price">{{ course.price }}€</div>
+            </div>
+            
+            <a class="mobile-course-link button small white full-width" [routerLink]="params">Ver este curso</a>
+         </div>
+     </a>
+</div>
+
+<ng-template #starTemplate let-fill="fill">
+    <span class="star" [class.full]="fill === 100">
+        <span class="half" [style.width.%]="fill">★</span>
+        ★
+    </span>
+</ng-template>
