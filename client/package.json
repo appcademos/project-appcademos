@@ -29,6 +29,7 @@
     "core-js": "^2.6.10",
     "less": "^3.10.3",
     "moment": "^2.24.0",
+    "ng-lottie": "^0.3.2",
     "ng-zorro-antd": "^7.5.1",
     "ng2-file-upload": "^1.4.0",
     "ngx-quill": "^7.3.2",

@@ -20,55 +20,64 @@ export class UserSessionService
       );
   }
 
-  handleUser(user?: object) {
+  handleUser(user?: object) 
+  {
     this.user = user;
     return this.user;
   }
 
-  isLoggedIn() {
+  isLoggedIn()
+  {
     return this.http
       .get(`${environment.BASEURL}/api/user/session`, this.options)
       .map(res => res.json())
       .map(user =>
       {
+          this.handleUser(user);
           this.messageService.sendMessage({ user: user });
-          return this.handleUser(user);
+          return user;
       })
       .catch(error => Observable.throw(error));
   }
 
-  signup(user) {
+  signup(user)
+  {
     return this.http
       .post(`${environment.BASEURL}/api/user/signup`, user, this.options)
       .map(res => res.json())
       .map(user =>
       {
+          this.handleUser(user);
           this.messageService.sendMessage({ user: user });
-          return this.handleUser(user);
+          return user;
       })
       .catch(error => Observable.throw(error.json().message));
   }
 
-  login(user) {
+  login(user)
+  {
     return this.http
       .post(`${environment.BASEURL}/api/user/login`, user, this.options)
       .map(res => res.json())
       .map(user =>
       {
+          this.handleUser(user);
           this.messageService.sendMessage({ user: user });
-          return this.handleUser(user);
+          return user;
       })
       .catch(error => Observable.throw(error.json().message));
   }
 
-  logout() {
+  logout()
+  {
     return this.http
       .get(`${environment.BASEURL}/api/user/logout`, this.options)
       .map(res => res.json())
       .map(user =>
       {
+          this.handleUser();
           this.messageService.sendMessage({ user: null });
-          return this.handleUser();
+          return null;
       })
       .catch(error => Observable.throw(error.json().message));
   }
@@ -80,8 +89,9 @@ export class UserSessionService
         .map(res => res.json())
         .map(user =>
         {
+            this.handleUser(user);
             this.messageService.sendMessage({ user: user });
-            return this.handleUser(user);
+            return user;
         })
         .catch(error => Observable.throw(error));
   }
@@ -92,8 +102,9 @@ export class UserSessionService
         .map(res => res.json())
         .map(user =>
         {
+            this.handleUser(user);
             this.messageService.sendMessage({ user: user });
-            return this.handleUser(user);
+            return user;
         })
         .catch(error => Observable.throw(error));
   }
@@ -105,8 +116,9 @@ export class UserSessionService
         .map(res => res.json())
         .map(user =>
         {
+            this.handleUser(user);
             this.messageService.sendMessage({ user: user });
-            return this.handleUser(user);
+            return user;
         })
         .catch(error => Observable.throw(error));
   }
@@ -117,9 +129,59 @@ export class UserSessionService
         .map(res => res.json())
         .map(user =>
         {
+            this.handleUser(user);
             this.messageService.sendMessage({ user: user });
-            return this.handleUser(user);
+            return user;
         })
         .catch(error => Observable.throw(error));
+  }
+  
+  hasFavorite(courseId)
+  {
+      return (this.user != null) ? this.user.favorites.some(favorite => favorite._id === courseId) : null
+  }
+  addFavorite(courseId)
+  {
+      return this.http
+      .post(`${environment.BASEURL}/api/user/add-favorite`, { courseId }, this.options)
+      .map(res =>
+        {
+            setTimeout(() =>
+            {
+                this.isLoggedIn().subscribe()
+                
+                // Show favorites tutorial only the first time
+                if (localStorage.getItem('favoritesTutorialShown') !== 'true')
+                {
+                    this.messageService.sendMessage({ showFavoritesTutorial: true })
+                    localStorage.setItem('favoritesTutorialShown', 'true');
+                }
+            }, 500)
+            return res.json()
+        })
+      .catch(error =>
+      {            
+          if (error != null)
+              return Observable.throw(error);
+          else
+              return Observable.throw('Error adding favorite');
+      });
+  }
+  removeFavorite(courseId)
+  {
+      return this.http
+      .post(`${environment.BASEURL}/api/user/remove-favorite`, { courseId }, this.options)
+      .map(res =>
+        {
+            setTimeout(() => this.isLoggedIn().subscribe(), 500)
+            return res.json()
+        })
+      .catch(error =>
+      {            
+          if (error != null)
+              return Observable.throw(error);
+          else
+              return Observable.throw('Error removing favorite');
+      });
   }
 }

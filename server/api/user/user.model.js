@@ -26,7 +26,11 @@ const userSchema = new Schema(
         default: "student"
     },
     facebookId: String,
-    googleId: String
+    googleId: String,
+    favorites: [{
+      type: Schema.Types.ObjectId,
+      ref: "Course"
+    }],
 },
 {
     timestamps: {
@@ -35,6 +39,7 @@ const userSchema = new Schema(
     }
 });
 
+// User roles and access levels
 userSchema.plugin(require('mongoose-role'),
 {
     roles: ['student', 'academy', 'admin'],
@@ -47,5 +52,31 @@ userSchema.plugin(require('mongoose-role'),
         allRoles: ['admin', 'academy', 'student'],
     }
 });
+
+// Auto populate user favorites
+var autoPopulateFavorites = function(next)
+{
+    this.populate(
+        {
+            path: 'favorites',
+            populate:
+            [
+                {
+                    path: 'academy',
+                    populate:
+                    {
+                        path: 'reviews',
+                        model: 'Review'
+                    }
+                },
+                {
+                    path: 'category'
+                }
+            ]
+        })
+    next()
+}
+userSchema.pre('findOne', autoPopulateFavorites).
+           pre('find', autoPopulateFavorites)
 
 module.exports = mongoose.model("User", userSchema);

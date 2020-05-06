@@ -214,11 +214,64 @@ const update = (req, res, next) => {
 };
 
 
+const addFavorite = async (req, res, next) =>
+{    
+    if (req.body.courseId == null)
+    {
+        return res.status(400).json({ message: "Missing field 'courseId'" });
+    }
+    
+    if (req.user.favorites.some(favoriteId => favoriteId.toString() === req.body.courseId))
+    {
+        return res.status(409).json({ message: "Favorite already added" });
+    }
+    
+    try
+    {        
+        let updateRes = await User.updateOne({ _id: req.user._id }, { $push: { favorites: req.body.courseId } });
+
+        if (updateRes != null && updateRes.ok)
+            res.status(200).json({ message: "Favorite added" });
+        else
+            res.status(500).json({ message: "Error adding favorite" });
+    }
+    catch(error)
+    {
+        console.log(error);
+        res.status(500).json({ message: "Error adding favorite" });
+    }
+}
+const removeFavorite = async (req, res, next) =>
+{
+    if (req.body.courseId == null)
+    {
+        return res.status(400).json({ message: "Missing field 'courseId'" });
+    }
+    
+    try
+    {        
+        let updateRes = await User.updateOne({ _id: req.user._id }, { $pull: { favorites: req.body.courseId } });
+
+        if (updateRes != null && updateRes.ok)
+            res.status(200).json({ message: "Favorite removed" });
+        else
+            res.status(500).json({ message: "Error removing favorite" });
+    }
+    catch(error)
+    {
+        console.log(error);
+        res.status(500).json({ message: "Error removing favorite" });
+    }
+}
+
+
 module.exports = {
   loggedIn,
   logout,
   signup,
   login,
   getThisUser,
-  update
+  update,
+  addFavorite,
+  removeFavorite
 };

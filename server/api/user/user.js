@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const User = require("./user.model");
+const Utils = require("../utils");
 
 const {
   loggedIn,
@@ -9,7 +10,9 @@ const {
   signup,
   login,
   getThisUser,
-  update
+  update,
+  addFavorite,
+  removeFavorite
 } = require("./user.controller");
 
 router.get("/session", loggedIn);
@@ -18,6 +21,8 @@ router.get("/", getThisUser);
 router.put("/update/:id", update);
 router.post("/login", login);
 router.post("/signup", signup);
+router.post("/add-favorite", [ Utils.hasAccess('allRoles'), addFavorite ]);
+router.post("/remove-favorite", [ Utils.hasAccess('allRoles'), removeFavorite ]);
 
 // /user/auth/facebook/login?access_token={FB_ACCESS_TOKEN}
 router.get("/auth/facebook/login", passport.authenticate('facebook-token-login'),

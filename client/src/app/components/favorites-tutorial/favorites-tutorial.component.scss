@@ -1,0 +1,63 @@
+@import '../../../sass/abstracts/variables.scss';
+
+#favorites-tutorial
+{
+    position: absolute;
+    z-index: 999;
+    top: 87px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+    background: rgba(255,255,255,0.88);
+    
+    @media (max-width: $size-mobile)
+    {
+        top: 75px;
+    }
+    
+    .content
+    {
+        position: absolute;
+        top: 8px;
+        right: 80px;
+        padding: 8px 40px 16px 16px;
+        border-radius: 8px;
+        font-weight: 500;
+        max-width: 344px;
+        
+        @media (max-width: $size-mobile)
+        {
+            top: 18px;
+            right: 20px;
+            margin-left: 16px;
+        }
+    }
+    i
+    {
+        margin-bottom: 8px;
+        color: $black-50;
+        cursor: pointer;
+        padding: 4px;
+        transform: translate(-4px,0);
+        
+        &:hover
+        {
+            color: $black;
+        }
+    }
+    .arrowImage
+    {
+        position: absolute;
+        top: -24px;
+        right: 28px;
+        height: auto;
+        width: 44px;
+        transform: rotate(-15deg);
+        
+        @media (max-width: $size-mobile)
+        {
+            right: 14px;
+        }
+    }
+}
