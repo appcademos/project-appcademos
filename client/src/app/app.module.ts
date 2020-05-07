@@ -86,7 +86,7 @@ let config = new AuthServiceConfig(
 [
     {
         id: GoogleLoginProvider.PROVIDER_ID,
-        provider: new GoogleLoginProvider("589677356916-ou4ks4n96sffnrhi1f97r042gfebtq75.apps.googleusercontent.com",googleLoginOptions)
+        provider: new GoogleLoginProvider("802314734199-69vofa2veeehe0td59ntmo554sl82i61.apps.googleusercontent.com",googleLoginOptions)
     },
     {
         id: FacebookLoginProvider.PROVIDER_ID,
