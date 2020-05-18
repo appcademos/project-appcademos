@@ -12,17 +12,51 @@ h2
     background: $green-color-08;
     padding: 20px 0;
     margin: 0 auto;
-
+    
     .responsive-container
     {
         padding-top: 0;
     }
+    
     .title
     {
         font-size: 18px;
         font-weight: 600;
-        text-align: center;
-        color: $black-80;
+        display: flex;
+        flex-direction: row;
+    }
+    .dot-pulse
+    {
+        display: inline-block;
+        background: $red-color;
+    	border-radius: 50%;
+    	height: 14px;
+    	width: 14px;
+        margin-top: 3px;
+        margin-right: 8px;
+        flex-shrink: 0;
+
+    	box-shadow: 0 0 0 0 $red-color-10;
+    	transform: scale(1);
+    	animation: pulse 2s infinite;
+        
+        @keyframes pulse
+        {
+        	0% {
+        		transform: scale(0.95);
+        		box-shadow: 0 0 0 0 $red-color-70;
+        	}
+
+        	70% {
+        		transform: scale(1);
+        		box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+        	}
+
+        	100% {
+        		transform: scale(0.95);
+        		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        	}
+        }
     }
 
     @media (max-width: 436px)
@@ -33,7 +67,7 @@ h2
     {
         .title
         {
-            font-size: 15px;
+            font-size: 16px;
         }
     }
 }
