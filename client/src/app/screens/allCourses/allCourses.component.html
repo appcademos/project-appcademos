@@ -1,10 +1,6 @@
 <div class="whatsappBanner">
     <div class="responsive-container">
-        <div>
-            <div class="title">⚠ COVID-19: Todos los cursos se imparten online.</div>
-            <div class="subtitle">Un experto en inglés te ayuda a encontrar tu curso.</div>
-        </div>
-        <a class="button medium green noshadow" [routerLink]="['/estudio-personalizado']">Encontrar mi curso</a>
+        <div class="title"><div class="dot-pulse"></div><div>COVID-19: Todos los cursos se imparten online.</div></div>
     </div>
 </div>
 
@@ -88,16 +84,6 @@
 </div>
     
 <div class="responsive-container">
-    <div class="whatsappBanner fixed" [ngClass]="{'show': showFixedSearchbar}">
-        <div class="responsive-container">
-            <div>
-                <div class="title">⚠ COVID-19: Todos los cursos se imparten online.</div>
-                <div class="subtitle">Un experto en inglés te ayuda a encontrar tu curso.</div>
-            </div>
-            <a class="button medium green noshadow" [routerLink]="['/estudio-personalizado']">Encontrar mi curso</a>
-        </div>
-    </div>
-
     <div class="title-view" *ngIf="courses.length !== 0">
         <h1>Las mejores academias de <span class="fw-700">{{ commonCategoryFullName ? commonCategoryFullName : (searchCategory ? searchCategory : 'inglés') }}</span> cerca de ti</h1>
     </div>

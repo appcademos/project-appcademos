@@ -31,7 +31,6 @@ export class AllCoursesComponent
     
     currentOrder: any = this.orders[0].id;
     searching: boolean = false;
-    showFixedSearchbar: boolean = false;
     searchbarOffsetTop: number = undefined;
     searchCategory: string = null;
     commonCategoryFullName: string = null;
@@ -311,17 +310,6 @@ export class AllCoursesComponent
         {            
             if (this.searchbarOffsetTop != null)
             {
-                if (downScroll && number >= this.searchbarOffsetTop)
-                {
-                    if (!this.showFixedSearchbar)
-                        this.showFixedSearchbar = true;
-                }
-                else
-                {
-                    if (this.showFixedSearchbar)
-                        this.showFixedSearchbar = false;
-                }
-                
                 if (!downScroll && number >= this.searchviewOffsetTop)
                 {
                     if (!this.fixedFilters)
