@@ -501,7 +501,7 @@ section#course-types
     }
 }
 section#help-container
-{    
+{
     padding-top: 20px;
     margin-bottom: 12px;
     
@@ -583,6 +583,19 @@ section#help-container
         &:nth-child(3) .image
         {
             background-image: url('../../../assets/public/images/anna.jpg');
+        }
+    }
+    .call-us-free
+    {
+        margin-top: 48px;
+        text-align: center;
+        
+        a
+        {
+            color: #fff;
+            margin-top: 16px;
+            font-size: 24px;
+            border-radius: 12px;
         }
     }
 
