@@ -84,6 +84,10 @@ header.absolute
             font-size: 14px;
             font-weight: 600;
         }
+        p + i
+        {
+            margin-left: 4px;
+        }
         .icon
         {
             margin-right: 10px;
