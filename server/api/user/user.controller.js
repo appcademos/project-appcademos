@@ -8,6 +8,7 @@ const passport = require("passport");
 const bcryptSalt = parseInt(process.env.BCRYPT);
 const debug = require("debug")("server:user.controller");
 const fields = Object.keys(_.omit(User.schema.paths, ["__v", "_id"]));
+const axios = require('axios');
 
 const {
   transporter,
@@ -99,6 +100,32 @@ const signup = (req, res, next) =>
                     delete returnUser.updated_at;
                     res.status(200).json(returnUser);
                 });
+                
+                if (process.env.ENV == 'production')
+                {
+                    // Create new HubSpot Contact
+                    let hubspotContact =
+                    {
+                        properties:
+                        [
+                            { property: "email",        value: user.email },
+                            { property: "firstname",    value: user.name },
+                            { property: "lastname",     value: user.lastName }
+                        ]
+                    }
+                    axios.post(`https://api.hubapi.com/contacts/v1/contact/?hapikey=${process.env.HUBSPOT_API_KEY}`, hubspotContact,
+                    {
+                        headers: {'Content-type': 'application/json'}
+                    })
+                    .then((response) =>
+                    {
+                        console.log('Creating contact in HubSpot...', response);
+                    })
+                    .catch((error) =>
+                    {
+                        console.log('Creating contact in HubSpot...', error);
+                    });
+                }
             })
         }
     })
