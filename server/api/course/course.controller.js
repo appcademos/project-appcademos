@@ -65,7 +65,7 @@ const getSearched = async (req, res, next) =>
     let foundCategory = null;
     
     if (categories != null && categories.length > 0)
-        foundCategory = categories.find(category => category.name.toLowerCase() == query.toLowerCase());
+        foundCategory = categories.find(category => category.name.toLowerCase().replace(/ñ/g,'n') == query.toLowerCase());
         
     if (foundCategory != null)
     {
