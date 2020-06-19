@@ -136,8 +136,15 @@ export class OneCourseComponent implements OnInit, OnDestroy
     {
         if (this.routeCourseId)
         {
-            this.courseService.getCourse(this.routeCourseId).subscribe(() =>
+            this.courseService.getCourse(this.routeCourseId)
+            .subscribe(() =>
             {
+                if (this.courseService.viewCourse.course.hidden)
+                {
+                    this.router.navigate(["/404"], { skipLocationChange: true });
+                    return
+                }
+                
                 this.courseObj = this.courseService.viewCourse;
                 this.setMetaData();
                 this.setCheckoutRouterParams();
@@ -168,6 +175,11 @@ export class OneCourseComponent implements OnInit, OnDestroy
                 this.isFavorite = this.usersService.hasFavorite(this.courseObj.course._id)
                 if (this.isFavorite)
                     setTimeout(() => { this.playHeartAnimation() })
+            },
+            (error) =>
+            {
+                if (error.status === 404)
+                    this.router.navigate(["/404"], { skipLocationChange: true });
             });
         }
     }

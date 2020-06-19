@@ -145,7 +145,14 @@ const getOne = (req, res, next) => {
     .populate("category")
     .populate("students")
     .exec()
-    .then(course => {
+    .then(course => 
+    {
+        if (course.hidden)
+        {
+            res.sendStatus(404);
+            return;
+        }
+        
         res.status(200).json({ course });
         
         // We keep the updated_at field so that mongoose doesn't overwrite it

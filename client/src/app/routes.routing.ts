@@ -9,6 +9,7 @@ import { EstudioPersonalizadoComponent } from "./screens/estudio-personalizado/e
 import { ManagerComponent } from "./screens/manager/manager/manager.component";
 import { AcademyComponent } from "./screens/manager/academy/academy.component";
 import { FavoritesComponent } from './screens/favorites/favorites.component';
+import { Error404Component } from './screens/errors/error404/error404.component';
 
 export const routes: Routes = [
     { path: "", component: HomeComponent },
@@ -33,5 +34,6 @@ export const routes: Routes = [
     { path: "cookie-policy", component: CookiesComponent },
     { path: "privacy-policy", component: PrivacyPolicyComponent },
 
-    { path: "**", redirectTo: "" }
+    { path: "404", component: Error404Component },
+    { path: "**", component: Error404Component }
 ];
