@@ -50,7 +50,7 @@
             <a class="search-panel-item noselect" [routerLink]="['cursos-ingles', 'aptis']" [hidden]="selectedTab == 1">Aptis</a>
             
             <div class="line-separator" [hidden]="selectedTab == 2"></div>
-            <a class="search-panel-item kids noselect" [routerLink]="['cursos-ingles', 'ninos']" [hidden]="selectedTab == 2">Inglés para niños</a>
+            <a class="search-panel-item kids noselect" [routerLink]="['cursos-ingles', 'niños']" [hidden]="selectedTab == 2">Inglés para niños</a>
         </div>
         <div class="content" *ngIf="small">
             <a class="search-panel-item noselect" (click)="query = 'first-certificate'; doOnSearch();" [hidden]="selectedTab == 1">First certificate</a>
@@ -65,7 +65,7 @@
             <a class="search-panel-item noselect" (click)="query = 'aptis'; doOnSearch();" [hidden]="selectedTab == 1">Aptis</a>
             
             <div class="line-separator" [hidden]="selectedTab == 2"></div>
-            <a class="search-panel-item kids noselect" (click)="query = 'ninos'; doOnSearch();" [hidden]="selectedTab == 2">Inglés para niños</a>
+            <a class="search-panel-item kids noselect" (click)="query = 'niños'; doOnSearch();" [hidden]="selectedTab == 2">Inglés para niños</a>
         </div>
     </div>
 </div>

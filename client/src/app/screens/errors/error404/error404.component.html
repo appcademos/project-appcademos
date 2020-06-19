@@ -1,0 +1,32 @@
+<div id="error">
+    <div class="title"><span class="color-red">404 not found</span>: esta página debe estar tomándose un relaxing cup of café con leche in Plaza Mayor…</div>
+    <div class="tree">
+        <div class="title">Prueba con estas páginas</div>
+        
+        <a class="item clickable" [routerLink]="['/']">Inicio</a>
+        
+        <a class="item clickable" [routerLink]="['/', 'estudio-personalizado']">Contacta con un experto para encontrar tu curso</a>
+        
+        <div class="item">Cursos para mejorar tu inglés</div>
+        <div class="item-group">
+            <a class="subitem" [routerLink]="['/', 'cursos-ingles', 'nivel-b1']">Inglés General B1</a>
+            <a class="subitem" [routerLink]="['/', 'cursos-ingles', 'nivel-b2']">Inglés General B2</a>
+            <a class="subitem" [routerLink]="['/', 'cursos-ingles', 'nivel-c1']">Inglés General C1</a>
+            <a class="subitem" [routerLink]="['/', 'cursos-ingles', 'niños']">Inglés para niños</a>
+        </div>
+        
+        <div class="item">Cursos para sacarte un certificado</div>
+        <div class="item-group">
+            <a class="subitem" [routerLink]="['/', 'cursos-ingles', 'first-certificate']">First Certificate</a>
+            <a class="subitem" [routerLink]="['/', 'cursos-ingles', 'advanced']">Advanced</a>
+            <a class="subitem" [routerLink]="['/', 'cursos-ingles', 'toefl']">TOEFL</a>
+            <a class="subitem" [routerLink]="['/', 'cursos-ingles', 'ielts']">IELTS</a>
+            <a class="subitem" [routerLink]="['/', 'cursos-ingles', 'toeic']">TOEIC</a>
+            <a class="subitem" [routerLink]="['/', 'cursos-ingles', 'proficiency']">Proficiency</a>
+            <a class="subitem" [routerLink]="['/', 'cursos-ingles', 'aptis']">APTIS</a>
+        </div>
+        
+        <div class="vertical-line"></div>
+    </div>
+</div>
+
