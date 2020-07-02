@@ -29,8 +29,8 @@ export class CreateCourseFormComponent implements OnInit
     duration: String;
     oldPrice: Number;
     title: String;
-    hours: Number;
-    weekClasses: Number;
+    hours: String;
+    weekClasses: String;
     startDate: String;
     isBooked: boolean;
     videoUrl: String;
@@ -111,11 +111,11 @@ export class CreateCourseFormComponent implements OnInit
         {
             allOk = false;
         }
-        if (this.hours == null || (this.hours + '').length == 0)
+        if (this.hours == null || this.hours.length == 0)
         {
             allOk = false;
         }
-        if (this.weekClasses == null || (this.weekClasses + '').length == 0)
+        if (this.weekClasses == null || this.weekClasses.length == 0)
         {
             allOk = false;
         }
@@ -164,10 +164,10 @@ export class CreateCourseFormComponent implements OnInit
             if (this.duration != null && this.duration.trim().length > 0)
                 courseDataToUpdate.duration = this.duration.trim();
 
-            if (this.hours != null && (this.hours + '').length > 0)
+            if (this.hours != null && this.hours.length > 0)
                 courseDataToUpdate.hours = this.hours;
                 
-            if (this.weekClasses != null && (this.weekClasses + '').length > 0)
+            if (this.weekClasses != null && this.weekClasses.length > 0)
                 courseDataToUpdate.weekclasses = this.weekClasses;
 
             if (this.price != null && (this.price + '').length > 0)

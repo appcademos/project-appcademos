@@ -18,11 +18,11 @@
       <div class="form-group-container">
           <div class="form-group">
               <label>Numero de horas<span *ngIf="createMode || this.course != null">*</span></label>
-              <input type="number" class="form-control" [(ngModel)]="hours" name="hours">
+              <input type="text" class="form-control" [(ngModel)]="hours" name="hours">
           </div>
           <div class="form-group">
             <label>Clases semanales<span *ngIf="createMode || this.course != null">*</span></label>
-            <input type="number" class="form-control" [(ngModel)]="weekClasses" name="weekclasses">
+            <input type="text" class="form-control" [(ngModel)]="weekClasses" name="weekclasses">
           </div>
       </div>
       <div class="form-group-container">
