@@ -90,45 +90,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.locals.title = "Appcademos";
 
-
-// Pull master branch from github
-app.post('/git-pull', function(req, res)
-{
-    console.log(req);
-
-    // Verify checksum first
-    const secret = process.env.GIT_PULL_SECRET;
-    const headerChecksumKey = 'X-Hub-Signature';
-
-    const payload = JSON.stringify(req.body);
-    if (!payload)
-    {
-        res.status(400).send('Payload is empty.');
-    }
-
-    const hmac = crypto.createHmac('sha1', secret);
-    const digest = 'sha1=' + hmac.update(payload).digest('hex');
-    const checksum = req.headers[headerChecksumKey];
-    if (!checksum || !digest || checksum !== digest)
-    {
-        res.status(401).send('Checksum verification failed.');
-    }
-    else // Checksum verified correctly
-    {        
-        const exec = require('child_process').exec;
-        var yourscript = exec('sh git-pull.sh',
-        (error, stdout, stderr) =>
-        {
-            console.log(`${stdout}`);
-            console.log(`${stderr}`);
-            if (error !== null)
-                console.log(`exec error: ${error}`);
-        });
-
-        res.status(200).end();
-    }
-});
-
 require("./routes/routes")(app);
 app.use(function (req, res) {
   res.sendFile(__dirname + '/public/index.html');
