@@ -14,7 +14,8 @@ async function generateSitemap()
         if (course.category != null && course.category.name.length > 0 &&
             course.academy != null && course.academy.name.length > 0)
         {
-            content += `<url><loc>https://www.appcademos.com/cursos-ingles/${getCourseCategoryForUrl(course.category.name.toLowerCase())}/academia-${course.academy.name.replace(/ /g, '-').toLowerCase()}-madrid/${course.id}</loc><changefreq>daily</changefreq></url>`;
+            let uri = `https://www.appcademos.com/cursos-ingles/${getCourseCategoryForUrl(course.category.name.toLowerCase())}/academia-${course.academy.name.replace(/ /g, '-').toLowerCase()}-madrid/${course.id}`
+            content += `<url><loc>${uri.replace(/&/g,'%26')}</loc><changefreq>daily</changefreq></url>`;
         }
         else
             content += `<url><loc>https://www.appcademos.com/cursos-ingles/curso/${course.id}</loc><changefreq>daily</changefreq></url>`;
