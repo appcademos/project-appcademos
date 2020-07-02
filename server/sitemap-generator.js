@@ -83,6 +83,10 @@ function getStaticContent()
 <url>
     <loc>https://www.appcademos.com/cursos-ingles/nivel-c1</loc>
     <changefreq>weekly</changefreq>
+</url>
+<url>
+    <loc>https://www.appcademos.com/cursos-ingles/niños</loc>
+    <changefreq>weekly</changefreq>
 </url>`;
 }
 function getCourseCategoryForUrl(courseCat)
