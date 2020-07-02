@@ -101,7 +101,7 @@
                     </div>
                 </div>
                 <div class="col-section address">
-                    <div class="group">
+                    <div class="group" *ngIf="courseObj.course.academy.address != null && courseObj.course.academy.address.length > 0">
                         <div class="title">Dirección</div>
                         <div class="text">{{ courseObj.course.academy.address }}</div>
                         <div class="color-green fs-13 fw-500 cursor-pointer noselect" (click)="utils.scrollToElement('#location')">Ver mapa</div>
@@ -427,7 +427,7 @@
             </div>
         </section>
 
-        <section id="location">
+        <section id="location" *ngIf="courseObj.course.academy.latitude != null && courseObj.course.academy.latitude.length > 0 && courseObj.course.academy.longitude != null && courseObj.course.academy.longitude.length > 0">
             <h2>Dirección</h2>
             <p>{{ courseObj.course.academy.address }}</p>
             <div #map class="map"></div>

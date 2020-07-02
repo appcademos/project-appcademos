@@ -19,9 +19,9 @@ const academySchema = new Schema(
     location: {
         type:
         {
-            coordinates: { type: [Number], required: true }
+            coordinates: { type: [Number], required: false }
         },
-        required: true
+        required: false
     },
     district: String,
     city: String,
