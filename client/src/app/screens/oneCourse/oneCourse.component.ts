@@ -497,6 +497,10 @@ export class OneCourseComponent implements OnInit, OnDestroy
             
             this.meta.setTitle(`${courseTitleNoDuration} | ${neighborhoods} | Appcademos`);
             this.meta.setTag('description', `${courseTitleNoDuration} en ${neighborhoods}. Horarios, precio, temario, opiniones verificadas... Toda la información de este curso de la academia ${this.courseObj.course.academy.name}.`);
+            
+            // Canonical
+            if (window.location.href.indexOf('/curso/') > -1)
+                this.setCanonicalTag();
         }        
     }
     removeMetaData()
@@ -505,6 +509,30 @@ export class OneCourseComponent implements OnInit, OnDestroy
         this.meta.removeTag('name="description"');
         this.meta.removeTag('property="og:title"');
         this.meta.removeTag('property="og:description"');
+    }
+    setCanonicalTag()
+    {
+        let uri = this.getCanonicalUri()
+        
+        if (uri != null)
+        {
+            let link = !!document.querySelector("link[rel='canonical']") ? document.querySelector("link[rel='canonical']") : document.createElement('link');
+            link.setAttribute('rel', 'canonical');
+            link.setAttribute('href', location.protocol + '//' + location.host + uri);
+            document.head.appendChild(link);
+        }
+    }
+    getCanonicalUri()
+    {
+        let uri = null
+
+        if (this.courseObj.course.category != null && this.courseObj.course.category.name.length > 0 &&
+            this.courseObj.course.academy != null && this.courseObj.course.academy.name.length > 0)
+        {
+            uri = `/cursos-ingles/${this.utils.queryCategoryToUrl(this.courseObj.course.category.name.toLowerCase())}/academia-${this.courseObj.course.academy.name.replace(/ /g, '-').toLowerCase()}-madrid/${this.courseObj.course._id}`
+        }
+
+        return uri
     }
     
     getNameInitials(name, review)
