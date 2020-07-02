@@ -5,13 +5,19 @@ async function generateSitemap()
 {
     let content = getStaticContent();
     
-    let courses = await Course.find({ hidden: {$ne: true} });
+    let courses = await Course.find({ hidden: {$ne: true} }).populate('academy').populate('category');
     if (courses == null)
         return;
     
     courses.forEach((course, i) =>
     {
-        content += `<url><loc>https://www.appcademos.com/cursos-ingles/curso/${course.id}</loc><changefreq>daily</changefreq></url>`;
+        if (course.category != null && course.category.name.length > 0 &&
+            course.academy != null && course.academy.name.length > 0)
+        {
+            content += `<url><loc>https://www.appcademos.com/cursos-ingles/${getCourseCategoryForUrl(course.category.name.toLowerCase())}/academia-${course.academy.name.replace(/ /g, '-').toLowerCase()}-madrid/${course.id}</loc><changefreq>daily</changefreq></url>`;
+        }
+        else
+            content += `<url><loc>https://www.appcademos.com/cursos-ingles/curso/${course.id}</loc><changefreq>daily</changefreq></url>`;
     });
     
     content += `\n</urlset>`;
@@ -78,6 +84,19 @@ function getStaticContent()
     <loc>https://www.appcademos.com/cursos-ingles/nivel-c1</loc>
     <changefreq>weekly</changefreq>
 </url>`;
+}
+function getCourseCategoryForUrl(courseCat)
+{
+    let urlCategory = null;
+    
+    if (courseCat != null)
+    {
+        urlCategory = courseCat.replace(/ /g, '-').toLowerCase();
+        if (courseCat === 'first')
+            urlCategory = 'first-certificate';
+    }
+                                    
+    return urlCategory;
 }
 
 module.exports = generateSitemap;
