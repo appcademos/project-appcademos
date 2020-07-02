@@ -42,9 +42,12 @@ export class CreateAcademyFormComponent implements OnInit
         if (this.academy != null)
         {            
             this.name = this.academy.name;
-            this.address = this.academy.address;
-            this.latitude = '' + this.academy.location.coordinates[0];
-            this.longitude = '' + this.academy.location.coordinates[1];
+            if (this.academy.address)
+                this.address = this.academy.address;
+            if (this.academy.latitude)
+                this.latitude = '' + this.academy.location.coordinates[0];
+            if (this.academy.longitude)
+                this.longitude = '' + this.academy.location.coordinates[1];
             this.district = this.academy.district;
             this.city = this.academy.city;
             this.isVerified = this.academy.isVerified;
@@ -73,27 +76,6 @@ export class CreateAcademyFormComponent implements OnInit
         {
             allOk = false;
         }
-        if (this.address == null || this.address.trim().length == 0)
-        {
-            allOk = false;
-        }
-        if (this.latitude == null || this.latitude.trim().length == 0)
-        {
-            allOk = false;
-        }
-        if (this.longitude == null || this.longitude.trim().length == 0)
-        {
-            allOk = false;
-        }
-        if (this.district == null || this.district.trim().length == 0)
-        {
-            allOk = false;
-        }
-        if (this.city == null || this.city.trim().length == 0)
-        {
-            allOk = false;
-        }
-        
 
         if (!allOk)
         {
@@ -115,16 +97,22 @@ export class CreateAcademyFormComponent implements OnInit
             var academyToUpdate =
             {
                 name: this.name.trim(),
-                address: this.address.trim(),
-                location: { coordinates: [ parseFloat(this.latitude.trim()), parseFloat(this.longitude.trim()) ] },
-                district: this.district.trim(),
-                city: this.city.trim(),
+                address: (this.address != null && this.address.length > 0) ?
+                            this.address.trim() : null,
+                district: (this.district != null && this.district.length > 0) ? this.district.trim() : null,
+                city: (this.city != null && this.city.length > 0) ? this.city.trim() : null,
                 isVerified: this.isVerified,
                 
                 neighborhoods: (this.neighborhoods != null && this.neighborhoods.length > 0) ?
                                 this.neighborhoods : null,
                 whyChooseMe: (this.whyChooseMe != null && this.whyChooseMe.trim().length > 0) ?
                              this.whyChooseMe : null
+            }
+            
+            if (this.latitude != null && this.latitude.trim().length > 0 &&
+                this.longitude != null && this.longitude.trim().length > 0)
+            {
+                (academyToUpdate as any).location = { coordinates: [ parseFloat(this.latitude.trim()), parseFloat(this.longitude.trim()) ] }
             }
 
             this.academyService.updateAcademy(this.academy._id, academyToUpdate)
@@ -161,19 +149,22 @@ export class CreateAcademyFormComponent implements OnInit
             var academyToCreate =
             {
                 name: this.name.trim(),
-                address: this.address.trim(),
-                location:
-                {
-                    coordinates: [ parseFloat(this.latitude.trim()), parseFloat(this.longitude.trim()) ]
-                },
-                district: this.district.trim(),
-                city: this.city.trim(),
+                address: (this.address != null && this.address.length > 0) ?
+                            this.address.trim() : null,
+                district: (this.district != null && this.district.length > 0) ? this.district.trim() : null,
+                city: (this.city != null && this.city.length > 0) ? this.city.trim() : null,
                 isVerified: this.isVerified,
                 
                 neighborhoods: (this.neighborhoods != null && this.neighborhoods.length > 0) ?
                                 this.neighborhoods : null,
                 whyChooseMe: (this.whyChooseMe != null && this.whyChooseMe.trim().length > 0) ?
                              this.whyChooseMe : null
+            }
+            
+            if (this.latitude != null && this.latitude.trim().length > 0 &&
+                this.longitude != null && this.longitude.trim().length > 0)
+            {
+                (academyToCreate as any).location = { coordinates: [ parseFloat(this.latitude.trim()), parseFloat(this.longitude.trim()) ] }
             }
 
             this.loading = true

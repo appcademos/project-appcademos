@@ -10,9 +10,9 @@ const courseSchema = new Schema(
       required: true
     },
     group: [String],
-    hours: Number,
+    hours: String,
     duration: String,
-    weekclasses: Number,
+    weekclasses: String,
     startDate: Date,
     images: [String],
     videoUrl: String,
