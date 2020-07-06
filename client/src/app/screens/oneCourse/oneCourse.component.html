@@ -427,7 +427,7 @@
             </div>
         </section>
 
-        <section id="location" *ngIf="courseObj.course.academy.latitude != null && courseObj.course.academy.latitude.length > 0 && courseObj.course.academy.longitude != null && courseObj.course.academy.longitude.length > 0">
+        <section id="location" *ngIf="courseObj.course.academy.location != null && courseObj.course.academy.location.coordinates != null && courseObj.course.academy.location.coordinates.length == 2">
             <h2>Dirección</h2>
             <p>{{ courseObj.course.academy.address }}</p>
             <div #map class="map"></div>

@@ -44,10 +44,16 @@ export class CreateAcademyFormComponent implements OnInit
             this.name = this.academy.name;
             if (this.academy.address)
                 this.address = this.academy.address;
-            if (this.academy.latitude)
+            if (this.academy.location != null &&
+                this.academy.location.coordinates != null &&
+                this.academy.location.coordinates.length === 2 &&
+                this.academy.location.coordinates[0] != null &&
+                this.academy.location.coordinates[1] != null)
+            {
                 this.latitude = '' + this.academy.location.coordinates[0];
-            if (this.academy.longitude)
                 this.longitude = '' + this.academy.location.coordinates[1];
+            }
+
             this.district = this.academy.district;
             this.city = this.academy.city;
             this.isVerified = this.academy.isVerified;
@@ -102,17 +108,15 @@ export class CreateAcademyFormComponent implements OnInit
                 district: (this.district != null && this.district.length > 0) ? this.district.trim() : null,
                 city: (this.city != null && this.city.length > 0) ? this.city.trim() : null,
                 isVerified: this.isVerified,
-                
+                location: (this.latitude != null && this.latitude.trim().length > 0 &&
+                            this.longitude != null && this.longitude.trim().length > 0)
+                            ?
+                            { coordinates: [ parseFloat(this.latitude.trim()), parseFloat(this.longitude.trim()) ] }
+                            : null,
                 neighborhoods: (this.neighborhoods != null && this.neighborhoods.length > 0) ?
                                 this.neighborhoods : null,
                 whyChooseMe: (this.whyChooseMe != null && this.whyChooseMe.trim().length > 0) ?
                              this.whyChooseMe : null
-            }
-            
-            if (this.latitude != null && this.latitude.trim().length > 0 &&
-                this.longitude != null && this.longitude.trim().length > 0)
-            {
-                (academyToUpdate as any).location = { coordinates: [ parseFloat(this.latitude.trim()), parseFloat(this.longitude.trim()) ] }
             }
 
             this.academyService.updateAcademy(this.academy._id, academyToUpdate)
@@ -154,17 +158,15 @@ export class CreateAcademyFormComponent implements OnInit
                 district: (this.district != null && this.district.length > 0) ? this.district.trim() : null,
                 city: (this.city != null && this.city.length > 0) ? this.city.trim() : null,
                 isVerified: this.isVerified,
-                
+                location: (this.latitude != null && this.latitude.trim().length > 0 &&
+                            this.longitude != null && this.longitude.trim().length > 0)
+                            ?
+                            { coordinates: [ parseFloat(this.latitude.trim()), parseFloat(this.longitude.trim()) ] }
+                            : null,
                 neighborhoods: (this.neighborhoods != null && this.neighborhoods.length > 0) ?
                                 this.neighborhoods : null,
                 whyChooseMe: (this.whyChooseMe != null && this.whyChooseMe.trim().length > 0) ?
                              this.whyChooseMe : null
-            }
-            
-            if (this.latitude != null && this.latitude.trim().length > 0 &&
-                this.longitude != null && this.longitude.trim().length > 0)
-            {
-                (academyToCreate as any).location = { coordinates: [ parseFloat(this.latitude.trim()), parseFloat(this.longitude.trim()) ] }
             }
 
             this.loading = true
