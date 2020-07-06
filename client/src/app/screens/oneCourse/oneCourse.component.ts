@@ -274,6 +274,12 @@ export class OneCourseComponent implements OnInit, OnDestroy
     }
     setMap()
     {
+        if (this.courseObj.course.academy.location == null ||
+            this.courseObj.course.academy.location.coordinates == null ||
+            this.courseObj.course.academy.location.coordinates[0] == null ||
+            this.courseObj.course.academy.location.coordinates[1] == null)
+            return
+        
         const coordinates = this.courseObj.course.academy.location.coordinates;
         var mapProp =
         {
