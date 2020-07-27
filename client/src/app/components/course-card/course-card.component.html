@@ -38,11 +38,14 @@
                 </div>
                 <div class="course-icon-text address">
                     <i class="icon size-15 icon-location"></i>
-                    <p>{{ course.academy.address }}</p>
+                    <p *ngIf="course.modality !== 'online'">{{ course.academy.address }}</p>
+                    <p *ngIf="course.modality === 'online'">
+                        Este curso se imparte <span class="fw-600">ONLINE</span>
+                    </p>
                 </div>
             </div>
             
-            <div class="neighborhoods">
+            <div *ngIf="course.modality !== 'online'" class="neighborhoods">
                 <nz-tag class="neighborhood" *ngFor="let neighborhood of course.academy.neighborhoods">{{ neighborhood }}</nz-tag>
             </div>
             

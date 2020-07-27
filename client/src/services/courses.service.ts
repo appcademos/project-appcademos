@@ -19,15 +19,16 @@ export class CoursesService
                 private router: Router)
     {}
 
-    findCourses(searchcourses, neighborhoods = null)
+    findCourses(searchcourses, neighborhoods = null, modality = null)
     {
         this.searchcourses = searchcourses.replace(/[\s]/g, "+");
-
+        
+        let modalityQuery = `&modality=${modality}`
         let neighborhoodsQuery = (neighborhoods != null && neighborhoods.length > 0) ?
                                  `&neighborhoods=${JSON.stringify(neighborhoods)}` : '';
 
         return this.http
-        .get(`${environment.BASEURL}/api/course/search?course=${this.searchcourses}${neighborhoodsQuery}`, this.options)
+        .get(`${environment.BASEURL}/api/course/search?course=${this.searchcourses}${modalityQuery}${neighborhoodsQuery}`, this.options)
         .map(res => res.json())
         .map(courses =>
         {

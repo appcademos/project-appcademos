@@ -1,4 +1,4 @@
-<div class="whatsappBanner">
+<div *ngIf="false" class="whatsappBanner">
     <div class="responsive-container">
         <div class="title"><div class="dot-pulse"></div><div>COVID-19: Todos los cursos se imparten online.</div></div>
     </div>
@@ -9,7 +9,7 @@
         <div class="filterButtonContainer responsive-container" *ngIf="shouldShowMobileFilterButton()">
             <div
                 id="filterButton" 
-                class="noselect card-banner" 
+                class="noselect card-banner"
                 (click)="toggleMobileFilters()"
             >
                 <div class="icon size-20 icon-filter"></div>
@@ -20,20 +20,72 @@
         
         <div class="filterPillsContainer responsive-container" *ngIf="!shouldShowMobileFilterButton()">
             <div id="filterPills">
-                <div class="filterPill green noselect" (click)="toggleMobileFilters()">
+                <div class="filterPill green noselect" [ngClass]="{ 'selected': appliedModality === 'presencial' || appliedModality === 'online' }" (click)="toggleModalityFilters()">
                     <div class="icon size-16 icon-filter-green"></div>
-                    <span>Filtros</span>
-                    <i class="icon size-10 icon-arrow-down"></i>
+                    <span>Elegir modalidad</span>
+                    <i class="icon size-10 icon-arrow-down" [ngClass]="{'rotate': showModalityFilters}"></i>
                 </div>
-                <div class="filterPill noselect" *ngFor="let neighborhood of appliedNeighborhoods">
+                
+                <div
+                    class="filterPill green noselect"
+                    [ngClass]="{'selected': appliedNeighborhoods.length > 0, 'active': showNeighborhoodFilters}"
+                    (click)="toggleNeighborhoodFilters()"
+                >
+                    <div class="icon size-16 icon-location-green"></div>
+                    <span>Seleccionar ubicaciones</span>
+                    <i class="icon size-10 icon-arrow-down" [ngClass]="{'rotate': showNeighborhoodFilters}"></i>
+                </div>
+                
+                <div class="filterPillContainer">
+                    <div class="filterPill green noselect" (click)="toggleOrderFilters()">
+                        <div class="icon size-16 icon-order-green"></div>
+                        <span>Ordenar&nbsp;por</span>
+                        <i class="icon size-10 icon-arrow-down" [ngClass]="{'rotate': showOrderFilters}"></i>
+                    </div>
+                    
+                    <div class="mobileFilters" [ngClass]="{ 'visible': showOrderFilters }">
+                        <div class="content">
+                            <div class="section">
+                                <div class="title">Ordenar por</div>
+                                <div class="orders">
+                                    <div class="order noselect">
+                                        <app-checkbox
+                                            inputId="order-1"
+                                            [checked]="selectedOrder === 1"
+                                            [disabled]="selectedOrder === 1"
+                                            (onChange)="selectedOrder = 1"
+                                        ></app-checkbox>
+                                        <label for="order-1"><span class="color-green fw-600">Valoración:</span> mejor valorado arriba</label>
+                                    </div>
+                                    <div class="order noselect">
+                                        <app-checkbox
+                                            inputId="order-2"
+                                            [checked]="selectedOrder === 2"
+                                            [disabled]="selectedOrder === 2"
+                                            (onChange)="selectedOrder = 2"
+                                        ></app-checkbox>
+                                        <label for="order-2"><span class="color-green fw-600">Precio:</span> más barato arriba</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="buttons">
+                            <div class="button green light-shadow full-width medium" (click)="onClickApplyOrderFilter()">Aplicar filtros</div>
+                            <div class="button simple full-width" (click)="toggleOrderFilters()">Cancelar</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!--<div class="filterPill noselect" *ngFor="let neighborhood of appliedNeighborhoods">
                     <span>{{ neighborhood }}</span>
                     <i nz-icon nzType="close" nzTheme="outline" (click)="onChangeNeighborhoodFilter(neighborhood, false, true)"></i>
-                </div>
+                </div>-->
             </div>
         </div>
         
         <div class="filtersContainer responsive-container">
-            <div id="mobileFilters" [ngClass]="{ 'visible': showMobileFilters }">
+            <div class="mobileFilters" [ngClass]="{ 'visible': showNeighborhoodFilters }">
                 <div class="content">
                     <div class="section">
                         <div class="title">Seleccionar <span class="color-green">Ubicaciones</span></div>
@@ -49,7 +101,7 @@
                         </div>
                     </div>
                     
-                    <div class="section">
+                    <!--<div class="section">
                         <div class="title">Ordenar por</div>
                         <div class="orders">
                             <div class="order noselect">
@@ -71,12 +123,57 @@
                                 <label for="order-2"><span class="color-green fw-600">Precio:</span> más barato arriba</label>
                             </div>
                         </div>
+                    </div>-->
+                </div>
+                
+                <div class="buttons">
+                    <div class="button green light-shadow full-width medium" (click)="onClickApplyFilterNeighborhoods()">Aplicar filtros</div>
+                    <div class="button simple full-width" (click)="toggleNeighborhoodFilters()">Cancelar</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="filtersContainer responsive-container">
+            <div class="mobileFilters" [ngClass]="{ 'visible': showModalityFilters }">
+                <div class="content">
+                    <div class="section">
+                        <div class="title">Seleccionar <span class="color-green">Modalidad</span></div>
+                        
+                        <div class="orders">
+                            <div class="order noselect">
+                                <app-checkbox
+                                    inputId="modality-1"
+                                    [checked]="selectedModality === 'presencial'"
+                                    [disabled]="selectedModality === 'presencial'"
+                                    (onChange)="selectedModality = 'presencial'"
+                                ></app-checkbox>
+                                <label for="modality-1">Presencial</label>
+                            </div>
+                            <div class="order noselect">
+                                <app-checkbox
+                                    inputId="modality-2"
+                                    [checked]="selectedModality === 'online'"
+                                    [disabled]="selectedModality === 'online'"
+                                    (onChange)="selectedModality = 'online'"
+                                ></app-checkbox>
+                                <label for="modality-2">Online</label>
+                            </div>
+                            <div class="order noselect">
+                                <app-checkbox
+                                    inputId="modality-3"
+                                    [checked]="selectedModality == null"
+                                    [disabled]="selectedModality == null"
+                                    (onChange)="selectedModality = null"
+                                ></app-checkbox>
+                                <label for="modality-3">Mostrar todos</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="buttons">
-                    <div class="button green light-shadow full-width medium" (click)="onClickApplyFilters()">Aplicar filtros</div>
-                    <div class="button simple full-width" (click)="toggleMobileFilters()">Cancelar</div>
+                    <div class="button green light-shadow full-width medium" (click)="onClickApplyModalityFilter()">Aplicar filtros</div>
+                    <div class="button simple full-width" (click)="toggleModalityFilters()">Cancelar</div>
                 </div>
             </div>
         </div>

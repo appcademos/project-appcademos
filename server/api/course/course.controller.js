@@ -55,8 +55,11 @@ const getAll = (req, res) => {
 };
 
 const getSearched = async (req, res, next) =>
-{
+{    
+    console.log(req.query)
+    
     let courseReviews = [];
+    // query.course = course Category
     let query = req.query.course.replace(/'+'/g, '[\s]').normalize('NFD').replace(/[\u0300-\u036f]/g, "");
     let neighborhoods = req.query.neighborhoods ? JSON.parse(req.query.neighborhoods) : null;
     let findObj = { hidden: {$ne: true} }
@@ -79,6 +82,13 @@ const getSearched = async (req, res, next) =>
             $options: "i"
         }
     }
+    
+    // Set modality
+    if (req.query.modality != null &&
+        req.query.modality.length > 0 &&
+        req.query.modality !== 'null' &&
+        req.query.modality !== 'todos')
+        findObj.modality = req.query.modality
     
     Course.find(findObj)
     .populate(

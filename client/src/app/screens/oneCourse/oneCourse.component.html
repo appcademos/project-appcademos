@@ -7,7 +7,7 @@
 
 
 <div *ngIf="courseObj">
-    <div class="whatsappBanner">
+    <div *ngIf="false" class="whatsappBanner">
         <div class="responsive-container">
             <div class="title"><div class="dot-pulse"></div><div>COVID-19: Este curso se imparte online.</div></div>
         </div>
@@ -103,8 +103,9 @@
                 <div class="col-section address">
                     <div class="group" *ngIf="courseObj.course.academy.address != null && courseObj.course.academy.address.length > 0">
                         <div class="title">Dirección</div>
-                        <div class="text">{{ courseObj.course.academy.address }}</div>
-                        <div class="color-green fs-13 fw-500 cursor-pointer noselect" (click)="utils.scrollToElement('#location')">Ver mapa</div>
+                        <div *ngIf="courseObj.course.modality !== 'online'" class="text">{{ courseObj.course.academy.address }}</div>
+                        <div *ngIf="courseObj.course.modality === 'online'" class="text">Este curso se imparte <span class="fw-600">ONLINE</span></div>
+                        <div *ngIf="courseObj.course.modality !== 'online'" class="color-green fs-13 fw-500 cursor-pointer noselect" (click)="utils.scrollToElement('#location')">Ver mapa</div>
                     </div>
                     <div class="group" *ngIf="!courseObj.course.academy.isVerified && courseObj.course.sizeClass">
                         <div class="title">Nº máximo alumnos</div>
@@ -427,7 +428,7 @@
             </div>
         </section>
 
-        <section id="location" *ngIf="courseObj.course.academy.location != null && courseObj.course.academy.location.coordinates != null && courseObj.course.academy.location.coordinates.length == 2">
+        <section id="location" *ngIf="courseObj.course.modality !== 'online' && courseObj.course.academy.location != null && courseObj.course.academy.location.coordinates != null && courseObj.course.academy.location.coordinates.length == 2">
             <h2>Dirección</h2>
             <p>{{ courseObj.course.academy.address }}</p>
             <div #map class="map"></div>

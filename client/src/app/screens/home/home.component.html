@@ -26,6 +26,29 @@
                         [useTags]="true"
                         (onSearch)="onClickedHeroSearchCategory($event)"
                     ></app-searchbox>
+                    <div class="modality-selector">
+                        <div
+                            class="button white light-shadow"
+                            [ngClass]="{'selected': modality === 'presencial'}"
+                            (click)="onClickModality('presencial')"
+                        >
+                            Presencial
+                        </div>
+                        <div
+                            class="button white light-shadow"
+                            [ngClass]="{'selected': modality === 'online'}"
+                            (click)="onClickModality('online')"
+                        >
+                            Online
+                        </div>
+                        <div
+                            class="button white light-shadow"
+                            [ngClass]="{'selected': modality === 'todos'}"
+                            (click)="onClickModality('todos')"
+                        >
+                            Mostrar todos
+                        </div>
+                    </div>
                     <div class="separator">
                         <hr/>
                         <div class="or">o</div>
@@ -38,7 +61,13 @@
     </div>
     <div id="fixed-searchbox" [ngClass]="{'show': showFixedSearchbar}">
         <div class="responsive-container">
-            <app-searchbox #fixedsearchbox [fixed]="true" [small]="true" [isHome]="true" (onSearch)="findCourses($event)"></app-searchbox>
+            <app-searchbox
+                #fixedsearchbox
+                [fixed]="true"
+                [small]="true"
+                [isHome]="true"
+                (onSearch)="findCourses($event, null)"
+            ></app-searchbox>
         </div>
     </div>
     

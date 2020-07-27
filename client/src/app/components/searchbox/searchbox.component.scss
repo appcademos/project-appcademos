@@ -184,8 +184,7 @@
             
             &.kids
             {
-                padding-left: 52px;
-                padding-right: 52px;
+                min-width: 238px;
                 background-image: url('../../../assets/public/images/icons/kids_button_background.png');
                 background-size: 223px 47px;
                 background-repeat: no-repeat;
@@ -194,6 +193,12 @@
                 &:hover
                 {
                     background-image: url('../../../assets/public/images/icons/kids_button_background_white.png');
+                }
+                
+                @media (max-width: 370px)
+                {
+                    min-width: 0;
+                    width: 100%;
                 }
             }
         }
@@ -213,7 +218,6 @@
             padding: 0 8px;
             line-height: 1.5;
             font-weight: 500;
-            color: $red-color;
             
             transition: none;
             

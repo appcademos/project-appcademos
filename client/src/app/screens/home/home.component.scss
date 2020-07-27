@@ -3,7 +3,7 @@
 #hero
 {
     position: relative;
-    height: 600px;
+    height: 644px;
 
     background-image:  url("../../../assets/public/images/happy.jpg"); /*url('https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cbbd27149a8243a42eb2bd0bd918ba8f&auto=format&fit=crop&w=1650&q=80'); url("../../../assets/public/images/appcademos-home.jpg");*/
     background-position: 240px 0;
@@ -202,6 +202,41 @@
     {
         height: 44px !important;
     }
+    .modality-selector
+    {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        
+        .button
+        {
+            display: flex;
+            flex: 0.33;
+            font-size: 13px;
+            padding-left: 12px;
+            padding-right: 12px;
+            margin-top: 16px;
+            
+            &:first-child
+            {
+                margin-right: 4px;
+            }
+            &:nth-child(2)
+            {
+                margin-right: 2px;
+                margin-left: 2px;
+            }
+            &:last-child
+            {
+                margin-left: 4px;
+            }
+            
+            @media (max-width: 370px)
+            {
+                font-size: 11px;
+            }
+        }
+    }
     .separator
     {
         max-width: 180px;
@@ -351,6 +386,10 @@
     {
         font-size: 12px;
         
+        .responsive-container
+        {
+            padding: 0;
+        }
         .trustedContainer
         {
             .image
