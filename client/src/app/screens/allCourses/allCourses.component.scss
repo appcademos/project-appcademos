@@ -33,8 +33,7 @@
 }
 .search-view.mobileFiltersVisible
 {
-    #filterButton .icon-arrow-down,
-    .filterPill.green i
+    #filterButton .icon-arrow-down
     {
         transform: rotate(180deg);
         transform-origin: center;
@@ -87,22 +86,46 @@
 
 .filterPillsContainer
 {
-    overflow: scroll;
+    /*overflow: scroll;
     
     -ms-overflow-style: none;
     overflow: -moz-scrollbars-none;
     
-    &::-webkit-scrollbar { width: 0 !important; height: 0 !important; }
+    &::-webkit-scrollbar { width: 0 !important; height: 0 !important; }*/
 }
 #filterPills
 {
-    position: relative;
-    
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: 20px 20px 16px 1px;
     
+    .filterPillContainer
+    {
+        position: relative;
+        
+        @media (max-width: 580px)
+        {
+            &:last-child .filterPill
+            {
+                margin-right: 48px;
+            }
+        }
+        @media (min-width: 787px)
+        {
+            .mobileFilters
+            {
+                left: auto;
+                right: 0;
+                top: 100%;
+                
+                &.visible
+                {
+                    margin-top: 16px;
+                }
+            }
+        }
+    }
     .filterPill
     {
         flex-shrink: 0;
@@ -113,7 +136,7 @@
         background: #fff;
         border-radius: 21px;
         height: 36px;
-        box-shadow: 0 1px 4px 0 rgba(0,0,0,0.1);
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);
         border: 1px solid rgba(72,72,72,0.08);
         font-weight: 500;
         margin-right: 12px;
@@ -135,6 +158,11 @@
             
             transition: all 0.16s ease;
             
+            &.rotate
+            {
+                transform: rotate(180deg);
+                transform-origin: center;
+            }
             &:hover
             {
                 opacity: 1;
@@ -153,13 +181,18 @@
                 color: $green-color;
             }
             
-            &:active
+            &:active,
+            &.active
+            {
+                background: $green-color-20;
+                box-shadow: 0;
+            }
+            &.selected
             {
                 background: $green-color;
-                box-shadow: 0;
                 
                 i,
-                .icon-filter-green
+                .icon
                 {
                     filter: brightness(0) invert(1);
                 }
@@ -183,10 +216,21 @@
                     opacity: 0.8;
                 }
             }
-            
-            .icon-filter-green
+            .icon:first-child
             {
                 margin-right: 12px;
+            }
+        }
+    
+        @media (max-width: 720px)
+        {
+            span
+            {
+                font-size: 13px;
+            }
+            div.icon
+            {
+                display: none;
             }
         }
     }
@@ -196,7 +240,7 @@
 {
     position: relative;
 }
-#mobileFilters
+.mobileFilters
 {
     position: absolute;
     left: 48px;
@@ -413,6 +457,7 @@ h3
     flex-direction: row;
     align-items: flex-end;
     padding-bottom: 20px;
+    padding-top: 8px;
 
     h1
     {
@@ -577,6 +622,16 @@ h3
         {
             margin-right: 0;
         }
+    }
+    
+    .filterPillsContainer
+    {
+        overflow: scroll;
+        
+        -ms-overflow-style: none;
+        overflow: -moz-scrollbars-none;
+        
+        &::-webkit-scrollbar { width: 0 !important; height: 0 !important; }
     }
 }
 @media (max-width: 480px)

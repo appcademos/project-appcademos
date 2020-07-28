@@ -26,6 +26,7 @@ export class HomeComponent
     
     zipCode: string = null;
     heroCategorySearch: string = null;
+    modality: string = null;
     
     IG_POSTS_IDS = ['BynuXCSC3Ay', 'B0EAJn4CcZi', 'B1ohkcPCc6G']
 
@@ -56,11 +57,13 @@ export class HomeComponent
         this.removeMetaData();
     }
 
-    findCourses(query)
+    findCourses(query, modality)
     {
         if (query && query.length > 0)
         {
-            this.router.navigate(["/cursos-ingles", query.toLowerCase()]);
+            this.router
+            .navigate(["/cursos-ingles", query.toLowerCase()],
+                        { queryParams: { modalidad: modality } });
         }
         else
         {
@@ -90,14 +93,29 @@ export class HomeComponent
     onClickedHeroSearchCategory($event)
     {
         this.heroCategorySearch = $event;
-        this.onClickHeroSearch();
+        
+        if (this.modality != null)
+        {
+            setTimeout(() =>
+            {
+                this.onClickHeroSearch()
+            }, 500)
+        }
+    }
+    onClickModality(modality)
+    {
+        this.modality = modality
+        setTimeout(() =>
+        {
+            this.onClickHeroSearch()
+        }, 500)
     }
     onClickHeroSearch()
     {
         if (this.heroCategorySearch != null &&
             this.heroCategorySearch.length > 0)
         {
-            this.findCourses(this.heroCategorySearch);
+            this.findCourses(this.heroCategorySearch, this.modality);
             
             if ((window as any).dataLayer != null &&
                 this.zipCode != null &&

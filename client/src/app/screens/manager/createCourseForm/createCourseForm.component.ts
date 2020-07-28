@@ -25,6 +25,7 @@ export class CreateCourseFormComponent implements OnInit
 
     mainButtonText: string;
 
+    isOnline: boolean = false;
     price: Number;
     duration: String;
     oldPrice: Number;
@@ -54,7 +55,8 @@ export class CreateCourseFormComponent implements OnInit
     ngOnInit()
     {
         if (this.course)
-        {             
+        {
+            this.isOnline   = (this.course.modality === 'online') ? true : false;
             this.title      = this.course.title;
             this.duration   = this.course.duration;
             this.hours      = this.course.hours;
@@ -252,7 +254,8 @@ export class CreateCourseFormComponent implements OnInit
                     group: this.filterEmptyStringsArray(this.group),
                     images: this.filterEmptyStringsArray(this.images),
                     sizeClass: this.sizeClass,
-                    hidden: this.hidden
+                    hidden: this.hidden,
+                    modality: this.isOnline ? 'online' : 'presencial'
                 }
 
                 this.courseService.updateCourse(this.course._id, courseToUpdate)
@@ -293,7 +296,8 @@ export class CreateCourseFormComponent implements OnInit
                 images: this.filterEmptyStringsArray(this.images),
                 sizeClass: (this.sizeClass != null && ('' + this.sizeClass).trim().length > 0) ? this.sizeClass : null,
                 academy: this.academyId,
-                hidden: this.hidden
+                hidden: this.hidden,
+                modality: this.isOnline ? 'online' : 'presencial'
             }
             
             console.log(courseToCreate);
@@ -329,6 +333,7 @@ export class CreateCourseFormComponent implements OnInit
         this.group      = []
         this.images     = []
         this.hidden     = false;
+        this.isOnline   = false;
     }
     
     getCategories()

@@ -29,11 +29,21 @@ export class AllCoursesComponent
     selectedNeighborhoods = []
     appliedNeighborhoods = []
     
-    currentOrder: any = this.orders[0].id;
+    selectedOrder: any = this.orders[0].id;
+    appliedOrder: any = this.orders[0].id;
+    
+    selectedModality: string = null
+    appliedModality: string = null
+    
     searching: boolean = false;
     searchbarOffsetTop: number = undefined;
     searchCategory: string = null;
     commonCategoryFullName: string = null;
+    
+    showNeighborhoodFilters: boolean = false;
+    showModalityFilters: boolean = false;
+    showOrderFilters: boolean = false;
+    
     showMobileFilters: boolean = false;
     
     fixedFilters: boolean = false;
@@ -58,16 +68,34 @@ export class AllCoursesComponent
             if (url[0].path !== "all")
             {
                 this.activatedRoute.params.subscribe(params =>
-                {
-                    let category = this.utils.urlCategoryToQuery(params.category);
-                    
-                    this.setMetaData(false, category);
-                    
-                    if (category != null && category.length !== 0)
-                    {
-                        this.searchCategory = category;
-                        this.findCourses(category);
-                    }
+                {                    
+                    this.activatedRoute.queryParams.subscribe(queryParams =>
+                    {                        
+                        let category = this.utils.urlCategoryToQuery(params.category);
+                        this.setMetaData(false, category);
+                        
+                        if (category != null && category.length !== 0)
+                        {
+                            this.searchCategory = category;
+                            
+                            this.appliedModality = (queryParams.modalidad == null ||
+                                                    queryParams.modalidad === 'todos') ?
+                                                    null : queryParams.modalidad
+                            this.selectedModality = this.appliedModality
+                            
+                            this.appliedNeighborhoods = (queryParams.ubicaciones != null) ?
+                                                         JSON.parse(queryParams.ubicaciones) : []
+                            this.selectedNeighborhoods = (this.appliedNeighborhoods != null) ? [...this.appliedNeighborhoods] : []
+                            
+                            if (queryParams.orden != null)
+                            {
+                                this.appliedOrder = parseInt(queryParams.orden)
+                                this.selectedOrder = this.appliedOrder
+                            }
+                            
+                            this.findCourses(category, null, this.appliedModality);
+                        }
+                    })
                 });
             }
             else
@@ -91,7 +119,7 @@ export class AllCoursesComponent
         this.removeMetaData();
     }
 
-    findCourses(query, all = false)
+    findCourses(query, all = false, modality = null)
     {
         if (!all)
         {
@@ -100,16 +128,19 @@ export class AllCoursesComponent
                 this.searching = true;
                 setTimeout(() =>
                 {
-                    this.courseService.findCourses(query, this.selectedNeighborhoods)
+                    this.courseService.findCourses(query, this.selectedNeighborhoods, modality)
                     .subscribe(() =>
                     {                        
                         this.allCourses = [...this.courseService.foundCourses];
                         this.courses = [...this.courseService.foundCourses];
-                        this.orderBy(this.currentOrder);
+                        this.orderBy(this.appliedOrder);
                         this.searching = false;
                         this.commonCategoryFullName = this.findCommonCategoryFullName(this.courseService.foundCourses);
                         
                         this.appliedNeighborhoods = [...this.selectedNeighborhoods]
+                        this.appliedModality = this.selectedModality
+                        
+                        this.updateQueryParams()
                     });
                 }, 250);
             }
@@ -124,7 +155,7 @@ export class AllCoursesComponent
                 {
                     this.allCourses = [...this.courseService.foundCourses];
                     this.courses = [...this.courseService.foundCourses];
-                    this.orderBy(this.currentOrder);
+                    this.orderBy(this.appliedOrder);
                     this.searching = false;
                 });
             }, 250);
@@ -132,9 +163,9 @@ export class AllCoursesComponent
     }
     orderBy(orderId)
     {
-        this.currentOrder = orderId;
+        this.appliedOrder = orderId;
 
-        switch (this.currentOrder)
+        switch (this.appliedOrder)
         {
             case ORDER_RELEVANCE:
             this.courses = this.courses.sort((courseA, courseB) =>
@@ -174,6 +205,8 @@ export class AllCoursesComponent
             });
             break;
         }
+        
+        this.updateQueryParams()
     }
     findCommonCategoryFullName(coursesArray)
     {
@@ -195,7 +228,7 @@ export class AllCoursesComponent
     }
     
     setMetaData(isSearchingAllCourses: boolean, searchText?: string)
-    {        
+    {
         if (!isSearchingAllCourses && searchText != null)
         {
             let titleText = searchText;
@@ -243,6 +276,25 @@ export class AllCoursesComponent
         this.meta.removeTag('property="og:description"');
     }
     
+    updateQueryParams()
+    {
+        let queryParams =
+        {
+            modalidad: this.appliedModality,
+            orden: this.appliedOrder
+        }
+        
+        if (this.appliedNeighborhoods.length > 0)
+            (queryParams as any).ubicaciones = JSON.stringify(this.appliedNeighborhoods)
+        
+        this.router.navigate([], 
+        {
+            relativeTo: this.activatedRoute,
+            queryParams: queryParams,
+            //queryParamsHandling: 'preserve'
+        })
+    }
+    
     toggleMobileFilters()
     {
         if (!this.showMobileFilters)
@@ -269,8 +321,45 @@ export class AllCoursesComponent
             }
         }
     }
+    toggleModalityFilters()
+    {
+        this.showModalityFilters = !this.showModalityFilters
+        
+        if (this.showModalityFilters)
+        {
+            this.selectedModality = this.appliedModality
+            
+            this.showNeighborhoodFilters = false
+            this.showOrderFilters = false
+        }
+    }
+    toggleNeighborhoodFilters()
+    {
+        this.showNeighborhoodFilters = !this.showNeighborhoodFilters
+        
+        if (this.showNeighborhoodFilters)
+        {
+            this.selectedNeighborhoods = [...this.appliedNeighborhoods]
+            
+            this.showModalityFilters = false
+            this.showOrderFilters = false
+        }
+    }
+    toggleOrderFilters()
+    {
+        this.showOrderFilters = !this.showOrderFilters
+        
+        if (this.showOrderFilters)
+        {
+            this.selectedOrder = this.appliedOrder
+            
+            this.showModalityFilters = false
+            this.showNeighborhoodFilters = false
+        }
+    }
+    
     onChangeNeighborhoodFilter(neighborhood, isChecked, reloadCourses = false)
-    {        
+    {
         if (isChecked && !this.selectedNeighborhoods.includes(neighborhood))
         {
             this.selectedNeighborhoods.push(neighborhood);
@@ -287,15 +376,61 @@ export class AllCoursesComponent
     onClickApplyFilters()
     {
         this.toggleMobileFilters();
+            
         this.findCourses(this.searchCategory);
     }
+    
+    onClickApplyModalityFilter()
+    {
+        this.hideFilterBoxes()
+        
+        if (this.selectedModality === 'online')
+        {
+            this.selectedNeighborhoods = []
+            this.appliedNeighborhoods = []
+        }
+        
+        this.findCourses(this.searchCategory, false, this.selectedModality)
+    }
+    onClickApplyFilterNeighborhoods()
+    {
+        this.hideFilterBoxes()
+        
+        if (this.selectedModality === 'online')
+        {
+            this.appliedModality = null
+        }
+        
+        this.selectedModality = this.appliedModality
+        this.selectedOrder = this.appliedOrder
+        
+        this.findCourses(this.searchCategory, false, this.appliedModality)
+    }
+    onClickApplyOrderFilter()
+    {
+        this.hideFilterBoxes()
+        this.orderBy(this.selectedOrder)
+    }
+    
+    hideFilterBoxes()
+    {
+        if (this.showModalityFilters)
+            this.toggleModalityFilters()
+        
+        if (this.showNeighborhoodFilters)
+            this.toggleNeighborhoodFilters()
+            
+        if (this.showOrderFilters)
+            this.toggleOrderFilters()
+    }
+    
     isNeighborhoodSelected(neighborhood)
     {
         return this.selectedNeighborhoods.includes(neighborhood);
     }
     shouldShowMobileFilterButton()
     {
-        return (window.innerWidth <= 580 && this.selectedNeighborhoods.length === 0);
+        return false// (window.innerWidth <= 580 && this.selectedNeighborhoods.length === 0);
     }
 
     @HostListener("window:scroll", [])
