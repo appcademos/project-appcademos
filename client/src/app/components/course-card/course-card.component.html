@@ -34,7 +34,7 @@
             <div class="course-texts">
                 <div class="course-icon-text">
                     <i class="icon size-15 icon-calendar"></i>
-                    <p>{{ course.startDate | date: "dd-MM-yyyy" }}&nbsp;&nbsp;|&nbsp;&nbsp;{{ course.weekclasses + ((course.weekclasses == 1) ? ' clase semanal' : ' clases semanales') }}</p>
+                    <p>{{ course.startDate | date: "dd-MM-yyyy" }}&nbsp;&nbsp;|&nbsp;&nbsp;{{ 'Nº de clases semanales: ' + course.weekclasses }}</p>
                 </div>
                 <div class="course-icon-text address">
                     <i class="icon size-15 icon-location"></i>
