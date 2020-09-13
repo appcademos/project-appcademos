@@ -24,6 +24,9 @@ export class HeaderComponent implements OnInit, OnDestroy
     user: any
     selectedCategory: string;
     showFavoritesTutorial: boolean = false
+    
+    isLandingPage: boolean = false
+    landingUris = [ '/yes-academia-ingles-madrid' ]
 
     messageServiceSubscription: Subscription;
 
@@ -35,11 +38,19 @@ export class HeaderComponent implements OnInit, OnDestroy
                 private authService: AuthService,
                 private utils: UtilsService)
     {
-
+        this.isLandingPage = this.landingUris.some((uri) => window.location.href.indexOf(uri) > -1)
+    
+        router.events.subscribe((val) =>
+        {
+            if (val instanceof NavigationEnd)
+            {
+                this.isLandingPage = this.landingUris.some((uri) => window.location.href.indexOf(uri) > -1)
+            }
+        });
     }
 
     ngOnInit()
-    {
+    {        
         this.user = this.userService.user;
 
         if (this.router.url.split('?')[0] === '/')
@@ -80,7 +91,7 @@ export class HeaderComponent implements OnInit, OnDestroy
         this.messageServiceSubscription.unsubscribe();
     }
     ngDoCheck()
-    {
+    {        
         if (this.isMobileNavVisible)
         {
             document.querySelector('html').classList.add('noscroll');

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from "@angular/router";
 
 @Component({
   selector: 'app-footer',
@@ -7,7 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit
 {    
-    constructor() { }
+    isLandingPage: boolean = false
+    landingUris = [ '/yes-academia-ingles-madrid' ]
+    
+    constructor(private router: Router)
+    {
+        this.isLandingPage = this.landingUris.some((uri) => window.location.href.indexOf(uri) > -1)
+    
+        router.events.subscribe((val) =>
+        {
+            if (val instanceof NavigationEnd)
+            {
+                this.isLandingPage = this.landingUris.some((uri) => window.location.href.indexOf(uri) > -1)
+            }
+        });
+    }
 
     ngOnInit() { }
     

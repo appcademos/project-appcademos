@@ -36,11 +36,12 @@
                         <i class="icon size-20 icon-graduation"></i>
                         <p>Blog: Mejora tu inglés desde casa</p>
                     </a>
-                    <a id="llamar-experto" class="icon-text phone" href="tel:+34677827178" (click)="$event.stopPropagation()">
+                    <a id="llamar-experto" class="icon-text phone" [href]="isLandingPage ? 'tel:+34689438538' : 'tel:+34677827178'" (click)="$event.stopPropagation()">
                         <i class="icon size-16 icon-whatsapp"></i>
                         <div>
                             <p class="title fw-600">Habla con un experto</p>
-                            <p class="number">+34 677 827 178</p>
+                            <p class="number" *ngIf="!isLandingPage">+34 677 827 178</p>
+                            <p class="number" *ngIf="isLandingPage">+34 689 438 538</p>
                         </div>
                     </a>
                     <div class="icon-text cursor-pointer noselect" (click)="showLogin = true" *ngIf="user == null">
@@ -79,7 +80,7 @@
                     <i class="icon size-16" [ngClass]="{'icon-whatsapp': !isHome, 'icon-whatsapp-white': isHome}"></i>
                     <p>
                         <span class="fs-10">Habla con un experto</span><br/>
-                        +34 677 827 178
+                        {{ isLandingPage ? '+34 689 438 538' : '+34 677 827 178' }}
                     </p>
                 </div>
                 <div class="icon-text cursor-pointer noselect" (click)="showLogin = true" *ngIf="user == null">
@@ -118,7 +119,7 @@
             </div>
         </nav>
 
-        <nav id="navbarBottom" *ngIf="!isHome">
+        <nav id="navbarBottom" *ngIf="!isHome && !isLandingPage">
             <a class="nav-link" [routerLink]="['cursos-ingles', 'first-certificate']" [class.active]="isLinkActive('first')" (click)="isMobileNavVisible = false; selectedCategory = 'first';">First Certificate</a>
             <a class="nav-link" [routerLink]="['cursos-ingles', 'advanced']" [class.active]="isLinkActive('advanced')" (click)="isMobileNavVisible = false; selectedCategory = 'advanced';">Advanced</a>
             <a class="nav-link" [routerLink]="['cursos-ingles', 'nivel-b1']" [class.active]="isLinkActive('nivel b1')" (click)="isMobileNavVisible = false; selectedCategory = 'nivel b1';">Inglés General B1</a>
