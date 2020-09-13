@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="461px" height="232px" viewBox="0 0 461 232" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>arrow_right_red</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="arrow_right_red" transform="translate(22.000000, 22.000000)" stroke="#E43450" stroke-width="44">
+            <polyline id="Path" points="303 0 417 94 303 188"></polyline>
+            <line x1="397" y1="94" x2="0" y2="94" id="Path"></line>
+        </g>
+    </g>
+</svg>
