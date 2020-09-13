@@ -1,6 +1,6 @@
 <footer>
     <div class="responsive-container">
-        <div class="top">
+        <div class="top" *ngIf="!isLandingPage">
             <h3>¿Necesitas ayuda?</h3>
             <div class="contact-cards">
                 <a href="https://wa.me/34677827178" target="_blank" class="card-banner">
@@ -38,7 +38,10 @@
                 <div class="contact-container">
                     <div class="contact">
                         <div class="title fs-13 fw-600">Whatsapp</div>
-                        <div class="text"><a href="https://wa.me/34677827178" target="_blank">677 827 178</a></div>
+                        <div class="text">
+                            <a *ngIf="!isLandingPage" href="https://wa.me/34677827178" target="_blank">677 827 178</a>
+                            <a *ngIf="isLandingPage" href="https://wa.me/34689438538" target="_blank">689 438 538</a>
+                        </div>
                     </div>
                     <div class="contact">
                         <div class="title fs-13 fw-600">Email</div>

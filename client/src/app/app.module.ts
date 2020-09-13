@@ -59,6 +59,8 @@ import { ReviewEditorComponent } from './screens/manager/_components/review-edit
 import { FavoritesComponent } from './screens/favorites/favorites.component';
 import { FavoritesTutorialComponent } from './components/favorites-tutorial/favorites-tutorial.component';
 import { Error404Component } from './screens/errors/error404/error404.component';
+import { YesComponent } from './screens/landings/yes/yes.component';
+import { ImageCarrouselComponent } from './components/image-carrousel/image-carrousel.component';
 
 
 export function metaFactory(): MetaLoader
@@ -132,7 +134,9 @@ const icons: IconDefinition[] = [ HeartTwoTone, LogoutOutline, SettingOutline ]
       ReviewEditorComponent,
       FavoritesComponent,
       FavoritesTutorialComponent,
-      Error404Component
+      Error404Component,
+      YesComponent,
+      ImageCarrouselComponent
    ],
 
   imports: [

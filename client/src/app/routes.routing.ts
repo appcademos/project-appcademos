@@ -10,6 +10,7 @@ import { ManagerComponent } from "./screens/manager/manager/manager.component";
 import { AcademyComponent } from "./screens/manager/academy/academy.component";
 import { FavoritesComponent } from './screens/favorites/favorites.component';
 import { Error404Component } from './screens/errors/error404/error404.component';
+import { YesComponent } from './screens/landings/yes/yes.component';
 
 export const routes: Routes = [
     { path: "", component: HomeComponent },
@@ -22,6 +23,9 @@ export const routes: Routes = [
     
     { path: "cursos-ingles/:category/:academy/:id/checkout", component: CheckoutComponent },
     { path: "cursos-ingles/:category/:academy/:id/pedir-informacion", component: CheckoutComponent },
+    
+    // Landings
+    { path: "cursos-ingles/curso-first-certificate/yes-academia-ingles-madrid", component: YesComponent },
     
     { path: "estudio-personalizado", component: EstudioPersonalizadoComponent},
     
