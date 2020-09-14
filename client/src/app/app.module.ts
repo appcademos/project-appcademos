@@ -61,6 +61,7 @@ import { FavoritesTutorialComponent } from './components/favorites-tutorial/favo
 import { Error404Component } from './screens/errors/error404/error404.component';
 import { YesComponent } from './screens/landings/yes/yes.component';
 import { ImageCarrouselComponent } from './components/image-carrousel/image-carrousel.component';
+import { IberEnglishComponent } from './screens/landings/iber-english/iber-english.component';
 
 
 export function metaFactory(): MetaLoader
@@ -136,7 +137,8 @@ const icons: IconDefinition[] = [ HeartTwoTone, LogoutOutline, SettingOutline ]
       FavoritesTutorialComponent,
       Error404Component,
       YesComponent,
-      ImageCarrouselComponent
+      ImageCarrouselComponent,
+      IberEnglishComponent
    ],
 
   imports: [

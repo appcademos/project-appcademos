@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit, OnDestroy
     showFavoritesTutorial: boolean = false
     
     isLandingPage: boolean = false
-    landingUris = [ '/yes-academia-ingles-madrid' ]
+    landingUris = [ 'curso-first-certificate/yes-academia-ingles-madrid', 'curso-online-aptis/academia-ingles-iberenglish' ]
 
     messageServiceSubscription: Subscription;
 
