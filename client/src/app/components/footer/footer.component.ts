@@ -9,7 +9,7 @@ import { Router, NavigationEnd } from "@angular/router";
 export class FooterComponent implements OnInit
 {    
     isLandingPage: boolean = false
-    landingUris = [ '/yes-academia-ingles-madrid' ]
+    landingUris = [ 'curso-first-certificate/yes-academia-ingles-madrid', 'curso-online-aptis/academia-ingles-iberenglish' ]
     
     constructor(private router: Router)
     {

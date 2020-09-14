@@ -4,20 +4,12 @@ import { UtilsService } from '../../../../services/utils.service';
 import { MetaService } from '@ngx-meta/core';
 
 @Component({
-  selector: 'app-yes',
-  templateUrl: './yes.component.html',
+  selector: 'app-iber-english',
+  templateUrl: './iber-english.component.html',
   styleUrls: ['../landings.component.scss']
 })
-export class YesComponent implements OnInit
+export class IberEnglishComponent implements OnInit
 {
-    yesImages = [ 
-        "https://lh5.googleusercontent.com/p/AF1QipMVt-9EYUIV8sKCQG3mTiyXmSVtjtKNEq3poxYr=s1536", 
-        "https://lh5.googleusercontent.com/p/AF1QipOd9TPq-YAMU4nuS8lV5AguruO1E_26bN7c_tim=s1536", 
-        "https://lh5.googleusercontent.com/p/AF1QipNvyojmWZPYEtg6bPY2wbpM9GgJjr4F1erBsIss=s1536", 
-        "https://lh5.googleusercontent.com/p/AF1QipMoKwSa3n6HBHUvnurUlV56TnF9FcsJ0ajccVxG=s1536", 
-        "https://lh5.googleusercontent.com/p/AF1QipMuaIXQ0N3QWHfN27fBKhni52T4UUosMK_81KrN=s1536"
-    ]
-    
     constructor(private location: Location,
                 private utils: UtilsService,
                 private meta: MetaService)
@@ -28,13 +20,13 @@ export class YesComponent implements OnInit
     ngOnInit()
     {
         this.setMetaData()
-        this.setHubspotForm()
+        this.setHubspotForm()        
     }
     
     setMetaData()
     {
-        this.meta.setTitle('Curso preparación First B2. Yes! La Academia de Inglés');
-        this.meta.setTag('description', 'Aprueba el First Certificate en 3 meses con este curso de preparación de Yes! La Academia, verificada por Appcademos. Precio, horarios, beneficios...');
+        this.meta.setTitle('Curso Online preparación Aptis B1, B2 y C1. IberEnglish');
+        this.meta.setTag('description', 'Prepara tu examen de inglés Aptis con este curso online de la academia IberEnglish verificada por Appcademos. Niveles B1, B2 y C1. Precios, horarios...');
     }
     setHubspotForm()
     {
@@ -43,7 +35,7 @@ export class YesComponent implements OnInit
             (window as any).hbspt.forms.create(
             {
                 portalId: "4604246",
-                formId: "c5a03014-2acb-4cdc-9110-7c9033d1a20d",
+                formId: "e0c92e08-50ef-4632-a202-19cf0e972f58",
                 target: "#landingForm",
                 onFormReady: function()
                 {
