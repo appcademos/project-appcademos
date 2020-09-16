@@ -19,7 +19,7 @@ export class YesComponent implements OnInit
     ]
     
     constructor(private location: Location,
-                private utils: UtilsService,
+                public utils: UtilsService,
                 private meta: MetaService)
     {
         
