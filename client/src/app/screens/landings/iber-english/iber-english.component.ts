@@ -11,7 +11,7 @@ import { MetaService } from '@ngx-meta/core';
 export class IberEnglishComponent implements OnInit
 {
     constructor(private location: Location,
-                private utils: UtilsService,
+                public utils: UtilsService,
                 private meta: MetaService)
     {
         

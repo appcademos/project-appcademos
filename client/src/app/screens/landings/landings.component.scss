@@ -196,6 +196,11 @@
             }
         }
     }
+    .infoLink
+    {
+        display: none;
+        margin-top: 12px;
+    }
     .formColumn
     {
         flex: 1;
@@ -250,6 +255,10 @@
             {
                 margin-top: 32px;
                 padding-left: 0;
+            }
+            .infoLink
+            {
+                display: block;
             }
         }
     }
