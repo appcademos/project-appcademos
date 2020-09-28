@@ -5,7 +5,7 @@ import * as moment from 'moment';
 const RANDOM_DATE_START = new Date(2018, 0, 1);
 const RANDOM_DATE_END = new Date();
 
-export const NEIGHBORHOODS = [ 'Alcalá de Henares', 'Alcobendas', 'Arganzuela - Atocha', 'Barajas', 'Carabanchel', 'Centro', 'Ciudad Lineal', 'Chamartín', 'Chamberí - Ríos Rosas', 'Fuencarral - Bº del Pilar', 'Getafe', 'Hortaleza', 'Latina', 'Moncloa - Argüelles', 'Moratalaz', 'Pozuelo de Alarcón', 'Retiro', 'Salamanca', 'San Blas - Canillejas', 'Puente de Vallecas', 'Usera', 'Tetuán - Cuatro Caminos', 'Vicálvaro', 'Villa de Vallecas', 'Villaverde' ]
+export const NEIGHBORHOODS = [ 'Alcalá de Henares', 'Alcobendas', 'Arganzuela - Atocha', 'Barajas', 'Carabanchel', 'Centro', 'Ciudad Lineal', 'Chamartín', 'Chamberí - Ríos Rosas', 'Fuencarral - Bº del Pilar', 'Fuenlabrada', 'Getafe', 'Hortaleza', 'Latina', 'Moncloa - Argüelles', 'Moratalaz', 'Pozuelo de Alarcón', 'Retiro', 'Salamanca', 'San Blas - Canillejas', 'Puente de Vallecas', 'Usera', 'Tetuán - Cuatro Caminos', 'Vicálvaro', 'Villa de Vallecas', 'Villaverde' ]
 export const MOBILE_WIDTH = 786;
 
 @Injectable()
