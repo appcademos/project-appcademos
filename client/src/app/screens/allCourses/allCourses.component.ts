@@ -1,6 +1,6 @@
 import { Component, ViewChild, HostListener } from "@angular/core";
 import { CoursesService } from "../../../services/courses.service";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Location } from '@angular/common';
 import { UtilsService, NEIGHBORHOODS } from '../../../services/utils.service';
 import { MetaService } from '@ngx-meta/core';
@@ -50,6 +50,8 @@ export class AllCoursesComponent
     showFixedFilters: boolean = false;
     searchviewOffsetTop: number = undefined;
     lastScrollOffsetTop: number = 0;
+    
+    justUpdatedQueryParams: boolean = false
 
 
     constructor(private courseService: CoursesService,
@@ -62,46 +64,17 @@ export class AllCoursesComponent
         this.courseService.searching = true;
     }
     ngOnInit()
-    {
-        this.activatedRoute.url.subscribe(url =>
-        {            
-            if (url[0].path !== "all")
-            {
-                this.activatedRoute.params.subscribe(params =>
-                {                    
-                    this.activatedRoute.queryParams.subscribe(queryParams =>
-                    {                        
-                        let category = this.utils.urlCategoryToQuery(params.category);
-                        this.setMetaData(false, category);
-                        
-                        if (category != null && category.length !== 0)
-                        {
-                            this.searchCategory = category;
-                            
-                            this.appliedModality = (queryParams.modalidad == null ||
-                                                    queryParams.modalidad === 'todos') ?
-                                                    null : queryParams.modalidad
-                            this.selectedModality = this.appliedModality
-                            
-                            this.appliedNeighborhoods = (queryParams.ubicaciones != null) ?
-                                                         JSON.parse(queryParams.ubicaciones) : []
-                            this.selectedNeighborhoods = (this.appliedNeighborhoods != null) ? [...this.appliedNeighborhoods] : []
-                            
-                            if (queryParams.orden != null)
-                            {
-                                this.appliedOrder = parseInt(queryParams.orden)
-                                this.selectedOrder = this.appliedOrder
-                            }
-                            
-                            this.findCourses(category, null, this.appliedModality);
-                        }
-                    })
-                });
-            }
-            else
-            {
-                this.setMetaData(true);
-                this.findCourses(null, true);
+    {        
+        this.initCoursesSearch()
+
+        this.router.events.subscribe((val) =>
+        {
+            if (val instanceof NavigationEnd)
+            {                
+                if (!this.justUpdatedQueryParams)
+                    this.initCoursesSearch()
+                else
+                    this.justUpdatedQueryParams = false
             }
         });
     }
@@ -116,9 +89,41 @@ export class AllCoursesComponent
     }
     ngOnDestroy()
     {
+        console.log('ngOnDestroy')
         this.removeMetaData();
     }
 
+    initCoursesSearch()
+    {
+        let params = this.activatedRoute.snapshot.params
+        let queryParams = this.activatedRoute.snapshot.queryParams
+        
+        let category = this.utils.urlCategoryToQuery(params.category);
+        this.setMetaData(false, category);
+        
+        if (category != null && category.length !== 0)
+        {
+            this.searchCategory = category;
+            console.log('searchCategory', this.searchCategory);
+            
+            this.appliedModality = (queryParams.modalidad == null ||
+                                    queryParams.modalidad === 'todos') ?
+                                    null : queryParams.modalidad
+            this.selectedModality = this.appliedModality
+            
+            this.appliedNeighborhoods = (queryParams.ubicaciones != null) ?
+                                         JSON.parse(queryParams.ubicaciones) : []
+            this.selectedNeighborhoods = (this.appliedNeighborhoods != null) ? [...this.appliedNeighborhoods] : []
+            
+            if (queryParams.orden != null)
+            {
+                this.appliedOrder = parseInt(queryParams.orden)
+                this.selectedOrder = this.appliedOrder
+            }
+            
+            this.findCourses(category, null, this.appliedModality);
+        }
+    }
     findCourses(query, all = false, modality = null)
     {
         if (!all)
@@ -136,6 +141,7 @@ export class AllCoursesComponent
                         this.orderBy(this.appliedOrder);
                         this.searching = false;
                         this.commonCategoryFullName = this.findCommonCategoryFullName(this.courseService.foundCourses);
+                        console.log('commonCategoryFullName', this.commonCategoryFullName);
                         
                         this.appliedNeighborhoods = [...this.selectedNeighborhoods]
                         this.appliedModality = this.selectedModality
@@ -293,6 +299,8 @@ export class AllCoursesComponent
             queryParams: queryParams,
             //queryParamsHandling: 'preserve'
         })
+        
+        this.justUpdatedQueryParams = true
     }
     
     toggleMobileFilters()

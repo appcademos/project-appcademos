@@ -97,74 +97,77 @@ const create = (req, res, next) =>
                                 }
                             });
                             
-                            ejs.renderFile(path.resolve(__dirname + "/../../config/nodemailer/templates/booking_team.ejs"),
+                            if (process.env.ENV == 'production')
                             {
-                                name: newBooking.name,
-                                phone: newBooking.phone,
-                                email: newBooking.email,
-                                group: newBooking.group,
-                                courseId: course._id,
-                                courseTitle: course.title,
-                                coursePrice: course.price,
-                                academy: course.academy.name,
-                                academyAddress: course.academy.address
-                            },
-                            function (errorTeam, dataTeam)
-                            {
-                                if (errorTeam)
+                                ejs.renderFile(path.resolve(__dirname + "/../../config/nodemailer/templates/booking_team.ejs"),
                                 {
-                                    console.log('Team Message error: %s', errorTeam);
-                                }
-                                else
+                                    name: newBooking.name,
+                                    phone: newBooking.phone,
+                                    email: newBooking.email,
+                                    group: newBooking.group,
+                                    courseId: course._id,
+                                    courseTitle: course.title,
+                                    coursePrice: course.price,
+                                    academy: course.academy.name,
+                                    academyAddress: course.academy.address
+                                },
+                                function (errorTeam, dataTeam)
                                 {
-                                    // Send team email
-                                    var teamEmailOptions =
+                                    if (errorTeam)
                                     {
-                                        from: '"Appcademos" <hello@appcademos.com>',
-                                        to: ['hello@appcademos.com'],
-                                        subject: '¡CLINC, CLINC, CLINC! 😎',
-                                        html: dataTeam
+                                        console.log('Team Message error: %s', errorTeam);
                                     }
-                                    transporter.sendMail(teamEmailOptions, function (ee, infoo)
+                                    else
                                     {
-                                        if (ee)
+                                        // Send team email
+                                        var teamEmailOptions =
                                         {
-                                            console.log('Team email Message error: %s', ee);
+                                            from: '"Appcademos" <hello@appcademos.com>',
+                                            to: ['hello@appcademos.com'],
+                                            subject: '¡CLINC, CLINC, CLINC! 😎',
+                                            html: dataTeam
                                         }
-                                        else
+                                        transporter.sendMail(teamEmailOptions, function (ee, infoo)
                                         {
-                                            console.log('Team email Message sent: %s', JSON.stringify(infoo));
-                                        }
-                                    });
-                                }
-                            });
+                                            if (ee)
+                                            {
+                                                console.log('Team email Message error: %s', ee);
+                                            }
+                                            else
+                                            {
+                                                console.log('Team email Message sent: %s', JSON.stringify(infoo));
+                                            }
+                                        });
+                                    }
+                                });
                             
-                            // Send booking to Slack
-                            let slackDataStr =
-                            `*Nombre*: ${newBooking.name}\n` +
-                            `*Teléfono*: ${newBooking.phone}\n` +
-                            `*Email*: ${newBooking.email}\n` +
-                            `*Grupo*: ${newBooking.group}\n` +
-                            `*Curso*: ${course.title} [${course._id}]\n` +
-                            `*Academia*: ${course.academy.name} - ${course.academy.address}\n` +
-                            `*Precio*: ${course.price}€`;
-                            
-                            
-                            axios.post(process.env.SLACK_WEBHOOK_URL,
-                            {
-                                text: `*¡CLINC, CLINC, CLINC!* 😎\nNueva reserva de plaza:\n\n${slackDataStr}`
-                            },
-                            {
-                                headers: {'Content-type': 'application/json'}
-                            })
-                            .then((response) =>
-                            {
-                                console.log(response);
-                            })
-                            .catch((error) =>
-                            {
-                                console.log(error);
-                            });
+                                // Send booking to Slack
+                                let slackDataStr =
+                                `*Nombre*: ${newBooking.name}\n` +
+                                `*Teléfono*: ${newBooking.phone}\n` +
+                                `*Email*: ${newBooking.email}\n` +
+                                `*Grupo*: ${newBooking.group}\n` +
+                                `*Curso*: ${course.title} [${course._id}]\n` +
+                                `*Academia*: ${course.academy.name} - ${course.academy.address}\n` +
+                                `*Precio*: ${course.price}€`;
+                                
+                                
+                                axios.post(process.env.SLACK_WEBHOOK_URL,
+                                {
+                                    text: `*¡CLINC, CLINC, CLINC!* 😎\nNueva reserva de plaza:\n\n${slackDataStr}`
+                                },
+                                {
+                                    headers: {'Content-type': 'application/json'}
+                                })
+                                .then((response) =>
+                                {
+                                    console.log(response);
+                                })
+                                .catch((error) =>
+                                {
+                                    console.log(error);
+                                });
+                            }
                         }
                     });
                 }
