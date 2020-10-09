@@ -24,6 +24,7 @@ export const routes: Routes = [
     
     { path: "cursos-ingles/:category/:academy/:id/checkout", component: CheckoutComponent },
     { path: "cursos-ingles/:category/:academy/:id/pedir-informacion", component: CheckoutComponent },
+    { path: "reserva-confirmada/:id/:bookingId", component: CheckoutComponent },
     
     // Landings
     { path: "cursos-ingles/curso-first-certificate/yes-academia-ingles-madrid", component: YesComponent },

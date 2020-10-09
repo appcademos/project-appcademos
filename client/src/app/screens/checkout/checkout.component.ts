@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserSessionService } from '../../../services/userSession.service';
 import { CoursesService } from '../../../services/courses.service';
 import { BookingsService } from '../../../services/bookings.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { NzNotificationService, NzModalService } from 'ng-zorro-antd';
 import { MessageService } from '../../../services/message.service';
@@ -45,6 +45,15 @@ export class CheckoutComponent implements OnInit
     repeatPassword: String;
     
     isVerifiedCourse: boolean = false;
+    
+    bookingConfirmedPage: boolean = false;
+    lottieConfig =
+    {
+        path: '../../../assets/public/lottie/checkmark.json',
+        autoplay: false,
+        loop: false
+    }
+    checkAnimation: any
 
     constructor(private courseservice: CoursesService,
                 private activatedRoute: ActivatedRoute,
@@ -54,17 +63,20 @@ export class CheckoutComponent implements OnInit
                 private modalService: NzModalService,
                 private messageService: MessageService,
                 private location: Location,
-                private meta: MetaService)
+                private meta: MetaService,
+                private router: Router)
     {
         
     }
 
     ngOnInit()
     {
+        this.bookingConfirmedPage = (this.router.url.indexOf('reserva-confirmada') > -1);
+        
         this.activatedRoute.params.subscribe(params =>
-        {            
+        {
             if (params.id)
-            {                
+            {
                 this.courseservice.getCourse(params.id)
                 .subscribe(res =>
                 {
@@ -98,6 +110,16 @@ export class CheckoutComponent implements OnInit
                     if (err.status === 400)
                         this.courseNotFound = true;
                 });
+            }
+            
+            if (params.bookingId)
+            {
+                this.booking = { _id: params.bookingId }
+                
+                setTimeout(() =>
+                {
+                    this.showRegistrationModal = true;
+                }, 4000);
             }
         });
         
@@ -201,7 +223,7 @@ export class CheckoutComponent implements OnInit
             this.sendingBooking = false;
             this.courseBooked = true;
             
-            this.bookingSuccessModalRef = this.modalService.success(
+            /*this.bookingSuccessModalRef = this.modalService.success(
             {
                 nzTitle: 'Reserva confirmada',
                 nzContent: 'Tu plaza ha sido reservada.',
@@ -211,9 +233,9 @@ export class CheckoutComponent implements OnInit
                     this.bookingSuccessModalRef.close();
                     this.showRegistrationModal = true;
                 }
-            });
-            
-            this.location.go(window.location.pathname + window.location.search + '/reserva-confirmada');
+            });*/
+                        
+            window.location.href = `${window.location.origin}/reserva-confirmada/${this.course._id}/${this.booking._id}`;
         },
         err =>
         {
@@ -352,5 +374,14 @@ export class CheckoutComponent implements OnInit
                 } 
             });
         }
+    }
+    
+    playCheckAnimation(anim: any)
+    {
+        setTimeout(() =>
+        {
+            this.checkAnimation = anim
+            this.checkAnimation.play()
+        }, 1000)
     }
 }

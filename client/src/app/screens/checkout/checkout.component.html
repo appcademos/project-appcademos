@@ -1,8 +1,21 @@
 <div class="bookingContainer responsive-container" *ngIf="course != null">
-    <h1>{{ isVerifiedCourse ? 'Reserva de curso' : 'Pedir información' }}</h1>
+    <h1>{{ isVerifiedCourse ? (bookingConfirmedPage ? 'Curso reservado' : 'Reserva de curso') : 'Pedir información' }}</h1>
+    
+    <div class="bookingConfirmedView card-banner" *ngIf="bookingConfirmedPage">
+        <div class="animationContainer">
+            <lottie-animation-view
+               [options]="lottieConfig"
+               [width]="220"
+               [height]="220"
+               (animCreated)="playCheckAnimation($event)"
+             >
+             </lottie-animation-view>
+            </div>
+         <div class="title">Tu plaza ha sido reservada</div>
+    </div>
     
     <div class="courseBanner">
-        <h2 class="card-banner-title fw-600 fs-14 color-black-60">CURSO ELEGIDO</h2>
+        <h2 class="card-banner-title fw-600 fs-14 color-black-60">CURSO {{ bookingConfirmedPage ? '' : 'ELEGIDO' }}</h2>
         <div class="card-banner flex-inline flex-row align-items-center">
             <div class="info flex flex-row">
                 <div
@@ -22,11 +35,11 @@
         </div>
     </div>
     
-    <div class="warning-box" *ngIf="isVerifiedCourse">
+    <div class="warning-box" *ngIf="isVerifiedCourse && !bookingConfirmedPage">
         <b>Importante:</b> Al cumplimentar este formulario, vas a <span class="fw-600">reservar al instante tu plaza en una clase gratis</span> en la academia <span class="fw-600">{{ course.academy.name }}</span>. Al cumplimentarlo <span class="fw-600">te comprometes a asistir</span>. La academia tiene plazas limitadas y será notificada automáticamente recibiendo tus datos.
     </div>
     
-    <div class="bookingForm" *ngIf="isVerifiedCourse">
+    <div class="bookingForm" *ngIf="isVerifiedCourse && !bookingConfirmedPage">
         <h2 class="card-banner-title fw-600 fs-14 color-black-60">RELLENA TUS DATOS</h2>
         <div class="card-banner">
             <div class="form full-width">
@@ -75,7 +88,7 @@
         </div>
     </div>
     
-    <div class="additionalInfo" *ngIf="isVerifiedCourse">
+    <div class="additionalInfo" *ngIf="isVerifiedCourse && !bookingConfirmedPage">
         <h2 class="card-banner-title fw-600 fs-14 color-black-60">INFORMACIÓN ADICIONAL</h2>
         <div class="card-banner">
             <div class="title fs-16 fw-600">Antes de ir debes saber</div>
