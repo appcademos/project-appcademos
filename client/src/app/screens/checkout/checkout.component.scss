@@ -32,6 +32,34 @@
     }
 }
 
+.bookingConfirmedView
+{
+    width: 240px;
+    margin-bottom: 40px;
+    padding: 20px;
+    text-align: center;
+    
+    .animationContainer
+    {
+        width: 73px;
+        height: 73px;
+        position: relative;
+        margin: 0 auto 16px;
+    }
+    lottie-animation-view
+    {
+        position: absolute;
+        top: -73.5px;
+        left: -73.5px;
+    }
+    .title
+    {
+        font-size: 20px;
+        font-weight: 600;
+        color: $black-80;
+    }
+}
+
 .card-banner-title
 {
     margin-left: 4px !important;
