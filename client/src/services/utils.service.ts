@@ -5,7 +5,61 @@ import * as moment from 'moment';
 const RANDOM_DATE_START = new Date(2018, 0, 1);
 const RANDOM_DATE_END = new Date();
 
-export const NEIGHBORHOODS = [ 'Alcalá de Henares', 'Alcobendas', 'Alcorcón', 'Aluche', 'Arganda del Rey', 'Arganzuela - Atocha', 'Barajas', 'Boadilla del Monte', 'Carabanchel', 'Centro', 'Chamartín', 'Chamberí - Ríos Rosas', 'Ciudad Lineal', 'Coslada', 'Fuencarral - Bº del Pilar', 'Fuenlabrada', 'Getafe', 'Hortaleza', 'Las Rozas', 'Latina', 'Leganés', 'Majadahonda', 'Moncloa - Argüelles', 'Moratalaz', 'Móstoles', 'Parla', 'Pozuelo de Alarcón', 'Puente de Vallecas', 'Retiro', 'Salamanca', 'San Blas - Canillejas', 'San Fernando de Henares', 'San Sebastián de los Reyes', 'Tetuán - Cuatro Caminos', 'Torrejón de Ardoz', 'Tres Cantos', 'Usera', 'Valverde', 'Vicálvaro', 'Villa de Vallecas', 'Villaverde', 'Villaviciosa de Odón' ]
+export const NEIGHBORHOODS =
+[
+  "Alcalá de Henares",
+  "Alcobendas",
+  "Alcorcón",
+  "Aluche",
+  "Arganda del Rey",
+  "Arganzuela - Atocha",
+  "Barajas",
+  "Boadilla del Monte",
+  "Carabanchel",
+  "Centro",
+  "Chamartín",
+  "Chamberí - Ríos Rosas",
+  "Ciudad Lineal",
+  "Coslada",
+  "Fuencarral - Bº del Pilar",
+  "Fuenlabrada",
+  "Getafe",
+  "Guadalajara",
+  "Hortaleza",
+  "Las Rozas",
+  "Latina",
+  "Leganés",
+  "Majadahonda",
+  "Moncloa - Argüelles",
+  "Moratalaz",
+  "Móstoles",
+  "Parla",
+  "Pozuelo de Alarcón",
+  "Puente de Vallecas",
+  "Retiro",
+  "Salamanca",
+  "San Blas - Canillejas",
+  "San Fernando de Henares",
+  "San Sebastián de los Reyes",
+  "Tetuán - Cuatro Caminos",
+  "Torrejón de Ardoz",
+  "Tres Cantos",
+  "Usera",
+  "Valverde",
+  "Vicálvaro",
+  "Villa de Vallecas",
+  "Villaverde",
+  "Villaviciosa de Odón",
+  "Toledo",
+  "Collado de Villalba",
+  "Collado Mediano",
+  "Algete",
+  "Cobeña",
+  "El Molar",
+  "Talavera de la Reina",
+  "Torrelodones",
+  "San Agustín del Guadalix"
+]
 export const MOBILE_WIDTH = 786;
 
 @Injectable()
