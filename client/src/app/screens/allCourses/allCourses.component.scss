@@ -246,8 +246,7 @@
     left: 48px;
     top: 150%;
     bottom: unset;
-    max-height: 520px;
-    max-width: 640px;
+    max-width: 680px;
     z-index: 4;
     border-radius: 12px;
     overflow: hidden;
@@ -347,7 +346,7 @@
     
     .neighborhoods
     {
-        column-count: 3;
+        column-count: 4;
         column-gap: 16px;
         
         .neighborhood
