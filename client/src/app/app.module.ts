@@ -13,7 +13,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
 import { NzNotificationModule, NzModalModule, NzButtonModule, NzSelectModule, NzPopconfirmModule, NzRateModule, NzIconModule, NzSwitchModule, NzTagModule, NzEmptyModule, NzDropDownModule, NzMessageModule, NZ_I18N, NZ_ICONS, NZ_ICON_DEFAULT_TWOTONE_COLOR, NZ_NOTIFICATION_CONFIG, es_ES } from 'ng-zorro-antd';
 import { QuillModule } from 'ngx-quill';
-import { AbTestsModule } from 'angular-ab-tests';
+//import { AbTestsModule } from 'angular-ab-tests';
 import { LottieAnimationViewModule } from 'ng-lottie';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { HeartTwoTone, LogoutOutline, SettingOutline } from '@ant-design/icons-angular/icons';
@@ -183,13 +183,13 @@ const icons: IconDefinition[] = [ HeartTwoTone, LogoutOutline, SettingOutline ]
             ]
         }
     }),
-    AbTestsModule.forRoot([
+    /*AbTestsModule.forRoot([
       {
         versions: [ 'A', 'B' ],
         versionForCrawlers: 'A',
         expiration: 30
       },
-    ]),
+  ]),*/
     LottieAnimationViewModule.forRoot()
   ],
   providers: [
@@ -210,7 +210,7 @@ const icons: IconDefinition[] = [ HeartTwoTone, LogoutOutline, SettingOutline ]
     { provide: NZ_ICONS, useValue: icons },
     { provide: NZ_NOTIFICATION_CONFIG, useValue: { nzTop: '80px' }}
   ],
-  exports: [ AbTestsModule ],
+  exports: [ /*AbTestsModule*/ ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
