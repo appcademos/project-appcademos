@@ -19,6 +19,7 @@ const Review = require("./api/review/review.model");
 const User = require("./api/user/user.model");
 var moment = require('moment');
 var generateSitemap = require('./sitemap-generator.js');
+const compression = require('compression')
 
 mongoose.Promise = Promise;
 mongoose
@@ -88,11 +89,13 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 app.use(express.static(path.join(__dirname, "public")));
 
-app.locals.title = "Appcademos";
+app.locals.title = "Yinius";
 
 require("./routes/routes")(app);
 app.use(function (req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
+
+app.use(compression())
 
 module.exports = app;
