@@ -19,7 +19,7 @@ const Review = require("./api/review/review.model");
 const User = require("./api/user/user.model");
 var moment = require('moment');
 var generateSitemap = require('./sitemap-generator.js');
-const compression = require('compression')
+const compression = require('compression');
 
 mongoose.Promise = Promise;
 mongoose
@@ -41,6 +41,7 @@ mongoose
 });
 
 const app = express();
+app.use(compression());
 
 if (process.env.ENV != 'development')
     app.use(redirectToHTTPS(undefined, [/\/app/], 301));
@@ -95,7 +96,5 @@ require("./routes/routes")(app);
 app.use(function (req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
-
-app.use(compression())
 
 module.exports = app;
