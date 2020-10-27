@@ -34,7 +34,7 @@ export class YesComponent implements OnInit
     setMetaData()
     {
         this.meta.setTitle('Curso preparación First B2. Yes! La Academia de Inglés');
-        this.meta.setTag('description', 'Aprueba el First Certificate en 3 meses con este curso de preparación de Yes! La Academia, verificada por Appcademos. Precio, horarios, beneficios...');
+        this.meta.setTag('description', 'Aprueba el First Certificate en 3 meses con este curso de preparación de Yes! La Academia, verificada por yinius. Precio, horarios, beneficios...');
     }
     setHubspotForm()
     {

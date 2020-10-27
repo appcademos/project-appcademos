@@ -1,4 +1,4 @@
-@import '../../../sass/abstracts/variables.scss';
+@import '../../../sass/variables.scss';
 
 .landing
 {
@@ -146,7 +146,7 @@
                 
                 i
                 {
-                    color: $red-color;
+                    color: $orange-color;
                     margin-right: 8px;
                 }
                 .points
@@ -358,7 +358,7 @@
         font-weight: 800;
         text-align: center;
         line-height: 1.1;
-        color: $red-color;
+        color: $orange-color;
         margin-right: 32px;
         margin-top: 4px;
         

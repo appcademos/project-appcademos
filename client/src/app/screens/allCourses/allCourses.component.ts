@@ -265,12 +265,12 @@ export class AllCoursesComponent
                 case 'toeic':       descriptionText = 'TOEIC'; break;
             }
             
-            this.meta.setTitle(`Comparador cursos ${titleText} en Madrid | Appcademos`);
+            this.meta.setTitle(`Comparador cursos ${titleText} en Madrid | yinius`);
             this.meta.setTag('description', `Compara los mejores cursos de ${descriptionText} cerca de ti. Horarios, precios, temario, opiniones verificadas... Compara toda la información y reserva.`);
         }
         else
         {
-            this.meta.setTitle(`Comparador cursos de Inglés en Madrid | Appcademos`);
+            this.meta.setTitle(`Comparador cursos de Inglés en Madrid | yinius`);
             this.meta.setTag('description', `Compara los cursos de las mejores academias de Inglés en Madrid.`);
         }
     }

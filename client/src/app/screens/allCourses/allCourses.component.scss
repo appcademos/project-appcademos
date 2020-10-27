@@ -1,4 +1,4 @@
-@import '../../../sass/abstracts/variables.scss';
+@import '../../../sass/variables.scss';
 
 .search-view-container
 {
@@ -137,7 +137,7 @@
         border-radius: 21px;
         height: 36px;
         box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);
-        border: 1px solid rgba(72,72,72,0.08);
+        border: 1px solid rgba(39,34,68,0.08);
         font-weight: 500;
         margin-right: 12px;
         
@@ -455,8 +455,8 @@ h3
     display: flex;
     flex-direction: row;
     align-items: flex-end;
-    padding-bottom: 20px;
-    padding-top: 8px;
+    padding-bottom: 16px;
+    padding-top: 16px;
 
     h1
     {
@@ -492,7 +492,7 @@ h3
     .dot-pulse
     {
         display: inline-block;
-        background: $red-color;
+        background: $orange-color;
     	border-radius: 50%;
     	height: 14px;
     	width: 14px;
@@ -500,7 +500,7 @@ h3
         margin-right: 8px;
         flex-shrink: 0;
 
-    	box-shadow: 0 0 0 0 $red-color-10;
+    	box-shadow: 0 0 0 0 $orange-color-10;
     	transform: scale(1);
     	animation: pulse 2s infinite;
         
@@ -508,7 +508,7 @@ h3
         {
         	0% {
         		transform: scale(0.95);
-        		box-shadow: 0 0 0 0 $red-color-70;
+        		box-shadow: 0 0 0 0 $orange-color-70;
         	}
 
         	70% {
@@ -548,6 +548,8 @@ h3
     flex-direction: row;
     flex-wrap: wrap;
     padding-bottom: 44px;
+    margin-left: -6px;
+    margin-right: -6px;
 
     .course-item-container
     {
@@ -607,6 +609,14 @@ h3
         {
             margin-right: $cardsHorizontalSeparation;
         }
+    }
+}
+@media (max-width: 768px)
+{
+    #results
+    {
+        margin-left: 0;
+        margin-right: 0;
     }
 }
 @media (max-width: 580px)

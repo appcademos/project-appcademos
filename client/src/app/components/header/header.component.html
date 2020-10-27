@@ -1,21 +1,20 @@
-<header [ngClass]="{'absolute': isHome, 'mobileOpened': isMobileNavVisible}">
+<header [ngClass]="{'absolute': isHome, 'mobileOpened': isMobileNavVisible}" [ngStyle]="{ 'padding-top': isHome ? getTopBannerHeight() : null }">
     <div class="responsive-container-header">
         <nav id="navbarTop">
             <a class="logo" [routerLink]="['']">
-                <img [hidden]="!isHome" src="../../assets/public/images/logo_white.png" alt="Logo de Appcademos, el comparador de cursos y academias de inglés en Madrid." height="44" />
-                <img [hidden]="isHome" src="../../assets/public/images/logo_red.png" alt="Logo de Appcademos, el comparador de cursos y academias de inglés en Madrid." height="44" />
+                <img src="../../assets/public/images/logo_white.svg" alt="Logo de yinius, el comparador de cursos y academias de inglés en Madrid." height="52" />
             </a>
 
             <div class="logo-mobile" [ngClass]="{ 'isHome': isHome }" (click)="isMobileNavVisible = !isMobileNavVisible; showFavoritesTutorial = false">
-                <img [hidden]="!isHome || isMobileNavVisible" src="../../assets/public/images/logo_white.png" alt="Logo de Appcademos, el comparador de cursos y academias de inglés en Madrid." height="44" />
-                <img [hidden]="isHome && !isMobileNavVisible" src="../../assets/public/images/logo_red.png" alt="Logo de Appcademos, el comparador de cursos y academias de inglés en Madrid." height="44" />
-
-                <div class="mobile-nav-button noselect" [ngClass]="{'isHome': isHome && !isMobileNavVisible}">
-                    <i class="icon size-12" [ngClass]="{'icon-arrow-down': !isMobileNavVisible, 'icon-arrow-down-red': isMobileNavVisible, 'icon-arrow-down-white': isHome && !isMobileNavVisible }"></i>
+                <img [hidden]="isMobileNavVisible" src="../../assets/public/images/logo_white.svg" alt="Logo de yinius, el comparador de cursos y academias de inglés en Madrid." height="40" />
+                <img [hidden]="!isMobileNavVisible" src="../../assets/public/images/logo.svg" alt="Logo de yinius, el comparador de cursos y academias de inglés en Madrid." height="40" />
+                
+                <div class="mobile-nav-button noselect" [ngClass]="{'isHome': !isMobileNavVisible}">
+                    <i class="icon size-12" [ngClass]="{'icon-arrow-down': !isMobileNavVisible, 'icon-arrow-down-red': isMobileNavVisible, 'icon-arrow-down-white': !isMobileNavVisible }"></i>
                     <div class="title">MENU</div>
                 </div>
             </div>
-            <nav id="mobile-nav">
+            <nav id="mobile-nav" [ngStyle]="{ 'top': getTopBannerHeight() }">
                 <div>
                     <a [routerLink]="['']" (click)="isMobileNavVisible = false">Inicio</a>
                 </div>
@@ -32,7 +31,7 @@
                 </div>
                 <div class="separator"></div>
                 <div>
-                    <a class="icon-text" href="https://www.appcademos.com/blog/tag/trucos-y-consejos-para-aprender-ingles/" target="_blank">
+                    <a class="icon-text" href="https://www.yinius.es/blog/tag/trucos-y-consejos-para-aprender-ingles/" target="_blank">
                         <i class="icon size-20 icon-graduation"></i>
                         <p>Blog: Mejora tu inglés desde casa</p>
                     </a>
@@ -62,7 +61,7 @@
                                 <i nz-icon nzType="heart" nzTheme="twotone"></i> Mis cursos favoritos
                             </div>
                             <div class="separator"></div>
-                            <div class="userSubLinkContainer color-red" (click)="logout(); isMobileNavVisible = false;">
+                            <div class="userSubLinkContainer color-orange" (click)="logout(); isMobileNavVisible = false;">
                                 <i nz-icon nzType="logout" nzTheme="outline"></i> Cerrar sesión
                             </div>
                         </div>
@@ -71,20 +70,20 @@
             </nav>
 
             <div class="right">
-                <a class="icon-text" href="https://www.appcademos.com/blog/tag/trucos-y-consejos-para-aprender-ingles/" target="_blank">
-                    <i class="icon size-20" [ngClass]="{'icon-graduation': !isHome, 'icon-graduation-white': isHome}"></i>
+                <a class="icon-text" href="https://www.yinius.es/blog/tag/trucos-y-consejos-para-aprender-ingles/" target="_blank">
+                    <i class="icon size-20 icon-graduation-white"></i>
                     <p *ngIf="showFullBlogTitle()">Blog: Mejora tu inglés desde casa</p>
                     <p *ngIf="!showFullBlogTitle()">Blog</p>
                 </a>
                 <div id="llamar-experto" class="icon-text">
-                    <i class="icon size-16" [ngClass]="{'icon-whatsapp': !isHome, 'icon-whatsapp-white': isHome}"></i>
+                    <i class="icon size-16 icon-whatsapp-white"></i>
                     <p>
                         <span class="fs-10">Habla con un experto</span><br/>
                         {{ isLandingPage ? '+34 689 438 538' : '+34 677 827 178' }}
                     </p>
                 </div>
                 <div class="icon-text cursor-pointer noselect" (click)="showLogin = true" *ngIf="user == null">
-                    <i class="icon size-16" [ngClass]="{'icon-user': !isHome, 'icon-user-white': isHome}"></i>
+                    <i class="icon size-16 icon-user-white"></i>
                     <p>Registrarse</p>
                 </div>
 
@@ -94,7 +93,7 @@
                             class="userLinkContainer"
                             nz-dropdown
                         >
-                            <i class="icon size-16" [ngClass]="{'icon-user': !isHome, 'icon-user-white': isHome}"></i>
+                            <i class="icon size-16 icon-user-white"></i>
                             <p>{{ user.name }} {{ user.lastName }}</p><i nz-icon type="down"></i>
                         </a>
                         
@@ -110,7 +109,7 @@
                                 <i nz-icon nzType="heart" nzTheme="twotone"></i> Mis cursos favoritos
                             </li>
                             <li nz-menu-divider></li>
-                            <li nz-menu-item class="userDropdownItem color-red" (click)="logout()">
+                            <li nz-menu-item class="userDropdownItem color-orange" (click)="logout()">
                                 <i nz-icon nzType="logout" nzTheme="outline"></i> Cerrar sesión
                             </li>
                         </ul>

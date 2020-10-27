@@ -300,7 +300,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
     }
     getSimilarCourses()
     {
-        this.courseService.findCourses(this.courseObj.course.category.name)
+        this.courseService.findCourses(this.courseObj.course.category.name, null, null, 11)
         .subscribe(() =>
         {
             this.similarCourses = this.courseService.foundCourses.filter(course => { return course._id != this.courseObj.course._id; });
@@ -501,7 +501,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
             if (this.courseObj.course.academy.neighborhoods != null && this.courseObj.course.academy.neighborhoods.length > 0)
                 neighborhoods = this.courseObj.course.academy.neighborhoods.join(', ');
             
-            this.meta.setTitle(`${courseTitleNoDuration} | ${neighborhoods} | Appcademos`);
+            this.meta.setTitle(`${courseTitleNoDuration} | ${neighborhoods} | yinius`);
             this.meta.setTag('description', `${courseTitleNoDuration} en ${neighborhoods}. Horarios, precio, temario, opiniones verificadas... Toda la información de este curso de la academia ${this.courseObj.course.academy.name}.`);
             
             // Canonical

@@ -1,4 +1,4 @@
-@import '../../../../sass/abstracts/variables.scss';
+@import '../../../../sass/variables.scss';
 
 #managerAcademy
 {
@@ -298,10 +298,10 @@
                 {
                     font-size: 11px;
                     padding: 0px 3px;
-                    border: 1px solid $red-color-60;
+                    border: 1px solid $orange-color-60;
                     border-radius: 3px;
-                    background: $red-color-04;
-                    color: $red-color;
+                    background: $orange-color-04;
+                    color: $orange-color;
                     font-weight: 500;
                 }
             }
@@ -422,8 +422,8 @@
         
         &:hover
         {
-            color: $red-color;
-            border-color: $red-color;
+            color: $orange-color;
+            border-color: $orange-color;
         }
     }
     

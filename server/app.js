@@ -90,7 +90,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 app.use(express.static(path.join(__dirname, "public")));
 
-app.locals.title = "Yinius";
+app.locals.title = "yinius";
 
 require("./routes/routes")(app);
 app.use(function (req, res) {

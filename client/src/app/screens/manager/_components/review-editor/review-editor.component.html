@@ -20,17 +20,18 @@
         
         <div *ngIf="(review.guestName != null && review.guestName.length > 0) || (review.author == null)" class="inputContainer string">
             <label>Guest name</label>
-            <input class="form-control" [(ngModel)]="review.guestName" />
+            <input nz-input nzSize="large" [(ngModel)]="review.guestName" />
         </div>
         <div *ngIf="(review.author != null && review.author.name != null)" class="inputContainer string">
             <label>Autor</label>
-            <input disabled class="form-control" [value]="review.author.name + ((review.author.lastName != null && review.author.lastName.length > 0) ? ' ' + review.author.lastName : '')" />
+            <input disabled nz-input nzSize="large" [value]="review.author.name + ((review.author.lastName != null && review.author.lastName.length > 0) ? ' ' + review.author.lastName : '')" />
         </div>
         
         <div class="inputContainer date">
             <label>Fecha creación</label>
             <input
-                class="form-control"
+                nz-input
+                nzSize="large"
                 placeholder="DD/MM/YYYY"
                 [ngModel]="formatDate(review.created_at)"
                 (ngModelChange)="onDateChanged($event)"
@@ -39,7 +40,7 @@
         
         <div class="inputContainer text">
             <label>Mensaje</label>
-            <textarea class="form-control" (change)="review.description = $event.target.value">{{ review.description }}</textarea>
+            <textarea nz-input (change)="review.description = $event.target.value">{{ review.description }}</textarea>
         </div>
         
         <div class="buttonsContainer">

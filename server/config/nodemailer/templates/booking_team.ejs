@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <!-- The title is useful for screenreaders reading a document. Use your sender name or subject line. -->
-    <title>Appcademos - Nueva reserva</title>
+    <title>yinius - Nueva reserva</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <!-- Never disable zoom behavior! Fine to set the initial width and scale, but allow users to set their own zoom preferences. -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,8 +53,8 @@
 
         /* These rules set the link and hover states, making it clear that links are, in fact, links. */
         /* Embrace established conventions like underlines on links to keep emails accessible. */
-        a { color: #E43450; font-weight: 600; text-decoration: underline; }
-        a:hover { color: #000000 !important; text-decoration: none !important; }
+        a { color: #FF6E00; font-weight: 600; text-decoration: underline; }
+        a:hover { color: #272244 !important; text-decoration: none !important; }
 
         /* These rules adjust styles for desktop devices, keeping the email responsive for users. */
         /* Some email clients don't properly apply media query-based styles, which is why we go mobile-first. */
@@ -71,18 +71,18 @@
     <![endif]-->
     <!-- The role and aria-label attributes are added to wrap the email content as an article for screen readers. Some of them will read out the aria-label as the title of the document, so use something like "An email from Your Brand Name" to make it recognizable. -->
     <!-- Default styling of text is applied to the wrapper div. Be sure to use text that is large enough and has a high contrast with the background color for people with visual impairments. -->
-    <div role="article" aria-label="Email de reserva de plaza de Appcademos" lang="es" style="background-color: white; color: #2b2b2b; font-family: 'Montserrat', 'Avenir Next', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 18px; font-weight: 400; line-height: 28px; margin: 0 auto; max-width: 720px; padding: 40px 20px 40px 20px;">
+    <div role="article" aria-label="Email de reserva de plaza de yinius" lang="es" style="background-color: white; color: #272244; font-family: 'Montserrat', 'Avenir Next', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 18px; font-weight: 400; line-height: 28px; margin: 0 auto; max-width: 600px; padding: 40px 20px 40px 20px;">
         
         <!-- Logo section and header. Headers are useful landmark elements. -->
         <header>
             <!-- Since this is a purely decorative image, we can leave the alternative text blank. -->
             <!-- Linking images also helps with Gmail displaying download links next to them. -->
-            <a href="https://www.appcademos.com">
-                <center><img src="https://www.appcademos.com/assets/public/images/logo_red.png" alt="appcademos" height="50" width="220"></center>
+            <a href="https://www.yinius.es">
+                <center><img src="https://www.yinius.es/assets/public/images/email/logo.png" alt="yinius" height="50" width="89"></center>
             </a>
             <!-- The h1 is the main heading of the document and should come first. -->
             <!-- We can override the default styles inline. -->
-            <!--<h1 style="color: #000000; font-size: 32px; font-weight: 700; line-height: 32px; margin: 48px 0; text-align: center;">
+            <!--<h1 style="color: #272244; font-size: 32px; font-weight: 700; line-height: 32px; margin: 48px 0; text-align: center;">
                 Reserva de plaza confirmada
             </h1>-->
         </header>
@@ -90,7 +90,7 @@
         <!-- Main content section. Main is a useful landmark element. -->
         <main style="margin: 48px 0 0 0;">
             <!-- Intro copy -->
-            <p class="intro" style="color: #000000; font-size: 18px; font-weight: 600; line-height: 28px;">
+            <p class="intro" style="color: #272244; font-size: 18px; font-weight: 600; line-height: 28px;">
                 ¡CLINC, CLINC, CLINC!
             </p>
             
@@ -98,7 +98,7 @@
                 Nueva reserva de plaza:
             </p>
             
-            <div style="border: 1px solid #E2E2E2; border-radius: 4px; padding: 24px 24px; margin: 0 0 40px 0;">
+            <div style="border: 1px solid #E2E2E2; border-radius: 12px; padding: 24px 24px; margin: 0 0 40px 0;">
                 <!-- This ghost table is used solely for padding in Word-based Outlook clients. -->
                 <!--[if (gte mso 9)|(IE)]>
                 <table cellspacing="0" cellpadding="0" border="0" width="720" align="center" role="presentation"><tr><td style="padding: 24px 24px 24px 24px; border: 1px solid #E2E2E2;">
@@ -110,7 +110,7 @@
                 <p><strong>Grupo:</strong> <%= group %></p>
                 <p><strong>Curso:</strong> <%= courseTitle %> [<%= courseId %>]</p>
                 <p><strong>Academia:</strong> <%= academy %> - <%= academyAddress %></p>
-                <p style="margin-bottom: 0;"><strong>Precio:</strong> <span style="color: #E43450; font-weight: 600;"><%= coursePrice %>€</span></p>
+                <p style="margin-bottom: 0;"><strong>Precio:</strong> <span style="color: #FF6E00; font-weight: 600;"><%= coursePrice %>€</span></p>
                 
                 <!--[if (gte mso 9)|(IE)]>
                 </td></tr></table>

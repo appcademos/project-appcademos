@@ -63,6 +63,7 @@ const getSearched = async (req, res, next) =>
     let query = req.query.course.replace(/'+'/g, '[\s]').normalize('NFD').replace(/[\u0300-\u036f]/g, "");
     let neighborhoods = req.query.neighborhoods ? JSON.parse(req.query.neighborhoods) : null;
     let findObj = { hidden: {$ne: true} }
+    let limit = req.query.limit ? parseInt(req.query.limit) : null
     
     const categories = await Category.find({});
     let foundCategory = null;
@@ -90,7 +91,7 @@ const getSearched = async (req, res, next) =>
         req.query.modality !== 'todos')
         findObj.modality = req.query.modality
     
-    Course.find(findObj)
+    Course.find(findObj, null, {limit: limit})
     .populate(
     {
         path: 'academy',
