@@ -1,4 +1,4 @@
-<header [ngClass]="{'absolute': isHome, 'mobileOpened': isMobileNavVisible}">
+<header [ngClass]="{'absolute': isHome, 'mobileOpened': isMobileNavVisible}" [ngStyle]="{ 'padding-top': isHome ? getTopBannerHeight() : null }">
     <div class="responsive-container-header">
         <nav id="navbarTop">
             <a class="logo" [routerLink]="['']">
@@ -15,7 +15,7 @@
                     <div class="title">MENU</div>
                 </div>
             </div>
-            <nav id="mobile-nav">
+            <nav id="mobile-nav" [ngStyle]="{ 'top': getTopBannerHeight() }">
                 <div>
                     <a [routerLink]="['']" (click)="isMobileNavVisible = false">Inicio</a>
                 </div>
