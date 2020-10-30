@@ -102,3 +102,24 @@
         }
     }
 }
+@media (max-width: 360px)
+{
+    #top-banner
+    {
+        font-size: 12px;
+    
+        .content .icon
+        {
+            height: 20px;
+            
+            &.appcademos
+            {
+                height: 12px;
+            }
+            &.yinius
+            {
+                margin-right: 0;
+            }
+        }
+    }
+}
