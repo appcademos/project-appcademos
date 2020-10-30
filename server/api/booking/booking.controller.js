@@ -148,6 +148,7 @@ const create = (req, res, next) =>
                                 `*Email*: ${newBooking.email}\n` +
                                 `*Grupo*: ${newBooking.group}\n` +
                                 `*Curso*: ${course.title} [${course._id}]\n` +
+                                `*Link*: https://www.yinius.es/cursos-ingles/curso/${course._id}\n` +
                                 `*Academia*: ${course.academy.name} - ${course.academy.address}\n` +
                                 `*Precio*: ${course.price}€`;
                                 
