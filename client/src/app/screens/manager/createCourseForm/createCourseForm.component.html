@@ -1,7 +1,7 @@
 <div class="form full-width">
       <div class="form-group">
         <label>Nombre del curso<span *ngIf="createMode || this.course != null">*</span></label>
-        <input type="text" class="form-control" [(ngModel)]="title" name="title">
+        <input type="text" nz-input nzSize="large" [(ngModel)]="title" name="title">
       </div>
       <div class="form-group-container">
           <div class="form-group">
@@ -20,37 +20,37 @@
       <div class="form-group-container">
           <div class="form-group">
             <label>Duración<span *ngIf="createMode || this.course != null">*</span></label>
-            <input type="text" class="form-control" [(ngModel)]="duration" name="duration">
+            <input type="text" nz-input nzSize="large" [(ngModel)]="duration" name="duration">
           </div>
           <div class="form-group">
               <label>Numero de horas<span *ngIf="createMode || this.course != null">*</span></label>
-              <input type="text" class="form-control" [(ngModel)]="hours" name="hours">
+              <input type="text" nz-input nzSize="large" [(ngModel)]="hours" name="hours">
           </div>
       </div>
       <div class="form-group-container">
           <div class="form-group">
             <label>Clases semanales<span *ngIf="createMode || this.course != null">*</span></label>
-            <input type="text" class="form-control" [(ngModel)]="weekClasses" name="weekclasses">
+            <input type="text" nz-input nzSize="large" [(ngModel)]="weekClasses" name="weekclasses">
           </div>
           <div class="form-group">
             <label>Precio<span *ngIf="createMode || this.course != null">*</span></label>
-            <input type="number" class="form-control" [(ngModel)]="price" name="price">
+            <input type="number" nz-input nzSize="large" [(ngModel)]="price" name="price">
           </div>
       </div>
       <div class="form-group-container">
           <div class="form-group">
             <label>Precio tachado</label>
-            <input type="number" class="form-control" [(ngModel)]="oldPrice" name="oldprice">
+            <input type="number" nz-input nzSize="large" [(ngModel)]="oldPrice" name="oldprice">
           </div>
           <div class="form-group">
             <label>Fecha de inicio<span *ngIf="createMode || this.course != null">*</span></label>
-            <input class="form-control" [(ngModel)]="startDate" name="startdate" placeholder="dd/mm/aaaa">
+            <input nz-input nzSize="large" [(ngModel)]="startDate" name="startdate" placeholder="dd/mm/aaaa">
           </div>
       </div>
       <div class="form-group-container">
           <div class="form-group">
             <label>URL Video</label>
-            <input class="form-control" [(ngModel)]="videoUrl" name="videourl">
+            <input nz-input nzSize="large" [(ngModel)]="videoUrl" name="videourl">
           </div>
           <div class="form-group">
             <label>Grupos</label>
@@ -68,7 +68,7 @@
           </div>
           <div class="form-group">
             <label>Nº máximo alumnos</label>
-            <input type="number" class="form-control" [(ngModel)]="sizeClass" name="sizeClass">
+            <input type="number" nz-input nzSize="large" [(ngModel)]="sizeClass" name="sizeClass">
           </div>
       </div>
       <div class="form-group-container" *ngIf="courses == null || courses.length == 0">

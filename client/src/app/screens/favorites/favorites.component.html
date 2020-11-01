@@ -9,7 +9,7 @@
             <nz-empty *ngIf="usersService.user == null" [nzNotFoundContent]="loginEmptyView"></nz-empty>
             
             <ng-template #loginEmptyView>
-                <span><span class="cursor-pointer color-red fw-500" (click)="showFavoritesLogin()">Accede</span> para ver tus favoritos</span>
+                <span><span class="cursor-pointer color-orange fw-500" (click)="showFavoritesLogin()">Accede</span> para ver tus favoritos</span>
             </ng-template>
         </div>
 

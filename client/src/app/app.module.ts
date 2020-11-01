@@ -9,9 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from "../environments/environment.prod";
 
 // LIBRARIES
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
-import { NzNotificationModule, NzModalModule, NzButtonModule, NzSelectModule, NzPopconfirmModule, NzRateModule, NzIconModule, NzSwitchModule, NzTagModule, NzEmptyModule, NzDropDownModule, NzMessageModule, NZ_I18N, NZ_ICONS, NZ_ICON_DEFAULT_TWOTONE_COLOR, NZ_NOTIFICATION_CONFIG, es_ES } from 'ng-zorro-antd';
+import { NzNotificationModule, NzModalModule, NzButtonModule, NzSelectModule, NzPopconfirmModule, NzRateModule, NzIconModule, NzSwitchModule, NzTagModule, NzEmptyModule, NzDropDownModule, NzMessageModule, NzInputModule, NZ_I18N, NZ_ICONS, NZ_ICON_DEFAULT_TWOTONE_COLOR, NZ_NOTIFICATION_CONFIG, es_ES } from 'ng-zorro-antd';
 import { QuillModule } from 'ngx-quill';
 //import { AbTestsModule } from 'angular-ab-tests';
 import { LottieAnimationViewModule } from 'ng-lottie';
@@ -71,7 +70,7 @@ export function metaFactory(): MetaLoader
         pageTitlePositioning: PageTitlePositioning.PrependPageTitle,
         defaults:
         {
-            title: 'Compara las Mejores Academias de Inglés en Madrid | Appcademos'
+            title: 'Compara las Mejores Academias de Inglés en Madrid | yinius'
         }
     });
 }
@@ -146,7 +145,6 @@ const icons: IconDefinition[] = [ HeartTwoTone, LogoutOutline, SettingOutline ]
     FormsModule,
     HttpModule,
     SocialLoginModule,
-    NgbModule.forRoot(),
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
     MetaModule.forRoot({
@@ -166,6 +164,7 @@ const icons: IconDefinition[] = [ HeartTwoTone, LogoutOutline, SettingOutline ]
     NzEmptyModule,
     NzDropDownModule,
     NzMessageModule,
+    NzInputModule,
     QuillModule.forRoot({
         modules: {
             toolbar: [
@@ -206,7 +205,7 @@ const icons: IconDefinition[] = [ HeartTwoTone, LogoutOutline, SettingOutline ]
     BookingsService,
     { provide: NZ_I18N, useValue: es_ES },
     CategoriesService,
-    { provide: NZ_ICON_DEFAULT_TWOTONE_COLOR, useValue: '#E43450' },
+    { provide: NZ_ICON_DEFAULT_TWOTONE_COLOR, useValue: '#FF6E00' },
     { provide: NZ_ICONS, useValue: icons },
     { provide: NZ_NOTIFICATION_CONFIG, useValue: { nzTop: '80px' }}
   ],

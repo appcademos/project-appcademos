@@ -26,7 +26,7 @@ export class IberEnglishComponent implements OnInit
     setMetaData()
     {
         this.meta.setTitle('Curso Online preparación Aptis B1, B2 y C1. IberEnglish');
-        this.meta.setTag('description', 'Prepara tu examen de inglés Aptis con este curso online de la academia IberEnglish verificada por Appcademos. Niveles B1, B2 y C1. Precios, horarios...');
+        this.meta.setTag('description', 'Prepara tu examen de inglés Aptis con este curso online de la academia IberEnglish verificada por yinius. Niveles B1, B2 y C1. Precios, horarios...');
     }
     setHubspotForm()
     {

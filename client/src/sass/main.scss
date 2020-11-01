@@ -1,9 +1,5 @@
-@import 'vendors/bootstrap.scss';
-
-@import 'abstracts/variables.scss';
-
-@import 'base/reset.scss';
-@import 'base/typography.scss';
+@import 'variables.scss';
+@import 'typography.scss';
 
 
 *
@@ -14,7 +10,7 @@
 body
 {
     font: 16px 'Montserrat', 'Roboto', Tahoma, Verdana, sans-serif;
-    color: #484848;
+    color: #272244;
     line-height: 1.2;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -47,6 +43,10 @@ body
     cursor: pointer;
 }
 
+h1, h2, h3, h4, h5, h6
+{
+    color: $black;
+}
 h1
 {
     font-weight: 700;
@@ -84,16 +84,13 @@ p
     margin: 0;
 }
 
-input[type="text"]
+input[type="text"],
+input[type="email"]
 {
     -webkit-appearance: none !important;
     appearance: none !important;
-}
-
-.form-control:focus
-{
-    box-shadow: none;
-    border-color: $red-color;
+    font-weight: 400;
+    color: $black;
 }
 
 .icon
@@ -201,21 +198,21 @@ input[type="text"]
 {
     background-image: url('../assets/public/images/icons/arrow_left_white.svg');
 }
-.icon-red-dicount-tag
+.icon-orange-dicount-tag
 {
-    background-image: url('../assets/public/images/icons/red_discount_tag.svg');
+    background-image: url('../assets/public/images/icons/orange_discount_tag.svg');
 }
 .icon-red-search-compare
 {
     background-image: url('../assets/public/images/icons/red_search_compare.svg');
 }
-.icon-red-help
+.icon-orange-help
 {
-    background-image: url('../assets/public/images/icons/red_help.svg');
+    background-image: url('../assets/public/images/icons/orange_help.svg');
 }
-.icon-red-class
+.icon-orange-class
 {
-    background-image: url('../assets/public/images/icons/red_class.svg');
+    background-image: url('../assets/public/images/icons/orange_class.svg');
 }
 .icon-green-check
 {
@@ -334,10 +331,6 @@ input[type="text"]
 {
     background-image: url('../assets/public/images/icons/graduation_white.svg');
 }
-.icon-intelligence-green
-{
-    background-image: url('../assets/public/images/icons/intelligence_green.svg');
-}
 .icon-free-green
 {
     background-image: url('../assets/public/images/icons/free_green.svg');
@@ -346,9 +339,9 @@ input[type="text"]
 {
     background-image: url('../assets/public/images/icons/test_green.svg');
 }
-.icon-appcademos-a-red
+.icon-yinius
 {
-    background-image: url('../assets/public/images/icons/appcademos_A_red.png');
+    background-image: url('../assets/public/images/icons/logo_infinity.svg');
 }
 .icon-avatar-green
 {
@@ -398,17 +391,17 @@ input[type="text"]
 {
     background-image: url('../assets/public/images/icons/trash_red.svg');
 }
-.icon-red-form-bubbles
+.icon-orange-form-bubbles
 {
-    background-image: url('../assets/public/images/icons/red_form_bubbles.png');
+    background-image: url('../assets/public/images/icons/orange_form_bubbles.png');
 }
-.icon-red-phone-bubbles
+.icon-orange-phone-bubbles
 {
-    background-image: url('../assets/public/images/icons/red_phone_bubbles.png');
+    background-image: url('../assets/public/images/icons/orange_phone_bubbles.png');
 }
-.icon-red-search-people-bubbles
+.icon-orange-search-people-bubbles
 {
-    background-image: url('../assets/public/images/icons/red_search_people_bubbles.png');
+    background-image: url('../assets/public/images/icons/orange_search_people_bubbles.png');
 }
 .icon-red-arrow-curved
 {
@@ -437,7 +430,7 @@ input[type="text"]
 }
 .icon-landing-arrow-right-red
 {
-    background-image: url('../assets/public/images/icons/landings/arrow_right_red.svg');
+    background-image: url('../assets/public/images/icons/landings/arrow_right_orange.svg');
 }
 .icon-landing-computer
 {
@@ -504,9 +497,13 @@ input[type="text"]
 {
     color: white;
 }
-.color-red
+.color-orange
 {
-    color: $red-color !important;
+    color: $orange-color !important;
+}
+.color-light-orange
+{
+    color: $light-orange-color !important;
 }
 .color-green
 {
@@ -551,10 +548,10 @@ input[type="text"]
 {
     cursor: pointer;
     padding: 13px 20px;
-    border-radius: 6px;
+    border-radius: 8px;
     color: white;
-    background: $red-color-button;
-    box-shadow: 0 12px 20px -12px $red-color-button;
+    background: $orange-color-button;
+    box-shadow: 0 12px 20px -12px $orange-color-button;
     font-size: 15px;
     font-weight: 600;
     display: inline-flex;
@@ -575,7 +572,7 @@ input[type="text"]
 
     &:hover
     {
-        background: $red-color-button-hover;
+        background: $orange-color-button-hover;
     }
     &:active
     {
@@ -623,9 +620,9 @@ input[type="text"]
     }
     &.selected
     {
-        background: $red-color-button;
+        background: $orange-color-button;
         color: #fff;
-        border-color: $red-color-button;
+        border-color: $orange-color-button;
     }
 }
 .button.simple
@@ -776,20 +773,20 @@ input[type="text"]
 .card-banner
 {
     background: white;
-    border-radius: 8px;
+    border-radius: 12px;
     border: 1px solid #EAEAEA;
     box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 }
 
 .warning-box
 {
-    background: rgba(236,201,0,0.12);
-    border: 1px solid rgba(236,201,0,0.32);
-    padding: 12px 32px;
+    background: $yellow-color-10;
+    border: 1px solid $yellow-color-32;
+    padding: 24px 32px;
     line-height: 1.4;
     text-align: center;
-    border-radius: 8px;
-    color: rgba(72,72,72,0.88);
+    border-radius: 12px;
+    color: rgba(39,34,68,0.88);
 }
 
 .line-separator
@@ -828,6 +825,11 @@ input[type="text"]
         font-weight: 600;
         margin: 0;
         margin-bottom: 4px;
+        display: inline-block;
+    }
+    .form-group
+    {
+        margin-bottom: 16px;
     }
     .button
     {
@@ -839,7 +841,7 @@ input[type="text"]
 
 .text-page
 {
-    padding-top: 32px;
+    padding-top: 48px;
     padding-bottom: 80px;
 
     h1
@@ -881,7 +883,7 @@ input[type="text"]
 
     a
     {
-        color: $red-color;
+        color: $orange-color;
     }
 
     li
@@ -924,6 +926,14 @@ input[type="text"]
 
                 transition: all 0.2s ease;
             }
+            .icon:not(.icon-arrow-down)
+            {
+                opacity: 0.68;
+            }
+            .icon-yinius
+            {
+                opacity: 1 !important;
+            }
             .title
             {
                 font-size: 18px !important;
@@ -935,14 +945,10 @@ input[type="text"]
                 width: 28px;
             }
             .icon-book-green,
-            .icon-graduation-green
+            .icon-graduation-green,
+            .icon-yinius
             {
-                width: 26px;
-            }
-            .icon-intelligence-green
-            {
-                height: 24px;
-                width: 22px;
+                width: 25px;
             }
             .icon-free-green
             {
@@ -957,6 +963,8 @@ input[type="text"]
             .content-container
             {
                 padding: 0 20px 28px 82px;
+                max-width: 680px;
+                font-size: 17px;
             }
             ul, ol
             {
@@ -999,7 +1007,7 @@ input[type="text"]
             a
             {
                 text-decoration: underline;
-                color: $red-color;
+                color: $orange-color;
                 font-weight: 500;
             }
             
@@ -1045,6 +1053,10 @@ input[type="text"]
 {
     font-weight: 500 !important;
 }
+.ant-btn-lg
+{
+    border-radius: 8px;
+}
 .ant-select
 {
     color: $black;
@@ -1069,24 +1081,40 @@ input[type="text"]
 {
     margin-top: -2px;
 }
+.ant-select-dropdown-menu-item
+{
+    white-space: normal;
+}
 
+nz-rate
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.ant-rate,
+.ant-rate-star-first,
+.ant-rate-star-second
+{
+    display: flex;
+}
+.ant-rate-star-full,
+.ant-rate-star-half .ant-rate-star-first
+{
+    color: $yellow-star-color;
+}
 nz-rate.small
 {
     transform: translate(0, -1px);
     
     .ant-rate
     {
-        font-size: 12px !important;
+        font-size: 13px !important;
     }
     .ant-rate-star
     {
         margin-right: 4px !important;
     }
-}
-
-.ant-tag .anticon-close
-{
-    vertical-align: 2px;
 }
 
 
@@ -1131,7 +1159,7 @@ quill-editor .ql-editor
     }
     a
     {
-        color: $red-color;
+        color: $orange-color;
     }
     strong
     {
@@ -1144,13 +1172,13 @@ quill-editor .ql-editor li:not([class^="ql-indent-"])
 }
 .ql-snow.ql-toolbar button:hover, .ql-snow .ql-toolbar button:hover, .ql-snow.ql-toolbar button:focus, .ql-snow .ql-toolbar button:focus, .ql-snow.ql-toolbar button.ql-active, .ql-snow .ql-toolbar button.ql-active, .ql-snow.ql-toolbar .ql-picker-label:hover, .ql-snow .ql-toolbar .ql-picker-label:hover, .ql-snow.ql-toolbar .ql-picker-label.ql-active, .ql-snow .ql-toolbar .ql-picker-label.ql-active, .ql-snow.ql-toolbar .ql-picker-item:hover, .ql-snow .ql-toolbar .ql-picker-item:hover, .ql-snow.ql-toolbar .ql-picker-item.ql-selected, .ql-snow .ql-toolbar .ql-picker-item.ql-selected
 {
-    color: $red-color !important;
+    color: $orange-color !important;
 }
 .ql-snow.ql-toolbar button:hover .ql-stroke, .ql-snow .ql-toolbar button:hover .ql-stroke, .ql-snow.ql-toolbar button:focus .ql-stroke, .ql-snow .ql-toolbar button:focus .ql-stroke, .ql-snow.ql-toolbar button.ql-active .ql-stroke, .ql-snow .ql-toolbar button.ql-active .ql-stroke, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke, .ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke, .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke, .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke, .ql-snow.ql-toolbar button:hover .ql-stroke-miter, .ql-snow .ql-toolbar button:hover .ql-stroke-miter, .ql-snow.ql-toolbar button:focus .ql-stroke-miter, .ql-snow .ql-toolbar button:focus .ql-stroke-miter, .ql-snow.ql-toolbar button.ql-active .ql-stroke-miter, .ql-snow .ql-toolbar button.ql-active .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke-miter, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke-miter
 {
-    stroke: $red-color !important;
+    stroke: $orange-color !important;
 }
 .ql-snow.ql-toolbar button:hover .ql-fill, .ql-snow .ql-toolbar button:hover .ql-fill, .ql-snow.ql-toolbar button:focus .ql-fill, .ql-snow .ql-toolbar button:focus .ql-fill, .ql-snow.ql-toolbar button.ql-active .ql-fill, .ql-snow .ql-toolbar button.ql-active .ql-fill, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-fill, .ql-snow .ql-toolbar .ql-picker-label:hover .ql-fill, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-fill, .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-fill, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-fill, .ql-snow .ql-toolbar .ql-picker-item:hover .ql-fill, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-fill, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-fill, .ql-snow.ql-toolbar button:hover .ql-stroke.ql-fill, .ql-snow .ql-toolbar button:hover .ql-stroke.ql-fill, .ql-snow.ql-toolbar button:focus .ql-stroke.ql-fill, .ql-snow .ql-toolbar button:focus .ql-stroke.ql-fill, .ql-snow.ql-toolbar button.ql-active .ql-stroke.ql-fill, .ql-snow .ql-toolbar button.ql-active .ql-stroke.ql-fill, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill, .ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill, .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill, .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill, .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill, .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill, .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill
 {
-    fill: $red-color !important;
+    fill: $orange-color !important;
 }

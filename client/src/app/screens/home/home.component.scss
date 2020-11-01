@@ -1,27 +1,27 @@
-@import '../../../sass/abstracts/variables.scss';
+@import '../../../sass/variables.scss';
 
 #hero
 {
     position: relative;
-    height: 644px;
+    height: 676px;
 
     background-image:  url("../../../assets/public/images/happy.jpg"); /*url('https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cbbd27149a8243a42eb2bd0bd918ba8f&auto=format&fit=crop&w=1650&q=80'); url("../../../assets/public/images/appcademos-home.jpg");*/
-    background-position: 240px 0;
+    background-position: 280px 0;
     background-repeat: no-repeat;
     background-size: cover;
     background-color: #120E09;
     
     @media (min-width: 1450px)
     {
-        background-position: 240px -100px;
+        background-position: 300px -100px;
     }
     @media (max-width: 870px)
     {
-        background-position: 200px 0;
+        background-position: 140px 0;
     }
     @media (max-width: 689px)
     {
-        background-position: 120px 0;
+        background-position: 60px 0;
         height: auto;
     }
     @media (max-width: 600px)
@@ -30,15 +30,15 @@
     }
     @media (max-width: 480px)
     {
-        background-position: -50px 0;
+        background-position: -140px 0;
     }
     @media (max-width: 414px)
     {
-        background-position: -120px 0;
+        background-position: -180px 0;
     }
     @media (max-width: 370px)
     {
-        background-position: -140px 0;
+        background-position: -200px -40px;
     }
 }
 
@@ -64,11 +64,13 @@
     right: 0;
     bottom: 0;
     top: 0;
-    background-color: #000000;
-    opacity: 0.12;
     z-index: 2;
+    background: $black-32;
+    background-image: -moz-linear-gradient(90deg, $black 10%, rgba(39,34,68,0) 100%);
+    background-image: -webkit-linear-gradient(90deg, $black 10%, rgba(39,34,68,0) 100%);
+    background-image: linear-gradient(90deg, $black 10%, rgba(39,34,68,0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#272244",endColorstr="#272244",GradientType=1);
 }
-
 .hero-content
 {
     z-index: 4;
@@ -82,6 +84,10 @@
         max-width: 880px;
     }
     
+    @media (max-width: 480px)
+    {
+        padding-top: 92px;
+    }
     @media (max-width: 370px)
     {
         padding-top: 80px;
@@ -99,44 +105,35 @@
 
     h1
     {
-        font-size: 36px;
+        font-size: 34px;
         margin-bottom: 32px;
         color: white;
         text-align: left;
-        line-height: 1.36;
-        max-width: 580px;
+        line-height: 1.32;
+        max-width: 590px;
         
         @media (max-width: 870px)
         {
-            max-width: 516px;
-            font-size: 34px;
+            max-width: 560px;
+            font-size: 30px;
         }
         @media (max-width: 689px)
         {
             transform: none;
-            font-size: 30px;
+            font-size: 25px;
             max-width: 440px;
-        }
-        @media (max-width: 600px)
-        {
-            font-size: 28px;
-            max-width: 340px;
         }
         @media (max-width: 480px)
         {
-            font-size: 24px;
-            max-width: 260px;
-            margin-bottom: 40px;
-        }
-        @media (max-width: 414px)
-        {
-            max-width: 240px;
+            font-size: 22px;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 360px;
+            margin-bottom: 20px;
         }
         @media (max-width: 370px)
         {
-            font-size: 20px;
-            max-width: 200px;
-            margin-bottom: 32px;
+            font-size: 18px;
         }
     }
 
@@ -148,7 +145,6 @@
 .hero-card
 {
     background: #F6F5F5;
-    //background: rgba(255,255,255,0.96);
     border: 1px solid $border-color;
     border-radius: 10px;
     max-width: 420px;
@@ -274,15 +270,14 @@
 
     @media (max-width: $size-mobile)
     {
-        margin-left: auto;
-        margin-right: auto;
         max-width: 360px;
     }
     @media (max-width: 480px)
     {
-        max-width: 320px;
         padding-left: 16px;
         padding-right: 16px;
+        margin-left: auto;
+        margin-right: auto;
     }
     @media (max-width: 370px)
     {
@@ -318,6 +313,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 3;
     
     color: #fff;
     font-weight: 500;
@@ -404,13 +400,13 @@
 
 section
 {
-    padding: 48px 0;
-    margin-bottom: 32px;
+    padding: 80px 0;
+    //margin-bottom: 32px;
     
     @media (max-width: 480px)
     {
         padding: 32px 0;
-        margin-bottom: 24px;
+        //margin-bottom: 24px;
         
         h2
         {
@@ -446,6 +442,7 @@ h2
 
 section#course-types
 {
+    padding-top: 0;
     position: relative;
     
     @media (max-width: 540px)
@@ -500,7 +497,7 @@ section#course-types
                 max-height: 44px;
                 width: auto;
                 max-width: 100px;
-                margin: 16px 24px;
+                margin: 16px 40px;
             }
             
             @media (max-width: 640px)
@@ -540,10 +537,7 @@ section#course-types
     }
 }
 section#help-container
-{
-    padding-top: 20px;
-    margin-bottom: 12px;
-    
+{    
     .responsive-container
     {
         display: flex;
@@ -658,8 +652,14 @@ section#help-container
 }
 section#triptic
 {
-    margin-bottom: 12px;
-    margin-top: 20px;
+    padding: 80px 0;    
+    background-color: $black;
+    color: #fff;
+    
+    h2
+    {
+        color: #fff;
+    }
     
     .triptic-container
     {
@@ -724,16 +724,14 @@ section#triptic
                 font-size: 22px;
                 line-height: 48px;
                 font-weight: 700;
-                color: $red-color;
+                color: $orange-color;
             }
         }
     }
 }
 section#verified-academies
 {
-    background: $green-color-08;
-    margin-bottom: 0;
-    padding-top: 60px;
+    padding: 60px 0 48px;
     
     .academies
     {
@@ -745,6 +743,7 @@ section#verified-academies
         
         .academy
         {
+            background-color: $black-04;
             margin: 0 20px 24px;
             padding: 12px;
             
@@ -828,10 +827,17 @@ section#verified-academies
 section#happy-users
 {
     position: relative;
+    background-color: $black;
+    color: #fff;
+    
+    h3
+    {
+        color: #fff;
+    }
 
     .background
     {
-        background: $red-color-06;
+        background: $orange-color-06;
         position: absolute;
         top: 0;
         left: 0;
@@ -886,7 +892,7 @@ section#happy-users
             background-size: cover;
             background-image: url('../../../assets/public/images/ig_profile.jpg');
             margin-right: 10px;
-            border: 1px solid rgba(0,0,0,.0975);
+            //border: 1px solid rgba(0,0,0,.0975);
             overflow: hidden;
             
             .profile-overlay
@@ -977,7 +983,7 @@ section#happy-users
                 height: 100%;
                 backface-visibility: hidden;
                 
-                border-radius: 4px;
+                border-radius: 12px;
                 box-shadow: 0 0 1px 0 rgba(0,0,0,0.5), 0 1px 10px 0 rgba(0,0,0,0.15);
                 overflow: hidden;
             }
@@ -1021,6 +1027,7 @@ section#happy-users
                         padding: 10px 12px;
                         font-weight: 500;
                         font-size: 15px;
+                        color: $black;
                         
                         @media (max-width: 885px)
                         {
@@ -1157,6 +1164,8 @@ section#cities
 }
 section#partners
 {
+    padding-top: 0;
+    
     h3
     {
         margin-bottom: 48px !important;

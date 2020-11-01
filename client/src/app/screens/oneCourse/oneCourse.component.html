@@ -40,13 +40,13 @@
                     *ngIf="courseObj.course.academy.isVerified && courseObj.course.academy.reviews.length > 0"
                     (click)="utils.scrollToElement('#reviews', undefined, 40)"
                 >
-                    <ngb-rating [(rate)]="reviewsAverage" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
+                    <nz-rate [(ngModel)]="reviewsAverage" nzDisabled nzAllowHalf></nz-rate>
                     <p>{{ courseObj.course.academy.reviews.length }}</p>
                 </div>
             </div>
             <div class="right">
                 <div class="old-price fw-500" *ngIf="courseObj.course.oldPrice">{{ courseObj.course.oldPrice }}€</div>
-                <div class="price color-red fw-600">{{ courseObj.course.price }}€</div>
+                <div class="price color-orange fw-600">{{ courseObj.course.price }}€</div>
             </div>
         </div>
     </div>
@@ -135,7 +135,7 @@
                         <div class="title">Precio</div>
                         <div class="text">
                             <span class="old-price fs-20 fw-500" *ngIf="courseObj.course.oldPrice">{{ courseObj.course.oldPrice }}€</span>
-                            <span class="price fs-24 fw-600 color-red">{{ courseObj.course.price }}€</span>
+                            <span class="price fs-24 fw-600 color-orange">{{ courseObj.course.price }}€</span>
                         </div>
                     </div>
                     
@@ -238,8 +238,8 @@
             <div class="expandible-item" id="expandible-item-9">
                 <div class="top noselect" (click)="expandItem('expandible-item-9')">
                     <i class="icon size-14 icon-arrow-down"></i>
-                    <i class="icon size-22 icon-appcademos-a-red"></i>
-                    <h2 class="title">Beneficios de reservar con <span class="color-red">Appcademos</span></h2>
+                    <i class="icon size-22 icon-yinius"></i>
+                    <h2 class="title">Beneficios de reservar con <span class="color-orange">yinius</span></h2>
                 </div>
                 <div class="content">
                     <div class="content-container">
@@ -260,13 +260,13 @@
                 </div>
                 <div class="content">
                     <div class="content-container">
-                        <p><span class="fw-600">En Appcademos queremos que estés 100% segur@ de que este curso es el ideal para ti.</span> Por ello, tienes una clase de prueba gratis.</p>
+                        <p><span class="fw-600">En yinius queremos que estés 100% segur@ de que este curso es el ideal para ti.</span> Por ello, tienes una clase de prueba gratis.</p>
                         <br>
                         <div class="fw-700">¿Cómo conseguirla?</div>
                         <br>
                         <ol *ngIf="courseObj.course.academy.isVerified">
                           <li><span class="fw-600">Reservas tu plaza en nuestra web..</span></li>
-                          <li><span class="fw-600">Enseñas el correo de confirmación de tu plaza</span> de Appcademos que te llegará tras realizar la reserva.</li>
+                          <li><span class="fw-600">Enseñas el correo de confirmación de tu plaza</span> de yinius que te llegará tras realizar la reserva.</li>
                           <li><span class="fw-600">Vas el día y hora que elegiste</span> que te aparece en el correo.</li>
                           <div>* Si tras probar no te ha gustado, no pasa nada, puedes irte tranquilamente. Te ayudaremos a encontrar tu curso ideal en otro centro.</div>
                         </ol>
@@ -327,7 +327,7 @@
             <h2>Opiniones verificadas de alumnos</h2>
             <div class="fs-14 fw-500 color-black-60">Solo pueden comentar los estudiantes que se hayan apuntado a esta academia.</div>
             <div class="rating">
-                <ngb-rating [(rate)]="reviewsAverage" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
+                <nz-rate [(ngModel)]="reviewsAverage" nzDisabled nzAllowHalf></nz-rate>
                 <p> ·&nbsp;&nbsp;&nbsp;{{ courseObj.course.academy.reviews.length }} Opiniones</p>
             </div>
             
@@ -336,27 +336,27 @@
                 <form>
                     <div class="filter" (click)="onClickReviewFilter(5, $event)">
                         <app-radio name="reviewsfilter" [checked]="reviewsFilterGrade === 5"></app-radio>
-                        <ngb-rating rate="5" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
+                        <nz-rate [ngModel]="5" nzDisabled [ngModelOptions]="{standalone: true}"></nz-rate>
                         <div class="totalReviews">{{ getTotalReviews(5) }}</div>
                     </div>
                     <div class="filter" (click)="onClickReviewFilter(4, $event)">
                         <app-radio name="reviewsfilter" [checked]="reviewsFilterGrade === 4"></app-radio>
-                        <ngb-rating rate="4" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
+                        <nz-rate [ngModel]="4" nzDisabled [ngModelOptions]="{standalone: true}"></nz-rate>
                         <div class="totalReviews">{{ getTotalReviews(4) }}</div>
                     </div>
                     <div class="filter" (click)="onClickReviewFilter(3, $event)">
                         <app-radio name="reviewsfilter" [checked]="reviewsFilterGrade === 3"></app-radio>
-                        <ngb-rating rate="3" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
+                        <nz-rate [ngModel]="3" nzDisabled [ngModelOptions]="{standalone: true}"></nz-rate>
                         <div class="totalReviews">{{ getTotalReviews(3) }}</div>
                     </div>
                     <div class="filter" (click)="onClickReviewFilter(2, $event)">
                         <app-radio name="reviewsfilter" [checked]="reviewsFilterGrade === 2"></app-radio>
-                        <ngb-rating rate="2" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
+                        <nz-rate [ngModel]="2" nzDisabled [ngModelOptions]="{standalone: true}"></nz-rate>
                         <div class="totalReviews">{{ getTotalReviews(2) }}</div>
                     </div>
                     <div class="filter" (click)="onClickReviewFilter(1, $event)">
                         <app-radio name="reviewsfilter" [checked]="reviewsFilterGrade === 1"></app-radio>
-                        <ngb-rating rate="1" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
+                        <nz-rate [ngModel]="1" nzDisabled [ngModelOptions]="{standalone: true}"></nz-rate>
                         <div class="totalReviews">{{ getTotalReviews(1) }}</div>
                     </div>
                 </form>
@@ -375,7 +375,7 @@
                                 <div class="top">
                                     <div class="author-container">
                                         <div class="author">{{ (review.author != null) ? ((review.author.lastName) ? (review.author.name + ' ' + review.author.lastName) : (review.author.name || "Anónimo")) : ((review.guestName != null) ? review.guestName : "Anónimo") }}</div>
-                                        <ngb-rating class="rating" [(rate)]="review.grade" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
+                                        <nz-rate class="small rating" [(ngModel)]="review.grade" nzDisabled nzAllowHalf></nz-rate>
                                     </div>
                                     <div class="date">{{ getReviewDate(review.created_at) }}</div>
                                 </div>
@@ -407,7 +407,7 @@
                 <div class="title fs-18 fw-600">Opina sobre la academia</div>
                 <div class="rating">
                     <div class="title fs-15 fw-500 color-black-80">Tu puntuación:</div>
-                    <ngb-rating [(rate)]="commentGrade" [starTemplate]="starTemplate" [readonly]="false" max="5"></ngb-rating>
+                    <nz-rate [(ngModel)]="commentGrade"></nz-rate>
                 </div>
                 <textarea
                     name="comment"

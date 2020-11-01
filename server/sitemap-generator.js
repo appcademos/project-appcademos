@@ -14,11 +14,11 @@ async function generateSitemap()
         if (course.category != null && course.category.name.length > 0 &&
             course.academy != null && course.academy.name.length > 0)
         {
-            let uri = `https://www.appcademos.com/cursos-ingles/${getCourseCategoryForUrl(course.category.name.toLowerCase())}/academia-${course.academy.name.replace(/ /g, '-').toLowerCase()}-madrid/${course.id}`
+            let uri = `https://www.yinius.es/cursos-ingles/${getCourseCategoryForUrl(course.category.name.toLowerCase())}/academia-${course.academy.name.replace(/ /g, '-').toLowerCase()}-madrid/${course.id}`
             content += `<url><loc>${uri.replace(/&/g,'%26')}</loc><changefreq>daily</changefreq></url>`;
         }
         else
-            content += `<url><loc>https://www.appcademos.com/cursos-ingles/curso/${course.id}</loc><changefreq>daily</changefreq></url>`;
+            content += `<url><loc>https://www.yinius.es/cursos-ingles/curso/${course.id}</loc><changefreq>daily</changefreq></url>`;
     });
     
     content += `\n</urlset>`;
@@ -35,58 +35,58 @@ function getStaticContent()
     return `<?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-    <loc>https://www.appcademos.com/</loc>
+    <loc>https://www.yinius.es/</loc>
     <changefreq>weekly</changefreq>
 </url>
 <url>
-    <loc>https://www.appcademos.com/blog/</loc>
+    <loc>https://www.yinius.es/blog/</loc>
     <changefreq>weekly</changefreq>
 </url>
 <url>
-    <loc>https://www.appcademos.com/cookie-policy/</loc>
+    <loc>https://www.yinius.es/cookie-policy/</loc>
 </url>
 <url>
-    <loc>https://www.appcademos.com/estudio-personalizado/</loc>
+    <loc>https://www.yinius.es/estudio-personalizado/</loc>
 </url>
 
 <url>
-    <loc>https://www.appcademos.com/cursos-ingles/first-certificate</loc>
+    <loc>https://www.yinius.es/cursos-ingles/first-certificate</loc>
     <changefreq>weekly</changefreq>
 </url>
 <url>
-    <loc>https://www.appcademos.com/cursos-ingles/advanced</loc>
+    <loc>https://www.yinius.es/cursos-ingles/advanced</loc>
     <changefreq>weekly</changefreq>
 </url>
 <url>
-    <loc>https://www.appcademos.com/cursos-ingles/toefl</loc>
+    <loc>https://www.yinius.es/cursos-ingles/toefl</loc>
     <changefreq>weekly</changefreq>
 </url>
 <url>
-    <loc>https://www.appcademos.com/cursos-ingles/ielts</loc>
+    <loc>https://www.yinius.es/cursos-ingles/ielts</loc>
     <changefreq>weekly</changefreq>
 </url>
 <url>
-    <loc>https://www.appcademos.com/cursos-ingles/toeic</loc>
+    <loc>https://www.yinius.es/cursos-ingles/toeic</loc>
     <changefreq>weekly</changefreq>
 </url>
 <url>
-    <loc>https://www.appcademos.com/cursos-ingles/proficiency</loc>
+    <loc>https://www.yinius.es/cursos-ingles/proficiency</loc>
     <changefreq>weekly</changefreq>
 </url>
 <url>
-    <loc>https://www.appcademos.com/cursos-ingles/nivel-b1</loc>
+    <loc>https://www.yinius.es/cursos-ingles/nivel-b1</loc>
     <changefreq>weekly</changefreq>
 </url>
 <url>
-    <loc>https://www.appcademos.com/cursos-ingles/nivel-b2</loc>
+    <loc>https://www.yinius.es/cursos-ingles/nivel-b2</loc>
     <changefreq>weekly</changefreq>
 </url>
 <url>
-    <loc>https://www.appcademos.com/cursos-ingles/nivel-c1</loc>
+    <loc>https://www.yinius.es/cursos-ingles/nivel-c1</loc>
     <changefreq>weekly</changefreq>
 </url>
 <url>
-    <loc>https://www.appcademos.com/cursos-ingles/niños</loc>
+    <loc>https://www.yinius.es/cursos-ingles/niños</loc>
     <changefreq>weekly</changefreq>
 </url>`;
 }

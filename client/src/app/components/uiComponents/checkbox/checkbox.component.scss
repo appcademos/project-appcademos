@@ -1,4 +1,4 @@
-@import '../../../../sass/abstracts/variables.scss';
+@import '../../../../sass/variables.scss';
 
 /* Customize the label (the container) */
 .checkboxContainer {
@@ -18,8 +18,8 @@
     {
         input:checked ~ .checkmark
         {
-          background-color: $red-color;
-          border-color: $red-color;
+          background-color: $orange-color;
+          border-color: $orange-color;
         }
     }
 }
@@ -42,7 +42,7 @@
   width: 22px;
   background-color: transparent;
   border-radius: 3px;
-  border: 1px solid rgba(0,0,0,0.12);
+  border: 1px solid $black-20;
 }
 
 /* On mouse-over, add a white background color */
@@ -53,7 +53,6 @@
 /* When the checkbox is checked, add a $green-color background */
 .checkboxContainer input:checked ~ .checkmark {
   background-color: $green-color;
-  border-color: #339997;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */

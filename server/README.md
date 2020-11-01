@@ -1,4 +1,4 @@
-APPCADEMOS Server
+YINIUS Server
 ------
 
 **To start the server [PROD]:**

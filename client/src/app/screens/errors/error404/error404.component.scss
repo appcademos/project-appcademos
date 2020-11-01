@@ -1,4 +1,4 @@
-@import '../../../../sass/abstracts/variables.scss';
+@import '../../../../sass/variables.scss';
 
 #error
 {
@@ -48,8 +48,8 @@
                 
                 &:hover
                 {
-                    background: $red-color-button;
-                    border-color: $red-color-button-hover;
+                    background: $orange-color-button;
+                    border-color: $orange-color-button-hover;
                     color: #fff;
                     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
                 }
@@ -81,8 +81,8 @@
             
             &:hover
             {
-                background: $red-color-button;
-                border-color: $red-color-button-hover;
+                background: $orange-color-button;
+                border-color: $orange-color-button-hover;
                 color: #fff;
                 box-shadow: 0 2px 8px rgba(0,0,0,0.2);
             }

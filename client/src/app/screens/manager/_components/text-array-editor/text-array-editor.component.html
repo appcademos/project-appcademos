@@ -5,7 +5,7 @@
     </div>
     <div class="body">
         <div class="inputContainer" *ngFor="let arrayItem of array; let i = index; trackBy:trackByIndex;">
-            <input class="form-control" [(ngModel)]="array[i]">
+            <input nz-input nzSize="large" [(ngModel)]="array[i]">
             <i class="delete" (click)="removeArrayItem(i)">-</i>
         </div>
         <div class="inputContainer newItemContainer" (click)="addInput()">

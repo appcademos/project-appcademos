@@ -25,7 +25,7 @@
             <div class="course-title fw-600">{{ course.title }}</div>
 
             <div class="course-rating" *ngIf="course.academy.isVerified && course.academy.reviews.length > 0">
-                <ngb-rating [(rate)]="average" [starTemplate]="starTemplate" [readonly]="true" max="5"></ngb-rating>
+                <nz-rate class="small" [(ngModel)]="average" nzDisabled nzAllowHalf></nz-rate>
                 <p>
                     <span class="average">{{ average | number:'1.0-1' }}</span> ({{ course.academy.reviews.length }})
                 </p>
@@ -33,11 +33,11 @@
 
             <div class="course-texts">
                 <div class="course-icon-text">
-                    <i class="icon size-15 icon-calendar"></i>
+                    <i class="icon size-14 icon-calendar"></i>
                     <p>{{ course.startDate | date: "dd-MM-yyyy" }}&nbsp;&nbsp;|&nbsp;&nbsp;{{ 'Nº de clases semanales: ' + course.weekclasses }}</p>
                 </div>
                 <div class="course-icon-text address">
-                    <i class="icon size-15 icon-location"></i>
+                    <i class="icon size-14 icon-location"></i>
                     <p *ngIf="course.modality !== 'online'">{{ course.academy.address }}</p>
                     <p *ngIf="course.modality === 'online'">
                         Este curso se imparte <span class="fw-600">ONLINE</span>
@@ -49,7 +49,7 @@
                 <nz-tag class="neighborhood" *ngFor="let neighborhood of course.academy.neighborhoods">{{ neighborhood }}</nz-tag>
             </div>
             
-            <div class="course-price fw-600 color-red">
+            <div class="course-price fw-600 color-orange">
                 <div class="oldprice" *ngIf="course.oldPrice">{{ course.oldPrice }}€</div>
                 <div class="price">{{ course.price }}€</div>
             </div>
@@ -58,10 +58,3 @@
          </div>
      </a>
 </div>
-
-<ng-template #starTemplate let-fill="fill">
-    <span class="star" [class.full]="fill === 100">
-        <span class="half" [style.width.%]="fill">★</span>
-        ★
-    </span>
-</ng-template>

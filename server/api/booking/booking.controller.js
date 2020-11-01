@@ -55,7 +55,7 @@ const create = (req, res, next) =>
                             // Send user email
                             var userEmailOptions =
                             {
-                                from: '"Appcademos" <hello@appcademos.com>', // sender address
+                                from: '"yinius" <hello@yinius.es>', // sender address
                                 to: [newBooking.email],
                                 subject: 'Reserva confirmada ✔', // Subject line
                                 html: data,
@@ -122,8 +122,8 @@ const create = (req, res, next) =>
                                         // Send team email
                                         var teamEmailOptions =
                                         {
-                                            from: '"Appcademos" <hello@appcademos.com>',
-                                            to: ['hello@appcademos.com'],
+                                            from: '"yinius" <hello@yinius.es>',
+                                            to: ['hello@yinius.es'],
                                             subject: '¡CLINC, CLINC, CLINC! 😎',
                                             html: dataTeam
                                         }

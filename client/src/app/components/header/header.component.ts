@@ -153,6 +153,16 @@ export class HeaderComponent implements OnInit, OnDestroy
         return '';
     }
 
+    getTopBannerHeight()
+    {
+        let topBanner = document.querySelectorAll('#top-banner');
+        
+        if (topBanner != null && topBanner.length > 0)
+            return topBanner[0].clientHeight + 'px';
+            
+        return '';
+    }
+
     logout()
     {
         this.userService.logout().subscribe();
