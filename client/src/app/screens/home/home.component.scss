@@ -887,10 +887,11 @@ section#happy-users
             width: 48px;
             height: 48px;
             border-radius: 50%;
+            background-color: #fff;
             background-repeat: no-repeat;
             background-position: center;
-            background-size: cover;
-            background-image: url('../../../assets/public/images/ig_profile.jpg');
+            background-size: 32px;
+            background-image: url('../../../assets/public/images/icons/logo_infinity.svg');
             margin-right: 10px;
             //border: 1px solid rgba(0,0,0,.0975);
             overflow: hidden;
