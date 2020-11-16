@@ -5,7 +5,6 @@ const logger = require("morgan");
 const express = require("express");
 const mongoose = require("mongoose");
 const flash = require("connect-flash");
-const favicon = require("serve-favicon");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
@@ -15,11 +14,11 @@ const hashSecret = process.env.HASHCODE;
 const dbURL = process.env.DBURL;
 const cors = require("cors");
 var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
-const Review = require("./api/review/review.model");
-const User = require("./api/user/user.model");
 var moment = require('moment');
 var generateSitemap = require('./sitemap-generator.js');
 const compression = require('compression');
+var cron = require('node-cron');
+const Course = require("./api/course/course.model");
 
 mongoose.Promise = Promise;
 mongoose
@@ -96,5 +95,19 @@ require("./routes/routes")(app);
 app.use(function (req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
+
+
+// Crons
+cron.schedule('0 0 * * FRI', async () =>
+{
+    // Every friday at 00:00 -> update all courses dates
+    console.log('\nUpdating all courses dates...');
+    
+    let newDate = moment().add(10,'days').hour(8).minute(0).second(0).toISOString()
+    console.log(`New date: ${newDate}`)
+    let res = await Course.updateMany({}, {"$set":{"startDate": newDate}})
+    console.log(res)
+});
+
 
 module.exports = app;
