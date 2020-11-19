@@ -2,24 +2,56 @@
 This footer template is shared across all the pages.
 --}}
 
-<footer class="m-footer">
-  <div class="m-footer__content">
-    <p class="m-footer-copyright">
-      <span>{{@site.title}} &copy; {{date format="YYYY"}}</span>
-      <!--<span>&nbsp; &bull; &nbsp;</span>-->
-    </p>
-
-    <nav class="m-footer-social">
-      {{#if @site.facebook}}
-        <a href="{{facebook_url @site.facebook}}" target="_blank" rel="noopener" aria-label="Facebook">
-          <span class="icon-facebook"></span>
-        </a>
-      {{/if}}
-      {{#if @site.twitter}}
-        <a href="{{twitter_url @site.twitter}}" target="_blank" rel="noopener" aria-label="Twitter">
-          <span class="icon-twitter"></span>
-        </a>
-      {{/if}}
-    </nav>
-  </div>
+<footer id="footer-yinius">
+    <div class="responsive-container">
+        <div class="top">
+            <h3>¿Necesitas ayuda?</h3>
+            <div class="contact-cards">
+                <a href="https://wa.me/34677827178" target="_blank" class="card-banner">
+                    <i class="icon yinius-icon-whatsapp-green"></i>
+                    <div class="text-content">
+                        <div class="title fw-700 fs-14 color-black-50">ESCRÍBENOS UN <span class="color-whatsapp">WHATSAPP</span> AL:</div>
+                        <div class="text fs-24 fw-500">677 827 178</div>
+                    </div>
+                </a>
+                <a href="mailto:hello@yinius.es" class="card-banner">
+                    <i class="icon yinius-icon-email"></i>
+                    <div class="text-content">
+                        <div class="title fw-700 fs-14 color-black-50">ESCRÍBENOS UN EMAIL A:</div>
+                        <div class="text fs-24 fw-500">hello@yinius.es</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="left">
+                <p class="fw-500">Toda la información ha sido verificada y proporcionada por los centros que imparten los cursos.</p>
+                <div class="policies"><a href="https://www.yinius.es/cookie-policy">Política de cookies</a><span class="separator">·</span><a href="https://www.yinius.es/privacy-policy">Política de privacidad</a><span class="separator">·</span><a href="https://www.yinius.es/blog/tag/trucos-y-consejos-para-aprender-ingles/" target="_blank">Blog: Mejora tu inglés desde casa</a>
+                </div>
+                <div>
+                    <p class="address">Google Campus: Calle Moreno Nieto, 2, 28005 Madrid</p><p><span class="fw-500 color-black-80">Diseñado con <span class="icon yinius-icon-heart-filled size-16"></span> en Madrid</span> - yinius © 2020</p>
+                </div>
+            </div>
+            <div class="right">
+                <div class="contact-container">
+                    <div class="contact">
+                        <div class="title fs-13 fw-600">Whatsapp</div>
+                        <div class="text">
+                            <a href="https://wa.me/34677827178" target="_blank">677 827 178</a>
+                        </div>
+                    </div>
+                    <div class="contact">
+                        <div class="title fs-13 fw-600">Email</div>
+                        <div class="text"><a href="mailto:hello@yinius.es">hello@yinius.es</a></div>
+                    </div>
+                </div>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/be.yinius" target="_blank"><i class="icon size-20 yinius-icon-facebook"></i></a>
+                    <a href="https://www.instagram.com/be.yinius/" target="_blank"><i class="icon size-20 yinius-icon-instagram"></i></a>
+                    <a href="https://twitter.com/be_yinius" target="_blank"><i class="icon size-20 yinius-icon-twitter"></i></a>
+                    <a href="https://www.linkedin.com/company/yinius" target="_blank"><i class="icon size-20 yinius-icon-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
 </footer>
