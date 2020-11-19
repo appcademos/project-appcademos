@@ -98,12 +98,12 @@ app.use(function (req, res) {
 
 
 // Crons
-cron.schedule('0 0 * * FRI', async () =>
+cron.schedule('55 23 * * SUN', async () =>
 {
-    // Every friday at 00:00 -> update all courses dates
+    // Every sunday at 23:55 -> update all courses dates
     console.log('\nUpdating all courses dates...');
     
-    let newDate = moment().add(10,'days').hour(8).minute(0).second(0).toISOString()
+    let newDate = moment().add(8,'days').hour(8).minute(0).second(0).toISOString()
     console.log(`New date: ${newDate}`)
     let res = await Course.updateMany({}, {"$set":{"startDate": newDate}})
     console.log(res)
