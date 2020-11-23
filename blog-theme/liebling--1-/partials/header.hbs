@@ -1,16 +1,117 @@
 {{!--
 This header template is shared across all the pages.
 --}}
+<header id="yinius-header">
+    <div class="responsive-container-header">
+        <nav id="navbarTop">
+            {{#if isPostPage}}
+                <a class="logo" onclick="window.history.back()">
+                    <img src="https://www.yinius.es/assets/public/images/logo_white.svg" alt="Logo de yinius, el comparador de cursos y academias de inglés en Madrid." height="52" />
+                </a>
+            {{else}}
+                <a class="logo" href="/blog" onclick="window.history.back()">
+                    <img src="https://www.yinius.es/assets/public/images/logo_white.svg" alt="Logo de yinius, el comparador de cursos y academias de inglés en Madrid." height="52" />
+                </a>
+            {{/if}}
 
+            <div class="logo-mobile">
+                <img src="https://www.yinius.es/assets/public/images/logo_white.svg" alt="Logo de yinius, el comparador de cursos y academias de inglés en Madrid." height="40" />
+
+                <div class="mobile-nav-button isHome noselect" onclick="onClickToggleMobileMenu()">
+                    <i class="icon size-12 yinius-icon-arrow-down-white"></i>
+                    <div class="title">MENU</div>
+                </div>
+            </div>
+            <nav id="mobile-nav">
+                <div>
+                    {{#if isPostPage}}
+                        <a onclick="window.history.back()">Atrás</a>
+                    {{else}}
+                        <a href="/blog">Inicio</a>
+                    {{/if}}
+                </div>
+                <div class="separator"></div>
+                <div class="nav-course-items">
+                    <div class="title">Certificados</div>
+                    <a class="nav-course-item" href="https://www.yinius.es/cursos-ingles/first-certificate">First Certificate</a>
+                    <a class="nav-course-item" href="https://www.yinius.es/cursos-ingles/advanced">Advanced</a>
+                    
+                    <div class="title">Mejorar tu inglés</div>
+                    <a class="nav-course-item" href="https://www.yinius.es/cursos-ingles/nivel-b1">Inglés General B1</a>
+                    <a class="nav-course-item" href="https://www.yinius.es/cursos-ingles/nivel-b2">Inglés General B2</a>
+                    <a class="nav-course-item" href="https://www.yinius.es/cursos-ingles/nivel-c1">Inglés General C1</a>
+                </div>
+                <div class="separator"></div>
+                <div>
+                    <a class="yinius-icon-text" href="https://www.yinius.es/" target="_blank">
+                        <i class="icon size-20 yinius-icon-graduation"></i>
+                        <p>Web: Encuentra tu curso de inglés ideal</p>
+                    </a>
+                    <a id="llamar-experto" class="yinius-icon-text phone" href="tel:+34689438538">
+                        <i class="icon size-16 yinius-icon-whatsapp"></i>
+                        <div>
+                            <p class="title fw-600">Habla con un experto</p>
+                            <p class="number">+34 689 438 538</p>
+                        </div>
+                    </a>
+                </div>
+            </nav>
+
+            <div class="right">
+                <a class="yinius-icon-text" href="https://www.yinius.es/" target="_blank">
+                    <i class="icon size-20 yinius-icon-graduation-white"></i>
+                    <p>Web: Encuentra tu curso de inglés ideal</p>
+                </a>
+                <div id="llamar-experto" class="yinius-icon-text">
+                    <i class="icon size-16 yinius-icon-whatsapp-white"></i>
+                    <p>
+                        <span class="fs-10">Habla con un experto</span><br/>
+                        +34 689 438 538
+                    </p>
+                </div>
+            </div>
+        </nav>
+
+        <nav id="navbarBottom">
+            <a class="nav-link" href="https://www.yinius.es/cursos-ingles/first-certificate">First Certificate</a>
+            <a class="nav-link" href="https://www.yinius.es/cursos-ingles/advanced">Advanced</a>
+            <a class="nav-link" href="https://www.yinius.es/cursos-ingles/nivel-b1">Inglés General B1</a>
+            <a class="nav-link" href="https://www.yinius.es/cursos-ingles/nivel-b2">Inglés General B2</a>
+            <a class="nav-link" href="https://www.yinius.es/cursos-ingles/nivel-c1">Inglés General C1</a>
+        </nav>
+    </div>
+
+    <script>
+        function onClickToggleMobileMenu()
+        {
+            if (!document.querySelector('#yinius-header').classList.contains('mobileOpened'))
+            {
+                document.querySelector('#yinius-header').classList.add('mobileOpened');
+                document.querySelector('#yinius-header #navbarTop .logo-mobile .mobile-nav-button .icon').classList.add('yinius-icon-arrow-down-red');
+                document.querySelector('#yinius-header #navbarTop .logo-mobile .mobile-nav-button').classList.remove('isHome');
+                document.querySelector('#navbarTop .logo-mobile > img').src = "https://www.yinius.es/assets/public/images/logo.svg";
+            }
+            else
+            {
+                document.querySelector('#yinius-header').classList.remove('mobileOpened');
+                document.querySelector('#yinius-header #navbarTop .logo-mobile .mobile-nav-button .icon').classList.remove('yinius-icon-arrow-down-red');
+                document.querySelector('#yinius-header #navbarTop .logo-mobile .mobile-nav-button').classList.add('isHome');
+                document.querySelector('#navbarTop .logo-mobile > img').src = "https://www.yinius.es/assets/public/images/logo_white.svg";
+            }
+        }
+    </script>
+</header>
+
+<!--
 {{#if background}}
   <header class="m-header with-picture js-header">
 {{else}}
   <header class="m-header js-header">
 {{/if}}
   <div class="m-mobile-topbar" data-aos="fade-down">
-    <!--<button class="m-icon-button in-mobile-topbar js-open-menu" aria-label="Open menu">
+    <button class="m-icon-button in-mobile-topbar js-open-menu" aria-label="Open menu">
       <span class="icon-menu"></span>
-  </button>-->
+  </button>
      
       {{#if backToStartButton}}
         {{#if isPostPage}}
@@ -75,7 +176,7 @@ This header template is shared across all the pages.
                   </a>
                 </li>
               {{/if}}
-              <!--{{#if @site.navigation}}
+              {{#if @site.navigation}}
                 {{navigation}}
               {{/if}}
               <li role="menuitem" class="js-submenu-option">
@@ -124,7 +225,7 @@ This header template is shared across all the pages.
                     </section>
                   </div>
                 </div>
-            </li>-->
+            </li>
             </ul>
         </nav>
           <div class="m-nav__right">
@@ -134,10 +235,10 @@ This header template is shared across all the pages.
             <div class="m-toggle-darkmode js-tooltip" data-tippy-content="{{t "Toggle dark mode"}}">
               <input type="checkbox" class="js-toggle-darkmode">
               <div></div>
-            </div>
+          </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</header>
+</header>-->

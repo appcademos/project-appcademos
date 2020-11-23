@@ -12,6 +12,7 @@
 
     {{!-- Styles'n'Scripts --}}
     <link rel="stylesheet" type="text/css" href="{{asset "css/app.css"}}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="{{asset "css/yinius_header_footer.min.css"}}" media="screen" />
 
     {{!-- This #block helper will pull data from the hero partial 
     to inject styles of the hero image to make it responsive --}}
@@ -25,6 +26,25 @@
       // @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&dn=expat.txt Expat
       const ghostHost = "{{@site.url}}"
       // @license-end
+    </script>
+    
+    <script>
+        // Force light theme
+        (function() {
+            setTimeout(function() {
+                window.document.querySelector('html').setAttribute('data-theme', 'light');
+            }, 50);
+            setTimeout(function() {
+                window.document.querySelector('html').setAttribute('data-theme', 'light');
+            }, 100);
+            setTimeout(function() {
+                window.document.querySelector('html').setAttribute('data-theme', 'light');
+            }, 300);
+        })();
+        function r(f){/in/.test(document.readyState)?setTimeout('r('+f+')',9):f()}
+        r(function(){
+            window.document.querySelector('html').setAttribute('data-theme', 'light');
+        });
     </script>
 
     {{!-- This script loads the Google font asynchronously --}}

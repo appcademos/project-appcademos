@@ -23,7 +23,6 @@ const academySchema = new Schema(
         },
         required: false
     },
-    district: String,
     city: String,
     averageRating: {
         type: Number,

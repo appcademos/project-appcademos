@@ -7,3 +7,5 @@ npm-debug.log
 /public/env.js
 
 /public/sitemap.xml
+
+package-lock.json
