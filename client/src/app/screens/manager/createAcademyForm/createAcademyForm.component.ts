@@ -24,7 +24,6 @@ export class CreateAcademyFormComponent implements OnInit
     address: string;
     latitude: string;
     longitude: string;
-    district: string;
     city: string;
     isVerified: boolean = false;
     whyChooseMe: string;
@@ -54,7 +53,6 @@ export class CreateAcademyFormComponent implements OnInit
                 this.longitude = '' + this.academy.location.coordinates[1];
             }
 
-            this.district = this.academy.district;
             this.city = this.academy.city;
             this.isVerified = this.academy.isVerified;
             this.whyChooseMe = this.academy.whyChooseMe;
@@ -105,7 +103,6 @@ export class CreateAcademyFormComponent implements OnInit
                 name: this.name.trim(),
                 address: (this.address != null && this.address.length > 0) ?
                             this.address.trim() : null,
-                district: (this.district != null && this.district.length > 0) ? this.district.trim() : null,
                 city: (this.city != null && this.city.length > 0) ? this.city.trim() : null,
                 isVerified: this.isVerified,
                 location: (this.latitude != null && this.latitude.trim().length > 0 &&
@@ -155,7 +152,6 @@ export class CreateAcademyFormComponent implements OnInit
                 name: this.name.trim(),
                 address: (this.address != null && this.address.length > 0) ?
                             this.address.trim() : null,
-                district: (this.district != null && this.district.length > 0) ? this.district.trim() : null,
                 city: (this.city != null && this.city.length > 0) ? this.city.trim() : null,
                 isVerified: this.isVerified,
                 location: (this.latitude != null && this.latitude.trim().length > 0 &&

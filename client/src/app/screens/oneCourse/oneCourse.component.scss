@@ -365,9 +365,9 @@ h2
 
     .col-section
     {
-        margin-right: 40px;
-        margin-top: 4px;
-        margin-bottom: 4px;
+        padding-right: 40px;
+        padding-top: 4px;
+        padding-bottom: 4px;
 
         &:first-child
         {
@@ -375,19 +375,11 @@ h2
         }
         &:last-child
         {
-            margin-right: 0;
-        }
-        
-        @media (max-width: 1112px)
-        {
-            margin-right: 24px;
+            padding-right: 0;
         }
     }
     .col-section.address
     {
-        max-width: 160px;
-        margin-right: 0;
-
         .text
         {
             margin-bottom: 5px;
@@ -1073,16 +1065,6 @@ h2
         {
             display: none;
         }
-        .col-section.important,
-        .col-section.important + .separator,
-        .col-section.price
-        {
-            margin-top: 28px;
-        }
-        .col-section.important
-        {
-            max-width: 320px;
-        }
     }
 }
 @media (max-width: $size-mobile)
@@ -1093,36 +1075,25 @@ h2
         {
             display: none;
         }
-        .col-section,
+        .col-section
+        {
+            width: 50%;
+            padding-top: 0;
+            padding-bottom: 0;
+            
+            &:last-child
+            {
+                padding-right: 40px;
+            }
+        }
         .col-section.address
         {
-            margin-right: 28px;
+            max-width: none;
         }
-        .col-section.address
+        .group
         {
-            max-width: 200px;
-        }
-        .col-section.price
-        {
-            & > .button,
-            & > .booked
-            {
-                display: none;
-            }
-            .bookingInfo
-            {
-                display: none;
-            }
-            .fixed-button
-            {
-                display: block;
-            }
-        }
-        .col-section.important,
-        .col-section.important + .separator,
-        .col-section.price
-        {
-            margin-top: 28px;
+            margin-bottom: 20px;
+            margin-top: 0 !important;
         }
     }
 }
@@ -1135,57 +1106,9 @@ h2
             flex-wrap: wrap;
             justify-content: flex-start;
         }
-        .col-section:first-child
-        {
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-            
-            .group:last-child
-            {
-                margin-right: 0;
-            }
-        }
-        .col-section,
-        .col-section.address
-        {
-            margin-right: 0;
-            margin-bottom: 12px;
-            max-width: none;
-        }
-        .col-section.address,
-        .col-section.important,
-        .col-section.price
-        {
-            width: 100%;
-        }
-        .col-section.important
-        {
-            border-bottom: 1px solid #E8E8E8;
-            border-top: 1px solid #E8E8E8;
-            padding-top: 16px;
-            padding-bottom: 8px;
-            margin-top: 12px;
-            margin-bottom: 20px;
-            max-width: none;
-        }
-        .col-section.price
-        {
-            margin-top: 0;
-        }
-        
         .separator
         {
             display: none;
-        }
-        
-        .group
-        {
-            margin-right: 24px;
-        }
-        .group + .group
-        {
-            margin-top: 0;
         }
     }
     #reviews
@@ -1291,6 +1214,22 @@ h2
                 {
                     padding-left: 20px;
                 }
+            }
+        }
+    }
+}
+@media (max-width: 420px)
+{
+    #info-box
+    {
+        .col-section
+        {
+            width: 100%;
+            padding-right: 0;
+            
+            &:last-child
+            {
+                padding-right: 0;
             }
         }
     }

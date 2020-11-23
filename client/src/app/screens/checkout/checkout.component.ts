@@ -85,7 +85,7 @@ export class CheckoutComponent implements OnInit
                     this.setMetaData();
                     
                     this.startDateFormatted = moment(this.course.startDate).locale("es").format("dddd D MMMM");
-                    this.isVerifiedCourse = this.course.academy.isVerified;
+                    this.isVerifiedCourse = false;
                     
                     if (!this.isVerifiedCourse)
                         this.setHubspotForm();

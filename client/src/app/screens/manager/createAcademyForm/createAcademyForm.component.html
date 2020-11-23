@@ -21,25 +21,20 @@
       </div>
       <div class="form-group-container">
           <div class="form-group">
-            <label>Distrito</label>
-            <input type="text" nz-input nzSize="large" [(ngModel)]="district" name="district">
-          </div>
-          <div class="form-group">
             <label>Ciudad</label>
             <input type="text" nz-input nzSize="large" [(ngModel)]="city" name="city">
+          </div>
+          <div class="form-group">
+              <label>Barrios</label>
+              <nz-select nzMode="multiple" nzSize="large" nzPlaceHolder="Elige barrio/s" [(ngModel)]="neighborhoods">
+                  <nz-option *ngFor="let neighborhood of allNeighborhoods" [nzLabel]="neighborhood" [nzValue]="neighborhood"></nz-option>
+              </nz-select>
           </div>
       </div>
       <div class="form-group-container">
           <div class="form-group">
             <label>Verificada</label>
             <nz-switch [(ngModel)]="isVerified"></nz-switch>
-          </div>
-          
-          <div class="form-group">
-              <label>Barrios</label>
-              <nz-select nzMode="multiple" nzSize="large" nzPlaceHolder="Elige barrio/s" [(ngModel)]="neighborhoods">
-                  <nz-option *ngFor="let neighborhood of allNeighborhoods" [nzLabel]="neighborhood" [nzValue]="neighborhood"></nz-option>
-              </nz-select>
           </div>
       </div>
       <div class="form-group">
