@@ -5,29 +5,29 @@
             <input type="text" nz-input nzSize="large" [(ngModel)]="name" name="name">
           </div>
           <div class="form-group">
-            <label>Dirección*</label>
+            <label>Dirección</label>
             <input type="text" nz-input nzSize="large" [(ngModel)]="address" name="address">
           </div>
       </div>
       <div class="form-group-container">
           <div class="form-group">
-            <label>Latitud*</label>
+            <label>Latitud</label>
             <input type="text" nz-input nzSize="large" [(ngModel)]="latitude" name="latitude">
           </div>
           <div class="form-group">
-            <label>Longitud*</label>
+            <label>Longitud</label>
             <input type="text" nz-input nzSize="large" [(ngModel)]="longitude" name="longitude">
           </div>
       </div>
       <div class="form-group-container">
           <div class="form-group">
-            <label>Ciudad*</label>
+            <label>Ciudad</label>
             <nz-select nzSize="large" nzPlaceHolder="Elige ciudad" [(ngModel)]="city" (ngModelChange)="onCitySelectChange()">
                 <nz-option *ngFor="let c of cities" [nzLabel]="c.name" [nzValue]="c._id"></nz-option>
             </nz-select>
           </div>
           <div class="form-group">
-              <label>Barrios*</label>
+              <label>Barrios</label>
               <nz-select nzMode="multiple" nzSize="large" nzPlaceHolder="Elige barrio/s" [(ngModel)]="neighborhoods">
                   <nz-option *ngFor="let neighborhood of allNeighborhoods" [nzLabel]="neighborhood.name" [nzValue]="neighborhood._id"></nz-option>
               </nz-select>
