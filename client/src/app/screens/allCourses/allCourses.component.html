@@ -28,7 +28,7 @@
                 
                 <div
                     class="filterPill green noselect"
-                    [ngClass]="{'selected': appliedNeighborhoods.length > 0, 'active': showNeighborhoodFilters}"
+                    [ngClass]="{'selected': appliedNeighborhoods.length > 0 || appliedCity != null, 'active': showNeighborhoodFilters}"
                     (click)="toggleNeighborhoodFilters()"
                 >
                     <div class="icon size-16 icon-location-green"></div>
@@ -89,14 +89,26 @@
                 <div class="content">
                     <div class="section">
                         <div class="title">Seleccionar <span class="color-green">Ubicaciones</span></div>
-                        <div class="neighborhoods">
+                        
+                        <div class="cities">
+                            <div
+                                class="city noselect"
+                                *ngFor="let city of cities"
+                                (click)="onClickCity(city)"
+                                [ngClass]="{ 'selected': selectedCity == city }"
+                            >
+                                {{ city.name }}
+                            </div>
+                        </div>
+                        
+                        <div class="neighborhoods" *ngIf="neighborhoods.length > 0">
                             <div class="neighborhood noselect" *ngFor="let neighborhood of neighborhoods; let i = index">
                                 <app-checkbox
                                     [inputId]="'neighborhood-' + (i+1)"
                                     [checked]="isNeighborhoodSelected(neighborhood)"
                                     (onChange)="onChangeNeighborhoodFilter(neighborhood, $event)"
                                 ></app-checkbox>
-                                <label [for]="'neighborhood-' + (i+1)">{{ neighborhood }}</label>
+                                <label [for]="'neighborhood-' + (i+1)">{{ neighborhood.name }}</label>
                             </div>
                         </div>
                     </div>

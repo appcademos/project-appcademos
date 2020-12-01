@@ -300,7 +300,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
     }
     getSimilarCourses()
     {
-        this.courseService.findCourses(this.courseObj.course.category.name, null, null, 11)
+        this.courseService.findCourses(this.courseObj.course.category.name, null, null, null, 11)
         .subscribe(() =>
         {
             this.similarCourses = this.courseService.foundCourses.filter(course => { return course._id != this.courseObj.course._id; });

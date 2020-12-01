@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Location } from '@angular/common';
 import { UtilsService, NEIGHBORHOODS } from '../../../services/utils.service';
 import { MetaService } from '@ngx-meta/core';
+import { AcademySessionService } from '../../../services/academySession.service'
 
 const ORDER_RELEVANCE = 1;
 const ORDER_PRICE_ASCENDING = 2;
@@ -17,7 +18,8 @@ export class AllCoursesComponent
 {
     @ViewChild('orderbox') orderbox;
 
-    neighborhoods = [...NEIGHBORHOODS]
+    cities = []
+    neighborhoods = []
     allCourses = []
     courses = []
     orders =
@@ -25,6 +27,9 @@ export class AllCoursesComponent
         { id: ORDER_RELEVANCE, name: 'Mejor valorados' },
         { id: ORDER_PRICE_ASCENDING, name: 'Precio (más bajo arriba)' }
     ]
+    
+    selectedCity: any = null
+    appliedCity: any = null
     
     selectedNeighborhoods = []
     appliedNeighborhoods = []
@@ -59,24 +64,28 @@ export class AllCoursesComponent
                 private router: Router,
                 private location: Location,
                 private utils: UtilsService,
-                private readonly meta: MetaService)
+                private readonly meta: MetaService,
+                private academyService: AcademySessionService)
     {
         this.courseService.searching = true;
     }
     ngOnInit()
-    {        
-        this.initCoursesSearch()
-
-        this.router.events.subscribe((val) =>
+    {
+        this.getCities().then(() =>
         {
-            if (val instanceof NavigationEnd)
-            {                
-                if (!this.justUpdatedQueryParams)
-                    this.initCoursesSearch()
-                else
-                    this.justUpdatedQueryParams = false
-            }
-        });
+            this.initCoursesSearch()
+
+            this.router.events.subscribe((val) =>
+            {
+                if (val instanceof NavigationEnd)
+                {                
+                    if (!this.justUpdatedQueryParams)
+                        this.initCoursesSearch()
+                    else
+                        this.justUpdatedQueryParams = false
+                }
+            });
+        })
     }
     ngAfterViewInit()
     {
@@ -104,7 +113,6 @@ export class AllCoursesComponent
         if (category != null && category.length !== 0)
         {
             this.searchCategory = category;
-            console.log('searchCategory', this.searchCategory);
             
             this.appliedModality = (queryParams.modalidad == null ||
                                     queryParams.modalidad === 'todos') ?
@@ -114,6 +122,19 @@ export class AllCoursesComponent
             this.appliedNeighborhoods = (queryParams.ubicaciones != null) ?
                                          JSON.parse(queryParams.ubicaciones) : []
             this.selectedNeighborhoods = (this.appliedNeighborhoods != null) ? [...this.appliedNeighborhoods] : []
+            
+            if (this.appliedNeighborhoods != null &&
+                this.appliedNeighborhoods.length > 0)
+            {
+                this.selectedCity = this.cities.find(c => c.neighborhoods.some(n => n._id === this.appliedNeighborhoods[0]))
+                this.onClickCity(this.selectedCity)
+            }
+            else if (queryParams.ciudad != null)
+            {                
+                this.selectedCity = this.cities.find(c => c._id === JSON.parse(queryParams.ciudad))
+                this.appliedCity = this.selectedCity
+                this.onClickCity(this.selectedCity)
+            }
             
             if (queryParams.orden != null)
             {
@@ -133,16 +154,22 @@ export class AllCoursesComponent
                 this.searching = true;
                 setTimeout(() =>
                 {
-                    this.courseService.findCourses(query, this.selectedNeighborhoods, modality)
+                    let queryParams = this.activatedRoute.snapshot.queryParams
+                    
+                    let city = (this.selectedNeighborhoods.length == 0 &&
+                                this.selectedCity != null) ?
+                                this.selectedCity._id : null
+                    
+                    this.courseService.findCourses(query, this.selectedNeighborhoods, city, modality)
                     .subscribe(() =>
-                    {                        
+                    {
                         this.allCourses = [...this.courseService.foundCourses];
                         this.courses = [...this.courseService.foundCourses];
                         this.orderBy(this.appliedOrder);
                         this.searching = false;
                         this.commonCategoryFullName = this.findCommonCategoryFullName(this.courseService.foundCourses);
-                        console.log('commonCategoryFullName', this.commonCategoryFullName);
                         
+                        this.appliedCity = this.selectedCity
                         this.appliedNeighborhoods = [...this.selectedNeighborhoods]
                         this.appliedModality = this.selectedModality
                         
@@ -292,6 +319,8 @@ export class AllCoursesComponent
         
         if (this.appliedNeighborhoods.length > 0)
             (queryParams as any).ubicaciones = JSON.stringify(this.appliedNeighborhoods)
+        else if (this.appliedCity)
+            (queryParams as any).ciudad = JSON.stringify(this.appliedCity._id)
         
         this.router.navigate([], 
         {
@@ -347,7 +376,9 @@ export class AllCoursesComponent
         
         if (this.showNeighborhoodFilters)
         {
+            this.selectedCity = this.appliedCity
             this.selectedNeighborhoods = [...this.appliedNeighborhoods]
+            this.onClickCity(this.selectedCity)
             
             this.showModalityFilters = false
             this.showOrderFilters = false
@@ -366,16 +397,39 @@ export class AllCoursesComponent
         }
     }
     
+    getCities()
+    {
+        return new Promise(resolve =>
+        {
+            this.academyService.getCities()
+            .subscribe(res =>
+            {
+                this.cities = res
+                resolve()
+            },
+            error =>
+            {            
+                console.log(error)
+                resolve()
+            })
+        })
+    }
+    onClickCity(city)
+    {
+        this.selectedCity = city
+        this.neighborhoods = city.neighborhoods
+    }
+    
     onChangeNeighborhoodFilter(neighborhood, isChecked, reloadCourses = false)
     {
-        if (isChecked && !this.selectedNeighborhoods.includes(neighborhood))
+        if (isChecked && !this.selectedNeighborhoods.includes(neighborhood._id))
         {
-            this.selectedNeighborhoods.push(neighborhood);
+            this.selectedNeighborhoods.push(neighborhood._id);
         }
         
-        if (!isChecked && this.selectedNeighborhoods.includes(neighborhood))
+        if (!isChecked && this.selectedNeighborhoods.includes(neighborhood._id))
         {
-            this.selectedNeighborhoods = this.selectedNeighborhoods.filter(n => n !== neighborhood);
+            this.selectedNeighborhoods = this.selectedNeighborhoods.filter(n => n !== neighborhood._id);
         }
 
         if (reloadCourses)
@@ -434,7 +488,7 @@ export class AllCoursesComponent
     
     isNeighborhoodSelected(neighborhood)
     {
-        return this.selectedNeighborhoods.includes(neighborhood);
+        return this.selectedNeighborhoods.includes(neighborhood._id);
     }
     shouldShowMobileFilterButton()
     {

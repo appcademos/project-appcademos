@@ -5,7 +5,7 @@ const academySchema = new Schema(
 {
     name: { type: String, required: true },
     user: { type: Schema.Types.ObjectId, ref: "User", default: null },
-    address: { type: String, required: false, default: null },
+    address: { type: String, required: true, default: null },
     whyChooseMe: String,
     images: [
         {imagePath: String},
@@ -19,11 +19,10 @@ const academySchema = new Schema(
     location: {
         type:
         {
-            coordinates: { type: [Number], required: false }
+            coordinates: { type: [Number], required: true }
         },
-        required: false
+        required: true
     },
-    city: String,
     averageRating: {
         type: Number,
         default: 0
@@ -36,7 +35,18 @@ const academySchema = new Schema(
             material: { type: String, default: null }
         }
     ],
-    neighborhoods: [{ type: String }]
+    neighborhoodsOld: [{ type: String }],
+    neighborhoods:
+    {
+        type:
+        [
+            {
+                type: [Schema.Types.ObjectId],
+                ref: "Neighborhood"
+            }
+        ],
+        required: true
+    }
 },
 {
     timestamps: {

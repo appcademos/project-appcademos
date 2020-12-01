@@ -46,7 +46,7 @@
             </div>
             
             <div *ngIf="course.modality !== 'online'" class="neighborhoods">
-                <nz-tag class="neighborhood" *ngFor="let neighborhood of course.academy.neighborhoods">{{ neighborhood }}</nz-tag>
+                <nz-tag class="neighborhood" *ngFor="let neighborhood of course.academy.neighborhoods">{{ neighborhood.name }}</nz-tag>
             </div>
             
             <div class="course-price fw-600 color-orange">
