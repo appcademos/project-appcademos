@@ -344,8 +344,45 @@
         }
     }
     
+    .cities
+    {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding-top: 4px;
+        
+        .city
+        {
+            font-size: 14px;
+            font-weight: 500;
+            padding: 4px 8px;
+            border: 1px solid $black-20;
+            color: $black-80;
+            border-radius: 8px;
+            margin-right: 8px;
+            margin-bottom: 6px;
+            cursor: pointer;
+            transition: all 0.16s ease;
+            
+            &:hover
+            {
+                border-color: $black-40;
+                color: $black;
+            }
+            &.selected
+            {
+                color: #fff;
+                background: $black-80;
+                border-color: $black-80;
+            }
+        }
+    }
+    
     .neighborhoods
     {
+        border-top: 1px solid $black-12;
+        margin-top: 6px;
+        padding-top: 8px;
         column-count: 4;
         column-gap: 16px;
         

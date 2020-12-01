@@ -9,6 +9,7 @@ import { environment } from "../environments/environment";
 export class AcademySessionService
 {
     options: any = { withCredentials: true };
+    cities = []
 
     constructor(private http: Http) {}
     
@@ -70,5 +71,26 @@ export class AcademySessionService
             .delete(`${environment.BASEURL}/api/review/${reviewId}`, this.options)
             .map(res => res.json())
             .catch(error => Observable.throw(error));
+    }
+    
+    
+    getCities()
+    {
+        if (this.cities != null &&
+            this.cities.length > 0)
+        {
+            return Observable.of(this.cities)
+        }
+        else
+        {
+            return this.http
+            .get(`${environment.BASEURL}/api/cities/`, this.options)
+            .map(res =>
+            {
+                this.cities = res.json()
+                return this.cities
+            })
+            .catch(error => Observable.throw(error))
+        }
     }
 }

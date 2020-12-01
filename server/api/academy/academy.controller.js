@@ -32,6 +32,7 @@ const getOne = (req, res, next) =>
     Academy.findById(req.params.id)
     .select("-password")
     .populate('categories.category')
+    .populate('neighborhoods')
     .populate(
     {
         path: 'reviews',
@@ -147,7 +148,7 @@ const update = (req, res, next) =>
 
     updates = _.omit(updates, ["password"]);
         
-    Academy.findByIdAndUpdate(req.params.id, updates)
+    Academy.findByIdAndUpdate(req.params.id, updates, { runValidators: true })
     .then(academy =>
     {
         Academy.findById(req.params.id)

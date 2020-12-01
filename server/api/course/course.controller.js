@@ -55,12 +55,13 @@ const getAll = (req, res) => {
 };
 
 const getSearched = async (req, res, next) =>
-{    
+{
     console.log(req.query)
     
     let courseReviews = [];
     // query.course = course Category
     let query = req.query.course.replace(/'+'/g, '[\s]').normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+    let city = req.query.city ? req.query.city : null
     let neighborhoods = req.query.neighborhoods ? JSON.parse(req.query.neighborhoods) : null;
     let findObj = { hidden: {$ne: true} }
     let limit = req.query.limit ? parseInt(req.query.limit) : null
@@ -96,20 +97,45 @@ const getSearched = async (req, res, next) =>
     {
         path: 'academy',
         populate:
-        {
-            path: 'reviews',
-            model: 'Review'
-        }
+        [
+            {
+                path: 'reviews',
+                model: 'Review'
+            },
+            {
+                path: 'neighborhoods',
+                model: 'Neighborhood'
+            }
+        ]
     })
     .populate('category')
     .then(courses =>
     {
-        if (neighborhoods)
+        if (city)
         {
             courses = courses.filter(course =>
             {
-                return (course.academy.neighborhoods != null && course.academy.neighborhoods.some(n => neighborhoods.includes(n)));
-            });
+                let courseHasCity = (course.academy.neighborhoods != null &&
+                                     course.academy.neighborhoods
+                                     .some(n =>
+                                     {
+                                         return n.city.toString() === city
+                                     }))
+                return courseHasCity
+            })
+        }
+        else if (neighborhoods)
+        {
+            courses = courses.filter(course =>
+            {
+                let courseHasNeigh = (course.academy.neighborhoods != null &&
+                                      course.academy.neighborhoods
+                                      .some(n =>
+                                      {
+                                          return neighborhoods.includes(n._id.toString())
+                                      }))
+                return courseHasNeigh
+            })
         }
         
         courses.forEach(course =>

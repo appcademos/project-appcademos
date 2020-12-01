@@ -27,9 +27,10 @@ export class CreateAcademyFormComponent implements OnInit
     city: string;
     isVerified: boolean = false;
     whyChooseMe: string;
+    cities = []
     neighborhoods = []
     
-    allNeighborhoods = [...NEIGHBORHOODS]
+    allNeighborhoods = []
     loading = false
 
     constructor(public router: Router,
@@ -38,8 +39,12 @@ export class CreateAcademyFormComponent implements OnInit
 
     ngOnInit()
     {
+        this.getCities()
+        
         if (this.academy != null)
-        {            
+        {
+            console.log(this.academy)
+            
             this.name = this.academy.name;
             if (this.academy.address)
                 this.address = this.academy.address;
@@ -53,11 +58,50 @@ export class CreateAcademyFormComponent implements OnInit
                 this.longitude = '' + this.academy.location.coordinates[1];
             }
 
-            this.city = this.academy.city;
             this.isVerified = this.academy.isVerified;
             this.whyChooseMe = this.academy.whyChooseMe;
-            this.neighborhoods = this.academy.neighborhoods;
         }
+    }
+    
+    getCities()
+    {
+        this.academyService.getCities()
+        .subscribe(res =>
+        {
+            this.cities = res
+            
+            if (this.academy == null)
+            {
+                this.city = this.cities[0]._id
+                this.allNeighborhoods = this.cities[0].neighborhoods
+            }
+            else
+            {
+                this.city = this.academy.neighborhoods[0].city
+                
+                this.neighborhoods = this.academy.neighborhoods.map(n => n._id)
+                
+                let academyCityObj = this.cities.find(c => c._id === this.city)
+                if (academyCityObj != null)
+                    this.allNeighborhoods = academyCityObj.neighborhoods
+            }
+        },
+        error =>
+        {            
+            this.notifications.create(
+              'error',
+              'Error',
+              'No se han podido obtener las ciudades y barrios. Recarga la página y reinténtalo.'
+            )
+            
+            console.log(error)
+        })
+    }
+    onCitySelectChange()
+    {
+        let academyCityObj = this.cities.find(c => c._id === this.city)
+        if (academyCityObj != null)
+            this.allNeighborhoods = academyCityObj.neighborhoods
     }
     
     onPressMainButton()
@@ -103,7 +147,6 @@ export class CreateAcademyFormComponent implements OnInit
                 name: this.name.trim(),
                 address: (this.address != null && this.address.length > 0) ?
                             this.address.trim() : null,
-                city: (this.city != null && this.city.length > 0) ? this.city.trim() : null,
                 isVerified: this.isVerified,
                 location: (this.latitude != null && this.latitude.trim().length > 0 &&
                             this.longitude != null && this.longitude.trim().length > 0)
@@ -152,7 +195,6 @@ export class CreateAcademyFormComponent implements OnInit
                 name: this.name.trim(),
                 address: (this.address != null && this.address.length > 0) ?
                             this.address.trim() : null,
-                city: (this.city != null && this.city.length > 0) ? this.city.trim() : null,
                 isVerified: this.isVerified,
                 location: (this.latitude != null && this.latitude.trim().length > 0 &&
                             this.longitude != null && this.longitude.trim().length > 0)
