@@ -215,22 +215,30 @@
         font-size: 19px;
     }
 }
-.course-tag
+.course-tags
 {
+    display: flex;
+    flex-direction: column;
     position: absolute;
     top: 12px;
-    left: auto;
-    right: 0;
-    transform: translate(8px,0);
-    height: 22px;
-    line-height: 22px;
-    border-radius: 3px;
-    background: $orange-color;
-    color: #fff;
-    font-size: 13px;
-    font-weight: 600;
-    padding: 0 6px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    right: auto;
+    left: 0;
+    transform: translate(-8px,0);
+    
+    .course-tag
+    {
+        align-self: flex-start;
+        height: 22px;
+        line-height: 22px;
+        border-radius: 5px;
+        background: $orange-color;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 0 6px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        margin-bottom: 6px;
+    }
 }
 .course-video-icon
 {
