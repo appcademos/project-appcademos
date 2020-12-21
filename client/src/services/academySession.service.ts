@@ -65,10 +65,10 @@ export class AcademySessionService
             .catch(error => Observable.throw(error));
     }
     
-    deleteReview(reviewId)
+    deleteReview(academyId, reviewId)
     {
           return this.http
-            .delete(`${environment.BASEURL}/api/review/${reviewId}`, this.options)
+            .post(`${environment.BASEURL}/api/academy/${academyId}/delete-review`, { reviewId }, this.options)
             .map(res => res.json())
             .catch(error => Observable.throw(error));
     }

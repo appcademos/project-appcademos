@@ -110,4 +110,12 @@ cron.schedule('55 23 * * SUN', async () =>
 });
 
 
+// Automatic integration webhook academy form
+app.post('/automatic-academy-hook', (req, res) =>
+{
+    console.log('\nAutomatic Academy Form Webhook:')
+    console.log(res)
+})
+
+
 module.exports = app;

@@ -8,7 +8,8 @@ const {
   getThis,
   create,
   update,
-  createReview
+  createReview,
+  deleteReview
 } = require("./academy.controller");
 
 router.get("/", [ Utils.hasAccess('academy'), getThis ]);
@@ -17,6 +18,7 @@ router.get("/:id", [ Utils.hasAccess('adminAndAcademy'), getOne ]);
 router.get("/", [ Utils.hasAccess('academy'), getThis ]);
 router.post("/", [ Utils.hasAccess('admin'), create ]);
 router.post("/:id/review", [ Utils.hasAccess('admin'), createReview ]);
+router.post("/:id/delete-review", [ Utils.hasAccess('admin'), deleteReview ]);
 router.put("/update/:id", [ Utils.hasAccess('adminAndAcademy'), update ]);
 
 module.exports = router;
