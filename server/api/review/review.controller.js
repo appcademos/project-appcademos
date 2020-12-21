@@ -64,7 +64,41 @@ const update = (req, res, next) =>
             {
                 let savedReview = await review.save();
                 if (savedReview != null)
-                    res.status(200).json({ message: "Review updated." });
+                {
+                    // Update academy averageRating
+                    let academy = await Academy.findOne({ reviews: req.params.id }).populate('reviews')
+                    if (academy != null && academy.reviews != null)
+                    {
+                        let averageRating = 0
+                        let numReviews = 0
+                        
+                        academy.reviews.forEach((review) =>
+                        {
+                            if (review.grade == null)
+                                return
+                                
+                            numReviews++
+                            averageRating += review.grade
+                        })
+                        
+                        if (averageRating > 0)
+                            averageRating = averageRating / numReviews
+
+                        Academy.findByIdAndUpdate(academy._id, { averageRating: averageRating })
+                        .then(acad =>
+                        {
+                            res.status(200).json({ message: "Review updated." })
+                        })
+                        .catch((error) =>
+                        {
+                            console.log('ERROR: Could not update averageRating', error)
+                            
+                            res.status(200).json({ message: "Review updated." })
+                        })
+                    }
+                    else
+                        res.status(200).json({ message: "Review updated." })
+                }
             }
             catch(saveErr)
             {

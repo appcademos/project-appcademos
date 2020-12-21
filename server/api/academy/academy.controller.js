@@ -163,14 +163,19 @@ const update = (req, res, next) =>
             if (academy.reviews != null)
             {
                 let averageRating = 0;
+                let numReviews = 0;
                 
                 academy.reviews.forEach((review) =>
                 {
+                    if (review.grade == null)
+                        return
+                    
+                    numReviews++
                     averageRating += review.grade;
                 });
                 
                 if (averageRating > 0)
-                    averageRating = averageRating / academy.reviews.length;
+                    averageRating = averageRating / numReviews;
                     
                 Academy.findByIdAndUpdate(req.params.id, { averageRating: averageRating })
                 .then(acad =>
@@ -179,7 +184,7 @@ const update = (req, res, next) =>
                 })
                 .catch((error) =>
                 {
-                    console.log('ERROR: Could not update averageRating');
+                    console.log('ERROR: Could not update averageRating', error);
                     
                     res.status(200).json({ message: "Academy updated." });
                 });
@@ -187,7 +192,7 @@ const update = (req, res, next) =>
         })
         .catch(err =>
         {
-            console.log('ERROR: Could not update averageRating');
+            console.log('ERROR: Could not update averageRating', err);
             
             res.status(200).json({message: "Academy updated. No password updated."});
         });
@@ -202,7 +207,7 @@ const createReview = async (req, res, next) =>
 {
     try
     {
-        let academy = await Academy.findById(req.params.id);
+        let academy = await Academy.findById(req.params.id).populate('reviews');
         
         if (academy != null)
         {
@@ -218,16 +223,21 @@ const createReview = async (req, res, next) =>
                 // Update the averageRating
                 if (academy.reviews != null)
                 {
-                    let averageRating = 0;
+                    let averageRating = newReview.grade;
+                    let numReviews = 1;
                     
                     academy.reviews.forEach((review) =>
                     {
+                        if (review.grade == null)
+                            return
+                            
+                        numReviews++
                         averageRating += review.grade;
                     });
                     
                     if (averageRating > 0)
-                        averageRating = averageRating / academy.reviews.length;
-                        
+                        averageRating = averageRating / numReviews;
+
                     Academy.findByIdAndUpdate(req.params.id, { averageRating: averageRating })
                     .then(acad =>
                     {
@@ -235,7 +245,7 @@ const createReview = async (req, res, next) =>
                     })
                     .catch((error) =>
                     {
-                        console.log('ERROR: Could not update averageRating');
+                        console.log('ERROR: Could not update averageRating', error);
                         
                         res.status(200).json({ message: "Review created." });
                     });
@@ -253,6 +263,65 @@ const createReview = async (req, res, next) =>
     }
 };
 
+const deleteReview = async (req, res, next) =>
+{
+    try
+    {
+        let academy = await Academy.findById(req.params.id).populate('reviews');
+        
+        if (academy != null)
+        {
+            await Review.findByIdAndRemove(req.body.reviewId)
+            
+            let reviews = []
+            academy.reviews.forEach(r =>
+            {
+                if (r != null && r._id != req.body.reviewId && r.grade != null)
+                    reviews.push(r._id)
+            })
+
+            await Academy.findByIdAndUpdate(req.params.id, { reviews: reviews });
+            
+            // Update the averageRating
+            if (academy.reviews != null)
+            {
+                let averageRating = 0
+                let numReviews = 0
+                
+                academy.reviews.forEach((review) =>
+                {
+                    if (review._id == req.body.reviewId || review.grade == null)
+                        return
+                        
+                    numReviews++
+                    averageRating += review.grade
+                })
+                
+                if (averageRating > 0)
+                    averageRating = averageRating / numReviews
+
+                Academy.findByIdAndUpdate(req.params.id, { averageRating: averageRating })
+                .then(acad =>
+                {
+                    res.status(200).json({ message: "Review deleted." })
+                })
+                .catch((error) =>
+                {
+                    console.log('ERROR: Could not update averageRating', error)
+                    
+                    res.status(200).json({ message: "Review deleted." })
+                })
+            }
+        }
+        else
+            res.status(404).json({message: "Academy not found"})
+    }
+    catch(error)
+    {
+        res.status(400).json({message: "Error deleting review"})
+    }
+};
+
 
 module.exports = {
   getAll,
@@ -260,5 +329,6 @@ module.exports = {
   getThis,
   create,
   update,
-  createReview
+  createReview,
+  deleteReview
 };

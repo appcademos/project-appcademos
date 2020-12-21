@@ -63,7 +63,7 @@ export class ReviewEditorComponent implements OnInit
         {
             this.loading = true;
             
-            this.academyService.deleteReview(this.review._id).subscribe(
+            this.academyService.deleteReview(this.academyId, this.review._id).subscribe(
             res =>
             {
                 this.loading = false;
