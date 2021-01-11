@@ -741,6 +741,15 @@ section#verified-academies
         align-items: center;
         justify-content: center;
         
+        .academyLink
+        {
+            transition: 0.16s all;
+            
+            &:hover
+            {
+                opacity: 0.6;
+            }
+        }
         .academy
         {
             background-color: $black-04;
@@ -761,6 +770,25 @@ section#verified-academies
                 {
                     height: auto;
                     max-width: 260px;
+                }
+            }
+            &.noPadding
+            {
+                padding: 0;
+                overflow: hidden;
+                
+                img
+                {
+                    height: 72px;
+                }
+            }
+            &.lessPadding
+            {
+                padding: 6px 12px;
+                
+                img
+                {
+                    height: 60px;
                 }
             }
             
