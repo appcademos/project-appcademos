@@ -6,16 +6,16 @@ This header template is shared across all the pages.
         <nav id="navbarTop">
             {{#if isPostPage}}
                 <a class="logo" onclick="window.history.back()">
-                    <img src="https://www.yinius.es/assets/public/images/logo_white.svg" alt="Logo de yinius, el comparador de cursos y academias de inglés en Madrid." height="52" />
+                    <img src="https://www.yinius.es/assets/public/images/logos/logo_tagline_horizontal_white.svg" alt="Logo de yinius, el comparador de cursos y academias de inglés en Madrid." height="52" />
                 </a>
             {{else}}
                 <a class="logo" href="/blog" onclick="window.history.back()">
-                    <img src="https://www.yinius.es/assets/public/images/logo_white.svg" alt="Logo de yinius, el comparador de cursos y academias de inglés en Madrid." height="52" />
+                    <img src="https://www.yinius.es/assets/public/images/logos/logo_tagline_horizontal_white.svg" alt="Logo de yinius, el comparador de cursos y academias de inglés en Madrid." height="52" />
                 </a>
             {{/if}}
 
             <div class="logo-mobile">
-                <img src="https://www.yinius.es/assets/public/images/logo_white.svg" alt="Logo de yinius, el comparador de cursos y academias de inglés en Madrid." height="40" />
+                <img src="https://www.yinius.es/assets/public/images/logos/logo_tagline_horizontal_white.svg" alt="Logo de yinius, el comparador de cursos y academias de inglés en Madrid." height="40" />
 
                 <div class="mobile-nav-button isHome noselect" onclick="onClickToggleMobileMenu()">
                     <i class="icon size-12 yinius-icon-arrow-down-white"></i>
@@ -89,14 +89,14 @@ This header template is shared across all the pages.
                 document.querySelector('#yinius-header').classList.add('mobileOpened');
                 document.querySelector('#yinius-header #navbarTop .logo-mobile .mobile-nav-button .icon').classList.add('yinius-icon-arrow-down-red');
                 document.querySelector('#yinius-header #navbarTop .logo-mobile .mobile-nav-button').classList.remove('isHome');
-                document.querySelector('#navbarTop .logo-mobile > img').src = "https://www.yinius.es/assets/public/images/logo.svg";
+                document.querySelector('#navbarTop .logo-mobile > img').src = "https://www.yinius.es/assets/public/images/logos/logo_tagline_horizontal.svg";
             }
             else
             {
                 document.querySelector('#yinius-header').classList.remove('mobileOpened');
                 document.querySelector('#yinius-header #navbarTop .logo-mobile .mobile-nav-button .icon').classList.remove('yinius-icon-arrow-down-red');
                 document.querySelector('#yinius-header #navbarTop .logo-mobile .mobile-nav-button').classList.add('isHome');
-                document.querySelector('#navbarTop .logo-mobile > img').src = "https://www.yinius.es/assets/public/images/logo_white.svg";
+                document.querySelector('#navbarTop .logo-mobile > img').src = "https://www.yinius.es/assets/public/images/logos/logo_tagline_horizontal_white.svg";
             }
         }
     </script>
