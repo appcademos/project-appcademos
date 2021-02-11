@@ -80,50 +80,28 @@ into the {body} of the default.hbs template --}}
         </div>
         -->
         
+        {{#get "tags" limit="4"}}
+        
         <div class="l-wrapper">
             <h2>Aquí hablamos sobre:</h2>
             <br/>
         </div>
         
         <div class="l-grid centered">
+        {{#foreach tags from="1" to="3"}}
             <article class="m-article-card post" style="height:auto;">
-              <div class="m-article-card__picture lozad" data-background-image="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80">
-              <a href="/blog/tag/consejos-trucos-encontrar-trabajo-madrid/" class="m-article-card__picture-link" aria-label="Section"></a>
+              <div class="m-article-card__picture lozad" data-background-image="{{feature_image}}">
+              <a href="{{url}}" class="m-article-card__picture-link" aria-label="Section"></a>
             </div>
               <div class="m-article-card__info" style="height:auto; padding-top:16px;">
-              <a href="/blog/tag/consejos-trucos-encontrar-trabajo-madrid/" class="m-article-card__info-link">
+              <a href="{{url}}" class="m-article-card__info-link">
                 <div>
-                  <h2 class="m-article-card__title">Empleo y Desarrollo Profesional</h2>
+                  <h2 class="m-article-card__title">{{name}}</h2>
                 </div>
               </a>
             </div>
             </article>
-
-            <article class="m-article-card post" style="height:auto;">
-              <div class="m-article-card__picture lozad" data-background-image="https://images.unsplash.com/photo-1537522306408-8435f315b2e3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80">
-              <a href="/blog/tag/trucos-consejos-estudiar-trabajar-extranjero/" class="m-article-card__picture-link" aria-label="Section"></a>
-            </div>
-              <div class="m-article-card__info" style="height:auto; padding-top:16px;">
-              <a href="/blog/tag/trucos-consejos-estudiar-trabajar-extranjero/" class="m-article-card__info-link">
-                <div>
-                  <h2 class="m-article-card__title">Estudiar o Trabajar en el Extranjero</h2>
-                </div>
-              </a>
-            </div>
-            </article>
-
-            <article class="m-article-card post" style="height:auto;">
-          <div class="m-article-card__picture lozad" data-background-image="/blog/content/images/size/w2000/2019/08/Dise-o-sin-t-tulo--18-.png">
-          <a href="/blog/tag/trucos-y-consejos-para-aprender-ingles/" class="m-article-card__picture-link" aria-label="Section"></a>
-        </div>
-          <div class="m-article-card__info" style="height:auto; padding-top:16px;">
-          <a href="/blog/tag/trucos-y-consejos-para-aprender-ingles/" class="m-article-card__info-link">
-            <div>
-              <h2 class="m-article-card__title">El inglés: clave para tu futuro</h2>
-            </div>
-          </a>
-        </div>
-        </article>
+        {{/foreach}}
         </div>
         
         
@@ -145,20 +123,24 @@ into the {body} of the default.hbs template --}}
                   </a>
                 </div>
             </article>
-
-            <article class="m-article-card post" style="height:auto;">
-                  <div class="m-article-card__picture lozad" data-background-image="https://scontent-mad1-1.cdninstagram.com/v/t51.2885-15/sh0.08/e35/s640x640/73424572_958686147835740_2210832785414802402_n.jpg?_nc_ht=scontent-mad1-1.cdninstagram.com&_nc_cat=100&oh=0d782cb8dcc65e46da85ac9ae42c9378&oe=5E77BD8A">
-                  <a href="/blog/tag/sobre-nosotros/" class="m-article-card__picture-link" aria-label="Section"></a>
+            
+            {{#foreach tags from="4" to="4"}}
+                <article class="m-article-card post" style="height:auto;">
+                  <div class="m-article-card__picture lozad" data-background-image="{{feature_image}}">
+                  <a href="{{url}}" class="m-article-card__picture-link" aria-label="Section"></a>
                 </div>
                   <div class="m-article-card__info" style="height:auto; padding-top:16px;">
-                  <a href="/blog/tag/sobre-nosotros/" class="m-article-card__info-link">
+                  <a href="{{url}}" class="m-article-card__info-link">
                     <div>
-                      <h2 class="m-article-card__title">Descubre más sobre nosotros</h2>
+                      <h2 class="m-article-card__title">{{name}}</h2>
                     </div>
                   </a>
                 </div>
-            </article>
+                </article>
+            {{/foreach}}
         </div>
+        
+        {{/get}}
         
       </div>
       {{!-- Links to Previous/Next posts --}}
