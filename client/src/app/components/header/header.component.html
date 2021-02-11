@@ -2,12 +2,12 @@
     <div class="responsive-container-header">
         <nav id="navbarTop">
             <a class="logo" [routerLink]="['']">
-                <img src="../../assets/public/images/logo_white.svg" alt="Logo de yinius, el comparador de cursos y academias de inglés en Madrid." height="52" />
+                <img src="../../assets/public/images/logos/logo_tagline_horizontal_white.svg" alt="Logo de yinius, el comparador de cursos y academias de inglés en Madrid." height="52" />
             </a>
 
             <div class="logo-mobile" [ngClass]="{ 'isHome': isHome }" (click)="isMobileNavVisible = !isMobileNavVisible; showFavoritesTutorial = false">
-                <img [hidden]="isMobileNavVisible" src="../../assets/public/images/logo_white.svg" alt="Logo de yinius, el comparador de cursos y academias de inglés en Madrid." height="40" />
-                <img [hidden]="!isMobileNavVisible" src="../../assets/public/images/logo.svg" alt="Logo de yinius, el comparador de cursos y academias de inglés en Madrid." height="40" />
+                <img [hidden]="isMobileNavVisible" src="../../assets/public/images/logos/logo_tagline_horizontal_white.svg" alt="Logo de yinius, el comparador de cursos y academias de inglés en Madrid." height="40" />
+                <img [hidden]="!isMobileNavVisible" src="../../assets/public/images/logos/logo_tagline_horizontal.svg" alt="Logo de yinius, el comparador de cursos y academias de inglés en Madrid." height="40" />
                 
                 <div class="mobile-nav-button noselect" [ngClass]="{'isHome': !isMobileNavVisible}">
                     <i class="icon size-12" [ngClass]="{'icon-arrow-down': !isMobileNavVisible, 'icon-arrow-down-red': isMobileNavVisible, 'icon-arrow-down-white': !isMobileNavVisible }"></i>
@@ -31,7 +31,7 @@
                 </div>
                 <div class="separator"></div>
                 <div>
-                    <a class="icon-text" href="https://www.yinius.es/blog/tag/trucos-y-consejos-para-aprender-ingles/" target="_blank">
+                    <a class="icon-text" href="https://www.yinius.es/blog/" target="_blank">
                         <i class="icon size-20 icon-graduation"></i>
                         <p>Blog: Mejora tu inglés desde casa</p>
                     </a>
@@ -70,7 +70,7 @@
             </nav>
 
             <div class="right">
-                <a class="icon-text" href="https://www.yinius.es/blog/tag/trucos-y-consejos-para-aprender-ingles/" target="_blank">
+                <a class="icon-text" href="https://www.yinius.es/blog/" target="_blank">
                     <i class="icon size-20 icon-graduation-white"></i>
                     <p *ngIf="showFullBlogTitle()">Blog: Mejora tu inglés desde casa</p>
                     <p *ngIf="!showFullBlogTitle()">Blog</p>
