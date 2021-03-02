@@ -46,7 +46,7 @@
             </div>
             <div class="right">
                 <div class="old-price fw-500" *ngIf="courseObj.course.oldPrice">{{ courseObj.course.oldPrice }}€</div>
-                <div class="price color-orange fw-600">{{ courseObj.course.price }}€</div>
+                <div class="price color-orange fw-600">{{ courseObj.course.price }}€ <span class="small">al mes</span></div>
             </div>
         </div>
     </div>
@@ -131,7 +131,7 @@
                         <div class="title">Precio</div>
                         <div class="text">
                             <span class="old-price fs-20 fw-500" *ngIf="courseObj.course.oldPrice">{{ courseObj.course.oldPrice }}€</span>
-                            <span class="price fs-24 fw-600 color-orange">{{ courseObj.course.price }}€</span>
+                            <span class="price fs-24 fw-600 color-orange">{{ courseObj.course.price }}€ <span class="small">al mes</span></span>
                         </div>
                     </div>
                     

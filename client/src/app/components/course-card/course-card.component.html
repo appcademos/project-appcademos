@@ -3,6 +3,7 @@
          <div class="course-item-image" [ngStyle]="{ 'background-image': (course.images != null && course.images.length > 0) ? 'url(' + course.images[0] + ')' : null }">
              <div class="course-tags">
                  <div class="course-tag" *ngIf="course.modality === 'online'">ONLINE</div>
+                 <div class="course-tag dark" *ngIf="course.modality === 'presencial'">PRESENCIAL</div>
                  <div class="course-tag" *ngIf="course.isBooked">COMPLETO</div>
              </div>
              <div class="course-video-icon icon-video" *ngIf="course.videoUrl"></div>
@@ -54,7 +55,7 @@
             
             <div class="course-price fw-600 color-orange">
                 <div class="oldprice" *ngIf="course.oldPrice">{{ course.oldPrice }}€</div>
-                <div class="price">{{ course.price }}€</div>
+                <div class="price">{{ course.price }}€ <span class="small">al mes</span></div>
             </div>
             
             <a class="mobile-course-link button small white full-width" [routerLink]="params">Ver este curso</a>
