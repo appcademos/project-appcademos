@@ -122,6 +122,15 @@
             }
         }
     }
+    .price
+    {
+        flex-shrink: 0;
+        
+        .small
+        {
+            font-size: 12px;
+        }
+    }
 
     @media (max-width: 480px)
     {

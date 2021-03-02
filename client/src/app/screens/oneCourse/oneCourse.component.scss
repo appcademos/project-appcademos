@@ -215,6 +215,7 @@ h2
         flex-direction: row;
         align-items: center;
         margin-left: 20px;
+        flex-shrink: 0;
 
         .old-price
         {
@@ -235,6 +236,11 @@ h2
         .price
         {
             font-size: 32px;
+            
+            .small
+            {
+                font-size: 16px;
+            }
             
             @media (max-width: 768px)
             {
@@ -378,6 +384,10 @@ h2
             padding-right: 0;
         }
     }
+    .col-section.price
+    {
+        flex-shrink: 0;
+    }
     .col-section.address
     {
         .text
@@ -483,6 +493,10 @@ h2
             margin-right: 8px;
             text-decoration: line-through;
             color: $black-50;
+        }
+        .small
+        {
+            font-size: 14px;
         }
     }
     .col-section.important

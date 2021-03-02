@@ -205,6 +205,10 @@
         margin-right: 12px;
         font-weight: 500;
     }
+    .small
+    {
+        font-size: 14px;
+    }
     
     @media (max-width: 400px)
     {
@@ -239,6 +243,11 @@
         padding: 0 6px;
         box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         margin-bottom: 6px;
+        
+        &.dark
+        {
+            background: $black;
+        }
     }
 }
 .course-video-icon
