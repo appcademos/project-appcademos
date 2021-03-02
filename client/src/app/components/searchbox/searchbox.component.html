@@ -48,7 +48,8 @@
             <a class="search-panel-item noselect" [routerLink]="['cursos-ingles', 'ielts']" [hidden]="selectedTab == 1">IELTS</a>
             <a class="search-panel-item noselect" [routerLink]="['cursos-ingles', 'toeic']" [hidden]="selectedTab == 1">TOEIC</a>
             <a class="search-panel-item noselect" [routerLink]="['cursos-ingles', 'proficiency']" [hidden]="selectedTab == 1">Proficiency</a>
-            <a class="search-panel-item noselect" [routerLink]="['cursos-ingles', 'aptis']" [hidden]="selectedTab == 1">Aptis</a>
+            <a class="search-panel-item noselect" [routerLink]="['cursos-ingles', 'aptis general']" [hidden]="selectedTab == 1">Aptis General</a>
+            <a class="search-panel-item noselect" [routerLink]="['cursos-ingles', 'aptis advanced']" [hidden]="selectedTab == 1">Aptis Advanced</a>
             
             <div class="line-separator" [hidden]="selectedTab == 2"></div>
             <a class="search-panel-item kids noselect" [routerLink]="['cursos-ingles', 'niños']" [hidden]="selectedTab == 2">Inglés para niños</a>
@@ -63,7 +64,8 @@
             <a class="search-panel-item noselect" (click)="query = 'ielts'; doOnSearch();" [hidden]="selectedTab == 1">IELTS</a>
             <a class="search-panel-item noselect" (click)="query = 'toeic'; doOnSearch();" [hidden]="selectedTab == 1">TOEIC</a>
             <a class="search-panel-item noselect" (click)="query = 'proficiency'; doOnSearch();" [hidden]="selectedTab == 1">Proficiency</a>
-            <a class="search-panel-item noselect" (click)="query = 'aptis'; doOnSearch();" [hidden]="selectedTab == 1">Aptis</a>
+            <a class="search-panel-item noselect" (click)="query = 'aptis general'; doOnSearch();" [hidden]="selectedTab == 1">Aptis General</a>
+            <a class="search-panel-item noselect" (click)="query = 'aptis advanced'; doOnSearch();" [hidden]="selectedTab == 1">Aptis Advanced</a>
             
             <div class="line-separator" [hidden]="selectedTab == 2"></div>
             <a class="search-panel-item kids noselect" (click)="query = 'niños'; doOnSearch();" [hidden]="selectedTab == 2">Inglés para niños</a>
