@@ -20,9 +20,9 @@ module.exports = function(app)
         const geocoder = NodeGeocoder(options)
         
         console.log('\nAutomatic Academy Form Webhook:')
-        //console.log('Body:', req.body)
+        console.log('Body:', req.body)
         
-        //let data = JSON.parse(req.body.rawRequest)
+        /*//let data = JSON.parse(req.body.rawRequest)
         let data = JSON.parse(unescapeJson(JSON.stringify(require('../bin/jotform_data.json'))))
         //console.log('Data:', data)
         let academyName = data.q2_nombreDe
@@ -208,7 +208,7 @@ module.exports = function(app)
                 console.log(err) 
                 //res.status(400).json({ message: "Something went wrong when trying to create the academy", error: err })
             }
-        }
+        }*/
         
         res.status(200).send({ message: 'All ok' })
     })
