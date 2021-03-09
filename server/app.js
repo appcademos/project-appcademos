@@ -18,9 +18,7 @@ var moment = require('moment');
 var generateSitemap = require('./sitemap-generator.js');
 const compression = require('compression');
 var cron = require('node-cron');
-const Course = require("./api/course/course.model");
-var multer  = require('multer')
-var upload = multer()
+const Course = require("./api/course/course.model")
 
 mongoose.Promise = Promise;
 mongoose
@@ -96,13 +94,7 @@ app.use(logger("dev"));
 app.locals.title = "yinius";
 
 // Automatic integration webhook academy form
-app.post('/automatic-academy-hook', upload.none(), (req, res) =>
-{
-    console.log('\nAutomatic Academy Form Webhook:')
-    console.log('Body:', req.body)
-    
-    res.status(200).send({ message: 'ok' })
-})
+require('./routes/automatic-form-integration')(app)
 
 require("./routes/routes")(app);
 app.use(function (req, res) {
