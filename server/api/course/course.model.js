@@ -20,7 +20,8 @@ const courseSchema = new Schema(
     sizeClass: Number,
     category: {
         type: Schema.Types.ObjectId,
-        ref: "Category"
+        ref: "Category",
+        required: true
     },
     modality: { type: String, enum: ['presencial', 'online'] },
     academy: {
