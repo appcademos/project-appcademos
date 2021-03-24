@@ -24,7 +24,7 @@ module.exports = function(app)
         const geocoder = NodeGeocoder(options)
         
         console.log('\nAutomatic Academy Form Webhook:')
-        //console.log('Body:', req.body)
+        console.log('Body:', req.body)
         
         slackCoursesStr = ''
         totalCoursesToCreate = 0
