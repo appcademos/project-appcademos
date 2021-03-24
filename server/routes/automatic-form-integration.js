@@ -181,7 +181,7 @@ module.exports = function(app)
                 courses.push(...catCourses)
             }
             
-            //console.log("\nCurso " + courseCat.toUpperCase() + "\n", catCourses)
+            console.log("\nCurso " + courseCat.toUpperCase() + "\n", catCourses)
         }
         
         for (let i = 0; i < data.q95_cursosDe.length; i++)
@@ -205,7 +205,7 @@ module.exports = function(app)
             catCourses = parseCategory(data, dbCat, academyId, allCategories, startDate)
             courses.push(...catCourses)
             
-            //console.log("\nCurso " + courseCat.toUpperCase() + "\n", catCourses)
+            console.log("\nCurso " + courseCat.toUpperCase() + "\n", catCourses)
         }
         
         // Save courses
@@ -649,7 +649,7 @@ module.exports = function(app)
                 if (hasKidsOnlineCourse)
                 {
                     durationFieldNameKidsOnline     = 'q848_duracionDel848'
-                    groupFieldNameKidsOnline        = 'q849_gruposPresenciales849'
+                    groupFieldNameKidsOnline        = 'q849_gruposVirtuales849'
                     weekClassesFieldNameKidsOnline  = 'q850_numeroDe850'
                     coursePriceFieldNameKidsOnline  = 'q851_precioMensual851'                    
                 }
