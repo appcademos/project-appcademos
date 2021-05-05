@@ -21,7 +21,7 @@ import { NzMessageService } from 'ng-zorro-antd'
 })
 export class OneCourseComponent implements OnInit, OnDestroy
 {
-    @ViewChild('map', { static: false }) mapDiv: any;
+    @ViewChild('map') mapDiv: any;
 
     routeCourseId: number;
     courseObj: any;
