@@ -5,7 +5,6 @@ import { UtilsService } from '../../../services/utils.service';
 import { SearchboxComponent } from '../../components/searchbox/searchbox.component';
 import { MetaService } from '@ngx-meta/core';
 import { SeoService } from '../../../services/seo.service';
-import { Http } from "@angular/http";
 import { Observable } from "rxjs/Rx";
 
 @Component(
@@ -54,8 +53,7 @@ export class HomeComponent
                 private router: Router,
                 private utils: UtilsService,
                 private readonly meta: MetaService,
-                private seoService: SeoService,
-                private http: Http)
+                private seoService: SeoService)
     {
         document.addEventListener('click', this.onClickAnywhere.bind(this));
     }

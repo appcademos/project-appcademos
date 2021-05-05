@@ -421,8 +421,9 @@ export class OneCourseComponent implements OnInit, OnDestroy
 
                 this.publishingComment = true;
 
-                this.courseService.createReview(data).subscribe((review) =>
+                this.courseService.createReview(data).subscribe((r) =>
                 {
+                    let review = r as any;
                     let academyData = {...this.courseObj.course.academy}
                     academyData.reviews.push(review._id);
 
@@ -437,13 +438,13 @@ export class OneCourseComponent implements OnInit, OnDestroy
                     (error) =>
                     {
                         this.publishingComment = false;
-                        alert((error.json != null) ? error.json().message : error);
+                        alert((error.message != null) ? error.message : error);
                     });
                 },
                 (error) =>
                 {
                     this.publishingComment = false;
-                    alert((error.json != null) ? error.json().message : error);
+                    alert((error.message != null) ? error.message : error);
                 });
             }
         }

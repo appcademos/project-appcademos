@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from "@angular/core";
-import { Http } from "@angular/http";
+import { HttpClient } from "@angular/common/http";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
 import { Observable } from "rxjs/Rx";
@@ -12,7 +12,7 @@ export class UserSessionService
   user: any;
   options: any = { withCredentials: true };
 
-  constructor(private http: Http, private messageService: MessageService)
+  constructor(private http: HttpClient, private messageService: MessageService)
   {
       this.isLoggedIn().subscribe(
           res => {},
@@ -30,7 +30,6 @@ export class UserSessionService
   {
     return this.http
       .get(`${environment.BASEURL}/api/user/session`, this.options)
-      .map(res => res.json())
       .map(user =>
       {
           this.handleUser(user);
@@ -44,49 +43,45 @@ export class UserSessionService
   {
     return this.http
       .post(`${environment.BASEURL}/api/user/signup`, user, this.options)
-      .map(res => res.json())
       .map(user =>
       {
           this.handleUser(user);
           this.messageService.sendMessage({ user: user });
           return user;
       })
-      .catch(error => Observable.throw(error.json().message));
+      .catch(error => Observable.throw(error));
   }
 
   login(user)
   {
     return this.http
       .post(`${environment.BASEURL}/api/user/login`, user, this.options)
-      .map(res => res.json())
       .map(user =>
       {
           this.handleUser(user);
           this.messageService.sendMessage({ user: user });
           return user;
       })
-      .catch(error => Observable.throw(error.json().message));
+      .catch(error => Observable.throw(error));
   }
 
   logout()
   {
     return this.http
       .get(`${environment.BASEURL}/api/user/logout`, this.options)
-      .map(res => res.json())
       .map(user =>
       {
           this.handleUser();
           this.messageService.sendMessage({ user: null });
           return null;
       })
-      .catch(error => Observable.throw(error.json().message));
+      .catch(error => Observable.throw(error));
   }
   
   loginFacebookToken(fbToken)
   {
       return this.http
         .get(`${environment.BASEURL}/api/user/auth/facebook/login?access_token=${fbToken}`, this.options)
-        .map(res => res.json())
         .map(user =>
         {
             this.handleUser(user);
@@ -99,7 +94,6 @@ export class UserSessionService
   {
       return this.http
         .get(`${environment.BASEURL}/api/user/auth/facebook/signup?access_token=${fbToken}`, this.options)
-        .map(res => res.json())
         .map(user =>
         {
             this.handleUser(user);
@@ -113,7 +107,6 @@ export class UserSessionService
   {
       return this.http
         .get(`${environment.BASEURL}/api/user/auth/google/login?access_token=${googleToken}`, this.options)
-        .map(res => res.json())
         .map(user =>
         {
             this.handleUser(user);
@@ -126,7 +119,6 @@ export class UserSessionService
   {
       return this.http
         .get(`${environment.BASEURL}/api/user/auth/google/signup?access_token=${googleToken}`, this.options)
-        .map(res => res.json())
         .map(user =>
         {
             this.handleUser(user);
@@ -157,7 +149,7 @@ export class UserSessionService
                     localStorage.setItem('favoritesTutorialShown', 'true');
                 }
             }, 500)
-            return res.json()
+            return res
         })
       .catch(error =>
       {            
@@ -174,7 +166,7 @@ export class UserSessionService
       .map(res =>
         {
             setTimeout(() => this.isLoggedIn().subscribe(), 500)
-            return res.json()
+            return res
         })
       .catch(error =>
       {            

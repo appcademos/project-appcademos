@@ -263,12 +263,10 @@ export class CreateCourseFormComponent implements OnInit
                 {
                     this.onCourseUpdated.emit({ course: { _id: this.course._id, ...courseToUpdate } });
                     this.showCourseUpdatedSuccessNotification();
-                    console.log(res.message);
                 },
                 error =>
                 {
                     this.onCourseError.emit({ course: { _id: this.course._id, ...courseToUpdate } });
-                    console.log(error.json().message);
 
                     this.showCourseUpdatedErrorNotification();
                     console.log(error);

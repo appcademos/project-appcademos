@@ -104,10 +104,11 @@ export class ManagerComponent implements OnInit, OnDestroy
         this.categoriesService.getCategories()
         .subscribe(
             res =>
-            {                
-                if (res != null)
+            {
+                let data = res as any
+                if (data != null)
                 {
-                    this.categories = res;
+                    this.categories = data;
                     
                     if (this.categories != null && this.categories.length > 0)
                         this.selectedCategory = this.categories[0];
@@ -135,8 +136,9 @@ export class ManagerComponent implements OnInit, OnDestroy
         .subscribe(
             res =>
             {                           
-                if (res != null)
-                    this.academies = res;
+                let data = res as any;
+                if (data != null)
+                    this.academies = data;
                 
                 this.gettingAcademies = false;
             },
@@ -157,8 +159,9 @@ export class ManagerComponent implements OnInit, OnDestroy
         this.academyService.getAcademy()
         .subscribe(
             res =>
-            {               
-                this.router.navigate(["/manager/academy/", res._id]);
+            {
+                let data = res as any;
+                this.router.navigate(["/manager/academy/", data._id]);
             },
             err =>
             {

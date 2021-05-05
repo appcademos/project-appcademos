@@ -80,7 +80,7 @@ export class CheckoutComponent implements OnInit
                 this.courseservice.getCourse(params.id)
                 .subscribe(res =>
                 {
-                    this.course = res.course;
+                    this.course = (res as any).course;
                     
                     this.setMetaData();
                     
@@ -95,8 +95,8 @@ export class CheckoutComponent implements OnInit
                         this.isLoading = false;
                         
                         this.user = user;
-                        this.name = user.name;
-                        this.email = user.email;
+                        this.name = (user as any).name;
+                        this.email = (user as any).email;
                     },
                     err =>
                     {

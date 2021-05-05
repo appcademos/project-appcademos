@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpModule } from "@angular/http";
+import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { routes } from "./routes.routing";
@@ -143,7 +143,7 @@ const icons: IconDefinition[] = [ HeartTwoTone, LogoutOutline, SettingOutline ]
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     SocialLoginModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),

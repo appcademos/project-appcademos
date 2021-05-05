@@ -98,7 +98,6 @@ export class AllCoursesComponent
     }
     ngOnDestroy()
     {
-        console.log('ngOnDestroy')
         this.removeMetaData();
     }
 
@@ -152,46 +151,42 @@ export class AllCoursesComponent
             if (query != null && query.trim().length > 0)
             {
                 this.searching = true;
-                setTimeout(() =>
-                {
-                    let queryParams = this.activatedRoute.snapshot.queryParams
+                
+                let queryParams = this.activatedRoute.snapshot.queryParams
+                
+                let city = (this.selectedNeighborhoods.length == 0 &&
+                            this.selectedCity != null) ?
+                            this.selectedCity._id : null
+                
+                this.courseService.findCourses(query, this.selectedNeighborhoods, city, modality)
+                .subscribe(() =>
+                {                    
+                    this.allCourses = [...this.courseService.foundCourses];
+                    this.courses = [...this.courseService.foundCourses];
+                    this.orderBy(this.appliedOrder);
+                    this.searching = false;
+                    this.commonCategoryFullName = this.findCommonCategoryFullName(this.courseService.foundCourses);
                     
-                    let city = (this.selectedNeighborhoods.length == 0 &&
-                                this.selectedCity != null) ?
-                                this.selectedCity._id : null
+                    this.appliedCity = this.selectedCity
+                    this.appliedNeighborhoods = [...this.selectedNeighborhoods]
+                    this.appliedModality = this.selectedModality
                     
-                    this.courseService.findCourses(query, this.selectedNeighborhoods, city, modality)
-                    .subscribe(() =>
-                    {
-                        this.allCourses = [...this.courseService.foundCourses];
-                        this.courses = [...this.courseService.foundCourses];
-                        this.orderBy(this.appliedOrder);
-                        this.searching = false;
-                        this.commonCategoryFullName = this.findCommonCategoryFullName(this.courseService.foundCourses);
-                        
-                        this.appliedCity = this.selectedCity
-                        this.appliedNeighborhoods = [...this.selectedNeighborhoods]
-                        this.appliedModality = this.selectedModality
-                        
-                        this.updateQueryParams()
-                    });
-                }, 250);
+                    this.updateQueryParams()
+                });
             }
         }
         else
         {
             this.searching = true;
-            setTimeout(() =>
+            
+            this.courseService.getAll()
+            .subscribe(() =>
             {
-                this.courseService.getAll()
-                .subscribe(() =>
-                {
-                    this.allCourses = [...this.courseService.foundCourses];
-                    this.courses = [...this.courseService.foundCourses];
-                    this.orderBy(this.appliedOrder);
-                    this.searching = false;
-                });
-            }, 250);
+                this.allCourses = [...this.courseService.foundCourses];
+                this.courses = [...this.courseService.foundCourses];
+                this.orderBy(this.appliedOrder);
+                this.searching = false;
+            });
         }
     }
     orderBy(orderId)
@@ -416,6 +411,9 @@ export class AllCoursesComponent
     }
     onClickCity(city)
     {
+        if (city == null || city.neighborhoods == null)
+            return
+        
         this.selectedCity = city
         this.neighborhoods = city.neighborhoods
     }

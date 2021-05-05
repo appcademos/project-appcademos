@@ -168,8 +168,9 @@ export class LoginComponent
             },
             error =>
             {
+                console.log(error)
                 this.sendingLogin = false;
-                alert((error.json != null) ? error.json().message : error);
+                alert((error.message != null) ? error.message : error);
             });
         }
     }
@@ -197,7 +198,7 @@ export class LoginComponent
             error =>
             {
                 this.sendingSignup = false;
-                alert((error.json != null) ? error.json().message : error);
+                alert((error.message != null) ? error.message : error);
             });
         }
     }

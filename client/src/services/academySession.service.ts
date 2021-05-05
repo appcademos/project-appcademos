@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from "@angular/core";
-import { Http } from "@angular/http";
+import { HttpClient } from "@angular/common/http";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
 import { Observable } from "rxjs/Rx";
@@ -11,14 +11,13 @@ export class AcademySessionService
     options: any = { withCredentials: true };
     cities = []
 
-    constructor(private http: Http) {}
+    constructor(private http: HttpClient) {}
     
     
     getAcademies()
     {
         return this.http
         .get(`${environment.BASEURL}/api/academy/all`, this.options)
-        .map(res => res.json())
         .catch(error => Observable.throw(error));
     }
 
@@ -28,7 +27,6 @@ export class AcademySessionService
         
         return this.http
             .get(url, this.options)
-            .map(res => res.json())
             .catch(error => Observable.throw(error));
     }
     
@@ -36,7 +34,6 @@ export class AcademySessionService
     {
         return this.http
           .post(`${environment.BASEURL}/api/academy`, academy, this.options)
-          .map(res => res.json())
           .catch(error => Observable.throw(error));
     }
 
@@ -44,7 +41,6 @@ export class AcademySessionService
     {
         return this.http
           .put(`${environment.BASEURL}/api/academy/update/${academyId}`, academy, this.options)
-          .map(res => res.json())
           .catch(error => Observable.throw(error));
     }
     
@@ -53,15 +49,13 @@ export class AcademySessionService
     {
         return this.http
           .post(`${environment.BASEURL}/api/academy/${academyId}/review`, review, this.options)
-          .map(res => res.json())
-          .catch(error => Observable.throw(error.json()));
+          .catch(error => Observable.throw(error));
     }
 
     updateReview(reviewId, review)
     {
           return this.http
             .put(`${environment.BASEURL}/api/review/${reviewId}`, review, this.options)
-            .map(res => res.json())
             .catch(error => Observable.throw(error));
     }
     
@@ -69,7 +63,6 @@ export class AcademySessionService
     {
           return this.http
             .post(`${environment.BASEURL}/api/academy/${academyId}/delete-review`, { reviewId }, this.options)
-            .map(res => res.json())
             .catch(error => Observable.throw(error));
     }
     
@@ -85,9 +78,10 @@ export class AcademySessionService
         {
             return this.http
             .get(`${environment.BASEURL}/api/cities/`, this.options)
-            .map(res =>
+            .map(data =>
             {
-                this.cities = res.json()
+                let d = data as any
+                this.cities = d
                 return this.cities
             })
             .catch(error => Observable.throw(error))
