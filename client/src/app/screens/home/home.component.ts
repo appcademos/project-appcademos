@@ -16,8 +16,8 @@ import { Observable } from "rxjs/Rx";
 
 export class HomeComponent
 {
-    @ViewChild('searchbox') searchboxComponent: SearchboxComponent;
-    @ViewChild('fixedsearchbox') fixedSearchboxComponent: SearchboxComponent;
+    @ViewChild('searchbox', { static: true }) searchboxComponent: SearchboxComponent;
+    @ViewChild('fixedsearchbox', { static: true }) fixedSearchboxComponent: SearchboxComponent;
 
     showFixedSearchbar: boolean = false;
     heroHeight: number = undefined;

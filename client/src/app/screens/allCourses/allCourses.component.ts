@@ -16,7 +16,7 @@ const ORDER_PRICE_ASCENDING = 2;
 })
 export class AllCoursesComponent
 {
-    @ViewChild('orderbox') orderbox;
+    @ViewChild('orderbox', { static: false }) orderbox;
 
     cities = []
     neighborhoods = []
