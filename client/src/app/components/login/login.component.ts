@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { UserSessionService } from '../../../services/userSession.service';
 import { Router } from "@angular/router";
 import { Directive, HostBinding } from '@angular/core';
-import { AuthService, SocialUser } from "angularx-social-login";
+import { SocialAuthService, SocialUser } from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 
 @Component(
@@ -45,7 +45,7 @@ export class LoginComponent
 
     constructor(private userService: UserSessionService,
                 private router: Router,
-                private authService: AuthService)
+                private authService: SocialAuthService)
     {
 
     }

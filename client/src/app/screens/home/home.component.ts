@@ -5,7 +5,7 @@ import { UtilsService } from '../../../services/utils.service';
 import { SearchboxComponent } from '../../components/searchbox/searchbox.component';
 import { MetaService } from '@ngx-meta/core';
 import { SeoService } from '../../../services/seo.service';
-import { Observable } from "rxjs/Rx";
+import { Observable } from "rxjs";
 
 @Component(
 {

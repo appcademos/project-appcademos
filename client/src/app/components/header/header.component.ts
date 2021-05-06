@@ -4,7 +4,7 @@ import { UserSessionService } from "../../../services/userSession.service";
 import { Router, Event, NavigationEnd, UrlSerializer } from "@angular/router";
 import { MessageService } from '../../../services/message.service';
 import { Subscription } from 'rxjs';
-import { AuthService } from "angularx-social-login";
+import { SocialAuthService } from "angularx-social-login";
 import { UtilsService } from '../../../services/utils.service';
 
 @Component({
@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit, OnDestroy
                 private academyService: AcademySessionService,
                 private userService: UserSessionService,
                 private messageService: MessageService,
-                private authService: AuthService,
+                private authService: SocialAuthService,
                 private utils: UtilsService)
     {
         this.isLandingPage = this.landingUris.some((uri) => window.location.href.indexOf(uri) > -1)

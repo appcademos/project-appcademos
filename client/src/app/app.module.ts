@@ -10,9 +10,9 @@ import { environment } from "../environments/environment.prod";
 
 // LIBRARIES
 import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
-import { NzNotificationModule, NzModalModule, NzButtonModule, NzSelectModule, NzPopconfirmModule, NzRateModule, NzIconModule, NzSwitchModule, NzTagModule, NzEmptyModule, NzDropDownModule, NzMessageModule, NzInputModule, NZ_I18N, NZ_ICONS, NZ_ICON_DEFAULT_TWOTONE_COLOR, NZ_NOTIFICATION_CONFIG, es_ES } from 'ng-zorro-antd';
+import { NzNotificationModule, NzModalModule, NzButtonModule, NzSelectModule, NzPopconfirmModule, NzRateModule, NzIconModule, NzSwitchModule, NzTagModule, NzEmptyModule, NzDropDownModule, NzMessageModule, NzInputModule, NZ_I18N, NZ_ICONS, NZ_ICON_DEFAULT_TWOTONE_COLOR, es_ES } from 'ng-zorro-antd';
+import { NZ_CONFIG } from 'ng-zorro-antd/core/config'
 import { QuillModule } from 'ngx-quill';
-//import { AbTestsModule } from 'angular-ab-tests';
 import { LottieAnimationViewModule } from 'ng-lottie';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { HeartTwoTone, LogoutOutline, SettingOutline } from '@ant-design/icons-angular/icons';
@@ -48,7 +48,7 @@ import { CookiesComponent } from './screens/cookies/cookies.component';
 import { PrivacyPolicyComponent } from './screens/privacy-policy/privacy-policy.component';
 import { CheckboxComponent } from './components/uiComponents/checkbox/checkbox.component';
 import { RadioComponent } from './components/uiComponents/radio/radio.component';
-import { SocialLoginModule, AuthServiceConfig, LoginOpt } from "angularx-social-login";
+import { SocialLoginModule, SocialAuthServiceConfig } from "angularx-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
 import { EstudioPersonalizadoComponent } from './screens/estudio-personalizado/estudio-personalizado.component';
 import { ManagerComponent } from './screens/manager/manager/manager.component';
@@ -75,31 +75,15 @@ export function metaFactory(): MetaLoader
     });
 }
 
-const fbLoginOptions: LoginOpt = {
+const fbLoginOptions = {
   scope: 'email',
   return_scopes: true,
   enable_profile_selector: true
 }; // https://developers.facebook.com/docs/reference/javascript/FB.login/v2.11
  
-const googleLoginOptions: LoginOpt = {
+const googleLoginOptions = {
   scope: 'profile email'
 }; // https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiauth2clientconfig
- 
-let config = new AuthServiceConfig(
-[
-    {
-        id: GoogleLoginProvider.PROVIDER_ID,
-        provider: new GoogleLoginProvider("802314734199-69vofa2veeehe0td59ntmo554sl82i61.apps.googleusercontent.com",googleLoginOptions)
-    },
-    {
-        id: FacebookLoginProvider.PROVIDER_ID,
-        provider: new FacebookLoginProvider("2470689616374077",fbLoginOptions)
-    }
-]);
-
-export function provideConfig() {
-  return config;
-}
 
 /***** Antd icons config *****/
 const icons: IconDefinition[] = [ HeartTwoTone, LogoutOutline, SettingOutline ]
@@ -182,13 +166,6 @@ const icons: IconDefinition[] = [ HeartTwoTone, LogoutOutline, SettingOutline ]
             ]
         }
     }),
-    /*AbTestsModule.forRoot([
-      {
-        versions: [ 'A', 'B' ],
-        versionForCrawlers: 'A',
-        expiration: 30
-      },
-  ]),*/
     LottieAnimationViewModule.forRoot()
   ],
   providers: [
@@ -199,17 +176,30 @@ const icons: IconDefinition[] = [ HeartTwoTone, LogoutOutline, SettingOutline ]
     UtilsService,
     SeoService,
     {
-      provide: AuthServiceConfig,
-      useFactory: provideConfig
+      provide: 'SocialAuthServiceConfig',
+      useValue:
+      {
+          providers:
+          [
+              {
+                  id: GoogleLoginProvider.PROVIDER_ID,
+                  provider: new GoogleLoginProvider("802314734199-69vofa2veeehe0td59ntmo554sl82i61.apps.googleusercontent.com",googleLoginOptions)
+              },
+              {
+                  id: FacebookLoginProvider.PROVIDER_ID,
+                  provider: new FacebookLoginProvider("2470689616374077",fbLoginOptions)
+              }
+          ]
+      } as SocialAuthServiceConfig
     },
     BookingsService,
     { provide: NZ_I18N, useValue: es_ES },
     CategoriesService,
     { provide: NZ_ICON_DEFAULT_TWOTONE_COLOR, useValue: '#FF6E00' },
     { provide: NZ_ICONS, useValue: icons },
-    { provide: NZ_NOTIFICATION_CONFIG, useValue: { nzTop: '80px' }}
+    { provide: NZ_CONFIG, useValue: { nzTop: '80px' }}
   ],
-  exports: [ /*AbTestsModule*/ ],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
