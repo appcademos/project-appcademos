@@ -77,7 +77,8 @@ export class CreateAcademyFormComponent implements OnInit
             }
             else
             {
-                this.city = this.academy.neighborhoods[0].city
+                if (this.academy.neighborhoods.length > 0)
+                    this.city = this.academy.neighborhoods[0].city
                 
                 this.neighborhoods = this.academy.neighborhoods.map(n => n._id)
                 

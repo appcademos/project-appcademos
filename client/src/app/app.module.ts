@@ -13,7 +13,8 @@ import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '
 import { NzNotificationModule, NzModalModule, NzButtonModule, NzSelectModule, NzPopconfirmModule, NzRateModule, NzIconModule, NzSwitchModule, NzTagModule, NzEmptyModule, NzDropDownModule, NzMessageModule, NzInputModule, NZ_I18N, NZ_ICONS, NZ_ICON_DEFAULT_TWOTONE_COLOR, es_ES } from 'ng-zorro-antd';
 import { NZ_CONFIG } from 'ng-zorro-antd/core/config'
 import { QuillModule } from 'ngx-quill';
-import { LottieAnimationViewModule } from 'ng-lottie';
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { HeartTwoTone, LogoutOutline, SettingOutline } from '@ant-design/icons-angular/icons';
 
@@ -87,6 +88,10 @@ const googleLoginOptions = {
 
 /***** Antd icons config *****/
 const icons: IconDefinition[] = [ HeartTwoTone, LogoutOutline, SettingOutline ]
+
+// Note we need a separate function as it's required
+// by the AOT compiler.
+export function playerFactory() { return player; }
 
 
 @NgModule({
@@ -166,7 +171,7 @@ const icons: IconDefinition[] = [ HeartTwoTone, LogoutOutline, SettingOutline ]
             ]
         }
     }),
-    LottieAnimationViewModule.forRoot()
+    LottieModule.forRoot({ player: playerFactory })
   ],
   providers: [
     AcademySessionService,
