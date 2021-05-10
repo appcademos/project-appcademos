@@ -1,8 +1,8 @@
 /// <reference types="@types/googlemaps" />
-import { Component, ViewChild, HostListener, OnInit, OnDestroy, Inject } from "@angular/core";
+import { Component, ViewChild, HostListener, OnInit, OnDestroy, Inject, PLATFORM_ID } from "@angular/core";
 import { CoursesService } from "../../../services/courses.service";
 import { ActivatedRoute } from "@angular/router";
-import { Location, DOCUMENT } from "@angular/common";
+import { Location, DOCUMENT, isPlatformBrowser } from "@angular/common";
 import { UtilsService } from '../../../services/utils.service';
 import { UserSessionService } from '../../../services/userSession.service';
 import { Router, Event, NavigationEnd } from '@angular/router';
@@ -13,6 +13,7 @@ import { MetaService } from '@ngx-meta/core';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs'
 import { NzMessageService } from 'ng-zorro-antd'
+import { WindowRefService } from '../../../services/windowRef.service'
 
 @Component({
   selector: "app-oneCourse",
@@ -70,7 +71,9 @@ export class OneCourseComponent implements OnInit, OnDestroy
                 private messageService: MessageService,
                 private readonly meta: MetaService,
                 private notificationMessages: NzMessageService,
-                @Inject(DOCUMENT) private document: Document)
+                @Inject(DOCUMENT) private document: Document,
+                @Inject(PLATFORM_ID) private platformId: any,
+                private windowRefService: WindowRefService)
     {
         
     }
@@ -171,7 +174,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
                 this.separateReviews();
 
                 // Expand first item
-                setTimeout(() => { this.expandItem('expandible-item-1'); });
+                setTimeout(() => { this.expandItem('expandible-item-1'); }, 100);
                 
                 this.isFavorite = this.usersService.hasFavorite(this.courseObj.course._id)
                 if (this.isFavorite)
@@ -229,14 +232,19 @@ export class OneCourseComponent implements OnInit, OnDestroy
     }
     expandItem(id: any)
     {
-        $('#' + id + ' .content').slideToggle(200);
-        $('#' + id).toggleClass('expanded');
+        if (this.canUseJquery())
+        {
+            (this.windowRefService.nativeWindow as any).$('#' + id + ' .content').slideToggle(200);
+            (this.windowRefService.nativeWindow as any).$('#' + id).toggleClass('expanded');
+        }
     }
     onReviewsLoopFinished(last: boolean)
     {
-        if (last)
+        let canUseJquery = this.canUseJquery()
+        
+        if (last && canUseJquery)
         {
-            let coursesCarousel = $('#reviews .carousel');
+            let coursesCarousel = (this.windowRefService.nativeWindow as any).$('#reviews .carousel');
 
             if (!coursesCarousel.hasClass('slick-initialized'))
             {
@@ -246,7 +254,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
                 coursesCarousel.on('init', () =>
                 {                    
                     this.reviewsCarouselReady = true;
-                    $('#reviews .carousel .slick-list').css('overflow', 'visible');
+                    (this.windowRefService.nativeWindow as any).$('#reviews .carousel .slick-list').css('overflow', 'visible');
 
                     if (this.goToLastPublishedComment)
                     {
@@ -258,7 +266,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
                 });
                 coursesCarousel.on('breakpoint', () =>
                 {
-                    $('#reviews .carousel .slick-list').css('overflow', 'visible');
+                    (this.windowRefService.nativeWindow as any).$('#reviews .carousel .slick-list').css('overflow', 'visible');
                 });
 
                 coursesCarousel.slick(
@@ -267,15 +275,16 @@ export class OneCourseComponent implements OnInit, OnDestroy
                     slidesToShow: 1,
                     slidesToScroll: 1,
                     speed: 300,
-                    prevArrow: $('#reviews .carousel-container .prev-button'),
-                    nextArrow: $('#reviews .carousel-container .next-button')
+                    prevArrow: (this.windowRefService.nativeWindow as any).$('#reviews .carousel-container .prev-button'),
+                    nextArrow: (this.windowRefService.nativeWindow as any).$('#reviews .carousel-container .next-button')
                 });
             }
         }
     }
     setMap()
     {
-        if (this.courseObj.course.academy.location == null ||
+        if (!isPlatformBrowser(this.platformId) ||
+            this.courseObj.course.academy.location == null ||
             this.courseObj.course.academy.location.coordinates == null ||
             this.courseObj.course.academy.location.coordinates[0] == null ||
             this.courseObj.course.academy.location.coordinates[1] == null)
@@ -314,9 +323,11 @@ export class OneCourseComponent implements OnInit, OnDestroy
     }
     onGalleryLoopFinished(last: boolean)
     {
-        if (last)
+        let canUseJquery = this.canUseJquery()
+        
+        if (last && canUseJquery)
         {
-            let galleryCarousel = $('#gallery .gallery-items');
+            let galleryCarousel = (this.windowRefService.nativeWindow as any).$('#gallery .gallery-items');
 
             if (!galleryCarousel.hasClass('slick-initialized'))
             {
@@ -331,8 +342,8 @@ export class OneCourseComponent implements OnInit, OnDestroy
                     slidesToShow: 1,
                     slidesToScroll: 1,
                     speed: 300,
-                    prevArrow: $('#gallery .left-area'),
-                    nextArrow: $('#gallery .right-area')
+                    prevArrow: (this.windowRefService.nativeWindow as any).$('#gallery .left-area'),
+                    nextArrow: (this.windowRefService.nativeWindow as any).$('#gallery .right-area')
                 });
             }
         }
@@ -351,6 +362,8 @@ export class OneCourseComponent implements OnInit, OnDestroy
 
     separateReviews(filterGrade?)
     {
+        let canUseJquery = this.canUseJquery()
+        
         let allReviews = this.courseObj.course.academy.reviews;
         if (filterGrade != null)
         {
@@ -375,8 +388,11 @@ export class OneCourseComponent implements OnInit, OnDestroy
             reviews.push(divisionArr);
         }
 
-        let coursesCarousel = $('#reviews .carousel');
-        coursesCarousel.slick('unslick');
+        if (canUseJquery)
+        {
+            let coursesCarousel = (this.windowRefService.nativeWindow as any).$('#reviews .carousel');
+            coursesCarousel.slick('unslick');
+        }
         
         setTimeout(() =>
         {
@@ -756,10 +772,18 @@ export class OneCourseComponent implements OnInit, OnDestroy
         // Hide fixed bottom if footer reached
         if (this.utils.isMobileWidth())
         {
-            if (window.pageYOffset + window.innerHeight - $('.fixed-button').outerHeight() >= $('footer').offset().top)
-                $('.fixed-button').hide();
+            let jq = (this.windowRefService.nativeWindow as any).$
+            
+            if (window.pageYOffset + window.innerHeight - jq('.fixed-button').outerHeight() >= jq('footer').offset().top)
+                (this.windowRefService.nativeWindow as any).jq('.fixed-button').hide();
             else
-                $('.fixed-button').show();
+                (this.windowRefService.nativeWindow as any).jq('.fixed-button').show();
         }
+    }
+    
+    canUseJquery()
+    {
+        return (this.windowRefService.nativeWindow != null && 
+                (this.windowRefService.nativeWindow as any).$ != null)
     }
 }

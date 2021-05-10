@@ -131,7 +131,7 @@ export function playerFactory() { return player; }
    ],
 
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     FormsModule,
     HttpClientModule,
     SocialLoginModule,

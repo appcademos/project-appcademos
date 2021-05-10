@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-declare var $: any;
+import { WindowRefService } from '../../../services/windowRef.service'
 
 @Component({
   selector: 'app-courses-carousel',
@@ -13,26 +13,29 @@ export class CoursesCarouselComponent implements OnInit
 
     carouselReady: boolean = false;
 
-    constructor() { }
+    constructor(private windowRefService: WindowRefService) { }
 
     ngOnInit() {}
 
     onLoopFinished(last: boolean)
     {
-        if (last)
+        let canUseJquery = (this.windowRefService.nativeWindow != null &&
+                            (this.windowRefService.nativeWindow as any).$ != null)
+        
+        if (last && canUseJquery)
         {
-            let coursesCarousel = $('.courses-carousel');
+            let coursesCarousel = (this.windowRefService.nativeWindow as any).$('.courses-carousel');
 
             if (!coursesCarousel.hasClass('slick-initialized'))
             {
                 coursesCarousel.on('init', () =>
                 {
                     this.carouselReady = true;
-                    $('.courses-carousel .slick-list').css('overflow', 'visible');
+                    (this.windowRefService.nativeWindow as any).$('.courses-carousel .slick-list').css('overflow', 'visible');
                 });
                 coursesCarousel.on('breakpoint', () =>
                 {
-                    $('.courses-carousel .slick-list').css('overflow', 'visible');
+                    (this.windowRefService.nativeWindow as any).$('.courses-carousel .slick-list').css('overflow', 'visible');
                 });
 
                 coursesCarousel.slick(
@@ -41,8 +44,8 @@ export class CoursesCarouselComponent implements OnInit
                     slidesToShow: 4,
                     slidesToScroll: 1,
                     speed: 300,
-                    prevArrow: $('.courses-carousel-container .prev-button'),
-                    nextArrow: $('.courses-carousel-container .next-button'),
+                    prevArrow: (this.windowRefService.nativeWindow as any).$('.courses-carousel-container .prev-button'),
+                    nextArrow: (this.windowRefService.nativeWindow as any).$('.courses-carousel-container .next-button'),
                     responsive:
                     [
                         {
