@@ -13,7 +13,7 @@ const domino = require('domino');
 const fs = require('fs');
 const path = require('path');
 // index from browser build!
-const template = fs.readFileSync(path.join('.', 'dist', 'index.html')).toString();
+const template = fs.readFileSync(path.join('.', 'dist', 'browser/index.html')).toString();
 // for mock global window by domino
 const win = domino.createWindow(template);
 // mock
@@ -39,7 +39,7 @@ global['Prism'] = null;
 export function app(): express.Express
 {
   const server = express();
-  const distFolder = join(process.cwd(), 'dist/client/browser');
+  const distFolder = join(process.cwd(), 'dist/browser');
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
