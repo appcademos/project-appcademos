@@ -1,7 +1,7 @@
-import { Component, ViewChild, HostListener } from "@angular/core";
+import { Component, ViewChild, HostListener, Inject } from "@angular/core";
 import { CoursesService } from "../../../services/courses.service";
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
-import { Location } from '@angular/common';
+import { Location, DOCUMENT } from '@angular/common';
 import { UtilsService, NEIGHBORHOODS } from '../../../services/utils.service';
 import { MetaService } from '@ngx-meta/core';
 import { AcademySessionService } from '../../../services/academySession.service'
@@ -65,7 +65,8 @@ export class AllCoursesComponent
                 private location: Location,
                 private utils: UtilsService,
                 private readonly meta: MetaService,
-                private academyService: AcademySessionService)
+                private academyService: AcademySessionService,
+                @Inject(DOCUMENT) private document: Document)
     {
         this.courseService.searching = true;
     }
@@ -89,12 +90,9 @@ export class AllCoursesComponent
     }
     ngAfterViewInit()
     {
-        setTimeout(() =>
-        {
-            let theSearchView = <HTMLElement>document.getElementsByClassName('search-view')[0];
-            this.searchbarOffsetTop = theSearchView.offsetTop + theSearchView.offsetHeight;
-            this.searchviewOffsetTop = theSearchView.offsetTop;
-        });
+        let theSearchView = <HTMLElement>this.document.getElementsByClassName('search-view')[0];
+        this.searchbarOffsetTop = theSearchView.offsetTop + theSearchView.offsetHeight;
+        this.searchviewOffsetTop = theSearchView.offsetTop;
     }
     ngOnDestroy()
     {
@@ -335,8 +333,8 @@ export class AllCoursesComponent
             
             if (this.utils.isMobileWidth())
             {
-                document.body.style.overflow = 'hidden';
-                document.getElementById("hubspot-messages-iframe-container").classList.add('hidden');
+                this.document.body.style.overflow = 'hidden';
+                this.document.getElementById("hubspot-messages-iframe-container").classList.add('hidden');
             }
         }
         else
@@ -345,10 +343,10 @@ export class AllCoursesComponent
             
             if (this.utils.isMobileWidth())
             {
-                document.body.style.overflow = 'initial';
+                this.document.body.style.overflow = 'initial';
                 setTimeout(() =>
                 {
-                    document.getElementById("hubspot-messages-iframe-container").classList.remove('hidden');
+                    this.document.getElementById("hubspot-messages-iframe-container").classList.remove('hidden');
                 }, 250);
             }
         }
@@ -496,7 +494,7 @@ export class AllCoursesComponent
     @HostListener("window:scroll", [])
     onScroll()
     {
-        let number = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        let number = window.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0;
         let downScroll = (number > this.lastScrollOffsetTop);
         const minScrollDelta = 28;
         let processEvent = Math.abs(this.lastScrollOffsetTop - number) >= minScrollDelta;

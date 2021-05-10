@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core'
+import { Component, Input, Output, EventEmitter, Inject } from '@angular/core'
 import { UtilsService } from '../../../services/utils.service'
+import { DOCUMENT } from '@angular/common'
 
 @Component({
   selector: 'app-favorites-tutorial',
@@ -11,7 +12,8 @@ export class FavoritesTutorialComponent
     @Input() visible: boolean = false
     @Output() onClose = new EventEmitter()
     
-    constructor(private utils: UtilsService)
+    constructor(private utils: UtilsService,
+                @Inject(DOCUMENT) private document: Document)
     {
         
     }
@@ -23,10 +25,10 @@ export class FavoritesTutorialComponent
             if (changes.visible.currentValue)
             {
                 this.utils.scrollToElement('header')
-                document.body.style.overflow = 'hidden'
+                this.document.body.style.overflow = 'hidden'
             }
             else
-                document.body.style.overflow = 'unset'
+                this.document.body.style.overflow = 'unset'
         }
     }
     

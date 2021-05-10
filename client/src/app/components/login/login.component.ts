@@ -1,4 +1,5 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common'
 import { UserSessionService } from '../../../services/userSession.service';
 import { Router } from "@angular/router";
 import { Directive, HostBinding } from '@angular/core';
@@ -45,7 +46,8 @@ export class LoginComponent
 
     constructor(private userService: UserSessionService,
                 private router: Router,
-                private authService: SocialAuthService)
+                private authService: SocialAuthService,
+                @Inject(DOCUMENT) private document: Document)
     {
 
     }
@@ -55,10 +57,10 @@ export class LoginComponent
         if (changes.visible != null)
         {
             if (changes.visible.currentValue)
-                document.body.style.overflow = 'hidden';
+                this.document.body.style.overflow = 'hidden';
             else
             {
-                document.body.style.overflow = 'unset';
+                this.document.body.style.overflow = 'unset';
 
                 this.loginComplete = false;
                 this.signupComplete = false;

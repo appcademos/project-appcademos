@@ -27,6 +27,7 @@ import { MessageService } from "../services/message.service";
 import { SeoService } from "../services/seo.service";
 import { BookingsService } from "../services/bookings.service";
 import { CategoriesService } from "../services/categories.service";
+import { WindowRefService } from "../services/windowRef.service";
 
 // COMPONENTS
 import { AcademyComponent } from "./screens/manager/academy/academy.component";
@@ -174,6 +175,7 @@ export function playerFactory() { return player; }
     LottieModule.forRoot({ player: playerFactory })
   ],
   providers: [
+    WindowRefService,
     AcademySessionService,
     CoursesService,
     UserSessionService,

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
+import { Component, OnInit, Inject } from '@angular/core';
+import { Location, DOCUMENT } from '@angular/common';
 import { UtilsService } from '../../../../services/utils.service';
 import { MetaService } from '@ngx-meta/core';
+import { WindowRefService } from '../../../../services/windowRef.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-yes',
@@ -20,7 +22,10 @@ export class YesComponent implements OnInit
     
     constructor(private location: Location,
                 public utils: UtilsService,
-                private meta: MetaService)
+                private meta: MetaService,
+                private windowRefService: WindowRefService,
+                private router: Router,
+                @Inject(DOCUMENT) private document: Document)
     {
         
     }
@@ -38,21 +43,21 @@ export class YesComponent implements OnInit
     }
     setHubspotForm()
     {
-        if ((window as any).hbspt != undefined)
+        if ((this.windowRefService.nativeWindow as any).hbspt != undefined)
         {
-            (window as any).hbspt.forms.create(
+            (this.windowRefService.nativeWindow as any).hbspt.forms.create(
             {
                 portalId: "4604246",
                 formId: "c5a03014-2acb-4cdc-9110-7c9033d1a20d",
                 target: "#landingForm",
                 onFormReady: function()
                 {
-                    if (document.querySelector('#landingForm iframe'))
-                        document.querySelector('#landingForm iframe').setAttribute('data-hj-allow-iframe', '');
+                    if (this.document.querySelector('#landingForm iframe'))
+                        this.document.querySelector('#landingForm iframe').setAttribute('data-hj-allow-iframe', '');
                 },
                 onFormSubmitted: () =>
                 {
-                    this.location.go(window.location.pathname + '/form-enviado');
+                    this.location.go(this.router.url + '/form-enviado');
                 } 
             });
         }

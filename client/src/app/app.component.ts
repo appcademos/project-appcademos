@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
 declare var userAgent: any;
+import { WindowRefService } from '../services/windowRef.service'
+import { DOCUMENT } from '@angular/common'
 
 @Component(
 {
@@ -12,7 +14,9 @@ export class AppComponent implements OnInit
 {
     currentUrl = null;
 
-    constructor(private router: Router)
+    constructor(private router: Router,
+                private windowRefService: WindowRefService,
+                @Inject(DOCUMENT) private document: Document)
     {
         this.scrollToTopOnRouteChange();
         this.setIsIos();
@@ -30,7 +34,7 @@ export class AppComponent implements OnInit
             {
                 if (event.url != this.currentUrl)
                 {
-                    window.scrollTo(0, 0);
+                    this.windowRefService.nativeWindow.scrollTo(0, 0);
                     this.currentUrl = event.url;
                 }
             }
@@ -39,6 +43,6 @@ export class AppComponent implements OnInit
     setIsIos()
     {
         if (userAgent.isIos())
-            document.querySelector('html').classList.add('is-ios');
+            this.document.querySelector('html').classList.add('is-ios');
     }
 }

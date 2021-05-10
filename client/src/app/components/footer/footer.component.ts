@@ -13,13 +13,13 @@ export class FooterComponent implements OnInit
     
     constructor(private router: Router)
     {
-        this.isLandingPage = this.landingUris.some((uri) => window.location.href.indexOf(uri) > -1)
+        this.isLandingPage = this.landingUris.some((uri) => this.router.url.indexOf(uri) > -1)
     
         router.events.subscribe((val) =>
         {
             if (val instanceof NavigationEnd)
             {
-                this.isLandingPage = this.landingUris.some((uri) => window.location.href.indexOf(uri) > -1)
+                this.isLandingPage = this.landingUris.some((uri) => this.router.url.indexOf(uri) > -1)
             }
         });
     }

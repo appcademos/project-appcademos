@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
+import { Component, OnInit, Inject } from '@angular/core';
+import { Location, DOCUMENT } from '@angular/common';
+import { Router } from '@angular/router'
+import { WindowRefService } from '../../../services/windowRef.service'
 
 @Component({
   selector: 'app-estudio-personalizado',
@@ -8,24 +10,27 @@ import { Location } from '@angular/common';
 })
 export class EstudioPersonalizadoComponent implements OnInit
 {
-    constructor(private location: Location) {  }
+    constructor(private location: Location,
+                private router: Router,
+                private windowRefService: WindowRefService,
+                @Inject(DOCUMENT) private document: Document) {  }
 
     ngOnInit()
-    {
-        if ((window as any).hbspt != undefined)
+    {        
+        if ((this.windowRefService.nativeWindow as any).hbspt != undefined)
         {
-            (window as any).hbspt.forms.create(
+            (this.windowRefService.nativeWindow as any).hbspt.forms.create(
             {
                 portalId: "4604246",
                 formId: "c2690194-2d4e-44c3-84a4-bbd7d4601fff",
                 target: "#estudioPersonalizado",
                 onFormReady: function()
                 {
-                    document.querySelector('#estudioPersonalizado iframe').setAttribute('data-hj-allow-iframe', '');
+                    this.document.querySelector('#estudioPersonalizado iframe').setAttribute('data-hj-allow-iframe', '');
                 },
                 onFormSubmitted: () =>
                 {
-                    this.location.go(window.location.pathname + '/formulario-completado');
+                    this.location.go(this.router.url + '/formulario-completado');
                 } 
             });
         }

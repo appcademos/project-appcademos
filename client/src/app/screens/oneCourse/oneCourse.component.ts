@@ -1,8 +1,8 @@
 /// <reference types="@types/googlemaps" />
-import { Component, ViewChild, HostListener, OnInit, OnDestroy } from "@angular/core";
+import { Component, ViewChild, HostListener, OnInit, OnDestroy, Inject } from "@angular/core";
 import { CoursesService } from "../../../services/courses.service";
 import { ActivatedRoute } from "@angular/router";
-import { Location } from "@angular/common";
+import { Location, DOCUMENT } from "@angular/common";
 import { UtilsService } from '../../../services/utils.service';
 import { UserSessionService } from '../../../services/userSession.service';
 import { Router, Event, NavigationEnd } from '@angular/router';
@@ -69,7 +69,8 @@ export class OneCourseComponent implements OnInit, OnDestroy
                 private router: Router,
                 private messageService: MessageService,
                 private readonly meta: MetaService,
-                private notificationMessages: NzMessageService)
+                private notificationMessages: NzMessageService,
+                @Inject(DOCUMENT) private document: Document)
     {
         
     }
@@ -506,7 +507,7 @@ export class OneCourseComponent implements OnInit, OnDestroy
             this.meta.setTag('description', `${courseTitleNoDuration} en ${neighborhoods}. Horarios, precio, temario, opiniones verificadas... Toda la información de este curso de la academia ${this.courseObj.course.academy.name}.`);
             
             // Canonical
-            if (window.location.href.indexOf('/curso/') > -1)
+            if (this.router.url.indexOf('/curso/') > -1)
                 this.setCanonicalTag();
         }        
     }
@@ -523,10 +524,10 @@ export class OneCourseComponent implements OnInit, OnDestroy
         
         if (uri != null)
         {
-            let link = !!document.querySelector("link[rel='canonical']") ? document.querySelector("link[rel='canonical']") : document.createElement('link');
+            let link = !!this.document.querySelector("link[rel='canonical']") ? this.document.querySelector("link[rel='canonical']") : this.document.createElement('link');
             link.setAttribute('rel', 'canonical');
             link.setAttribute('href', location.protocol + '//' + location.host + uri);
-            document.head.appendChild(link);
+            this.document.head.appendChild(link);
         }
     }
     getCanonicalUri()

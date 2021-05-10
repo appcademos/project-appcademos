@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
+import { Component, OnInit, Inject } from '@angular/core';
+import { Location, DOCUMENT } from '@angular/common';
 import { UtilsService } from '../../../../services/utils.service';
 import { MetaService } from '@ngx-meta/core';
+import { WindowRefService } from '../../../../services/windowRef.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-iber-english',
@@ -12,7 +14,10 @@ export class IberEnglishComponent implements OnInit
 {
     constructor(private location: Location,
                 public utils: UtilsService,
-                private meta: MetaService)
+                private meta: MetaService,
+                private windowRefService: WindowRefService,
+                private router: Router,
+                @Inject(DOCUMENT) private document: Document)
     {
         
     }
@@ -30,21 +35,21 @@ export class IberEnglishComponent implements OnInit
     }
     setHubspotForm()
     {
-        if ((window as any).hbspt != undefined)
+        if ((this.windowRefService.nativeWindow as any).hbspt != undefined)
         {
-            (window as any).hbspt.forms.create(
+            (this.windowRefService.nativeWindow as any).hbspt.forms.create(
             {
                 portalId: "4604246",
                 formId: "e0c92e08-50ef-4632-a202-19cf0e972f58",
                 target: "#landingForm",
                 onFormReady: function()
                 {
-                    if (document.querySelector('#landingForm iframe'))
-                        document.querySelector('#landingForm iframe').setAttribute('data-hj-allow-iframe', '');
+                    if (this.document.querySelector('#landingForm iframe'))
+                        this.document.querySelector('#landingForm iframe').setAttribute('data-hj-allow-iframe', '');
                 },
                 onFormSubmitted: () =>
                 {
-                    this.location.go(window.location.pathname + '/form-enviado');
+                    this.location.go(this.router.url + '/form-enviado');
                 } 
             });
         }
