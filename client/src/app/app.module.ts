@@ -1,4 +1,5 @@
-import { BrowserModule } from "@angular/platform-browser";
+import { BrowserModule, BrowserTransferStateModule } from "@angular/platform-browser";
+import { TransferHttpCacheModule } from '@nguniversal/common'
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
@@ -132,6 +133,8 @@ export function playerFactory() { return player; }
 
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserTransferStateModule,
+    TransferHttpCacheModule,
     FormsModule,
     HttpClientModule,
     SocialLoginModule,
