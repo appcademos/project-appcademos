@@ -95,6 +95,9 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 @ant-design/icons-angular
 MIT
 
+@nguniversal/common
+MIT
+
 @ngx-meta/core
 MIT
 MIT License
