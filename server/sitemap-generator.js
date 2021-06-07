@@ -23,7 +23,7 @@ async function generateSitemap()
     
     content += `\n</urlset>`;
     
-    fs.writeFile('public/sitemap.xml', content.replace(/\r?\n|\r| {4}/g,''), function (err)
+    fs.writeFile('dist/sitemap.xml', content.replace(/\r?\n|\r| {4}/g,''), function (err)
     {
         if (err) return console.log(err);
         console.log('Sitemap generated!');

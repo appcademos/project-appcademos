@@ -4,8 +4,8 @@ npm-debug.log
 
 .env
 
-/public/env.js
+/dist/env.js
 
-/public/sitemap.xml
+/dist/sitemap.xml
 
 package-lock.json
