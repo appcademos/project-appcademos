@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-declare var $: any;
+import { WindowRefService } from '../../../services/windowRef.service'
 
 @Component({
   selector: 'app-image-carrousel',
@@ -11,7 +11,7 @@ export class ImageCarrouselComponent
     @Input() images: any = [];
     currentGalleryImage: any;
     
-    constructor() {}
+    constructor(private windowRefService: WindowRefService) {}
 
     ngOnChanges()
     {
@@ -25,9 +25,12 @@ export class ImageCarrouselComponent
     
     onGalleryLoopFinished(last: boolean)
     {
-        if (last)
+        let canUseJquery = (this.windowRefService.nativeWindow != null &&
+                            (this.windowRefService.nativeWindow as any).$ != null)
+        
+        if (last && canUseJquery)
         {
-            let galleryCarousel = $('.gallery .gallery-items');
+            let galleryCarousel = (this.windowRefService.nativeWindow as any).$('.gallery .gallery-items');
 
             if (!galleryCarousel.hasClass('slick-initialized'))
             {
@@ -42,8 +45,8 @@ export class ImageCarrouselComponent
                     slidesToShow: 1,
                     slidesToScroll: 1,
                     speed: 300,
-                    prevArrow: $('.gallery .left-area'),
-                    nextArrow: $('.gallery .right-area')
+                    prevArrow: (this.windowRefService.nativeWindow as any).$('.gallery .left-area'),
+                    nextArrow: (this.windowRefService.nativeWindow as any).$('.gallery .right-area')
                 });
             }
         }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { UserSessionService } from '../../../services/userSession.service';
 import { CoursesService } from '../../../services/courses.service';
 import { BookingsService } from '../../../services/bookings.service';
@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import { NzNotificationService, NzModalService } from 'ng-zorro-antd';
 import { MessageService } from '../../../services/message.service';
 import { Subscription } from 'rxjs';
-import { Location } from '@angular/common';
+import { Location, DOCUMENT } from '@angular/common';
 import { MetaService } from '@ngx-meta/core';
 
 @Component({
@@ -64,7 +64,8 @@ export class CheckoutComponent implements OnInit
                 private messageService: MessageService,
                 private location: Location,
                 private meta: MetaService,
-                private router: Router)
+                private router: Router,
+                @Inject(DOCUMENT) private document: Document)
     {
         
     }
@@ -80,7 +81,7 @@ export class CheckoutComponent implements OnInit
                 this.courseservice.getCourse(params.id)
                 .subscribe(res =>
                 {
-                    this.course = res.course;
+                    this.course = (res as any).course;
                     
                     this.setMetaData();
                     
@@ -95,8 +96,8 @@ export class CheckoutComponent implements OnInit
                         this.isLoading = false;
                         
                         this.user = user;
-                        this.name = user.name;
-                        this.email = user.email;
+                        this.name = (user as any).name;
+                        this.email = (user as any).email;
                     },
                     err =>
                     {
@@ -365,8 +366,8 @@ export class CheckoutComponent implements OnInit
                 target: "#requestInfoForm",
                 onFormReady: function()
                 {
-                    if (document.querySelector('#estudioPersonalizado iframe'))
-                        document.querySelector('#estudioPersonalizado iframe').setAttribute('data-hj-allow-iframe', '');
+                    if (this.document.querySelector('#estudioPersonalizado iframe'))
+                        this.document.querySelector('#estudioPersonalizado iframe').setAttribute('data-hj-allow-iframe', '');
                 },
                 onFormSubmitted: () =>
                 {

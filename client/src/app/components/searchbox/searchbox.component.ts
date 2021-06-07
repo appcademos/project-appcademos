@@ -20,8 +20,8 @@ export class SearchboxComponent
     @Output() onSearch = new EventEmitter();
     @Output() onFocus = new EventEmitter();
 
-    @ViewChild('searchbox') searchbox: ElementRef;
-    @ViewChild('searchInput') searchInput: ElementRef;
+    @ViewChild('searchbox', { static: true }) searchbox: ElementRef;
+    @ViewChild('searchInput', { static: true }) searchInput: ElementRef;
 
     query: String;
     showSearchPanel: boolean;

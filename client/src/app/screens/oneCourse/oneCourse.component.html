@@ -15,12 +15,12 @@
     
     <div class="responsive-container">
         <div class="button small noshadow favButton" (click)="onClickFavButton()">
-            <lottie-animation-view
+            <ng-lottie
                [options]="lottieConfig"
-               [width]="26"
-               [height]="26"
-               (animCreated)="handleHeartAnimation($event)">
-             </lottie-animation-view>
+               width="26px"
+               height="26px"
+               (animationCreated)="handleHeartAnimation($event)">
+             </ng-lottie>
              <div class="title">
                  {{
                      isFavorite ? 'Añadido a favoritos' : 'Añadir a favoritos'
@@ -153,12 +153,12 @@
         </section>
         
         <div class="button small noshadow favButton mobile full-width" (click)="onClickFavButton()">
-            <lottie-animation-view
+            <ng-lottie
                [options]="lottieConfig"
-               [width]="30"
-               [height]="30"
-               (animCreated)="handleHeartAnimation($event, true)">
-             </lottie-animation-view>
+               width="30px"
+               height="30px"
+               (animationCreated)="handleHeartAnimation($event, true)">
+             </ng-lottie>
              <div class="title">
                  {{
                      isFavorite ? 'Añadido a favoritos' : 'Añadir a favoritos'

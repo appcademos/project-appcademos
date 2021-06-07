@@ -1,8 +1,9 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common'
 import { UserSessionService } from '../../../services/userSession.service';
 import { Router } from "@angular/router";
 import { Directive, HostBinding } from '@angular/core';
-import { AuthService, SocialUser } from "angularx-social-login";
+import { SocialAuthService, SocialUser } from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 
 @Component(
@@ -45,7 +46,8 @@ export class LoginComponent
 
     constructor(private userService: UserSessionService,
                 private router: Router,
-                private authService: AuthService)
+                private authService: SocialAuthService,
+                @Inject(DOCUMENT) private document: Document)
     {
 
     }
@@ -55,10 +57,10 @@ export class LoginComponent
         if (changes.visible != null)
         {
             if (changes.visible.currentValue)
-                document.body.style.overflow = 'hidden';
+                this.document.body.style.overflow = 'hidden';
             else
             {
-                document.body.style.overflow = 'unset';
+                this.document.body.style.overflow = 'unset';
 
                 this.loginComplete = false;
                 this.signupComplete = false;
@@ -168,8 +170,9 @@ export class LoginComponent
             },
             error =>
             {
+                console.log(error)
                 this.sendingLogin = false;
-                alert((error.json != null) ? error.json().message : error);
+                alert((error.message != null) ? error.message : error);
             });
         }
     }
@@ -197,7 +200,7 @@ export class LoginComponent
             error =>
             {
                 this.sendingSignup = false;
-                alert((error.json != null) ? error.json().message : error);
+                alert((error.message != null) ? error.message : error);
             });
         }
     }

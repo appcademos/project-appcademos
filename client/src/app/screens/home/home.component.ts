@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild, HostListener, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, ElementRef, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common'
 import { CoursesService } from "../../../services/courses.service";
 import { Router } from "@angular/router";
 import { UtilsService } from '../../../services/utils.service';
 import { SearchboxComponent } from '../../components/searchbox/searchbox.component';
 import { MetaService } from '@ngx-meta/core';
 import { SeoService } from '../../../services/seo.service';
-import { Http } from "@angular/http";
-import { Observable } from "rxjs/Rx";
+import { Observable } from "rxjs";
 
 @Component(
 {
@@ -17,8 +17,8 @@ import { Observable } from "rxjs/Rx";
 
 export class HomeComponent
 {
-    @ViewChild('searchbox') searchboxComponent: SearchboxComponent;
-    @ViewChild('fixedsearchbox') fixedSearchboxComponent: SearchboxComponent;
+    @ViewChild('searchbox', { static: true }) searchboxComponent: SearchboxComponent;
+    @ViewChild('fixedsearchbox', { static: true }) fixedSearchboxComponent: SearchboxComponent;
 
     showFixedSearchbar: boolean = false;
     heroHeight: number = undefined;
@@ -55,9 +55,9 @@ export class HomeComponent
                 private utils: UtilsService,
                 private readonly meta: MetaService,
                 private seoService: SeoService,
-                private http: Http)
+                @Inject(DOCUMENT) private document: Document)
     {
-        document.addEventListener('click', this.onClickAnywhere.bind(this));
+        this.document.addEventListener('click', this.onClickAnywhere.bind(this));
     }
     ngOnInit()
     {
@@ -68,7 +68,7 @@ export class HomeComponent
     {
         setTimeout(() =>
         {
-            let hero = <HTMLElement>document.getElementById('hero');
+            let hero = <HTMLElement>this.document.getElementById('hero');
             this.heroHeight = hero.offsetHeight;
         });
     }
@@ -178,7 +178,7 @@ export class HomeComponent
     
     getTopBannerHeight()
     {
-        let topBanner = document.querySelectorAll('#top-banner');
+        let topBanner = this.document.querySelectorAll('#top-banner');
         
         if (topBanner != null && topBanner.length > 0)
             return topBanner[0].clientHeight + 'px';
@@ -191,7 +191,7 @@ export class HomeComponent
     {
         if (this.heroHeight != null)
         {
-            let number = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+            let number = window.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0;
 
             if (number >= this.heroHeight)
             {

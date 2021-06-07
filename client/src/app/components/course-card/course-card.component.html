@@ -11,12 +11,12 @@
                  <div class="goto-button">Ver este curso</div>
              </div>
              <div class="course-heart" (click)="onClickHeart($event)">
-                 <lottie-animation-view
+                 <ng-lottie
                     [options]="lottieConfig"
-                    [width]="32"
-                    [height]="32"
-                    (animCreated)="handleHeartAnimation($event)">
-                  </lottie-animation-view>
+                    width="32px"
+                    height="32px"
+                    (animationCreated)="handleHeartAnimation($event)">
+                  </ng-lottie>
              </div>
          </div>
         

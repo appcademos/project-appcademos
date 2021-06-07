@@ -1,8 +1,7 @@
 import { Injectable, EventEmitter } from "@angular/core";
-import { Http } from "@angular/http";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/catch";
-import { Observable } from "rxjs/Rx";
+import { HttpClient } from "@angular/common/http";
+import { catchError, map } from 'rxjs/operators';
+import { Observable } from "rxjs";
 import { environment } from "../environments/environment";
 import { Router } from "@angular/router";
 
@@ -15,7 +14,7 @@ export class CoursesService
     searchcourses: String;
     viewCourse: any;
 
-    constructor(private http: Http,
+    constructor(private http: HttpClient,
                 private router: Router)
     {}
 
@@ -31,62 +30,64 @@ export class CoursesService
 
         return this.http
         .get(`${environment.BASEURL}/api/course/search?course=${this.searchcourses}${modalityQuery}${cityQuery}${neighborhoodsQuery}${limitQuery}`, this.options)
-        .map(res => res.json())
-        .map(courses =>
-        {
-            this.searching = false;
-            this.foundCourses = courses;
-        })
-        .catch(error =>
-        {
-            if (error != null && error.json() != null && error.json().message != null)
-                return Observable.throw(error.json().message);
-        });
+        .pipe(
+            map(coursesData =>
+            {
+                let courses = coursesData as any;
+                this.searching = false;
+                this.foundCourses = courses;
+            })
+        )
+        .pipe(
+            catchError(error =>
+            {
+                return Observable.throw(error);
+            })
+        );
     }
 
     getCourse(id)
     {
         return this.http
           .get(`${environment.BASEURL}/api/course/${id}`, this.options)
-          .map(res => res.json())
-          .map(course => (this.viewCourse = course))
-          .catch(error => Observable.throw(error));
+          .pipe(map(course => (this.viewCourse = course)))
+          .pipe(catchError(error => { return Observable.throw(error); }));
     }
 
     getAll()
     {
         return this.http
           .get(`${environment.BASEURL}/api/course/all`, this.options)
-          .map(res => res.json())
-          .map(courses => {
-            this.searching = false;
-            this.foundCourses = courses;
-          })
-          .catch(error => Observable.throw(error.json().message));
+          .pipe(
+              map(coursesData =>
+              {
+                  let courses = coursesData as any;
+                  this.searching = false;
+                  this.foundCourses = courses;
+              })
+          )
+          .pipe(catchError(error => { return Observable.throw(error); }));
     }
 
     createCourse(course)
     {
         return this.http
           .post(`${environment.BASEURL}/api/course`, course, this.options)
-          .map(res => res.json())
-          .catch(error => Observable.throw(error.json()));
+          .pipe(catchError(error => { return Observable.throw(error); }));
     }
 
     updateCourse(courseId, course)
     {
           return this.http
             .put(`${environment.BASEURL}/api/course/${courseId}`, course, this.options)
-            .map(res => res.json())
-            .catch(error => Observable.throw(error));
+            .pipe(catchError(error => { return Observable.throw(error); }));
     }
     
     deleteCourse(courseId)
     {
           return this.http
             .delete(`${environment.BASEURL}/api/course/${courseId}`, this.options)
-            .map(res => res.json())
-            .catch(error => Observable.throw(error));
+            .pipe(catchError(error => { return Observable.throw(error); }));
     }
 
 
@@ -94,7 +95,6 @@ export class CoursesService
     {
         return this.http
           .post(`${environment.BASEURL}/api/review/`, review, this.options)
-          .map(res => res.json())
-          .catch(error => Observable.throw(error));
+          .pipe(catchError(error => { return Observable.throw(error); }));
     }
 }

@@ -1,11 +1,13 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, Inject } from "@angular/core";
+import { DOCUMENT } from "@angular/common"
 import { AcademySessionService } from "../../../services/academySession.service";
 import { UserSessionService } from "../../../services/userSession.service";
 import { Router, Event, NavigationEnd, UrlSerializer } from "@angular/router";
 import { MessageService } from '../../../services/message.service';
 import { Subscription } from 'rxjs';
-import { AuthService } from "angularx-social-login";
+import { SocialAuthService } from "angularx-social-login";
 import { UtilsService } from '../../../services/utils.service';
+import { WindowRefService } from '../../../services/windowRef.service'
 
 @Component({
   selector: "app-header",
@@ -35,16 +37,18 @@ export class HeaderComponent implements OnInit, OnDestroy
                 private academyService: AcademySessionService,
                 private userService: UserSessionService,
                 private messageService: MessageService,
-                private authService: AuthService,
-                private utils: UtilsService)
+                private authService: SocialAuthService,
+                private utils: UtilsService,
+                private windowRefService: WindowRefService,
+                @Inject(DOCUMENT) private document: Document)
     {
-        this.isLandingPage = this.landingUris.some((uri) => window.location.href.indexOf(uri) > -1)
+        this.isLandingPage = this.landingUris.some((uri) => this.router.url.indexOf(uri) > -1)
     
         router.events.subscribe((val) =>
         {
             if (val instanceof NavigationEnd)
             {
-                this.isLandingPage = this.landingUris.some((uri) => window.location.href.indexOf(uri) > -1)
+                this.isLandingPage = this.landingUris.some((uri) => this.router.url.indexOf(uri) > -1)
             }
         });
     }
@@ -65,7 +69,7 @@ export class HeaderComponent implements OnInit, OnDestroy
                 else
                     this.isHome = false;
                     
-                if (window.location.pathname.indexOf("/cursos-ingles") === -1)
+                if (this.router.url.indexOf("/cursos-ingles") === -1)
                     this.selectedCategory = null;
                 else
                 {
@@ -74,7 +78,7 @@ export class HeaderComponent implements OnInit, OnDestroy
                     let categoryUrl = urlTreeSegments[urlTreeSegments.length-1].path;
                     let categoryQuery = this.utils.urlCategoryToQuery(categoryUrl);
                     
-                    if (window.location.pathname.indexOf("/cursos-ingles") > -1 &&
+                    if (this.router.url.indexOf("/cursos-ingles") > -1 &&
                         categoryQuery != null &&
                         categoryQuery.length > 0)
                     {
@@ -94,13 +98,13 @@ export class HeaderComponent implements OnInit, OnDestroy
     {        
         if (this.isMobileNavVisible)
         {
-            document.querySelector('html').classList.add('noscroll');
-            document.querySelector('body').classList.add('noscroll');
+            this.document.querySelector('html').classList.add('noscroll');
+            this.document.querySelector('body').classList.add('noscroll');
         }
         else
         {
-            document.querySelector('html').classList.remove('noscroll');
-            document.querySelector('body').classList.remove('noscroll');
+            this.document.querySelector('html').classList.remove('noscroll');
+            this.document.querySelector('body').classList.remove('noscroll');
         }
     }
     onResizeWindow(event)
@@ -116,7 +120,7 @@ export class HeaderComponent implements OnInit, OnDestroy
     
     showFullBlogTitle()
     {
-        return (window.innerWidth > 978)
+        return (this.windowRefService.nativeWindow.innerWidth > 978)
     }
     
     setMessagesListener()
@@ -145,7 +149,7 @@ export class HeaderComponent implements OnInit, OnDestroy
     
     getTopBannerHeight()
     {
-        let topBanner = document.querySelectorAll('#top-banner');
+        let topBanner = this.document.querySelectorAll('#top-banner');
         
         if (topBanner != null && topBanner.length > 0)
             return topBanner[0].clientHeight + 'px';

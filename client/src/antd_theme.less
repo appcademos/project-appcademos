@@ -4,6 +4,7 @@
 // -------- override less var -----------
 @primary-color: #FF6E00;
 @black: #272244;
+@border-radius-base: 8px;
 
 @font-family: 'Montserrat', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
   'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
@@ -21,12 +22,14 @@
 {
     margin: 8px 0;
 }
+.ant-dropdown-menu-item > .anticon:first-child,
+.ant-dropdown-menu-submenu-title > .anticon:first-child, .ant-dropdown-menu-item > span > .anticon:first-child,
+.ant-dropdown-menu-submenu-title > span > .anticon:first-child
+{
+    font-size: 14px;
+}
 .ant-message-notice-content
 {
     font-weight: 500;
     color: #272244;
-}
-.ant-message .anticon
-{
-    transform: translate(0,-3px);
 }

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { Router } from "@angular/router";
+import { isPlatformBrowser } from "@angular/common";
 
 @Component({
   selector: 'app-cookies-box',
@@ -10,14 +11,17 @@ export class CookiesBoxComponent implements OnInit
 {
     show: boolean = false;
 
-    constructor(private router: Router)
+    constructor(private router: Router,
+                @Inject(PLATFORM_ID) private platformId: Object)
     {
 
     }
 
     ngOnInit()
     {
-        const cookiesAccepted = JSON.parse(localStorage.getItem('cookies'));
+        const cookiesAccepted = (isPlatformBrowser(this.platformId)) ?
+                                JSON.parse(localStorage.getItem('cookies'))
+                                : false;
 
         if (cookiesAccepted != true)
             this.show = true;
@@ -41,6 +45,6 @@ export class CookiesBoxComponent implements OnInit
     
     isInCoursePage()
     {
-        return window.location.href.indexOf('/course/') > -1;
+        return this.router.url.indexOf('/course/') > -1;
     }
 }

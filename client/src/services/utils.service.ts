@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 declare var $: any;
 import * as moment from 'moment';
+import { WindowRefService } from './windowRef.service'
 
 const RANDOM_DATE_START = new Date(2018, 0, 1);
 const RANDOM_DATE_END = new Date();
@@ -78,7 +79,7 @@ export const MOBILE_WIDTH = 786;
 @Injectable()
 export class UtilsService
 {
-    constructor() { }
+    constructor(private windowRefService: WindowRefService) { }
 
     scrollToElement(selector: string, duration: number = 600, extraSpaceTop: number = 0)
     {
@@ -138,6 +139,6 @@ export class UtilsService
     
     isMobileWidth()
     {
-        return (window.innerWidth <= MOBILE_WIDTH)
+        return (this.windowRefService.nativeWindow.innerWidth <= MOBILE_WIDTH)
     }
 }

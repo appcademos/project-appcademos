@@ -88,15 +88,17 @@
                 </div>
 
                 <div class="icon-text noselect" *ngIf="user != null">                    
-                    <nz-dropdown [nzPlacement]="'bottomRight'">
-                        <a
-                            class="userLinkContainer"
-                            nz-dropdown
-                        >
-                            <i class="icon size-16 icon-user-white"></i>
-                            <p>{{ user.name }} {{ user.lastName }}</p><i nz-icon type="down"></i>
-                        </a>
-                        
+                    <a
+                        class="userLinkContainer"
+                        nz-dropdown
+                        [nzDropdownMenu]="menu"
+                        [nzPlacement]="'bottomRight'"
+                    >
+                        <i class="icon size-16 icon-user-white"></i>
+                        <p>{{ user.name }} {{ user.lastName }}</p><i nz-icon nzType="down"></i>
+                    </a>
+                    
+                    <nz-dropdown-menu #menu="nzDropdownMenu">
                         <ul nz-menu class="userDropdownContainer">
                             <li class="title">
                                 {{ user.name }} {{ user.lastName }}
@@ -106,14 +108,14 @@
                                 <i nz-icon nzType="setting" nzTheme="outline"></i> Manager
                             </li>
                             <li nz-menu-item class="userDropdownItem" [routerLink]="['/favoritos']">
-                                <i nz-icon nzType="heart" nzTheme="twotone"></i> Mis cursos favoritos
+                                <i nz-icon nzType="heart" nzTheme="twotone" [nzTwotoneColor]="'#FF6E00'"></i> Mis cursos favoritos
                             </li>
                             <li nz-menu-divider></li>
                             <li nz-menu-item class="userDropdownItem color-orange" (click)="logout()">
                                 <i nz-icon nzType="logout" nzTheme="outline"></i> Cerrar sesión
                             </li>
                         </ul>
-                    </nz-dropdown>
+                    </nz-dropdown-menu>
                 </div>
             </div>
         </nav>

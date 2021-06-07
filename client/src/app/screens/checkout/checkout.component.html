@@ -3,13 +3,14 @@
     
     <div class="bookingConfirmedView card-banner" *ngIf="bookingConfirmedPage">
         <div class="animationContainer">
-            <lottie-animation-view
+            <ng-lottie
                [options]="lottieConfig"
-               [width]="220"
-               [height]="220"
-               (animCreated)="playCheckAnimation($event)"
+               width="auto"
+               height="220px"
+               (animationCreated)="playCheckAnimation($event)"
+               [styles]="{ transform: 'translate(0,-70px)' }"
              >
-             </lottie-animation-view>
+             </ng-lottie>
             </div>
          <div class="title">Tu plaza ha sido reservada</div>
     </div>

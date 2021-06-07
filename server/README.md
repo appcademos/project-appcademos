@@ -3,14 +3,14 @@ YINIUS Server
 
 **To start the server [PROD]:**
 ```
-pm2 start npm --name "appcademos" -- start
+pm2 start npm --name "appcademos-server" -- start
 ```
 
 **To stop the server [PROD]:**
 Try
 
 ```
-pm2 stop appcademos
+pm2 stop "appcademos-server"
 ```
 
 If it doesn't work, you can try to list all the pm2 processes:

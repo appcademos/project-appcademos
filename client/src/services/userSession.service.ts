@@ -1,8 +1,7 @@
 import { Injectable, EventEmitter } from "@angular/core";
-import { Http } from "@angular/http";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/catch";
-import { Observable } from "rxjs/Rx";
+import { HttpClient } from "@angular/common/http";
+import { catchError, map } from 'rxjs/operators';
+import { Observable } from "rxjs";
 import { environment } from "../environments/environment";
 import { MessageService } from './message.service';
 
@@ -12,7 +11,7 @@ export class UserSessionService
   user: any;
   options: any = { withCredentials: true };
 
-  constructor(private http: Http, private messageService: MessageService)
+  constructor(private http: HttpClient, private messageService: MessageService)
   {
       this.isLoggedIn().subscribe(
           res => {},
@@ -30,110 +29,118 @@ export class UserSessionService
   {
     return this.http
       .get(`${environment.BASEURL}/api/user/session`, this.options)
-      .map(res => res.json())
-      .map(user =>
-      {
-          this.handleUser(user);
-          this.messageService.sendMessage({ user: user });
-          return user;
-      })
-      .catch(error => Observable.throw(error));
+      .pipe(
+          map(user =>
+          {
+              this.handleUser(user);
+              this.messageService.sendMessage({ user: user });
+              return user;
+          })
+      )
+     .pipe(catchError(error => Observable.throw(error)));
   }
 
   signup(user)
   {
     return this.http
       .post(`${environment.BASEURL}/api/user/signup`, user, this.options)
-      .map(res => res.json())
-      .map(user =>
-      {
-          this.handleUser(user);
-          this.messageService.sendMessage({ user: user });
-          return user;
-      })
-      .catch(error => Observable.throw(error.json().message));
+      .pipe(
+          map(user =>
+          {
+              this.handleUser(user);
+              this.messageService.sendMessage({ user: user });
+              return user;
+          })
+      )
+      .pipe(catchError(error => Observable.throw(error)));
   }
 
   login(user)
   {
     return this.http
       .post(`${environment.BASEURL}/api/user/login`, user, this.options)
-      .map(res => res.json())
-      .map(user =>
-      {
-          this.handleUser(user);
-          this.messageService.sendMessage({ user: user });
-          return user;
-      })
-      .catch(error => Observable.throw(error.json().message));
+      .pipe(
+          map(user =>
+          {
+              this.handleUser(user);
+              this.messageService.sendMessage({ user: user });
+              return user;
+          })
+      )
+      .pipe(catchError(error => Observable.throw(error)));
   }
 
   logout()
   {
     return this.http
       .get(`${environment.BASEURL}/api/user/logout`, this.options)
-      .map(res => res.json())
-      .map(user =>
-      {
-          this.handleUser();
-          this.messageService.sendMessage({ user: null });
-          return null;
-      })
-      .catch(error => Observable.throw(error.json().message));
+      .pipe(
+          map(user =>
+          {
+              this.handleUser();
+              this.messageService.sendMessage({ user: null });
+              return null;
+          })
+      )
+      .pipe(catchError(error => Observable.throw(error)));
   }
   
   loginFacebookToken(fbToken)
   {
       return this.http
         .get(`${environment.BASEURL}/api/user/auth/facebook/login?access_token=${fbToken}`, this.options)
-        .map(res => res.json())
-        .map(user =>
-        {
-            this.handleUser(user);
-            this.messageService.sendMessage({ user: user });
-            return user;
-        })
-        .catch(error => Observable.throw(error));
+        .pipe(
+            map(user =>
+            {
+                this.handleUser(user);
+                this.messageService.sendMessage({ user: user });
+                return user;
+            })
+        )
+        .pipe(catchError(error => Observable.throw(error)));
   }
   signupFacebookToken(fbToken)
   {
       return this.http
         .get(`${environment.BASEURL}/api/user/auth/facebook/signup?access_token=${fbToken}`, this.options)
-        .map(res => res.json())
-        .map(user =>
-        {
-            this.handleUser(user);
-            this.messageService.sendMessage({ user: user });
-            return user;
-        })
-        .catch(error => Observable.throw(error));
+        .pipe(
+            map(user =>
+            {
+                this.handleUser(user);
+                this.messageService.sendMessage({ user: user });
+                return user;
+            })
+        )
+        .pipe(catchError(error => Observable.throw(error)));
   }
   
   loginGoogleToken(googleToken)
   {
       return this.http
         .get(`${environment.BASEURL}/api/user/auth/google/login?access_token=${googleToken}`, this.options)
-        .map(res => res.json())
-        .map(user =>
-        {
-            this.handleUser(user);
-            this.messageService.sendMessage({ user: user });
-            return user;
-        })
-        .catch(error => Observable.throw(error));
+        .pipe(
+            map(user =>
+            {
+                this.handleUser(user);
+                this.messageService.sendMessage({ user: user });
+                return user;
+            })
+        )
+        .pipe(catchError(error => Observable.throw(error)));
   }
   signupGoogleToken(googleToken)
   {
       return this.http
         .get(`${environment.BASEURL}/api/user/auth/google/signup?access_token=${googleToken}`, this.options)
-        .map(res => res.json())
-        .map(user =>
-        {
-            this.handleUser(user);
-            this.messageService.sendMessage({ user: user });
-            return user;
-        })
-        .catch(error => Observable.throw(error));
+        .pipe(
+            map(user =>
+            {
+                this.handleUser(user);
+                this.messageService.sendMessage({ user: user });
+                return user;
+            })
+        )
+        .pipe(catchError(error => Observable.throw(error)));
   }
   
   hasFavorite(courseId)
@@ -144,44 +151,52 @@ export class UserSessionService
   {
       return this.http
       .post(`${environment.BASEURL}/api/user/add-favorite`, { courseId }, this.options)
-      .map(res =>
-        {
-            setTimeout(() =>
+      .pipe(
+          map(res =>
             {
-                this.isLoggedIn().subscribe()
-                
-                // Show favorites tutorial only the first time
-                if (localStorage.getItem('favoritesTutorialShown') !== 'true')
+                setTimeout(() =>
                 {
-                    this.messageService.sendMessage({ showFavoritesTutorial: true })
-                    localStorage.setItem('favoritesTutorialShown', 'true');
-                }
-            }, 500)
-            return res.json()
-        })
-      .catch(error =>
-      {            
-          if (error != null)
-              return Observable.throw(error);
-          else
-              return Observable.throw('Error adding favorite');
-      });
+                    this.isLoggedIn().subscribe()
+                    
+                    // Show favorites tutorial only the first time
+                    if (localStorage.getItem('favoritesTutorialShown') !== 'true')
+                    {
+                        this.messageService.sendMessage({ showFavoritesTutorial: true })
+                        localStorage.setItem('favoritesTutorialShown', 'true');
+                    }
+                }, 500)
+                return res
+            })
+      )
+        .pipe(
+            catchError(error =>
+            {            
+                if (error != null)
+                    return Observable.throw(error);
+                else
+                    return Observable.throw('Error adding favorite');
+            })
+        );
   }
   removeFavorite(courseId)
   {
       return this.http
       .post(`${environment.BASEURL}/api/user/remove-favorite`, { courseId }, this.options)
-      .map(res =>
-        {
-            setTimeout(() => this.isLoggedIn().subscribe(), 500)
-            return res.json()
-        })
-      .catch(error =>
-      {            
-          if (error != null)
-              return Observable.throw(error);
-          else
-              return Observable.throw('Error removing favorite');
-      });
+      .pipe(
+          map(res =>
+            {
+                setTimeout(() => this.isLoggedIn().subscribe(), 500)
+                return res
+            })
+      )
+        .pipe(
+            catchError(error =>
+            {            
+                if (error != null)
+                    return Observable.throw(error);
+                else
+                    return Observable.throw('Error removing favorite');
+            })
+        );
   }
 }

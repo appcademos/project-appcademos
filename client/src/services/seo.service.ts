@@ -15,6 +15,12 @@ export class SeoService {
    }
    removeCanonical()
    {
-       Array.from(document.querySelectorAll('*[rel="canonical"]')).forEach((el) => { el.remove() });
+        Array
+        .from(this.doc.querySelectorAll('*[rel="canonical"]'))
+        .forEach((el) =>
+        {
+            if (el != null)
+                (el as any).remove()
+        });
    }
 } 

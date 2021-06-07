@@ -1,7 +1,7 @@
-import { Component, ViewChild, HostListener } from "@angular/core";
+import { Component, ViewChild, HostListener, Inject } from "@angular/core";
 import { CoursesService } from "../../../services/courses.service";
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
-import { Location } from '@angular/common';
+import { Location, DOCUMENT } from '@angular/common';
 import { UtilsService, NEIGHBORHOODS } from '../../../services/utils.service';
 import { MetaService } from '@ngx-meta/core';
 import { AcademySessionService } from '../../../services/academySession.service'
@@ -65,7 +65,8 @@ export class AllCoursesComponent
                 private location: Location,
                 private utils: UtilsService,
                 private readonly meta: MetaService,
-                private academyService: AcademySessionService)
+                private academyService: AcademySessionService,
+                @Inject(DOCUMENT) private document: Document)
     {
         this.courseService.searching = true;
     }
@@ -89,16 +90,12 @@ export class AllCoursesComponent
     }
     ngAfterViewInit()
     {
-        setTimeout(() =>
-        {
-            let theSearchView = <HTMLElement>document.getElementsByClassName('search-view')[0];
-            this.searchbarOffsetTop = theSearchView.offsetTop + theSearchView.offsetHeight;
-            this.searchviewOffsetTop = theSearchView.offsetTop;
-        });
+        let theSearchView = <HTMLElement>this.document.getElementsByClassName('search-view')[0];
+        this.searchbarOffsetTop = theSearchView.offsetTop + theSearchView.offsetHeight;
+        this.searchviewOffsetTop = theSearchView.offsetTop;
     }
     ngOnDestroy()
     {
-        console.log('ngOnDestroy')
         this.removeMetaData();
     }
 
@@ -152,46 +149,42 @@ export class AllCoursesComponent
             if (query != null && query.trim().length > 0)
             {
                 this.searching = true;
-                setTimeout(() =>
-                {
-                    let queryParams = this.activatedRoute.snapshot.queryParams
+                
+                let queryParams = this.activatedRoute.snapshot.queryParams
+                
+                let city = (this.selectedNeighborhoods.length == 0 &&
+                            this.selectedCity != null) ?
+                            this.selectedCity._id : null
+                
+                this.courseService.findCourses(query, this.selectedNeighborhoods, city, modality)
+                .subscribe(() =>
+                {                    
+                    this.allCourses = [...this.courseService.foundCourses];
+                    this.courses = [...this.courseService.foundCourses];
+                    this.orderBy(this.appliedOrder);
+                    this.searching = false;
+                    this.commonCategoryFullName = this.findCommonCategoryFullName(this.courseService.foundCourses);
                     
-                    let city = (this.selectedNeighborhoods.length == 0 &&
-                                this.selectedCity != null) ?
-                                this.selectedCity._id : null
+                    this.appliedCity = this.selectedCity
+                    this.appliedNeighborhoods = [...this.selectedNeighborhoods]
+                    this.appliedModality = this.selectedModality
                     
-                    this.courseService.findCourses(query, this.selectedNeighborhoods, city, modality)
-                    .subscribe(() =>
-                    {
-                        this.allCourses = [...this.courseService.foundCourses];
-                        this.courses = [...this.courseService.foundCourses];
-                        this.orderBy(this.appliedOrder);
-                        this.searching = false;
-                        this.commonCategoryFullName = this.findCommonCategoryFullName(this.courseService.foundCourses);
-                        
-                        this.appliedCity = this.selectedCity
-                        this.appliedNeighborhoods = [...this.selectedNeighborhoods]
-                        this.appliedModality = this.selectedModality
-                        
-                        this.updateQueryParams()
-                    });
-                }, 250);
+                    this.updateQueryParams()
+                });
             }
         }
         else
         {
             this.searching = true;
-            setTimeout(() =>
+            
+            this.courseService.getAll()
+            .subscribe(() =>
             {
-                this.courseService.getAll()
-                .subscribe(() =>
-                {
-                    this.allCourses = [...this.courseService.foundCourses];
-                    this.courses = [...this.courseService.foundCourses];
-                    this.orderBy(this.appliedOrder);
-                    this.searching = false;
-                });
-            }, 250);
+                this.allCourses = [...this.courseService.foundCourses];
+                this.courses = [...this.courseService.foundCourses];
+                this.orderBy(this.appliedOrder);
+                this.searching = false;
+            });
         }
     }
     orderBy(orderId)
@@ -340,8 +333,8 @@ export class AllCoursesComponent
             
             if (this.utils.isMobileWidth())
             {
-                document.body.style.overflow = 'hidden';
-                document.getElementById("hubspot-messages-iframe-container").classList.add('hidden');
+                this.document.body.style.overflow = 'hidden';
+                this.document.getElementById("hubspot-messages-iframe-container").classList.add('hidden');
             }
         }
         else
@@ -350,10 +343,10 @@ export class AllCoursesComponent
             
             if (this.utils.isMobileWidth())
             {
-                document.body.style.overflow = 'initial';
+                this.document.body.style.overflow = 'initial';
                 setTimeout(() =>
                 {
-                    document.getElementById("hubspot-messages-iframe-container").classList.remove('hidden');
+                    this.document.getElementById("hubspot-messages-iframe-container").classList.remove('hidden');
                 }, 250);
             }
         }
@@ -416,6 +409,9 @@ export class AllCoursesComponent
     }
     onClickCity(city)
     {
+        if (city == null || city.neighborhoods == null)
+            return
+        
         this.selectedCity = city
         this.neighborhoods = city.neighborhoods
     }
@@ -498,7 +494,7 @@ export class AllCoursesComponent
     @HostListener("window:scroll", [])
     onScroll()
     {
-        let number = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        let number = window.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0;
         let downScroll = (number > this.lastScrollOffsetTop);
         const minScrollDelta = 28;
         let processEvent = Math.abs(this.lastScrollOffsetTop - number) >= minScrollDelta;
