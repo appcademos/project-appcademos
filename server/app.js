@@ -86,7 +86,7 @@ app.use(
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "dist")));
 
 // Logger
 app.use(logger("dev"));
@@ -98,7 +98,7 @@ require('./routes/automatic-form-integration')(app)
 
 require("./routes/routes")(app);
 app.use(function (req, res) {
-  res.sendFile(__dirname + '/public/index.html');
+  res.sendFile(__dirname + '/dist/index.html');
 });
 
 

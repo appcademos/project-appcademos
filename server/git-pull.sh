@@ -5,4 +5,4 @@ npm install
 #pm2 reload appcademos
 pm2 stop appcademos
 pm2 start npm --name "appcademos-server" -- start
-pm2 start --name "appcademos-client-ssr" dist/server.js
+pm2 start dist/server/main.js --name "appcademos-client-ssr"
